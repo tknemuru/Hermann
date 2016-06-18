@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
-[assembly: AssemblyTitle("Hermann.Tests")]
+[assembly: AssemblyTitle("Hermann.Helpers.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Hermann.Tests")]
+[assembly: AssemblyProduct("Hermann.Helpers.Tests")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // このプロジェクトが COM に公開される場合、次の GUID がタイプ ライブラリの ID になります。
-[assembly: Guid("62470d12-7057-4242-88ac-171dcba1d5af")]
+[assembly: Guid("f50ddf8d-547e-42f4-b4a3-7385bfc6fa0b")]
 
 // アセンブリのバージョン情報は、以下の 4 つの値で構成されています:
 //

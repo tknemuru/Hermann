@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SimpleInjector;
 
-namespace Hermann.Tests.Di
+namespace Hermann.Api.Tests.Di
 {
     /// <summary>
     /// テスト用DIの生成機能を提供します。

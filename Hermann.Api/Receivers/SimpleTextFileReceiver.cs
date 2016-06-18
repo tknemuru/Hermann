@@ -6,17 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Receivers
+namespace Hermann.Api.Receivers
 {
     /// <summary>
-    /// テキストファイルの受信機能を提供します。
+    /// Hermannにおける標準テキストファイルの受信機能を提供します。
     /// </summary>
-    public class TextFileReceiver : Receiver
+    public class SimpleTextFileReceiver : Receiver
     {
         /// <summary>
-        /// テキストファイルを受信しフィールドの状態に変換します。
+        /// 標準テキストファイルを受信しフィールドの状態に変換します。
         /// </summary>
-        /// <param name="source">テキストファイルパス</param>
+        /// <param name="source">標準テキストファイルパス</param>
         /// <returns>フィールドの状態</returns>
         public override ulong[] Receive(string source)
         {

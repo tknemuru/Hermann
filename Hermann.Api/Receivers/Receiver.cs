@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Receivers
+namespace Hermann.Api.Receivers
 {
     /// <summary>
     /// 受信機能を提供します。
