@@ -24,7 +24,7 @@ namespace Hermann.Fields
         /// </summary>
         public FieldContext()
         {
-            this.Slimes = new ulong[ExtensionPlayer.PlayerCount][];
+            this.Slimes = new ulong[Player.PlayerCount][];
         }
     }
 }
