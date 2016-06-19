@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Hermann.Fields;
 
 namespace Hermann.Collections
 {
+    /// <summary>
+    /// プレイヤ
+    /// </summary>
     public sealed class Player
     {
         /// <summary>
@@ -27,11 +29,11 @@ namespace Hermann.Collections
         /// <summary>
         /// スライムを動かします。
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="command"></param>
-        public static void Move(FieldContext context, ushort command)
+        /// <param name="context">コンテキスト</param>
+        public static ulong[] Move(ulong[] context)
         {
-
+            var direction = context[FieldContext.IndexCommand] & Command.DirectionMask;
+            return new ulong[3];
         }
     }
 }

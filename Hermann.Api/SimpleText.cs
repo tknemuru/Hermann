@@ -12,6 +12,21 @@ namespace Hermann.Api
     public static class SimpleText
     {
         /// <summary>
+        /// 合計行数
+        /// </summary>
+        public const int LineCount = 14;
+
+        /// <summary>
+        /// 行数：プレイヤ
+        /// </summary>
+        public const int LineIndexPlayer = 0;
+
+        /// <summary>
+        /// 行数：方向
+        /// </summary>
+        public const int LineIndexDirection = 1;
+
+        /// <summary>
         /// 方向：無
         /// </summary>
         public const string DirectionNone = "無";
@@ -70,5 +85,30 @@ namespace Hermann.Api
         /// スライム：おじゃま
         /// </summary>
         public const char SlimeObstruction = 'お';
+
+        /// <summary>
+        /// 操作対象スライム：赤
+        /// </summary>
+        public const char MovableSlimeRed = 'Ｒ';
+
+        /// <summary>
+        /// 操作対象スライム：赤
+        /// </summary>
+        public const char MovableSlimeBlue = 'Ｂ';
+
+        /// <summary>
+        /// 操作対象スライム：赤
+        /// </summary>
+        public const char MovableSlimeYellow = 'Ｙ';
+
+        /// <summary>
+        /// 操作対象スライム：赤
+        /// </summary>
+        public const char MovableSlimePurple = 'Ｐ';
+
+        /// <summary>
+        /// 操作対象スライム：赤
+        /// </summary>
+        public const char MovableSlimeGreen = 'Ｇ';
     }
 }
