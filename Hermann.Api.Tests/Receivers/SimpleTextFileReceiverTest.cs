@@ -10,7 +10,7 @@ namespace Hermann.Api.Tests.Receivers
     /// TextReceiverテストクラス
     /// </summary>
     [TestClass]
-    public class SimpleTTextFileReceiverTest
+    public class SimpleTextFileReceiverTest
     {
         /// <summary>
         /// 001:基本の動作をテストします。
@@ -23,9 +23,9 @@ namespace Hermann.Api.Tests.Receivers
 
             // [001]1P:右
             var context = receiver.Receive("../../resources/receivers/simple-text-file-receiver/test-field-in-001-001.txt");
-            Assert.AreEqual(0x5ul, context[0]);
-            Assert.AreEqual(0x00000006ul, context[1]);
-            Assert.AreEqual(0x00000000ul, context[2]);
+            Assert.AreEqual(Convert.ToUInt64("1000", 2), context[0]);
+            Assert.AreEqual(Convert.ToUInt64("01100000", 2) << 8, context[1]);
+            Assert.AreEqual(0ul, context[2]);
         }
     }
 }

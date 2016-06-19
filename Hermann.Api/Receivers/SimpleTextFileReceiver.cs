@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hermann.Collections;
 
 namespace Hermann.Api.Receivers
 {
@@ -31,20 +32,20 @@ namespace Hermann.Api.Receivers
             // 操作
             switch (lines[1])
             {
-                case "無" :
-                    command |= 0x0;
+                case SimpleText.DirectionNone :
+                    command |= Command.DirectionNone;
                     break;
-                case "上" :
-                    command |= 0x2;
+                case SimpleText.DirectionUp :
+                    command |= Command.DirectionUp;
                     break;
-                case "下":
-                    command |= 0x3;
+                case SimpleText.DirectionDown :
+                    command |= Command.DirectionDown;
                     break;
-                case "左":
-                    command |= 0x4;
+                case SimpleText.DirectionLeft :
+                    command |= Command.DirectionLeft;
                     break;
-                case "右":
-                    command |= 0x5;
+                case SimpleText.DirectionRight :
+                    command |= Command.DirectionRight;
                     break;
                 default :
                     throw new ApplicationException(string.Format("不正な操作コマンドです。{0}", lines[1]));
@@ -53,16 +54,20 @@ namespace Hermann.Api.Receivers
 
             // 状態
             ulong upper = 0x0;
+            int shift = 0;
             for (var i = 2; i < 11; i++)
             {
-                upper |= ConvertStateToUlong(lines[i]);
+                upper |= (ConvertStateToUlong(lines[i]) << (shift * 8));
+                shift++;
             }
             context[1] = upper;
 
             ulong lower = 0x0;
+            shift = 0;
             for (var i = 12; i < lines.Length; i++)
             {
-                lower |= ConvertStateToUlong(lines[i]);
+                lower |= (ConvertStateToUlong(lines[i]) << (shift * 8));
+                shift++;
             }
             context[2] = lower;
 
@@ -79,23 +84,25 @@ namespace Hermann.Api.Receivers
             ulong state = 0x0;
             var blocks = stateStr.ToCharArray();
             Debug.Assert((blocks.Length == 6), string.Format("状態の長さが不正です。{0}", blocks.Length));
-            for(var i = 0; i < blocks.Length; i++)
+            var shift = blocks.Length + 1;
+            for (var i = 0; i < blocks.Length; i++)
             {
                 switch (blocks[i])
                 {
-                    case 'ロ' :
+                    case SimpleText.SlimeNone :
                         break;
-                    case '赤' :
-                    case '青' :
-                    case '黄' :
-                    case '紫' :
-                    case '緑' :
-                    case 'お' :
-                        state |= (1ul << i);
+                    case SimpleText.SlimeBlue :
+                    case SimpleText.SlimeGreen :
+                    case SimpleText.SlimePurple :
+                    case SimpleText.SlimeRed :
+                    case SimpleText.SlimeYellow :
+                    case SimpleText.SlimeObstruction :
+                        state |= (1ul << shift);
                         break;
                     default :
                         throw new ApplicationException(string.Format("不正な状態です。{0}", blocks[i]));
                 }
+                shift--;
             }
 
             return state;
