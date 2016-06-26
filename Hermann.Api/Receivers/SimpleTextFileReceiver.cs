@@ -54,30 +54,32 @@ namespace Hermann.Api.Receivers
 
             // 状態
             // 上部
-            var occupiedUpper = 0ul;
-            var movableUpper = 0ul;
             int shift = 0;
             for (var i = 2; i < 11; i++)
             {
-                occupiedUpper |= (ConvertStateToUlong(lines[i], IsOccupied) << (shift * 8));
-                movableUpper |= (ConvertStateToUlong(lines[i], IsExistsMovableSlime) << (shift * 8));
+                context[FieldContext.IndexOccupiedFieldUpper] |= (ConvertStateToUlong(lines[i], IsOccupied) << (shift * 8));
+                context[FieldContext.IndexMovableFieldUpper] |= (ConvertStateToUlong(lines[i], IsExistsMovableSlime) << (shift * 8));
+                context[FieldContext.IndexBlueFieldUpper] |= (ConvertStateToUlong(lines[i], (state => (state == SimpleText.SlimeBlue || state == SimpleText.MovableSlimeBlue))) << (shift * 8));
+                context[FieldContext.IndexRedFieldUpper] |= (ConvertStateToUlong(lines[i], (state => (state == SimpleText.SlimeRed || state == SimpleText.MovableSlimeRed))) << (shift * 8));
+                context[FieldContext.IndexGreenFieldUpper] |= (ConvertStateToUlong(lines[i], (state => (state == SimpleText.SlimeGreen || state == SimpleText.MovableSlimeGreen))) << (shift * 8));
+                context[FieldContext.IndexYellowFieldUpper] |= (ConvertStateToUlong(lines[i], (state => (state == SimpleText.SlimeYellow || state == SimpleText.MovableSlimeYellow))) << (shift * 8));
+                context[FieldContext.IndexPurpleFieldUpper] |= (ConvertStateToUlong(lines[i], (state => (state == SimpleText.SlimePurple || state == SimpleText.MovableSlimePurple))) << (shift * 8));
                 shift++;
             }
-            context[FieldContext.IndexOccupiedFieldUpper] = occupiedUpper;
-            context[FieldContext.IndexMovableFieldUpper] = movableUpper;
 
             // 下部
-            var occupiedLower = 0ul;
-            var movableLower = 0ul;
             shift = 0;
             for (var i = 12; i < lines.Length; i++)
             {
-                occupiedLower |= (ConvertStateToUlong(lines[i], IsOccupied) << (shift * 8));
-                movableLower |= (ConvertStateToUlong(lines[i], IsExistsMovableSlime) << (shift * 8));
+                context[FieldContext.IndexOccupiedFieldLower] |= (ConvertStateToUlong(lines[i], IsOccupied) << (shift * 8));
+                context[FieldContext.IndexMovableFieldLower] |= (ConvertStateToUlong(lines[i], IsExistsMovableSlime) << (shift * 8));
+                context[FieldContext.IndexBlueFieldLower] |= (ConvertStateToUlong(lines[i], (state => (state == SimpleText.SlimeBlue || state == SimpleText.MovableSlimeBlue))) << (shift * 8));
+                context[FieldContext.IndexRedFieldLower] |= (ConvertStateToUlong(lines[i], (state => (state == SimpleText.SlimeRed || state == SimpleText.MovableSlimeRed))) << (shift * 8));
+                context[FieldContext.IndexGreenFieldLower] |= (ConvertStateToUlong(lines[i], (state => (state == SimpleText.SlimeGreen || state == SimpleText.MovableSlimeGreen))) << (shift * 8));
+                context[FieldContext.IndexYellowFieldLower] |= (ConvertStateToUlong(lines[i], (state => (state == SimpleText.SlimeYellow || state == SimpleText.MovableSlimeYellow))) << (shift * 8));
+                context[FieldContext.IndexPurpleFieldLower] |= (ConvertStateToUlong(lines[i], (state => (state == SimpleText.SlimePurple || state == SimpleText.MovableSlimePurple))) << (shift * 8));
                 shift++;
             }
-            context[FieldContext.IndexOccupiedFieldLower] = occupiedLower;
-            context[FieldContext.IndexMovableFieldLower] = movableLower;
 
             return context;
         }

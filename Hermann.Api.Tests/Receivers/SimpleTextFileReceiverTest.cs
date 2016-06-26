@@ -29,6 +29,29 @@ namespace Hermann.Api.Tests.Receivers
             Assert.AreEqual(0ul, context[FieldContext.IndexOccupiedFieldLower]);
             Assert.AreEqual(Convert.ToUInt64("01100000", 2) << 8, context[FieldContext.IndexMovableFieldUpper]);
             Assert.AreEqual(0ul, context[FieldContext.IndexMovableFieldLower]);
+
+            Assert.AreEqual(Convert.ToUInt64("01000000", 2) << 8, context[FieldContext.IndexRedFieldUpper]);
+            Assert.AreEqual(Convert.ToUInt64("00100000", 2) << 8, context[FieldContext.IndexBlueFieldUpper]);
         }
+
+        //private bool AssertAreAllEqualZero(ulong[] context, bool useDefault, params int[] exclusionIndexList)
+        //{
+        //    if (useDefault)
+        //    {
+        //        var defaultExclusionList = new int[] { 
+        //            FieldContext.IndexCommand,
+        //            FieldContext.IndexOccupiedFieldUpper,
+        //            FieldContext.IndexOccupiedFieldLower,
+        //            FieldContext.IndexMovableFieldUpper,
+        //            FieldContext.IndexMovableFieldLower
+        //        };
+
+        //        for (var i = 0; i < defaultExclusionList.Length; i++)
+        //        {
+        //            //if(context[defaultExclusionList[i]] )
+        //            Assert.AreEqual(0ul, context[FieldContext.IndexRedFieldUpper]);
+        //        }
+        //    }
+        //}
     }
 }

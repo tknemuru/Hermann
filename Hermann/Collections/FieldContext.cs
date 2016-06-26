@@ -37,8 +37,58 @@ namespace Hermann.Collections
         public const int IndexMovableFieldLower = 4;
 
         /// <summary>
+        /// インデックス：フィールド上部（赤スライム）
+        /// </summary>
+        public const int IndexRedFieldUpper = 5;
+
+        /// <summary>
+        /// インデックス：フィールド下部（赤スライム）
+        /// </summary>
+        public const int IndexRedFieldLower = 6;
+
+        /// <summary>
+        /// インデックス：フィールド上部（青スライム）
+        /// </summary>
+        public const int IndexBlueFieldUpper = 7;
+
+        /// <summary>
+        /// インデックス：フィールド下部（青スライム）
+        /// </summary>
+        public const int IndexBlueFieldLower = 8;
+
+        /// <summary>
+        /// インデックス：フィールド上部（黄スライム）
+        /// </summary>
+        public const int IndexYellowFieldUpper = 9;
+
+        /// <summary>
+        /// インデックス：フィールド下部（黄スライム）
+        /// </summary>
+        public const int IndexYellowFieldLower = 10;
+
+        /// <summary>
+        /// インデックス：フィールド上部（緑スライム）
+        /// </summary>
+        public const int IndexGreenFieldUpper = 11;
+
+        /// <summary>
+        /// インデックス：フィールド下部（緑スライム）
+        /// </summary>
+        public const int IndexGreenFieldLower = 12;
+
+        /// <summary>
+        /// インデックス：フィールド上部（紫スライム）
+        /// </summary>
+        public const int IndexPurpleFieldUpper = 13;
+
+        /// <summary>
+        /// インデックス：フィールド下部（紫スライム）
+        /// </summary>
+        public const int IndexPurpleFieldLower = 14;
+
+        /// <summary>
         /// コンテキストを構成する要素数
         /// </summary>
-        public const int ElementCount = 5;
+        public const int ElementCount = 15;
     }
 }
