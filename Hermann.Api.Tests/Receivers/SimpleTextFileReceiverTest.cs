@@ -24,14 +24,16 @@ namespace Hermann.Api.Tests.Receivers
 
             // [001]1P:右
             var context = receiver.Receive("../../resources/receivers/simple-text-file-receiver/test-field-in-001-001.txt");
-            Assert.AreEqual(Convert.ToUInt64("1000", 2), context[FieldContext.IndexCommand]);
-            Assert.AreEqual(Convert.ToUInt64("01100000", 2) << 8, context[FieldContext.IndexOccupiedFieldUpper]);
-            Assert.AreEqual(0ul, context[FieldContext.IndexOccupiedFieldLower]);
-            Assert.AreEqual(Convert.ToUInt64("01100000", 2) << 8, context[FieldContext.IndexMovableFieldUpper]);
-            Assert.AreEqual(0ul, context[FieldContext.IndexMovableFieldLower]);
 
-            Assert.AreEqual(Convert.ToUInt64("01000000", 2) << 8, context[FieldContext.IndexRedFieldUpper]);
-            Assert.AreEqual(Convert.ToUInt64("00100000", 2) << 8, context[FieldContext.IndexBlueFieldUpper]);
+            // 検証
+            Assert.AreEqual(Convert.ToUInt64("1000", 2), context[(int)FieldContext.Command]);
+            Assert.AreEqual(Convert.ToUInt64("01100000", 2) << 8, context[(int)FieldContext.OccupiedUpper]);
+            Assert.AreEqual(0ul, context[(int)FieldContext.OccupiedLower]);
+            Assert.AreEqual(Convert.ToUInt64("01100000", 2) << 8, context[(int)FieldContext.MovableUpper]);
+            Assert.AreEqual(0ul, context[(int)FieldContext.MovableLower]);
+
+            Assert.AreEqual(Convert.ToUInt64("01000000", 2) << 8, context[(int)FieldContext.RedUpper]);
+            Assert.AreEqual(Convert.ToUInt64("00100000", 2) << 8, context[(int)FieldContext.BlueUpper]);
         }
 
         //private bool AssertAreAllEqualZero(ulong[] context, bool useDefault, params int[] exclusionIndexList)

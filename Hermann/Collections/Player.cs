@@ -32,7 +32,10 @@ namespace Hermann.Collections
         /// <param name="context">コンテキスト</param>
         public static ulong[] Move(ulong[] context)
         {
-            var direction = context[FieldContext.IndexCommand] & Command.DirectionMask;
+            var direction = context[(int)FieldContext.Command] & Command.DirectionMask;
+            var upperCollection = FieldContextExtension.GetCollection(FieldContextExtension.Position.Upper);
+            var lowerCollection = FieldContextExtension.GetCollection(FieldContextExtension.Position.Lower);
+
             switch (direction)
             {
                 case Command.DirectionNone :
@@ -41,52 +44,16 @@ namespace Hermann.Collections
                     // TODO:あとで実装
                     throw new NotSupportedException();
                 case Command.DirectionDown :
-                    // 上部
-                    Move(context, FieldContext.IndexMovableFieldUpper, FieldContext.IndexBlueFieldUpper, FieldContext.IndexOccupiedFieldUpper, 8);
-                    Move(context, FieldContext.IndexMovableFieldUpper, FieldContext.IndexRedFieldUpper, FieldContext.IndexOccupiedFieldUpper, 8);
-                    Move(context, FieldContext.IndexMovableFieldUpper, FieldContext.IndexGreenFieldUpper, FieldContext.IndexOccupiedFieldUpper, 8);
-                    Move(context, FieldContext.IndexMovableFieldUpper, FieldContext.IndexYellowFieldUpper, FieldContext.IndexOccupiedFieldUpper, 8);
-                    Move(context, FieldContext.IndexMovableFieldUpper, FieldContext.IndexPurpleFieldUpper, FieldContext.IndexOccupiedFieldUpper, 8);
-                    // 下部
-                    Move(context, FieldContext.IndexMovableFieldLower, FieldContext.IndexBlueFieldLower, FieldContext.IndexOccupiedFieldLower, 8);
-                    Move(context, FieldContext.IndexMovableFieldLower, FieldContext.IndexRedFieldLower, FieldContext.IndexOccupiedFieldLower, 8);
-                    Move(context, FieldContext.IndexMovableFieldLower, FieldContext.IndexGreenFieldLower, FieldContext.IndexOccupiedFieldLower, 8);
-                    Move(context, FieldContext.IndexMovableFieldLower, FieldContext.IndexYellowFieldLower, FieldContext.IndexOccupiedFieldLower, 8);
-                    Move(context, FieldContext.IndexMovableFieldLower, FieldContext.IndexPurpleFieldLower, FieldContext.IndexOccupiedFieldLower, 8);
-                    // 最後に移動
-                    context[FieldContext.IndexMovableFieldUpper] <<= 8;
+                    Move(context, upperCollection, 8);
+                    Move(context, lowerCollection, 8);
                     break;
                 case Command.DirectionLeft :
-                    // 上部
-                    Move(context, FieldContext.IndexMovableFieldUpper, FieldContext.IndexBlueFieldUpper, FieldContext.IndexOccupiedFieldUpper, 1);
-                    Move(context, FieldContext.IndexMovableFieldUpper, FieldContext.IndexRedFieldUpper, FieldContext.IndexOccupiedFieldUpper, 1);
-                    Move(context, FieldContext.IndexMovableFieldUpper, FieldContext.IndexGreenFieldUpper, FieldContext.IndexOccupiedFieldUpper, 1);
-                    Move(context, FieldContext.IndexMovableFieldUpper, FieldContext.IndexYellowFieldUpper, FieldContext.IndexOccupiedFieldUpper, 1);
-                    Move(context, FieldContext.IndexMovableFieldUpper, FieldContext.IndexPurpleFieldUpper, FieldContext.IndexOccupiedFieldUpper, 1);
-                    // 下部
-                    Move(context, FieldContext.IndexMovableFieldLower, FieldContext.IndexBlueFieldLower, FieldContext.IndexOccupiedFieldLower, 1);
-                    Move(context, FieldContext.IndexMovableFieldLower, FieldContext.IndexRedFieldLower, FieldContext.IndexOccupiedFieldLower, 1);
-                    Move(context, FieldContext.IndexMovableFieldLower, FieldContext.IndexGreenFieldLower, FieldContext.IndexOccupiedFieldLower, 1);
-                    Move(context, FieldContext.IndexMovableFieldLower, FieldContext.IndexYellowFieldLower, FieldContext.IndexOccupiedFieldLower, 1);
-                    Move(context, FieldContext.IndexMovableFieldLower, FieldContext.IndexPurpleFieldLower, FieldContext.IndexOccupiedFieldLower, 1);
-                    // 最後に移動
-                    context[FieldContext.IndexMovableFieldUpper] <<= 1;
+                    Move(context, upperCollection, 1);
+                    Move(context, lowerCollection, 1);
                     break;
                 case Command.DirectionRight :
-                    // 上部
-                    Move(context, FieldContext.IndexMovableFieldUpper, FieldContext.IndexBlueFieldUpper, FieldContext.IndexOccupiedFieldUpper, -1);
-                    Move(context, FieldContext.IndexMovableFieldUpper, FieldContext.IndexRedFieldUpper, FieldContext.IndexOccupiedFieldUpper, -1);
-                    Move(context, FieldContext.IndexMovableFieldUpper, FieldContext.IndexGreenFieldUpper, FieldContext.IndexOccupiedFieldUpper, -1);
-                    Move(context, FieldContext.IndexMovableFieldUpper, FieldContext.IndexYellowFieldUpper, FieldContext.IndexOccupiedFieldUpper, -1);
-                    Move(context, FieldContext.IndexMovableFieldUpper, FieldContext.IndexPurpleFieldUpper, FieldContext.IndexOccupiedFieldUpper, -1);
-                    // 下部
-                    Move(context, FieldContext.IndexMovableFieldLower, FieldContext.IndexBlueFieldLower, FieldContext.IndexOccupiedFieldLower, -1);
-                    Move(context, FieldContext.IndexMovableFieldLower, FieldContext.IndexRedFieldLower, FieldContext.IndexOccupiedFieldLower, -1);
-                    Move(context, FieldContext.IndexMovableFieldLower, FieldContext.IndexGreenFieldLower, FieldContext.IndexOccupiedFieldLower, -1);
-                    Move(context, FieldContext.IndexMovableFieldLower, FieldContext.IndexYellowFieldLower, FieldContext.IndexOccupiedFieldLower, -1);
-                    Move(context, FieldContext.IndexMovableFieldLower, FieldContext.IndexPurpleFieldLower, FieldContext.IndexOccupiedFieldLower, -1);
-                    // 最後に移動
-                    context[FieldContext.IndexMovableFieldUpper] >>= 1;
+                    Move(context, upperCollection, -1);
+                    Move(context, lowerCollection, -1);
                     break;
                 default :
                     throw new ApplicationException(string.Format("不正な方向です。{0}", direction));
@@ -97,33 +64,56 @@ namespace Hermann.Collections
         /// <summary>
         /// スライムを動かします。
         /// </summary>
+        /// <param name="context">フィールドコンテキスト</param>
+        /// <param name="collection">コレクション</param>
+        /// <param name="shift">シフト量</param>
+        private static void Move(ulong[] context, FieldContextCollection collection, int shift)
+        {
+            foreach (var color in collection.ColorFields)
+            {
+                Move(context, collection.MovableField, color.Value, shift);
+            }
+
+            // 最後に移動
+            if (shift > 0)
+            {
+                context[(int)collection.MovableField] <<= shift;
+                context[(int)collection.OccupiedField] <<= shift;
+            }
+            else
+            {
+                context[(int)collection.MovableField] >>= (shift * -1);
+                context[(int)collection.OccupiedField] >>= (shift * -1);
+            }
+        }
+
+        /// <summary>
+        /// スライムを動かします。
+        /// </summary>
         /// <param name="context">状態</param>
         /// <param name="movableField">操作可能スライムの状態</param>
         /// <param name="colorField">対象色スライムの状態</param>
         /// <param name="shift">シフト量</param>
-        private static void Move(ulong[] context, int movableField, int colorField, int occupiedField, int shift)
+        private static void Move(ulong[] context, FieldContext movableField, FieldContext colorField, int shift)
         {
-            if ((context[movableField] & context[colorField]) > 0ul)
+            if ((context[(int)movableField] & context[(int)colorField]) > 0ul)
             {
-                var movedColorContext = context[colorField];
+                var movedColorContext = context[(int)colorField];
                 // １．移動前スライムを消す
-                movedColorContext = (context[colorField] & ~(context[movableField] & context[colorField]));
-                context[occupiedField] &= ~(context[movableField] & context[colorField]);
+                movedColorContext = (context[(int)colorField] & ~(context[(int)movableField] & context[(int)colorField]));
 
                 // ２．スライムを移動させる
                 if (shift > 0)
                 {
-                    movedColorContext |= ((context[movableField] & context[colorField]) << shift);
-                    context[occupiedField] |= ((context[movableField] & context[colorField]) << shift);
+                    movedColorContext |= ((context[(int)movableField] & context[(int)colorField]) << shift);
                 }
                 else
                 {
-                    movedColorContext |= ((context[movableField] & context[colorField]) >> (shift * -1));
-                    context[occupiedField] |= ((context[movableField] & context[colorField]) >> (shift * -1));
+                    movedColorContext |= ((context[(int)movableField] & context[(int)colorField]) >> (shift * -1));
                 }
-                
+
                 // ３．処理が終わった後にセットする
-                context[colorField] = movedColorContext;
+                context[(int)colorField] = movedColorContext;
             }
         }
     }

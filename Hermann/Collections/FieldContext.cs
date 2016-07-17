@@ -7,88 +7,214 @@ using System.Threading.Tasks;
 namespace Hermann.Collections
 {
     /// <summary>
-    /// フィールドの状態を表すコンテキストに関する情報/機能を提供します。
+    /// フィールドの状態を表すコンテキスト
     /// </summary>
-    public static class FieldContext
+    public enum FieldContext
     {
         /// <summary>
-        /// インデックス：命令
+        /// 操作
         /// </summary>
-        public const int IndexCommand = 0;
+        Command,
 
         /// <summary>
-        /// インデックス：フィールド上部（占有状態）
+        /// 占有状態（上部）
         /// </summary>
-        public const int IndexOccupiedFieldUpper = 1;
+        OccupiedUpper,
 
         /// <summary>
-        /// インデックス：フィールド下部（占有状態）
+        /// 占有状態（下部）
         /// </summary>
-        public const int IndexOccupiedFieldLower = 2;
+        OccupiedLower,
+        
+        /// <summary>
+        /// 操作可能状態（上部）
+        /// </summary>
+        MovableUpper,
 
         /// <summary>
-        /// インデックス：フィールド上部（操作対象スライム）
+        /// 操作可能状態（下部）
         /// </summary>
-        public const int IndexMovableFieldUpper = 3;
+        MovableLower,
 
         /// <summary>
-        /// インデックス：フィールド下部（操作対象スライム）
+        /// 赤（上部）
         /// </summary>
-        public const int IndexMovableFieldLower = 4;
+        RedUpper,
 
         /// <summary>
-        /// インデックス：フィールド上部（赤スライム）
+        /// 赤（下部）
         /// </summary>
-        public const int IndexRedFieldUpper = 5;
+        RedLower,
 
         /// <summary>
-        /// インデックス：フィールド下部（赤スライム）
+        /// 青（上部）
         /// </summary>
-        public const int IndexRedFieldLower = 6;
+        BlueUpper,
 
         /// <summary>
-        /// インデックス：フィールド上部（青スライム）
+        /// 青（下部）
         /// </summary>
-        public const int IndexBlueFieldUpper = 7;
+        BlueLower,
 
         /// <summary>
-        /// インデックス：フィールド下部（青スライム）
+        /// 緑（上部）
         /// </summary>
-        public const int IndexBlueFieldLower = 8;
+        GreenUpper,
 
         /// <summary>
-        /// インデックス：フィールド上部（黄スライム）
+        /// 緑（下部）
         /// </summary>
-        public const int IndexYellowFieldUpper = 9;
+        GreenLower,
 
         /// <summary>
-        /// インデックス：フィールド下部（黄スライム）
+        /// 黄（上部）
         /// </summary>
-        public const int IndexYellowFieldLower = 10;
+        YellowUpper,
 
         /// <summary>
-        /// インデックス：フィールド上部（緑スライム）
+        /// 黄（下部）
         /// </summary>
-        public const int IndexGreenFieldUpper = 11;
+        YellowLower,
 
         /// <summary>
-        /// インデックス：フィールド下部（緑スライム）
+        /// 紫（上部）
         /// </summary>
-        public const int IndexGreenFieldLower = 12;
+        PurpleUpper,
 
         /// <summary>
-        /// インデックス：フィールド上部（紫スライム）
+        /// 紫（下部）
         /// </summary>
-        public const int IndexPurpleFieldUpper = 13;
+        PurpleLower,
+    }
+
+    /// <summary>
+    /// フィールドコンテキストのコレクション
+    /// </summary>
+    public class FieldContextCollection
+    {
+        /// <summary>
+        /// 占有状態
+        /// </summary>
+        public FieldContext OccupiedField { get; set; }
 
         /// <summary>
-        /// インデックス：フィールド下部（紫スライム）
+        /// 操作可能状態
         /// </summary>
-        public const int IndexPurpleFieldLower = 14;
+        public FieldContext MovableField { get; set; }
 
         /// <summary>
-        /// コンテキストを構成する要素数
+        /// 色リスト
         /// </summary>
-        public const int ElementCount = 15;
+        public Dictionary<SlimeColor, FieldContext> ColorFields { get; set; }
+    }
+
+    /// <summary>
+    /// 拡張フィールドコンテキスト
+    /// </summary>
+    public static class FieldContextExtension
+    {
+        /// <summary>
+        /// フィールドにおける位置を示します。
+        /// </summary>
+        public enum Position
+        {
+            /// <summary>
+            /// 上部
+            /// </summary>
+            Upper,
+
+            /// <summary>
+            /// 下部
+            /// </summary>
+            Lower
+        }
+
+        /// <summary>
+        /// 上部のコレクション
+        /// </summary>
+        private static FieldContextCollection upperCollection = CreateUpperCollection();
+
+        /// <summary>
+        /// 下部のコレクション
+        /// </summary>
+        private static FieldContextCollection lowerCollection = CreateLowerCollection();
+
+        /// <summary>
+        /// コレクションを取得します。
+        /// </summary>
+        /// <param name="position">ポジション</param>
+        /// <returns>コレクション</returns>
+        public static FieldContextCollection GetCollection(Position position)
+        {
+            return (position == Position.Upper) ? upperCollection : lowerCollection;
+        }
+
+        /// <summary>
+        /// 要素数を取得します。
+        /// </summary>
+        /// <param name="context">フィールドコンテキスト</param>
+        /// <returns>要素数</returns>
+        public static int Count()
+        {
+            return Enum.GetNames(typeof(FieldContext)).Length;
+        }
+
+        /// <summary>
+        /// 上部コレクションを作成します。
+        /// </summary>
+        /// <returns>上部コレクション</returns>
+        private static FieldContextCollection CreateUpperCollection()
+        {
+            var collection = new FieldContextCollection();
+            collection.OccupiedField = FieldContext.OccupiedUpper;
+            collection.MovableField = FieldContext.MovableUpper;
+            collection.ColorFields = GetUpperColorCollection();
+            return collection;
+        }
+
+        /// <summary>
+        /// 上部コレクションを作成します。
+        /// </summary>
+        /// <returns>下部コレクション</returns>
+        private static FieldContextCollection CreateLowerCollection()
+        {
+            var collection = new FieldContextCollection();
+            collection.OccupiedField = FieldContext.OccupiedLower;
+            collection.MovableField = FieldContext.MovableLower;
+            collection.ColorFields = GetLowerColorCollection();
+            return collection;
+        }
+
+        /// <summary>
+        /// 上部の色コレクションを取得します。
+        /// </summary>
+        /// <param name="context">コンテキスト</param>
+        /// <returns>上部の色コレクション</returns>
+        private static Dictionary<SlimeColor, FieldContext> GetUpperColorCollection()
+        {
+            var collection = new Dictionary<SlimeColor, FieldContext>();
+            collection.Add(SlimeColor.Red, FieldContext.RedUpper);
+            collection.Add(SlimeColor.Blue, FieldContext.BlueUpper);
+            collection.Add(SlimeColor.Green, FieldContext.GreenUpper);
+            collection.Add(SlimeColor.Yellow, FieldContext.YellowUpper);
+            collection.Add(SlimeColor.Purple, FieldContext.PurpleUpper);
+            return collection;
+        }
+
+        /// <summary>
+        /// 下部の色コレクションを取得します。
+        /// </summary>
+        /// <param name="context">コンテキスト</param>
+        /// <returns>下部の色コレクション</returns>
+        private static Dictionary<SlimeColor, FieldContext> GetLowerColorCollection()
+        {
+            var collection = new Dictionary<SlimeColor, FieldContext>();
+            collection.Add(SlimeColor.Red, FieldContext.RedLower);
+            collection.Add(SlimeColor.Blue, FieldContext.BlueLower);
+            collection.Add(SlimeColor.Green, FieldContext.GreenLower);
+            collection.Add(SlimeColor.Yellow, FieldContext.YellowLower);
+            collection.Add(SlimeColor.Purple, FieldContext.PurpleLower);
+            return collection;
+        }
     }
 }

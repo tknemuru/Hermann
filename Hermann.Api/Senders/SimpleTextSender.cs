@@ -28,10 +28,10 @@ namespace Hermann.Api.Senders
             sb.AppendLine(ConvertToDirection(direction));
 
             // フィールド上部
-            AddField(sb, context, true, (index => false));
+            AddField(sb, context, FieldContextExtension.GetCollection(FieldContextExtension.Position.Upper), (index => false));
 
             // フィールド下部
-            AddField(sb, context, false, (index => index > 32));
+            AddField(sb, context, FieldContextExtension.GetCollection(FieldContextExtension.Position.Lower), (index => index > 32));
             
             return sb.ToString();
         }
@@ -66,7 +66,7 @@ namespace Hermann.Api.Senders
         /// <param name="sb">コンテキストを表すStringBuilder</param>
         /// <param name="field">フィールド</param>
         /// <param name="isBreak">繰り返し完了を判定するメソッド</param>
-        private static void AddField(StringBuilder sb, ulong[] context, bool isUpper, Func<int, bool> isBreak)
+        private static void AddField(StringBuilder sb, ulong[] context, FieldContextCollection collection, Func<int, bool> isBreak)
         {
             string line = string.Empty;
             for (var i = 0; i < 64; i++)
@@ -77,63 +77,30 @@ namespace Hermann.Api.Senders
                 // フィールド外は除外
                 if ((i % 8) < 2) { continue; }
 
-                var movableField = 0ul;
-
-                if (isUpper)
+                var movableField = context[(int)collection.MovableField];
+                if ((context[(int)collection.ColorFields[SlimeColor.Blue]] & (1ul << i)) > 0ul)
                 {
-                    movableField = context[FieldContext.IndexMovableFieldUpper];
-                    if ((context[FieldContext.IndexBlueFieldUpper] & (1ul << i)) > 0ul)
-                    {
-                        line = ((movableField & (1ul << i)) > 0ul) ? SimpleText.MovableSlimeBlue.ToString() + line : SimpleText.SlimeBlue + line;
-                    }
-                    else if ((context[FieldContext.IndexRedFieldUpper] & (1ul << i)) > 0ul)
-                    {
-                        line = ((movableField & (1ul << i)) > 0ul) ? SimpleText.MovableSlimeRed.ToString() + line : SimpleText.SlimeRed + line;
-                    }
-                    else if ((context[FieldContext.IndexGreenFieldUpper] & (1ul << i)) > 0ul)
-                    {
-                        line = ((movableField & (1ul << i)) > 0ul) ? SimpleText.MovableSlimeGreen.ToString() + line : SimpleText.SlimeGreen + line;
-                    }
-                    else if ((context[FieldContext.IndexYellowFieldUpper] & (1ul << i)) > 0ul)
-                    {
-                        line = ((movableField & (1ul << i)) > 0ul) ? SimpleText.MovableSlimeYellow.ToString() + line : SimpleText.SlimeYellow + line;
-                    }
-                    else if ((context[FieldContext.IndexPurpleFieldUpper] & (1ul << i)) > 0ul)
-                    {
-                        line = ((movableField & (1ul << i)) > 0ul) ? SimpleText.MovableSlimePurple.ToString() + line : SimpleText.SlimePurple + line;
-                    }
-                    else
-                    {
-                        line = SimpleText.SlimeNone.ToString() + line;
-                    }
+                    line = ((movableField & (1ul << i)) > 0ul) ? SimpleText.MovableSlimeBlue.ToString() + line : SimpleText.SlimeBlue + line;
+                }
+                else if ((context[(int)collection.ColorFields[SlimeColor.Red]] & (1ul << i)) > 0ul)
+                {
+                    line = ((movableField & (1ul << i)) > 0ul) ? SimpleText.MovableSlimeRed.ToString() + line : SimpleText.SlimeRed + line;
+                }
+                else if ((context[(int)collection.ColorFields[SlimeColor.Green]] & (1ul << i)) > 0ul)
+                {
+                    line = ((movableField & (1ul << i)) > 0ul) ? SimpleText.MovableSlimeGreen.ToString() + line : SimpleText.SlimeGreen + line;
+                }
+                else if ((context[(int)collection.ColorFields[SlimeColor.Yellow]] & (1ul << i)) > 0ul)
+                {
+                    line = ((movableField & (1ul << i)) > 0ul) ? SimpleText.MovableSlimeYellow.ToString() + line : SimpleText.SlimeYellow + line;
+                }
+                else if ((context[(int)collection.ColorFields[SlimeColor.Purple]] & (1ul << i)) > 0ul)
+                {
+                    line = ((movableField & (1ul << i)) > 0ul) ? SimpleText.MovableSlimePurple.ToString() + line : SimpleText.SlimePurple + line;
                 }
                 else
                 {
-                    movableField = context[FieldContext.IndexMovableFieldLower];
-                    if ((context[FieldContext.IndexBlueFieldLower] & (1ul << i)) > 0ul)
-                    {
-                        line = ((movableField & (1ul << i)) > 0ul) ? SimpleText.MovableSlimeBlue.ToString() + line : SimpleText.SlimeBlue + line;
-                    }
-                    else if ((context[FieldContext.IndexRedFieldLower] & (1ul << i)) > 0ul)
-                    {
-                        line = ((movableField & (1ul << i)) > 0ul) ? SimpleText.MovableSlimeRed.ToString() + line : SimpleText.SlimeRed + line;
-                    }
-                    else if ((context[FieldContext.IndexGreenFieldLower] & (1ul << i)) > 0ul)
-                    {
-                        line = ((movableField & (1ul << i)) > 0ul) ? SimpleText.MovableSlimeGreen.ToString() + line : SimpleText.SlimeGreen + line;
-                    }
-                    else if ((context[FieldContext.IndexYellowFieldLower] & (1ul << i)) > 0ul)
-                    {
-                        line = ((movableField & (1ul << i)) > 0ul) ? SimpleText.MovableSlimeYellow.ToString() + line : SimpleText.SlimeYellow + line;
-                    }
-                    else if ((context[FieldContext.IndexPurpleFieldLower] & (1ul << i)) > 0ul)
-                    {
-                        line = ((movableField & (1ul << i)) > 0ul) ? SimpleText.MovableSlimePurple.ToString() + line : SimpleText.SlimePurple + line;
-                    }
-                    else
-                    {
-                        line = SimpleText.SlimeNone.ToString() + line;
-                    }
+                    line = SimpleText.SlimeNone.ToString() + line;
                 }
 
                 // 改行

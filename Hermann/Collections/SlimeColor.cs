@@ -24,7 +24,7 @@ namespace Hermann.Collections
         /// <summary>
         /// 緑
         /// </summary>
-        Grren,
+        Green,
 
         /// <summary>
         /// 黄

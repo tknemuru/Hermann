@@ -12,19 +12,45 @@ namespace Hermann.Api
     public static class SimpleText
     {
         /// <summary>
+        /// 行数に関する情報を提供します。
+        /// </summary>
+        public enum Lines
+        {
+            /// <summary>
+            /// プレイヤ
+            /// </summary>
+            Player = 0,
+
+            /// <summary>
+            /// 方向
+            /// </summary>
+            Direction = 1,
+
+            /// <summary>
+            /// 上部開始行
+            /// </summary>
+            UpperStart = 2,
+
+            /// <summary>
+            /// 上部終了行
+            /// </summary>
+            UpperEnd = 9,
+
+            /// <summary>
+            /// 下部開始行
+            /// </summary>
+            LowerStart = 10,
+
+            /// <summary>
+            /// 下部終了行
+            /// </summary>
+            LowerEnd = 13,
+        }
+
+        /// <summary>
         /// 合計行数
         /// </summary>
         public const int LineCount = 14;
-
-        /// <summary>
-        /// 行数：プレイヤ
-        /// </summary>
-        public const int LineIndexPlayer = 0;
-
-        /// <summary>
-        /// 行数：方向
-        /// </summary>
-        public const int LineIndexDirection = 1;
 
         /// <summary>
         /// 方向：無
