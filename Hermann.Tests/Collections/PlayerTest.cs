@@ -55,14 +55,14 @@ namespace Hermann.Tests.Collections
         /// <summary>
         /// 002:Moveで上部において最右にいる場合は移動しない
         /// </summary>
-        //[TestMethod]
-        //public void Moveで上部において右に移動できる()
-        //{
-        //    var context = this.MyReceiver.Receive("../../resources/collections/player/test-field-in-001-001.txt");
-        //    var actualContext = Player.Move(context);
-        //    var expectedContext = this.MyReceiver.Receive("../../resources/collections/player/test-field-out-001-001.txt");
+        [TestMethod]
+        public void Moveで上部において最右にいる場合は移動しない()
+        {
+            var context = this.MyReceiver.Receive("../../resources/collections/player/test-field-in-002-001.txt");
+            var actualContext = Player.Move(context);
+            var expectedContext = this.MyReceiver.Receive("../../resources/collections/player/test-field-out-002-001.txt");
 
-        //    CollectionAssert.AreEqual(expectedContext, actualContext);
-        //}
+            CollectionAssert.AreEqual(expectedContext, actualContext);
+        }
     }
 }

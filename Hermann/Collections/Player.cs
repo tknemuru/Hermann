@@ -52,8 +52,8 @@ namespace Hermann.Collections
                     Move(context, lowerCollection, 1);
                     break;
                 case Command.DirectionRight :
-                    Move(context, upperCollection, -1);
-                    Move(context, lowerCollection, -1);
+                    if (IsEnabledRightMove(context[(int)upperCollection.MovableField])) { Move(context, upperCollection, -1); }
+                    if (IsEnabledRightMove(context[(int)lowerCollection.MovableField])) { Move(context, lowerCollection, -1); }
                     break;
                 default :
                     throw new ApplicationException(string.Format("不正な方向です。{0}", direction));
@@ -96,25 +96,35 @@ namespace Hermann.Collections
         /// <param name="shift">シフト量</param>
         private static void Move(ulong[] context, FieldContext movableField, FieldContext colorField, int shift)
         {
-            if ((context[(int)movableField] & context[(int)colorField]) > 0ul)
+            // 対象の色が移動対象外なら処理終了
+            if ((context[(int)movableField] & context[(int)colorField]) <= 0ul) { return; }
+
+            var movedColorContext = context[(int)colorField];
+            // １．移動前スライムを消す
+            movedColorContext = (context[(int)colorField] & ~(context[(int)movableField] & context[(int)colorField]));
+
+            // ２．スライムを移動させる
+            if (shift > 0)
             {
-                var movedColorContext = context[(int)colorField];
-                // １．移動前スライムを消す
-                movedColorContext = (context[(int)colorField] & ~(context[(int)movableField] & context[(int)colorField]));
-
-                // ２．スライムを移動させる
-                if (shift > 0)
-                {
-                    movedColorContext |= ((context[(int)movableField] & context[(int)colorField]) << shift);
-                }
-                else
-                {
-                    movedColorContext |= ((context[(int)movableField] & context[(int)colorField]) >> (shift * -1));
-                }
-
-                // ３．処理が終わった後にセットする
-                context[(int)colorField] = movedColorContext;
+                movedColorContext |= ((context[(int)movableField] & context[(int)colorField]) << shift);
             }
+            else
+            {
+                movedColorContext |= ((context[(int)movableField] & context[(int)colorField]) >> (shift * -1));
+            }
+
+            // ３．処理が終わった後にセットする
+            context[(int)colorField] = movedColorContext;
+        }
+
+        /// <summary>
+        /// 右に移動可能かどうかを判定します。
+        /// </summary>
+        /// <param name="field">フィールドの状態</param>
+        /// <returns>右に移動可能かどうか</returns>
+        private static bool IsEnabledRightMove(ulong field)
+        {
+            return !((field & 0x0c0c0c0c0c0c0c0cul) > 0);
         }
     }
 }
