@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hermann.Contexts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,13 +10,13 @@ namespace Hermann.Api.Receivers
     /// <summary>
     /// 受信機能を提供します。
     /// </summary>
-    public abstract class Receiver
+    public interface IReceivable<in T>
     {
         /// <summary>
         /// ソースを受信しフィールドの状態に変換します。
         /// </summary>
         /// <param name="source">ソース</param>
         /// <returns>フィールドの状態</returns>
-        public abstract ulong[] Receive(string source);
+        FieldContext Receive(T source);
     }
 }

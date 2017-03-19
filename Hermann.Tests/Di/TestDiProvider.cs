@@ -15,7 +15,7 @@ namespace Hermann.Tests.Di
         /// <summary>
         /// DIコンテナ
         /// </summary>
-        public static Container MyContainer { get; private set; }
+        private static Container MyContainer { get; set; }
 
         /// <summary>
         /// DIコンテナを取得します。

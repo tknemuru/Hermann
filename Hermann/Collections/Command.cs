@@ -12,38 +12,64 @@ namespace Hermann.Collections
     public static class Command
     {
         /// <summary>
+        /// 方向
+        /// </summary>
+        public enum Direction : uint
+        {
+            /// <summary>
+            /// 無し
+            /// </summary>
+            None = 0x0u,
+
+            /// <summary>
+            /// 上
+            /// </summary>
+            Up = 0x1u,
+
+            /// <summary>
+            /// 下
+            /// </summary>
+            Down = 0x2u,
+
+            /// <summary>
+            /// 左
+            /// </summary>
+            Left = 0x3u,
+
+            /// <summary>
+            /// 右
+            /// </summary>
+            Right = 0x4u,
+        }
+
+        /// <summary>
         /// プレイヤを取得するためのマスク量
         /// </summary>
-        public const ulong PlayerMask = 0x00000001ul;
+        private const uint PlayerMask = 0x00000001u;
 
         /// <summary>
         /// 方向を取得するためのマスク量
         /// </summary>
-        public const ulong DirectionMask = 0x0000000eul;
+        private const uint DirectionMask = 0x0000000eu;
 
         /// <summary>
-        /// 方向：無し
+        /// プレイヤを取得します。
         /// </summary>
-        public const ulong DirectionNone = 0x0ul;
+        /// <param name="command"></param>
+        /// <returns></returns>
+        public static uint GetPlyer(uint command)
+        {
+            return command & Command.PlayerMask;
+        }
 
         /// <summary>
-        /// 方向：上
+        /// 移動方向を取得します。
         /// </summary>
-        public const ulong DirectionUp = 0x2ul;
-
-        /// <summary>
-        /// 方向：下
-        /// </summary>
-        public const ulong DirectionDown = 0x4ul;
-
-        /// <summary>
-        /// 方向：左
-        /// </summary>
-        public const ulong DirectionLeft = 0x6ul;
-
-        /// <summary>
-        /// 方向：右
-        /// </summary>
-        public const ulong DirectionRight = 0x8ul;
+        /// <param name="command"></param>
+        /// <returns></returns>
+        public static Direction GetDirection(uint command)
+        {
+            return (Direction)(command & DirectionMask);
+        }
     }
 }
