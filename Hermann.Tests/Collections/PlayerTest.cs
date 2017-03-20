@@ -109,5 +109,18 @@ namespace Hermann.Tests.Collections
 
             TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
         }
+
+        /// <summary>
+        /// 007:Moveで1つ目のフィールド単位において右移動時に移動場所に他のスライムが存在する場合は移動しない
+        /// </summary>
+        [TestMethod]
+        public void Moveで1つ目のフィールド単位において右移動時に移動場所に他のスライムが存在する場合は移動しない()
+        {
+            var context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-007-001.txt");
+            var actualContext = Player.Move(context);
+            var expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-007-001.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+        }
     }
 }

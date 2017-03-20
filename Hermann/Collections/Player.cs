@@ -1,4 +1,5 @@
 ﻿using Hermann.Contexts;
+using Hermann.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,10 +29,19 @@ namespace Hermann.Collections
         public const int PlayerCount = 2;
 
         /// <summary>
-        /// 下に動かす際の速度
-        /// 数値は動かす行数を示す
+        /// 左に動かす際の速度
         /// </summary>
-        private const int DownSpeed = 4;
+        private const int LeftSpeed = 1;
+
+        /// <summary>
+        /// 右に動かす際の速度
+        /// </summary>
+        private const int RightSpeed = -1;
+
+        /// <summary>
+        /// 下に動かす際の速度
+        /// </summary>
+        private const int DownSpeed = 4 * 8;
 
         /// <summary>
         /// スライムを動かします。
@@ -49,18 +59,18 @@ namespace Hermann.Collections
                     // TODO:あとで実装
                     throw new NotSupportedException();
                 case Command.Direction.Down:
-                    Move(context, ModifyDownShift(context, 8 * DownSpeed));
+                    Move(context, ModifyDownShift(context, DownSpeed));
                     break;
                 case Command.Direction.Left:
                     if (IsEnabledLeftMove(context))
                     {
-                        Move(context, 1);
+                        Move(context, LeftSpeed);
                     }
                     break;
                 case Command.Direction.Right:
                     if (IsEnabledRightMove(context))
                     {
-                        Move(context, -1);
+                        Move(context, RightSpeed);
                     }
                     break;
                 default :
@@ -102,9 +112,21 @@ namespace Hermann.Collections
         private static bool IsEnabledRightMove(FieldContext context)
         {
             // 判定対象は最右である1つめの移動可能スライムが対象
-            var shift = context.MovableInfos[(int)MovableUnit.First].Position;
+            var first = context.MovableInfos[(int)MovableUnit.First];
 
-            return (((1u << shift) & 0xf8f8f8f8u) > 0);
+            // 壁を越えないか？
+            if (!(((1u << first.Position) & 0xf8f8f8f8u) > 0))
+            {
+                return false;
+            }
+
+            // 移動場所に他スライムが存在していないか？
+            if (FieldContextHelper.ExistsSlime(context, first.Index, first.Position + RightSpeed))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
