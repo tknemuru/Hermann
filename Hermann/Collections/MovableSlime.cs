@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Hermann.Collections;
 
-namespace Hermann.Contexts
+namespace Hermann.Collections
 {
     /// <summary>
-    /// 移動可能な色オブジェクトの配置情報
+    /// 移動可能なスライム
     /// </summary>
-    public class MovableInfo
+    public sealed class MovableSlime
     {
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public MovableInfo()
+        public MovableSlime()
         {
         }
 
@@ -25,7 +24,7 @@ namespace Hermann.Contexts
         /// <param name="slime">スライム</param>
         /// <param name="index">何番目のフィールドに属しているか</param>
         /// <param name="positon">フィールド内のポジション（シフト量）</param>
-        public MovableInfo(Slime slime, int index, int positon)
+        public MovableSlime(Slime slime, int index, int positon)
         {
             this.Slime = slime;
             this.Index = index;
@@ -59,7 +58,7 @@ namespace Hermann.Contexts
                 return false;
             }
 
-            var movable = (MovableInfo)obj;
+            var movable = (MovableSlime)obj;
             var equals = new List<bool>();
             equals.Add(movable.Slime == this.Slime);
             equals.Add(movable.Index == this.Index);

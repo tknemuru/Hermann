@@ -30,7 +30,7 @@ namespace Hermann.Tests.Contexts
 
             // 移動可能なスライムの配置状態が等しくない
             y = CreateEqualsTestDefaultFieldContext();
-            y.MovableInfos[1] = new MovableInfo(Slime.Purple, 2, 5);
+            y.MovableSlimes[1] = new MovableSlime(Slime.Purple, 2, 5);
             Assert.IsFalse(x.Equals(y));
 
             // スライムごとの配置状態が等しくない
@@ -49,11 +49,11 @@ namespace Hermann.Tests.Contexts
             
             context.Command = 3u;
             
-            context.MovableInfos = new MovableInfo[2];
-            var first = new MovableInfo(Slime.Red, 1, 3);
-            var second = new MovableInfo(Slime.Blue, 2, 5);
-            context.MovableInfos[0] = first;
-            context.MovableInfos[1] = second;
+            context.MovableSlimes = new MovableSlime[2];
+            var first = new MovableSlime(Slime.Red, 1, 3);
+            var second = new MovableSlime(Slime.Blue, 2, 5);
+            context.MovableSlimes[0] = first;
+            context.MovableSlimes[1] = second;
 
             var fields = new Dictionary<Slime, uint[]>();
             fields.Add(Slime.Red, new uint[] {2u, 3u, 6u});

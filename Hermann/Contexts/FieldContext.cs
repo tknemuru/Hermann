@@ -18,9 +18,9 @@ namespace Hermann.Contexts
         public uint Command { get; set; }
 
         /// <summary>
-        /// 移動可能なスライムの配置状態
+        /// 移動可能なスライム
         /// </summary>
-        public MovableInfo[] MovableInfos { get; set; }
+        public MovableSlime[] MovableSlimes { get; set; }
 
         /// <summary>
         /// スライムごとの配置状態
@@ -32,7 +32,7 @@ namespace Hermann.Contexts
         /// </summary>
         public FieldContext()
         {
-            this.MovableInfos = new MovableInfo[ExtensionMovableUnit.Length];
+            this.MovableSlimes = new MovableSlime[MovableSlimeUnit.Length];
             this.SlimeFields = new Dictionary<Slime, uint[]>();
         }
 
@@ -65,9 +65,9 @@ namespace Hermann.Contexts
             }
 
             // 移動可能なスライムの配置状態
-            equals.Add(context.MovableInfos.Length == this.MovableInfos.Length);
-            equals.Add(context.MovableInfos[(int)MovableUnit.First].Equals(this.MovableInfos[(int)MovableUnit.First]));
-            equals.Add(context.MovableInfos[(int)MovableUnit.Second].Equals(this.MovableInfos[(int)MovableUnit.Second]));
+            equals.Add(context.MovableSlimes.Length == this.MovableSlimes.Length);
+            equals.Add(context.MovableSlimes[(int)MovableSlimeUnit.Index.First].Equals(this.MovableSlimes[(int)MovableSlimeUnit.Index.First]));
+            equals.Add(context.MovableSlimes[(int)MovableSlimeUnit.Index.Second].Equals(this.MovableSlimes[(int)MovableSlimeUnit.Index.Second]));
 
             return equals.All(e => e);
         }
@@ -78,7 +78,7 @@ namespace Hermann.Contexts
         /// <returns>現在のオブジェクトのハッシュ コード。</returns>
         public override int GetHashCode()
         {
-            return (int)this.Command ^ this.MovableInfos.GetHashCode() ^ this.SlimeFields.GetHashCode();
+            return (int)this.Command ^ this.MovableSlimes.GetHashCode() ^ this.SlimeFields.GetHashCode();
         }
     }
 }

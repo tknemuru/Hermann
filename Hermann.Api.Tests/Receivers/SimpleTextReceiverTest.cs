@@ -36,13 +36,13 @@ namespace Hermann.Api.Tests.Receivers
             TestHelper.AssertAreEqualUint(TestHelper.GetField(2, 3), context.SlimeFields[Slime.Blue][0]);
 
             // 2行目の左から3番目に移動可能な青がひとつ存在する
-            Assert.AreEqual(TestHelper.GetFieldUnitIndex(2), context.MovableInfos[(int)MovableUnit.First].Index);
-            Assert.AreEqual(TestHelper.GetShift(2, 3), context.MovableInfos[(int)MovableUnit.First].Position);
-            Assert.AreEqual(Slime.Blue, context.MovableInfos[(int)MovableUnit.First].Slime);
+            Assert.AreEqual(TestHelper.GetFieldUnitIndex(2), context.MovableSlimes[(int)MovableSlimeUnit.Index.First].Index);
+            Assert.AreEqual(TestHelper.GetShift(2, 3), context.MovableSlimes[(int)MovableSlimeUnit.Index.First].Position);
+            Assert.AreEqual(Slime.Blue, context.MovableSlimes[(int)MovableSlimeUnit.Index.First].Slime);
             // 2行目の左から2番目に移動可能な赤がひとつ存在する
-            Assert.AreEqual(TestHelper.GetFieldUnitIndex(2), context.MovableInfos[(int)MovableUnit.Second].Index);
-            Assert.AreEqual(TestHelper.GetShift(2, 2), context.MovableInfos[(int)MovableUnit.Second].Position);
-            Assert.AreEqual(Slime.Red, context.MovableInfos[(int)MovableUnit.Second].Slime);
+            Assert.AreEqual(TestHelper.GetFieldUnitIndex(2), context.MovableSlimes[(int)MovableSlimeUnit.Index.Second].Index);
+            Assert.AreEqual(TestHelper.GetShift(2, 2), context.MovableSlimes[(int)MovableSlimeUnit.Index.Second].Position);
+            Assert.AreEqual(Slime.Red, context.MovableSlimes[(int)MovableSlimeUnit.Index.Second].Slime);
         }
 
         //private bool AssertAreAllEqualZero(ulong[] context, bool useDefault, params int[] exclusionIndexList)

@@ -116,9 +116,17 @@ namespace Hermann.Tests.Collections
         [TestMethod]
         public void Moveで1つ目のフィールド単位において右移動時に移動場所に他のスライムが存在する場合は移動しない()
         {
+            // 001:横並び
             var context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-007-001.txt");
             var actualContext = Player.Move(context);
             var expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-007-001.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+
+            // 002:縦並び
+            context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-007-002.txt");
+            actualContext = Player.Move(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-007-002.txt");
 
             TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
         }

@@ -2,6 +2,7 @@
 using Hermann.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,17 +90,18 @@ namespace Hermann.Collections
         private static void Move(FieldContext context, int shift)
         {
             // １．移動前スライムを消す
-            foreach (var movable in context.MovableInfos)
+            foreach (var movable in context.MovableSlimes)
             {
                 context.SlimeFields[movable.Slime][movable.Index] &= ~(1u << movable.Position);
             }
 
             // ２．スライムを移動させる
-            foreach (var movable in context.MovableInfos)
+            foreach (var movable in context.MovableSlimes)
             {
                 var position = movable.Position + shift;
                 movable.Index += (position / FieldContextConfig.FieldUnitBitCount);
                 movable.Position = position % FieldContextConfig.FieldUnitBitCount;
+                Debug.Assert(!FieldContextHelper.ExistsSlime(context, movable.Index, movable.Position), string.Format("他のスライムが移動場所に存在しています。 Index : {0} Position : {1}", movable.Index, movable.Position));
                 context.SlimeFields[movable.Slime][movable.Index] |= 1u << movable.Position;
             }
         }
@@ -111,17 +113,29 @@ namespace Hermann.Collections
         /// <returns>右に移動可能かどうか</returns>
         private static bool IsEnabledRightMove(FieldContext context)
         {
-            // 判定対象は最右である1つめの移動可能スライムが対象
-            var first = context.MovableInfos[(int)MovableUnit.First];
+            var first = context.MovableSlimes[(int)MovableSlimeUnit.Index.First];
+            var second = context.MovableSlimes[(int)MovableSlimeUnit.Index.Second];
 
             // 壁を越えないか？
+            // 壁越えチェック対象は最右である1つめの移動可能スライムが対象
             if (!(((1u << first.Position) & 0xf8f8f8f8u) > 0))
             {
                 return false;
             }
 
             // 移動場所に他スライムが存在していないか？
-            if (FieldContextHelper.ExistsSlime(context, first.Index, first.Position + RightSpeed))
+            // 縦向きの場合は最下である2つめの移動可能スライムが対象
+            var form = MovableSlimeUnit.GetForm(context.MovableSlimes);
+            if (form == MovableSlimeUnit.Form.Vertical &&
+                FieldContextHelper.ExistsSlime(context, second.Index, second.Position + RightSpeed))
+            {
+                return false;
+            }
+
+            // 移動場所に他スライムが存在していないか？
+            // 横向きの場合は最右である1つめの移動可能スライムが対象
+            if (form == MovableSlimeUnit.Form.Horizontal &&
+                FieldContextHelper.ExistsSlime(context, first.Index, first.Position + RightSpeed))
             {
                 return false;
             }
@@ -137,7 +151,7 @@ namespace Hermann.Collections
         private static bool IsEnabledLeftMove(FieldContext context)
         {
             // 判定対象は最左である2つめの移動可能スライムが対象
-            var shift = context.MovableInfos[(int)MovableUnit.Second].Position;
+            var shift = context.MovableSlimes[(int)MovableSlimeUnit.Index.Second].Position;
 
             return (((1u << shift) & 0x7f7f7f7fu) > 0);
         }
@@ -151,7 +165,7 @@ namespace Hermann.Collections
         private static int ModifyDownShift(FieldContext context, int shift)
         {
             // 判定対象は最下である2つめの移動可能スライムが対象
-            var second = context.MovableInfos[(int)MovableUnit.Second];
+            var second = context.MovableSlimes[(int)MovableSlimeUnit.Index.Second];
             var position = second.Position + shift;
             var index = second.Index + (position / FieldContextConfig.FieldUnitBitCount);
 

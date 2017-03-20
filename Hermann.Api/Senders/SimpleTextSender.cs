@@ -91,7 +91,7 @@ namespace Hermann.Api.Senders
         /// <returns>指定されたフィールドのユニットに移動可能なスライムが存在するかどうか</returns>
         private static bool isExistsMovableUnit(FieldContext context, int unitIndex)
         {
-            return context.MovableInfos.Any(m => m.Index == unitIndex);
+            return context.MovableSlimes.Any(m => m.Index == unitIndex);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Hermann.Api.Senders
         /// <returns>指定されたフィールドのポジションに移動可能なスライムが存在するかどうか</returns>
         private static bool isExistsMovablePosition(FieldContext context, int position)
         {
-            return context.MovableInfos.Any(m => m.Position == position);
+            return context.MovableSlimes.Any(m => m.Position == position);
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace Hermann.Api.Senders
         /// <returns>指定された場所に移動可能なスライムが存在するかどうか</returns>
         private static bool isExsitsMovableColor(FieldContext context, Slime slime, int unitIndex, int position)
         {
-            return context.MovableInfos.Any(m => m.Slime == slime && m.Index == unitIndex && m.Position == position);
+            return context.MovableSlimes.Any(m => m.Slime == slime && m.Index == unitIndex && m.Position == position);
         }
     }
 }

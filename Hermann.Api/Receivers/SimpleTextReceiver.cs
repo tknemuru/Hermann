@@ -60,7 +60,7 @@ namespace Hermann.Api.Receivers
             }
 
             // 移動可能なスライム
-            var movableUnit = MovableUnit.First;
+            var movableUnit = MovableSlimeUnit.Index.First;
             var isEnd = false;
             foreach (Slime slime in ExtensionSlime.Slimes)
             {
@@ -77,18 +77,19 @@ namespace Hermann.Api.Receivers
                     {
                         if (IsExistsMovableColor(slime, blocks[j]))
                         {
-                            var movable = new MovableInfo();
+                            var movable = new MovableSlime();
                             movable.Slime = slime;
                             movable.Index = fieldIndex;
                             movable.Position = (baseShift * 8) + shift;
-                            context.MovableInfos[(int)movableUnit] = movable;
+                            context.MovableSlimes[(int)movableUnit] = movable;
 
-                            if (movableUnit == MovableUnit.Second) {
+                            if (movableUnit == MovableSlimeUnit.Index.Second)
+                            {
                                 isEnd = true;
                                 break;
                             }
- 
-                            movableUnit = MovableUnit.Second;
+
+                            movableUnit = MovableSlimeUnit.Index.Second;
                         }
                         shift--;
                     }
@@ -113,11 +114,10 @@ namespace Hermann.Api.Receivers
             // ↓
             // 2
             // とする
-            context.MovableInfos = context.MovableInfos
+            context.MovableSlimes = context.MovableSlimes
                 .OrderBy(m => m.Index)
                 .ThenBy(m => m.Position)
                 .ToArray();
-
 
             return context;
         }
