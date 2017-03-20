@@ -150,10 +150,22 @@ namespace Hermann.Collections
         /// <returns>左に移動可能かどうか</returns>
         private static bool IsEnabledLeftMove(FieldContext context)
         {
-            // 判定対象は最左である2つめの移動可能スライムが対象
-            var shift = context.MovableSlimes[(int)MovableSlimeUnit.Index.Second].Position;
+            // 判定対象は最左・最下である2つめの移動可能スライムが対象
+            var second = context.MovableSlimes[(int)MovableSlimeUnit.Index.Second];
 
-            return (((1u << shift) & 0x7f7f7f7fu) > 0);
+            // 壁を越えないか？
+            if (!(((1u << second.Position) & 0x7f7f7f7fu) > 0))
+            {
+                return false;
+            }
+
+            // 移動場所に他スライムが存在していないか？
+            if (FieldContextHelper.ExistsSlime(context, second.Index, second.Position + LeftSpeed))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
