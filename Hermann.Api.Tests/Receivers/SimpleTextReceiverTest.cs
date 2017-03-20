@@ -27,7 +27,7 @@ namespace Hermann.Api.Tests.Receivers
 
             // 検証
             // 1P:右
-            Assert.AreEqual(Convert.ToUInt32("0100", 2), context.Command);
+            Assert.AreEqual(Convert.ToUInt32("1000", 2), context.Command);
 
             // 2行目の左から2番目に赤がひとつ存在する
             TestHelper.AssertAreEqualUint(TestHelper.GetField(2, 2), context.SlimeFields[Slime.Red][0]);

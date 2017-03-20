@@ -28,10 +28,10 @@ namespace Hermann.Api.Receivers
             uint command = 0x0;
 
             // プレイヤ
-            command |= uint.Parse(lines[(int)SimpleText.Lines.Player]);
+            command = Command.SetPlayer(command, uint.Parse(lines[(int)SimpleText.Lines.Player]));
 
             // 操作方向
-            command |= (uint)SimpleText.ConvertDirection(lines[(int)SimpleText.Lines.Direction]);
+            command = Command.SetDirection(command, (Command.Direction)SimpleText.ConvertDirection(lines[(int)SimpleText.Lines.Direction]));
             context.Command = command;
 
             // 状態

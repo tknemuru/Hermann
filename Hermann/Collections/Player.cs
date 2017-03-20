@@ -15,12 +15,12 @@ namespace Hermann.Collections
         /// <summary>
         /// 1P
         /// </summary>
-        public const int First = 0;
+        public const uint First = 0;
 
         /// <summary>
         /// 2P
         /// </summary>
-        public const int Second = 1;
+        public const uint Second = 1;
 
         /// <summary>
         /// プレイヤ数

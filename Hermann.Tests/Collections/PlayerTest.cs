@@ -17,10 +17,10 @@ namespace Hermann.Tests.Collections
     public class PlayerTest
     {
         /// <summary>
-        /// 001:Moveで上部において右に移動できる
+        /// 001:Moveで1つ目のフィールド単位において右に移動できる
         /// </summary>
         [TestMethod]
-        public void Moveで上部において右に移動できる()
+        public void Moveで1つ目のフィールド単位において右に移動できる()
         {
             var context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-001-001.txt");
             var actualContext = Player.Move(context);
@@ -30,14 +30,27 @@ namespace Hermann.Tests.Collections
         }
 
         /// <summary>
-        /// 002:Moveで上部において最右にいる場合は移動しない
+        /// 002:Moveで1つ目のフィールド単位において最右にいる場合は移動しない
         /// </summary>
         [TestMethod]
-        public void Moveで上部において最右にいる場合は移動しない()
+        public void Moveで1つ目のフィールド単位において最右にいる場合は移動しない()
         {
             var context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-002-001.txt");
             var actualContext = Player.Move(context);
             var expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-002-001.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+        }
+
+        /// <summary>
+        /// 003:Moveで1つ目のフィールド単位において左に移動できる
+        /// </summary>
+        [TestMethod]
+        public void Moveで1つ目のフィールド単位において左に移動できる()
+        {
+            var context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-003-001.txt");
+            var actualContext = Player.Move(context);
+            var expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-003-001.txt");
 
             TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
         }

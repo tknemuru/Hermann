@@ -23,7 +23,7 @@ namespace Hermann.Api.Senders
         {
             var sb = new StringBuilder();
             var command = context.Command;
-            var player = Command.GetPlyer(command);
+            var player = Command.GetPlayer(command);
             sb.AppendLine(player.ToString());
             var direction = Command.GetDirection(command);
             sb.AppendLine(SimpleText.ConvertDirection(direction));

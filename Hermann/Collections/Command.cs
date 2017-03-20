@@ -53,13 +53,29 @@ namespace Hermann.Collections
         private const uint DirectionMask = 0x0000000eu;
 
         /// <summary>
+        /// 方向のシフト量
+        /// </summary>
+        private const int DirectionShift = 1;
+
+        /// <summary>
         /// プレイヤを取得します。
         /// </summary>
-        /// <param name="command"></param>
-        /// <returns></returns>
-        public static uint GetPlyer(uint command)
+        /// <param name="command">コマンド</param>
+        /// <returns>プレイヤ</returns>
+        public static uint GetPlayer(uint command)
         {
             return command & Command.PlayerMask;
+        }
+
+        /// <summary>
+        /// プレイヤをセットします。
+        /// </summary>
+        /// <param name="command">コマンド</param>
+        /// <param name="player">プレイヤ</param>
+        /// <returns>プレイヤをセットしたコマンド</returns>
+        public static uint SetPlayer(uint command, uint player)
+        {
+            return command | player;
         }
 
         /// <summary>
@@ -69,7 +85,18 @@ namespace Hermann.Collections
         /// <returns></returns>
         public static Direction GetDirection(uint command)
         {
-            return (Direction)(command & DirectionMask);
+            return (Direction)((command & DirectionMask) >> DirectionShift);
+        }
+
+        /// <summary>
+        /// 移動方向をセットします。
+        /// </summary>
+        /// <param name="command">コマンド</param>
+        /// <param name="direction">移動方向</param>
+        /// <returns>移動方向をセットしたコマンド</returns>
+        public static uint SetDirection(uint command, Direction direction)
+        {
+            return command | ((uint)direction << DirectionShift);
         }
     }
 }

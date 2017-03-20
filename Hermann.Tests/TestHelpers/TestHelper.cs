@@ -99,7 +99,7 @@ namespace Hermann.Tests.TestHelpers
         public static void AssertAreEqualUint(uint expected, uint actual)
         {
             Assert.AreEqual(expected, actual,
-                Environment.NewLine + "[expented] : {0}" + Environment.NewLine + " [actual] : {1}",
+                Environment.NewLine + "[expected] : {0}" + Environment.NewLine + " [actual] : {1}",
                 ConvertUintToDebugFieldStr(expected), ConvertUintToDebugFieldStr(actual));
         }
 
@@ -111,7 +111,7 @@ namespace Hermann.Tests.TestHelpers
         public static void AssertEqualsFieldContext(FieldContext expected, FieldContext actual)
         {
             Assert.IsTrue(expected.Equals(actual),
-                Environment.NewLine + "[expented] :" + Environment.NewLine + "{0}" + Environment.NewLine + " [actual] :" + Environment.NewLine + "{1}",
+                Environment.NewLine + "[expected] :" + Environment.NewLine + "{0}" + Environment.NewLine + " [actual] :" + Environment.NewLine + "{1}",
                 Sender.Send(expected), Sender.Send(actual));
         }
 
