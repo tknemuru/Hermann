@@ -176,7 +176,7 @@ namespace Hermann.Collections
         /// <returns></returns>
         private static int ModifyDownShift(FieldContext context, int shift)
         {
-            // 判定対象は最下である2つめの移動可能スライムが対象
+            // 底辺越えの判定対象は最下である2つめの移動可能スライムが対象
             var second = context.MovableSlimes[(int)MovableSlimeUnit.Index.Second];
             var position = second.Position + shift;
             var index = second.Index + (position / FieldContextConfig.FieldUnitBitCount);
@@ -187,7 +187,39 @@ namespace Hermann.Collections
                 shift -= (((position - FieldContextConfig.FieldUnitBitCount) / FieldContextConfig.OneLineBitCount) + 1) * FieldContextConfig.OneLineBitCount;
             }
 
-            return shift;
+            // 移動先に他スライムが存在している場合は、それ以上下に移動させない
+            var first = context.MovableSlimes[(int)MovableSlimeUnit.Index.First];
+            var maxShiftLine = shift / FieldContextConfig.OneLineBitCount;
+            var shiftLine = maxShiftLine;
+
+            // 1行ずつ移動して移動場所に他スライムが存在するか確認していく
+            for (var line = 1; line <= maxShiftLine; line++)
+            {
+                // 2つめは縦横どちらでも検証が必要
+                position = second.Position + (line * FieldContextConfig.OneLineBitCount);
+                index = second.Index + (position / FieldContextConfig.FieldUnitBitCount);
+                if (FieldContextHelper.ExistsSlime(context, index, position))
+                {
+                    // 他スライムのひとつ上まで移動させる
+                    shiftLine = line - 1;
+                    break;
+                }
+
+                // 1つめは横向きの場合のみ検証が必要
+                if (MovableSlimeUnit.GetForm(context.MovableSlimes) == MovableSlimeUnit.Form.Horizontal)
+                {
+                    position = first.Position + (line * FieldContextConfig.OneLineBitCount);
+                    index = first.Index + (position / FieldContextConfig.FieldUnitBitCount);
+                    if (FieldContextHelper.ExistsSlime(context, index, position))
+                    {
+                        // 他スライムのひとつ上まで移動させる
+                        shiftLine = line - 1;
+                        break;
+                    }
+                }
+            }
+
+            return shiftLine * FieldContextConfig.OneLineBitCount;
         }
     }
 }

@@ -151,5 +151,33 @@ namespace Hermann.Tests.Collections
 
             TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
         }
+
+        /// <summary>
+        /// 009:Moveで下移動時に移動場所に他のスライムが存在する場合はそれ以上下に移動しない
+        /// </summary>
+        [TestMethod]
+        public void Moveで下移動時に移動場所に他のスライムが存在する場合はそれ以上下に移動しない()
+        {
+            // 001:横並び（2つめが他スライムとバッティングする）
+            var context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-009-001.txt");
+            var actualContext = Player.Move(context);
+            var expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-009-001.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+
+            // 002:縦並び
+            context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-009-002.txt");
+            actualContext = Player.Move(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-009-002.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+
+            // 003:横並び（1つめが他スライムとバッティングする）
+            context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-009-003.txt");
+            actualContext = Player.Move(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-009-003.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+        }
     }
 }
