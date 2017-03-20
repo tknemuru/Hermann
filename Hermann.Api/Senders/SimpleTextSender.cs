@@ -48,7 +48,7 @@ namespace Hermann.Api.Senders
             for (var unitIndex = 0; unitIndex < FieldContextConfig.FieldUnitCount; unitIndex++)
             {
                 possibilityOfExistsMovableUnit = isExistsMovableUnit(context, unitIndex);
-                for (var i = 0; i < 32; i++)
+                for (var i = 0; i < FieldContextConfig.FieldUnitBitCount; i++)
                 {
                     if (possibilityOfExistsMovableUnit)
                     {

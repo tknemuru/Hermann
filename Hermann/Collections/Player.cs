@@ -28,6 +28,12 @@ namespace Hermann.Collections
         public const int PlayerCount = 2;
 
         /// <summary>
+        /// 下に動かす際の速度
+        /// 数値は動かす行数を示す
+        /// </summary>
+        private const int DownSpeed = 4;
+
+        /// <summary>
         /// スライムを動かします。
         /// </summary>
         /// <param name="context">コンテキスト</param>
@@ -43,7 +49,7 @@ namespace Hermann.Collections
                     // TODO:あとで実装
                     throw new NotSupportedException();
                 case Command.Direction.Down:
-                    Move(context, 8);
+                    Move(context, 8 * DownSpeed);
                     break;
                 case Command.Direction.Left:
                     if (IsEnabledLeftMove(context))
@@ -81,13 +87,10 @@ namespace Hermann.Collections
             // ２．スライムを移動させる
             foreach (var movable in context.MovableInfos)
             {
-                var index = movable.Index;
-                var position = movable.Position;
-                if((movable.Position + shift) > 0)
-                {
-                    context.SlimeFields[movable.Slime][index] |= 1u << (position + shift);
-                    movable.Position = (position + shift);
-                }
+                var position = movable.Position + shift;
+                movable.Index = position / FieldContextConfig.FieldUnitBitCount;
+                movable.Position = position % FieldContextConfig.FieldUnitBitCount;
+                context.SlimeFields[movable.Slime][movable.Index] |= 1u << movable.Position;
             }
         }
 

@@ -123,7 +123,7 @@ namespace Hermann.Tests.TestHelpers
         private static string ConvertUintToDebugFieldStr(uint value)
         {
             var field = Convert.ToString(value, 2);
-            field = field.PadLeft(32, '0');
+            field = field.PadLeft(FieldContextConfig.FieldUnitBitCount, '0');
             var fieldStates = field.ToCharArray().Reverse().ToArray();
             var result = new StringBuilder();
             

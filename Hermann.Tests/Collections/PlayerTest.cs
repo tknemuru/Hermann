@@ -83,5 +83,18 @@ namespace Hermann.Tests.Collections
 
             TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
         }
+
+        /// <summary>
+        /// 005:Moveで1つ目のフィールド単位において下に移動できる
+        /// </summary>
+        [TestMethod]
+        public void Moveで1つ目のフィールド単位において下に移動できる()
+        {
+            var context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-005-001.txt");
+            var actualContext = Player.Move(context);
+            var expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-005-001.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+        }
     }
 }
