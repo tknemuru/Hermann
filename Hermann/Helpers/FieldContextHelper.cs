@@ -19,9 +19,9 @@ namespace Hermann.Helpers
         /// <param name="index">フィールド単位のインデックス</param>
         /// <param name="position">フィールド単位内の場所</param>
         /// <returns></returns>
-        public static bool ExistsSlime(FieldContext context, int index, int position)
+        public static bool ExistsSlime(FieldContext context, int player, int index, int position)
         {
-            return context.SlimeFields.Any(f => (f.Value[index] & (1u << position)) > 0u);
+            return context.SlimeFields[player].Any(f => (f.Value[index] & (1u << position)) > 0u);
         }
     }
 }

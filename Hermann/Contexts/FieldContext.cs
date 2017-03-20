@@ -13,27 +13,37 @@ namespace Hermann.Contexts
     public class FieldContext
     {
         /// <summary>
-        /// コマンド
+        /// プレイヤ
         /// </summary>
-        public uint Command { get; set; }
+        public int OperationPlayer { get; set; }
+
+        /// <summary>
+        /// 方向
+        /// </summary>
+        public Direction OperationDirection { get; set; }
 
         /// <summary>
         /// 移動可能なスライム
         /// </summary>
-        public MovableSlime[] MovableSlimes { get; set; }
+        public MovableSlime[][] MovableSlimes { get; set; }
 
         /// <summary>
         /// スライムごとの配置状態
         /// </summary>
-        public Dictionary<Slime, uint[]> SlimeFields { get; set; }
+        public Dictionary<Slime, uint[]>[] SlimeFields { get; set; }
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         public FieldContext()
         {
-            this.MovableSlimes = new MovableSlime[MovableSlimeUnit.Length];
-            this.SlimeFields = new Dictionary<Slime, uint[]>();
+            this.MovableSlimes = new MovableSlime[Player.Length][];
+            this.MovableSlimes[Player.First] = new MovableSlime[MovableSlimeUnit.Length];
+            this.MovableSlimes[Player.Second] = new MovableSlime[MovableSlimeUnit.Length];
+
+            this.SlimeFields = new Dictionary<Slime, uint[]>[Player.Length];
+            this.SlimeFields[Player.First] = new Dictionary<Slime, uint[]>();
+            this.SlimeFields[Player.Second] = new Dictionary<Slime, uint[]>();
         }
 
         /// <summary>
@@ -51,23 +61,33 @@ namespace Hermann.Contexts
             var context = (FieldContext)obj;
             var equals = new List<bool>();
             
-            // コマンド
-            equals.Add(context.Command == this.Command);
+            // プレイヤ
+            equals.Add(context.OperationPlayer == this.OperationPlayer);
 
-            // スライムごとの配置状態
-            equals.Add(context.SlimeFields.Count == this.SlimeFields.Count);
-            foreach (var slime in context.SlimeFields.Keys)
+            // 方向
+            equals.Add(context.OperationDirection == this.OperationDirection);
+
+            for (var player = Player.First; player < Player.Length; player++)
             {
-                for (var i = 0; i < context.SlimeFields[slime].Length; i++)
+                // スライムごとの配置状態
+                var slimeFields = context.SlimeFields[player];
+                var mySlimeFields = this.SlimeFields[player];
+                equals.Add(slimeFields.Count == mySlimeFields.Count);
+                foreach (var slime in slimeFields.Keys)
                 {
-                    equals.Add(context.SlimeFields[slime][i] == this.SlimeFields[slime][i]);
+                    for (var i = 0; i < slimeFields[slime].Length; i++)
+                    {
+                        equals.Add(slimeFields[slime][i] == mySlimeFields[slime][i]);
+                    }
                 }
-            }
 
-            // 移動可能なスライムの配置状態
-            equals.Add(context.MovableSlimes.Length == this.MovableSlimes.Length);
-            equals.Add(context.MovableSlimes[(int)MovableSlimeUnit.Index.First].Equals(this.MovableSlimes[(int)MovableSlimeUnit.Index.First]));
-            equals.Add(context.MovableSlimes[(int)MovableSlimeUnit.Index.Second].Equals(this.MovableSlimes[(int)MovableSlimeUnit.Index.Second]));
+                // 移動可能なスライムの配置状態
+                var movable = context.MovableSlimes[player];
+                var myMovable = this.MovableSlimes[player];
+                equals.Add(movable.Length == myMovable.Length);
+                equals.Add(movable[(int)MovableSlimeUnit.Index.First].Equals(myMovable[(int)MovableSlimeUnit.Index.First]));
+                equals.Add(movable[(int)MovableSlimeUnit.Index.Second].Equals(myMovable[(int)MovableSlimeUnit.Index.Second]));
+            }
 
             return equals.All(e => e);
         }
@@ -78,7 +98,7 @@ namespace Hermann.Contexts
         /// <returns>現在のオブジェクトのハッシュ コード。</returns>
         public override int GetHashCode()
         {
-            return (int)this.Command ^ this.MovableSlimes.GetHashCode() ^ this.SlimeFields.GetHashCode();
+            return this.OperationPlayer ^ (int)this.OperationDirection ^ this.MovableSlimes.GetHashCode() ^ this.SlimeFields.GetHashCode();
         }
     }
 }

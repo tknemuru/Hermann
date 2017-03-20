@@ -25,99 +25,102 @@ namespace Hermann.Api.Receivers
             var context = new FieldContext();
             var lines = FileHelper.ReadTextLines(source).ToArray();
             Debug.Assert((lines.Length == SimpleText.LineCount), string.Format("テキストファイルの行数が不正です。{0}", lines.Length));
-            uint command = 0x0;
 
             // プレイヤ
-            command = Command.SetPlayer(command, uint.Parse(lines[(int)SimpleText.Lines.Player]));
+            context.OperationPlayer = int.Parse(lines[(int)SimpleText.Lines.Player]);
 
             // 操作方向
-            command = Command.SetDirection(command, (Command.Direction)SimpleText.ConvertDirection(lines[(int)SimpleText.Lines.Direction]));
-            context.Command = command;
+            context.OperationDirection = (Direction)SimpleText.ConvertDirection(lines[(int)SimpleText.Lines.Direction]);
 
             // 状態
-            foreach (Slime slime in ExtensionSlime.Slimes)
+            for (var player = Player.First; player < Player.Length; player++)
             {
-                var shift = 0;
-                var state = 0x0u;
-                var field = new uint[FieldContextConfig.FieldUnitCount];
-                var fieldIndex = 0;
-                for (var i = (int)SimpleText.Lines.FieldStart; i < SimpleText.LineCount; i++)
+                var slimeFiels = context.SlimeFields[player];
+                foreach (Slime slime in ExtensionSlime.Slimes)
                 {
-                    var line = lines[i];
-                    state |= ConvertStateToUint(slime, line) << (shift * 8);
-                    shift++;
-
-                    // フィールドの境目か？
-                    if ((i - (int)SimpleText.Lines.FieldStart) % FieldContextConfig.FieldLineCount >= (FieldContextConfig.FieldLineCount - 1))
+                    var shift = 0;
+                    var state = 0x0u;
+                    var field = new uint[FieldContextConfig.FieldUnitCount];
+                    var fieldIndex = 0;
+                    for (var i = (int)SimpleText.Lines.FieldStart; i < SimpleText.LineCount; i++)
                     {
-                        field[fieldIndex] = state;
-                        shift = 0;
-                        state = 0x0u;
-                        fieldIndex++;
-                    }
-                }
-                context.SlimeFields.Add(slime, field);
-            }
+                        var line = lines[i];
+                        state |= ConvertStateToUint(slime, line, player) << (shift * 8);
+                        shift++;
 
-            // 移動可能なスライム
-            var movableUnit = MovableSlimeUnit.Index.First;
-            var isEnd = false;
-            foreach (Slime slime in ExtensionSlime.Slimes)
-            {
-                var baseShift = 0;
-                var field = new uint[FieldContextConfig.FieldUnitCount];
-                var fieldIndex = 0;
-                for (var i = (int)SimpleText.Lines.FieldStart; i < SimpleText.LineCount; i++)
-                {
-                    var line = lines[i];
-                    var blocks = line.ToCharArray();
-                    Debug.Assert((blocks.Length == 6), string.Format("状態の長さが不正です。{0}", blocks.Length));
-                    var shift = blocks.Length + 1;
-                    for (var j = 0; j < blocks.Length; j++)
-                    {
-                        if (IsExistsMovableColor(slime, blocks[j]))
+                        // フィールドの境目か？
+                        if ((i - (int)SimpleText.Lines.FieldStart) % FieldContextConfig.FieldLineCount >= (FieldContextConfig.FieldLineCount - 1))
                         {
-                            var movable = new MovableSlime();
-                            movable.Slime = slime;
-                            movable.Index = fieldIndex;
-                            movable.Position = (baseShift * 8) + shift;
-                            context.MovableSlimes[(int)movableUnit] = movable;
-
-                            if (movableUnit == MovableSlimeUnit.Index.Second)
-                            {
-                                isEnd = true;
-                                break;
-                            }
-
-                            movableUnit = MovableSlimeUnit.Index.Second;
+                            field[fieldIndex] = state;
+                            shift = 0;
+                            state = 0x0u;
+                            fieldIndex++;
                         }
-                        shift--;
                     }
-
-                    if (isEnd) { break; }
-                    baseShift++;
-
-                    // フィールドの境目か？
-                    if ((i - (int)SimpleText.Lines.FieldStart) % FieldContextConfig.FieldLineCount >= (FieldContextConfig.FieldLineCount - 1))
-                    {
-                        baseShift = 0;
-                        fieldIndex++;
-                    }
+                    slimeFiels.Add(slime, field);
                 }
-                if (isEnd) { break; }
-            }
 
-            // 移動可能スライムの順番整形
-            // 横の場合は、2←1とする
-            // 縦の場合は、
-            // 1
-            // ↓
-            // 2
-            // とする
-            context.MovableSlimes = context.MovableSlimes
-                .OrderBy(m => m.Index)
-                .ThenBy(m => m.Position)
-                .ToArray();
+                // 移動可能なスライム
+                var movableSlimes = context.MovableSlimes[player];
+                var movableUnit = MovableSlimeUnit.Index.First;
+                var isEnd = false;
+                foreach (Slime slime in ExtensionSlime.Slimes)
+                {
+                    var baseShift = 0;
+                    var field = new uint[FieldContextConfig.FieldUnitCount];
+                    var fieldIndex = 0;
+                    for (var i = (int)SimpleText.Lines.FieldStart; i < SimpleText.LineCount; i++)
+                    {
+                        var line = lines[i].Split(SimpleText.FieldSeparator)[player];
+                        var blocks = line.ToCharArray();
+                        Debug.Assert((blocks.Length == 6), string.Format("状態の長さが不正です。{0}", blocks.Length));
+                        var shift = blocks.Length + 1;
+                        for (var j = 0; j < blocks.Length; j++)
+                        {
+                            if (IsExistsMovableColor(slime, blocks[j]))
+                            {
+                                var movable = new MovableSlime();
+                                movable.Slime = slime;
+                                movable.Index = fieldIndex;
+                                movable.Position = (baseShift * 8) + shift;
+                                movableSlimes[(int)movableUnit] = movable;
+
+                                if (movableUnit == MovableSlimeUnit.Index.Second)
+                                {
+                                    isEnd = true;
+                                    break;
+                                }
+
+                                movableUnit = MovableSlimeUnit.Index.Second;
+                            }
+                            shift--;
+                        }
+
+                        if (isEnd) { break; }
+                        baseShift++;
+
+                        // フィールドの境目か？
+                        if ((i - (int)SimpleText.Lines.FieldStart) % FieldContextConfig.FieldLineCount >= (FieldContextConfig.FieldLineCount - 1))
+                        {
+                            baseShift = 0;
+                            fieldIndex++;
+                        }
+                    }
+                    if (isEnd) { break; }
+                }
+
+                // 移動可能スライムの順番整形
+                // 横の場合は、2←1とする
+                // 縦の場合は、
+                // 1
+                // ↓
+                // 2
+                // とする
+                context.MovableSlimes[player] = movableSlimes
+                    .OrderBy(m => m.Index)
+                    .ThenBy(m => m.Position)
+                    .ToArray();
+            }
 
             return context;
         }
@@ -149,11 +152,14 @@ namespace Hermann.Api.Receivers
         /// </summary>
         /// <param name="slime">色</param>
         /// <param name="stateStr">状態を表す文字列</param>
+        /// <param name="player">変換対象のプレイヤ</param>
         /// <returns>uintに変換した状態</returns>
-        private static uint ConvertStateToUint(Slime slime, string stateStr)
+        private static uint ConvertStateToUint(Slime slime, string stateStr, int player)
         {
             var state = 0x0u;
-            var blocks = stateStr.ToCharArray();
+            var stateStrs = stateStr.Split(SimpleText.FieldSeparator);
+            Debug.Assert(stateStrs.Length == Player.Length, string.Format("フィールドの数が不正です。{0}", stateStrs.Length));
+            var blocks = stateStrs[player].ToCharArray();
             Debug.Assert((blocks.Length == 6), string.Format("状態の長さが不正です。{0}", blocks.Length));
             var shift = blocks.Length + 1;
             for (var i = 0; i < blocks.Length; i++)

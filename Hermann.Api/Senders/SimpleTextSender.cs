@@ -22,37 +22,42 @@ namespace Hermann.Api.Senders
         public string Send(FieldContext context)
         {
             var sb = new StringBuilder();
-            var command = context.Command;
-            var player = Command.GetPlayer(command);
-            sb.AppendLine(player.ToString());
-            var direction = Command.GetDirection(command);
-            sb.AppendLine(SimpleText.ConvertDirection(direction));
+
+            // プレイヤ
+            sb.AppendLine(context.OperationPlayer.ToString());
+
+            // 操作方向
+            sb.AppendLine(SimpleText.ConvertDirection(context.OperationDirection));
 
             // フィールド
-            AddField(sb, context);
+            var firstFieldList = CreateFieldList(context, Player.First);
+            var secondFieldList = CreateFieldList(context, Player.Second);
+            var field = MergeFieldList(firstFieldList, secondFieldList);
 
-            return sb.ToString();
-        }
+            return sb.ToString() + field.ToString();
+        }     
 
         /// <summary>
-        /// フィールド情報をStringBuilderに追加します。
+        /// フィールド情報の文字列リストを作成します。
         /// </summary>
-        /// <param name="sb">コンテキストを表すStringBuilder</param>
         /// <param name="field">フィールド</param>
+        /// <param name="player">プレイヤ</param>
         /// <param name="isBreak">繰り返し完了を判定するメソッド</param>
-        private static void AddField(StringBuilder sb, FieldContext context)
+        private static List<string> CreateFieldList(FieldContext context, int player)
         {
+            var fieldList = new List<string>();
             string line = string.Empty;
             var possibilityOfExistsMovableUnit = true;
             var possibilityOfExistsMovablePosition = true;
+            var slimeFields = context.SlimeFields[player];
             for (var unitIndex = 0; unitIndex < FieldContextConfig.FieldUnitCount; unitIndex++)
             {
-                possibilityOfExistsMovableUnit = isExistsMovableUnit(context, unitIndex);
+                possibilityOfExistsMovableUnit = isExistsMovableUnit(context, player, unitIndex);
                 for (var i = 0; i < FieldContextConfig.FieldUnitBitCount; i++)
                 {
                     if (possibilityOfExistsMovableUnit)
                     {
-                        possibilityOfExistsMovablePosition = isExistsMovablePosition(context, i);
+                        possibilityOfExistsMovablePosition = isExistsMovablePosition(context, player, i);
                     }
 
                     // フィールド外は除外
@@ -60,10 +65,10 @@ namespace Hermann.Api.Senders
 
                     bool isExists = ExtensionSlime.Slimes.Any(slime =>
                     {
-                        var exists = (context.SlimeFields[slime][unitIndex] & (1ul << i)) > 0u;
+                        var exists = (slimeFields[slime][unitIndex] & (1ul << i)) > 0u;
                         if (exists)
                         {
-                            line = (possibilityOfExistsMovablePosition && isExsitsMovableColor(context, slime, unitIndex, i)) ? SimpleText.ConvertMovableSlime(slime) + line : SimpleText.ConvertSlime(slime) + line;
+                            line = (possibilityOfExistsMovablePosition && isExsitsMovableColor(context, player, slime, unitIndex, i)) ? SimpleText.ConvertMovableSlime(slime) + line : SimpleText.ConvertSlime(slime) + line;
                         }
                         return exists;
                     });
@@ -76,46 +81,68 @@ namespace Hermann.Api.Senders
                     // 改行
                     if ((i % 8) == 7)
                     {
-                        sb.AppendLine(line);
+                        fieldList.Add(line);
                         line = string.Empty;
                     }
                 }
             }
+
+            return fieldList;
         }
 
         /// <summary>
         /// 指定されたフィールドのユニットに移動可能なスライムが存在するかどうかを判定します。
         /// </summary>
         /// <param name="context">フィールドの状態</param>
+        /// <param name="player">プレイヤ</param>
         /// <param name="unitIndex">判定対象のフィールドユニットのインデックス</param>
         /// <returns>指定されたフィールドのユニットに移動可能なスライムが存在するかどうか</returns>
-        private static bool isExistsMovableUnit(FieldContext context, int unitIndex)
+        private static bool isExistsMovableUnit(FieldContext context, int player, int unitIndex)
         {
-            return context.MovableSlimes.Any(m => m.Index == unitIndex);
+            return context.MovableSlimes[player].Any(m => m.Index == unitIndex);
         }
 
         /// <summary>
         /// 指定されたポジションに移動可能なスライムが存在するかどうかを判定します。
         /// </summary>
         /// <param name="context">フィールドの状態</param>
+        /// <param name="player">プレイヤ</param>
         /// <param name="position">判定対象のポジション</param>
         /// <returns>指定されたフィールドのポジションに移動可能なスライムが存在するかどうか</returns>
-        private static bool isExistsMovablePosition(FieldContext context, int position)
+        private static bool isExistsMovablePosition(FieldContext context, int player, int position)
         {
-            return context.MovableSlimes.Any(m => m.Position == position);
+            return context.MovableSlimes[player].Any(m => m.Position == position);
         }
 
         /// <summary>
         /// 指定された場所に移動可能なスライムが存在するかどうかを判定します。
         /// </summary>
         /// <param name="context">フィールドの状態</param>
+        /// <param name="player">プレイヤ</param>
         /// <param name="slime">スライム</param>
         /// <param name="unitIndex">フィールド単位のインデックス</param>
         /// <param name="position">ポジション</param>
         /// <returns>指定された場所に移動可能なスライムが存在するかどうか</returns>
-        private static bool isExsitsMovableColor(FieldContext context, Slime slime, int unitIndex, int position)
+        private static bool isExsitsMovableColor(FieldContext context, int player, Slime slime, int unitIndex, int position)
         {
-            return context.MovableSlimes.Any(m => m.Slime == slime && m.Index == unitIndex && m.Position == position);
+            return context.MovableSlimes[player].Any(m => m.Slime == slime && m.Index == unitIndex && m.Position == position);
+        }
+
+        /// <summary>
+        /// フィールド情報の文字列リストをマージします。
+        /// </summary>
+        /// <param name="first">1Pのフィールド情報文字列リスト</param>
+        /// <param name="second">2Pのフィールド情報文字列リスト</param>
+        /// <returns>マージしたフィールド情報文字列リスト</returns>
+        private static StringBuilder MergeFieldList(List<string> first, List<string> second)
+        {
+            Debug.Assert((first.Count == second.Count), string.Format("firstとsecondの要素数が等しくありません。first:{0} second:{1}", first.Count, second.Count));
+            var sb = new StringBuilder();
+            for (var i = 0; i < first.Count; i++)
+            {
+                sb.AppendLine(first[i] + SimpleText.FieldSeparator + second[i]);
+            }
+            return sb;
         }
     }
 }

@@ -23,19 +23,34 @@ namespace Hermann.Tests.Contexts
             var y = CreateEqualsTestDefaultFieldContext();
             Assert.IsTrue(x.Equals(y));
 
-            // コマンドが等しくない
+            // プレイヤが等しくない
             y = CreateEqualsTestDefaultFieldContext();
-            y.Command = 5u;
+            y.OperationPlayer = Player.First;
             Assert.IsFalse(x.Equals(y));
 
-            // 移動可能なスライムの配置状態が等しくない
+            // 方向が等しくない
             y = CreateEqualsTestDefaultFieldContext();
-            y.MovableSlimes[1] = new MovableSlime(Slime.Purple, 2, 5);
+            y.OperationDirection = Direction.Left;
             Assert.IsFalse(x.Equals(y));
 
-            // スライムごとの配置状態が等しくない
+            // 1Pの移動可能なスライムの配置状態が等しくない
             y = CreateEqualsTestDefaultFieldContext();
-            y.SlimeFields[Slime.Red] = new uint[] { 2u, 4u, 6u };
+            y.MovableSlimes[0][1] = new MovableSlime(Slime.Purple, 2, 5);
+            Assert.IsFalse(x.Equals(y));
+
+            // 2Pの移動可能なスライムの配置状態が等しくない
+            y = CreateEqualsTestDefaultFieldContext();
+            y.MovableSlimes[1][1] = new MovableSlime(Slime.Purple, 2, 5);
+            Assert.IsFalse(x.Equals(y));
+
+            // 1Pのスライムごとの配置状態が等しくない
+            y = CreateEqualsTestDefaultFieldContext();
+            y.SlimeFields[0][Slime.Red] = new uint[] { 2u, 4u, 6u };
+            Assert.IsFalse(x.Equals(y));
+
+            // 2Pのスライムごとの配置状態が等しくない
+            y = CreateEqualsTestDefaultFieldContext();
+            y.SlimeFields[1][Slime.Red] = new uint[] { 2u, 4u, 6u };
             Assert.IsFalse(x.Equals(y));
         }
 
@@ -46,19 +61,26 @@ namespace Hermann.Tests.Contexts
         private static FieldContext CreateEqualsTestDefaultFieldContext()
         {
             var context = new FieldContext();
-            
-            context.Command = 3u;
-            
-            context.MovableSlimes = new MovableSlime[2];
-            var first = new MovableSlime(Slime.Red, 1, 3);
-            var second = new MovableSlime(Slime.Blue, 2, 5);
-            context.MovableSlimes[0] = first;
-            context.MovableSlimes[1] = second;
 
-            var fields = new Dictionary<Slime, uint[]>();
-            fields.Add(Slime.Red, new uint[] {2u, 3u, 6u});
-            fields.Add(Slime.Blue, new uint[] { 3u, 4u, 7u });
-            context.SlimeFields = fields;
+            context.OperationPlayer = Player.Second;
+            context.OperationDirection = Direction.Right;
+
+            context.MovableSlimes[0] = new MovableSlime[2];
+            context.MovableSlimes[0][0] = new MovableSlime(Slime.Red, 1, 3);
+            context.MovableSlimes[0][1] = new MovableSlime(Slime.Blue, 2, 5);
+            context.MovableSlimes[1] = new MovableSlime[2];
+            context.MovableSlimes[1][0] = new MovableSlime(Slime.Green, 0, 4);
+            context.MovableSlimes[1][1] = new MovableSlime(Slime.Purple, 1, 6);
+
+            var fieldsFirst = new Dictionary<Slime, uint[]>();
+            fieldsFirst.Add(Slime.Red, new uint[] {2u, 3u, 6u});
+            fieldsFirst.Add(Slime.Blue, new uint[] { 3u, 4u, 7u });
+            context.SlimeFields[0] = fieldsFirst;
+
+            var fieldsSecond = new Dictionary<Slime, uint[]>();
+            fieldsSecond.Add(Slime.Red, new uint[] { 3u, 4u, 7u });
+            fieldsSecond.Add(Slime.Blue, new uint[] { 2u, 3u, 6u });
+            context.SlimeFields[1] = fieldsSecond;
 
             return context;
         }

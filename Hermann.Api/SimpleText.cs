@@ -39,6 +39,11 @@ namespace Hermann.Api
         public const int LineCount = 14;
 
         /// <summary>
+        /// プレイヤのフィールドを仕切る文字
+        /// </summary>
+        public const char FieldSeparator = '|';
+
+        /// <summary>
         /// 方向：無
         /// </summary>
         public const string DirectionNone = "無";
@@ -126,12 +131,12 @@ namespace Hermann.Api
         /// <summary>
         /// 方向の変換辞書
         /// </summary>
-        private static readonly Dictionary<Command.Direction, string> Directions = buildDirections();
+        private static readonly Dictionary<Direction, string> Directions = buildDirections();
 
         /// <summary>
         /// 方向の逆引き変換辞書
         /// </summary>
-        private static readonly Dictionary<string, Command.Direction> ReverseDirections = buildReverseDirections();
+        private static readonly Dictionary<string, Direction> ReverseDirections = buildReverseDirections();
 
         /// <summary>
         /// スライムの変換辞書
@@ -158,7 +163,7 @@ namespace Hermann.Api
         /// </summary>
         /// <param name="directions">変換前の方向</param>
         /// <returns>変換後の方向</returns>
-        public static string ConvertDirection(Command.Direction directions)
+        public static string ConvertDirection(Direction directions)
         {
             return Directions[directions];
         }
@@ -168,7 +173,7 @@ namespace Hermann.Api
         /// </summary>
         /// <param name="directions">変換前の方向</param>
         /// <returns>変換後の方向</returns>
-        public static Command.Direction ConvertDirection(string directions)
+        public static Direction ConvertDirection(string directions)
         {
             return ReverseDirections[directions];
         }
@@ -217,14 +222,14 @@ namespace Hermann.Api
         /// 方向の変換辞書を作成します。
         /// </summary>
         /// <returns>方向の変換辞書</returns>
-        private static Dictionary<Command.Direction, string> buildDirections()
+        private static Dictionary<Direction, string> buildDirections()
         {
-            var directions = new Dictionary<Command.Direction, string>();
-            directions.Add(Command.Direction.None, DirectionNone);
-            directions.Add(Command.Direction.Down, DirectionDown);
-            directions.Add(Command.Direction.Left, DirectionLeft);
-            directions.Add(Command.Direction.Right, DirectionRight);
-            directions.Add(Command.Direction.Up, DirectionUp);
+            var directions = new Dictionary<Direction, string>();
+            directions.Add(Direction.None, DirectionNone);
+            directions.Add(Direction.Down, DirectionDown);
+            directions.Add(Direction.Left, DirectionLeft);
+            directions.Add(Direction.Right, DirectionRight);
+            directions.Add(Direction.Up, DirectionUp);
             return directions;
         }
 
@@ -232,14 +237,14 @@ namespace Hermann.Api
         /// 方向の逆引き変換辞書を作成します。
         /// </summary>
         /// <returns>方向の逆引き変換辞書</returns>
-        private static Dictionary<string, Command.Direction> buildReverseDirections()
+        private static Dictionary<string, Direction> buildReverseDirections()
         {
-            var directions = new Dictionary<string, Command.Direction>();
-            directions.Add(DirectionNone, Command.Direction.None);
-            directions.Add(DirectionDown, Command.Direction.Down);
-            directions.Add(DirectionLeft, Command.Direction.Left);
-            directions.Add(DirectionRight, Command.Direction.Right);
-            directions.Add(DirectionUp, Command.Direction.Up);
+            var directions = new Dictionary<string, Direction>();
+            directions.Add(DirectionNone, Direction.None);
+            directions.Add(DirectionDown, Direction.Down);
+            directions.Add(DirectionLeft, Direction.Left);
+            directions.Add(DirectionRight, Direction.Right);
+            directions.Add(DirectionUp, Direction.Up);
             return directions;
         }
 
