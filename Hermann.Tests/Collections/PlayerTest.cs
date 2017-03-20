@@ -22,9 +22,17 @@ namespace Hermann.Tests.Collections
         [TestMethod]
         public void Moveで1つ目のフィールド単位において右に移動できる()
         {
+            // 001:異なる色
             var context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-001-001.txt");
             var actualContext = Player.Move(context);
             var expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-001-001.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+
+            // 002:同じ色
+            context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-001-002.txt");
+            actualContext = Player.Move(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-001-002.txt");
 
             TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
         }
@@ -48,9 +56,17 @@ namespace Hermann.Tests.Collections
         [TestMethod]
         public void Moveで1つ目のフィールド単位において左に移動できる()
         {
+            // 001:異なる色
             var context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-003-001.txt");
             var actualContext = Player.Move(context);
             var expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-003-001.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+
+            // 002:同じ色
+            context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-003-002.txt");
+            actualContext = Player.Move(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-003-002.txt");
 
             TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
         }

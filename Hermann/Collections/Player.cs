@@ -49,7 +49,10 @@ namespace Hermann.Collections
                     Move(context, 1);
                     break;
                 case Command.Direction.Right:
-                    Move(context, -1);
+                    if (IsEnabledRightMove(context))
+                    {
+                        Move(context, -1);
+                    }
                     break;
                 default :
                     throw new ApplicationException(string.Format("不正な方向です。{0}", direction));
@@ -66,15 +69,15 @@ namespace Hermann.Collections
         /// <param name="shift">シフト量</param>
         private static void Move(FieldContext context, int shift)
         {
+            // １．移動前スライムを消す
             foreach (var movable in context.MovableInfos)
             {
-                // １．移動可能か判定
-                if (!IsEnabledRightMove(context.SlimeFields[movable.Slime][movable.Index]))
-                {
-                    continue;
-                }
+                context.SlimeFields[movable.Slime][movable.Index] &= ~(1u << movable.Position);
+            }
 
-                // ２．スライムを移動させる
+            // ２．スライムを移動させる
+            foreach (var movable in context.MovableInfos)
+            {
                 var index = movable.Index;
                 var position = movable.Position;
                 if((movable.Position + shift) > 0)
@@ -82,20 +85,20 @@ namespace Hermann.Collections
                     context.SlimeFields[movable.Slime][index] |= 1u << (position + shift);
                     movable.Position = (position + shift);
                 }
-                
-                // ３．移動前スライムを消す
-                context.SlimeFields[movable.Slime][index] &= ~(1u << position);
             }
         }
 
         /// <summary>
         /// 右に移動可能かどうかを判定します。
         /// </summary>
-        /// <param name="field">フィールドの状態</param>
+        /// <param name="context">フィールドの状態</param>
         /// <returns>右に移動可能かどうか</returns>
-        private static bool IsEnabledRightMove(uint field)
+        private static bool IsEnabledRightMove(FieldContext context)
         {
-            return !((field & 0x0c0c0c0c0c0c0c0cul) > 0);
+            // 判定対象は最右である1つめの移動可能スライムが対象
+            var shift = context.MovableInfos[(int)MovableUnit.First].Position;
+
+            return (((1u << shift) & 0xf8f8f8f8u) > 0);
         }
     }
 }
