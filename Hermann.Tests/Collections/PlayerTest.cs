@@ -70,5 +70,18 @@ namespace Hermann.Tests.Collections
 
             TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
         }
+
+        /// <summary>
+        /// 004:Moveで1つ目のフィールド単位において最左にいる場合は移動しない
+        /// </summary>
+        [TestMethod]
+        public void Moveで1つ目のフィールド単位において最左にいる場合は移動しない()
+        {
+            var context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-004-001.txt");
+            var actualContext = Player.Move(context);
+            var expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-004-001.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+        }
     }
 }

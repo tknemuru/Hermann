@@ -46,7 +46,10 @@ namespace Hermann.Collections
                     Move(context, 8);
                     break;
                 case Command.Direction.Left:
-                    Move(context, 1);
+                    if (IsEnabledLeftMove(context))
+                    {
+                        Move(context, 1);
+                    }
                     break;
                 case Command.Direction.Right:
                     if (IsEnabledRightMove(context))
@@ -99,6 +102,19 @@ namespace Hermann.Collections
             var shift = context.MovableInfos[(int)MovableUnit.First].Position;
 
             return (((1u << shift) & 0xf8f8f8f8u) > 0);
+        }
+
+        /// <summary>
+        /// 左に移動可能かどうかを判定します。
+        /// </summary>
+        /// <param name="context">フィールドの状態</param>
+        /// <returns>左に移動可能かどうか</returns>
+        private static bool IsEnabledLeftMove(FieldContext context)
+        {
+            // 判定対象は最左である2つめの移動可能スライムが対象
+            var shift = context.MovableInfos[(int)MovableUnit.Second].Position;
+
+            return (((1u << shift) & 0x7f7f7f7fu) > 0);
         }
     }
 }
