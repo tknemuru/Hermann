@@ -25,5 +25,10 @@ namespace Hermann.Contexts
         /// フィールドを分割したユニット1つあたりのビット数
         /// </summary>
         public const int FieldUnitBitCount = 32;
+
+        /// <summary>
+        /// 1行あたりのビット数
+        /// </summary>
+        public const int OneLineBitCount = 8;
     }
 }

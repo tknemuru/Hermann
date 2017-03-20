@@ -96,5 +96,18 @@ namespace Hermann.Tests.Collections
 
             TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
         }
+
+        /// <summary>
+        /// 006:Moveで底辺を超える場合は底辺に着地する
+        /// </summary>
+        [TestMethod]
+        public void Moveで底辺を超える場合は底辺に着地する()
+        {
+            var context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-006-001.txt");
+            var actualContext = Player.Move(context);
+            var expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-006-001.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+        }
     }
 }

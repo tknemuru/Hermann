@@ -49,7 +49,7 @@ namespace Hermann.Collections
                     // TODO:あとで実装
                     throw new NotSupportedException();
                 case Command.Direction.Down:
-                    Move(context, 8 * DownSpeed);
+                    Move(context, ModifyDownShift(context, 8 * DownSpeed));
                     break;
                 case Command.Direction.Left:
                     if (IsEnabledLeftMove(context))
@@ -88,7 +88,7 @@ namespace Hermann.Collections
             foreach (var movable in context.MovableInfos)
             {
                 var position = movable.Position + shift;
-                movable.Index = position / FieldContextConfig.FieldUnitBitCount;
+                movable.Index += (position / FieldContextConfig.FieldUnitBitCount);
                 movable.Position = position % FieldContextConfig.FieldUnitBitCount;
                 context.SlimeFields[movable.Slime][movable.Index] |= 1u << movable.Position;
             }
@@ -118,6 +118,28 @@ namespace Hermann.Collections
             var shift = context.MovableInfos[(int)MovableUnit.Second].Position;
 
             return (((1u << shift) & 0x7f7f7f7fu) > 0);
+        }
+
+        /// <summary>
+        /// 下に移動するシフト量の調整を行います。
+        /// </summary>
+        /// <param name="context">フィールドの状態</param>
+        /// <param name="shift">シフト量</param>
+        /// <returns></returns>
+        private static int ModifyDownShift(FieldContext context, int shift)
+        {
+            // 判定対象は最下である2つめの移動可能スライムが対象
+            var second = context.MovableInfos[(int)MovableUnit.Second];
+            var position = second.Position + shift;
+            var index = second.Index + (position / FieldContextConfig.FieldUnitBitCount);
+
+            if (index > FieldContextConfig.FieldUnitCount - 1)
+            {
+                // 底辺を越えている場合は、底辺に着地させる
+                shift -= (((position - FieldContextConfig.FieldUnitBitCount) / FieldContextConfig.OneLineBitCount) + 1) * FieldContextConfig.OneLineBitCount;
+            }
+
+            return shift;
         }
     }
 }

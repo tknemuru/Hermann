@@ -35,11 +35,6 @@ namespace Hermann.Tests.TestHelpers
         public static SimpleTextSender Sender { get; private set; }
 
         /// <summary>
-        /// 1行あたりのシフト量
-        /// </summary>
-        private const int OneLineShift = 8;
-
-        /// <summary>
         /// コンストラクタ
         /// </summary>
         static TestHelper()
@@ -56,7 +51,7 @@ namespace Hermann.Tests.TestHelpers
         /// <returns>シフト量</returns>
         public static int GetShift(int lineIndex)
         {
-            return ((lineIndex + (FieldContextConfig.FieldLineCount - 1)) % FieldContextConfig.FieldLineCount) * OneLineShift;
+            return ((lineIndex + (FieldContextConfig.FieldLineCount - 1)) % FieldContextConfig.FieldLineCount) * FieldContextConfig.OneLineBitCount;
         }
 
         /// <summary>
@@ -67,7 +62,7 @@ namespace Hermann.Tests.TestHelpers
         /// <returns>指定した行・列のシフト量</returns>
         public static int GetShift(int lineIndex, int columnIndex)
         {
-            return GetShift(lineIndex) + (OneLineShift - columnIndex);
+            return GetShift(lineIndex) + (FieldContextConfig.OneLineBitCount - columnIndex);
         }
 
         /// <summary>
