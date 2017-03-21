@@ -178,6 +178,51 @@ namespace Hermann.Tests.Collections
             expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-009-003.txt");
 
             TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+
+            // 004:横並び（2つめが他スライムとバッティングする）
+            context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-009-004.txt");
+            actualContext = Player.Move(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-009-004.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+        }
+
+        /// <summary>
+        /// 010:Moveで1つ目のフィールド単位において何もしないで自動的に下に移動する
+        /// </summary>
+        [TestMethod]
+        public void Moveで1つ目のフィールド単位において何もしないで自動的に下に移動する()
+        {
+            var context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-010-001.txt");
+            var actualContext = Player.Move(context);
+            var expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-010-001.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+        }
+
+        /// <summary>
+        /// 011:Moveで1つ目のフィールド単位において何もしないで移動場所に他スライムがいる場合はそれ以上下に移動しない
+        /// </summary>
+        [TestMethod]
+        public void Moveで1つ目のフィールド単位において何もしないで移動場所に他スライムがいる場合はそれ以上下に移動しない()
+        {
+            // 001:縦向き
+            var context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-011-001.txt");
+            var actualContext = Player.Move(context);
+            var expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-011-001.txt");
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+
+            // 002:横並び（1つめが他スライムとバッティングする）
+            context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-011-002.txt");
+            actualContext = Player.Move(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-011-002.txt");
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+
+            // 003:横並び（2つめが他スライムとバッティングする）
+            context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-011-003.txt");
+            actualContext = Player.Move(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-011-003.txt");
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
         }
     }
 }

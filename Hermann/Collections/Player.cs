@@ -45,6 +45,11 @@ namespace Hermann.Collections
         private const int DownSpeed = 4 * FieldContextConfig.OneLineBitCount;
 
         /// <summary>
+        /// 何もしない際の速度
+        /// </summary>
+        private const int NoneSpeed = FieldContextConfig.OneLineBitCount;
+
+        /// <summary>
         /// スライムを動かします。
         /// </summary>
         /// <param name="context">コンテキスト</param>
@@ -53,6 +58,7 @@ namespace Hermann.Collections
             switch (context.OperationDirection)
             {
                 case Direction.None :
+                    Move(context, ModifyDownShift(context, NoneSpeed));
                     break;
                 case Direction.Up:
                     // TODO:あとで実装
