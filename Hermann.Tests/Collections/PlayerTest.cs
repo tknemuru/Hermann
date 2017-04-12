@@ -224,5 +224,15 @@ namespace Hermann.Tests.Collections
             expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-011-003.txt");
             TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
         }
+
+        [TestMethod]
+        public void Moveで2つ目のフィールド単位において2Pの移動ができる()
+        {
+            // 001:右
+            var context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-012-001.txt");
+            var actualContext = Player.Move(context);
+            var expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-012-001.txt");
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+        }
     }
 }
