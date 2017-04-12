@@ -51,7 +51,7 @@ namespace Hermann.Tests.TestHelpers
         /// <returns>シフト量</returns>
         public static int GetShift(int lineIndex)
         {
-            return ((lineIndex + (FieldContextConfig.FieldLineCount - 1)) % FieldContextConfig.FieldLineCount) * FieldContextConfig.OneLineBitCount;
+            return ((lineIndex + (FieldContextConfig.FieldUnitLineCount - 1)) % FieldContextConfig.FieldUnitLineCount) * FieldContextConfig.OneLineBitCount;
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Hermann.Tests.TestHelpers
         /// <returns>指定した行が何番目のフィールド単位に属しているか</returns>
         public static int GetFieldUnitIndex(int lineIndex)
         {
-            return ((lineIndex - 1) / FieldContextConfig.FieldLineCount);
+            return ((lineIndex - 1) / FieldContextConfig.FieldUnitLineCount);
         }
 
         /// <summary>

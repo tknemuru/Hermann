@@ -14,12 +14,17 @@ namespace Hermann.Contexts
         /// <summary>
         /// フィールドを分割したユニットの要素数
         /// </summary>
-        public const int FieldUnitCount = 3;
+        public const int FieldUnitCount = 4;
 
         /// <summary>
         /// フィールドユニット内の行数
         /// </summary>
-        public const int FieldLineCount = 4;
+        public const int FieldUnitLineCount = 4;
+
+        /// <summary>
+        /// フィールドの行数
+        /// </summary>
+        public const int FieldLineCount = FieldUnitCount * FieldUnitLineCount;
 
         /// <summary>
         /// フィールドを分割したユニット1つあたりのビット数
@@ -30,5 +35,15 @@ namespace Hermann.Contexts
         /// 1行あたりのビット数
         /// </summary>
         public const int OneLineBitCount = 8;
+
+        /// <summary>
+        /// 使用するスライムの数
+        /// </summary>
+        public const int UsingSlimeCount = 4;
+
+        /// <summary>
+        /// 隠しフィールドのインデックス
+        /// </summary>
+        public const int HiddenUnitIndex = 0;
     }
 }

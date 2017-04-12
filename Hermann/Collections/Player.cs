@@ -121,8 +121,8 @@ namespace Hermann.Collections
         private static bool IsEnabledRightMove(FieldContext context)
         {
             var movableSlimes = context.MovableSlimes[context.OperationPlayer];
-            var first = movableSlimes[(int)MovableSlimeUnit.Index.First];
-            var second = movableSlimes[(int)MovableSlimeUnit.Index.Second];
+            var first = movableSlimes[(int)MovableSlime.UnitIndex.First];
+            var second = movableSlimes[(int)MovableSlime.UnitIndex.Second];
 
             // 壁を越えないか？
             // 壁越えチェック対象は最右である1つめの移動可能スライムが対象
@@ -133,8 +133,8 @@ namespace Hermann.Collections
 
             // 移動場所に他スライムが存在していないか？
             // 縦向きの場合は最下である2つめの移動可能スライムが対象
-            var form = MovableSlimeUnit.GetForm(movableSlimes);
-            if (form == MovableSlimeUnit.Form.Vertical &&
+            var form = MovableSlime.GetUnitForm(movableSlimes);
+            if (form == MovableSlime.UnitForm.Vertical &&
                 FieldContextHelper.ExistsSlime(context, context.OperationPlayer, second.Index, second.Position + RightSpeed))
             {
                 return false;
@@ -142,7 +142,7 @@ namespace Hermann.Collections
 
             // 移動場所に他スライムが存在していないか？
             // 横向きの場合は最右である1つめの移動可能スライムが対象
-            if (form == MovableSlimeUnit.Form.Horizontal &&
+            if (form == MovableSlime.UnitForm.Horizontal &&
                 FieldContextHelper.ExistsSlime(context, context.OperationPlayer, first.Index, first.Position + RightSpeed))
             {
                 return false;
@@ -160,7 +160,7 @@ namespace Hermann.Collections
         {
             // 判定対象は最左・最下である2つめの移動可能スライムが対象
             var movableSlimes = context.MovableSlimes[context.OperationPlayer];
-            var second = movableSlimes[(int)MovableSlimeUnit.Index.Second];
+            var second = movableSlimes[(int)MovableSlime.UnitIndex.Second];
 
             // 壁を越えないか？
             if (!(((1u << second.Position) & 0x7f7f7f7fu) > 0))
@@ -187,7 +187,7 @@ namespace Hermann.Collections
         {
             // 底辺越えの判定対象は最下である2つめの移動可能スライムが対象
             var movableSlimes = context.MovableSlimes[context.OperationPlayer];
-            var second = movableSlimes[(int)MovableSlimeUnit.Index.Second];
+            var second = movableSlimes[(int)MovableSlime.UnitIndex.Second];
             var position = second.Position + shift;
             var index = second.Index + (position / FieldContextConfig.FieldUnitBitCount);
 
@@ -198,7 +198,7 @@ namespace Hermann.Collections
             }
 
             // 移動先に他スライムが存在している場合は、それ以上下に移動させない
-            var first = movableSlimes[(int)MovableSlimeUnit.Index.First];
+            var first = movableSlimes[(int)MovableSlime.UnitIndex.First];
             var maxShiftLine = shift / FieldContextConfig.OneLineBitCount;
             var shiftLine = maxShiftLine;
 
@@ -216,7 +216,7 @@ namespace Hermann.Collections
                 }
 
                 // 1つめは横向きの場合のみ検証が必要
-                if (MovableSlimeUnit.GetForm(movableSlimes) == MovableSlimeUnit.Form.Horizontal)
+                if (MovableSlime.GetUnitForm(movableSlimes) == MovableSlime.UnitForm.Horizontal)
                 {
                     position = first.Position + (line * FieldContextConfig.OneLineBitCount);
                     index = first.Index + (position / FieldContextConfig.FieldUnitBitCount);

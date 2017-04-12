@@ -12,6 +12,38 @@ namespace Hermann.Collections
     public sealed class MovableSlime
     {
         /// <summary>
+        /// 集合体のインデックス
+        /// </summary>
+        public enum UnitIndex
+        {
+            /// <summary>
+            /// 1つめ
+            /// </summary>
+            First,
+
+            /// <summary>
+            /// 2つめ
+            /// </summary>
+            Second,
+        }
+
+        /// <summary>
+        /// 集合体の形
+        /// </summary>
+        public enum UnitForm
+        {
+            /// <summary>
+            /// 横向き
+            /// </summary>
+            Horizontal,
+
+            /// <summary>
+            /// 縦向き
+            /// </summary>
+            Vertical,
+        }
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         public MovableSlime()
@@ -44,7 +76,32 @@ namespace Hermann.Collections
         /// <summary>
         /// フィールド内のポジション（シフト量）
         /// </summary>
-        public int Position { get; set; }
+        public int Position { get; set; }      
+
+        /// <summary>
+        /// 集合体の要素数
+        /// </summary>
+        public static readonly int Length = Enum.GetValues(typeof(UnitIndex)).Length;
+
+        /// <summary>
+        /// 集合体の形を取得します。
+        /// </summary>
+        /// <param name="unit">集合体</param>
+        /// <returns>集合体の形</returns>
+        public static UnitForm GetUnitForm(MovableSlime[] unit)
+        {
+            var first = unit[(int)UnitIndex.First];
+            var second = unit[(int)UnitIndex.Second];
+
+            if (Math.Abs(first.Position - second.Position) == 1)
+            {
+                return UnitForm.Horizontal;
+            }
+            else
+            {
+                return UnitForm.Vertical;
+            }
+        }
 
         /// <summary>
         /// 指定のオブジェクトが現在のオブジェクトと等しいかどうかを判断します。
