@@ -339,8 +339,14 @@ namespace Hermann.Api.Receivers
                 foreach (var val in vals)
                 {
                     var key = SimpleText.ConvertObstructionSlime(val);
-                    var count = dic.ContainsKey(key) ? dic[key] + 1 : 1;
-                    dic.Add(key, count);
+                    if (dic.ContainsKey(key))
+                    {
+                        dic[key] += 1;
+                    }
+                    else
+                    {
+                        dic.Add(key, 1);
+                    }
                 }
                 return dic;
             };
