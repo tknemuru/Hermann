@@ -34,10 +34,29 @@ namespace Hermann.Collections
         }
 
         /// <summary>
+        /// ゲームの初期処理を行います。
+        /// </summary>
+        /// <returns>フィールド状態</returns>
+        public FieldContext Start()
+        {
+            return this.CreateInitialFieldContext();
+        }
+
+        /// <summary>
+        /// ゲーム状態の更新処理を行います。
+        /// </summary>
+        /// <param name="context">フィールド状態</param>
+        /// <returns>更新されたフィールド状態</returns>
+        public FieldContext Update(FieldContext context)
+        {
+            return Player.Move(context);
+        }
+
+        /// <summary>
         /// 初期状態のフィールドを作成します。
         /// </summary>
         /// <returns>初期状態のフィールド</returns>
-        public FieldContext CreateInitialFieldContext()
+        private FieldContext CreateInitialFieldContext()
         {
             var context = DiProvider.GetContainer().GetInstance<FieldContext>();
 

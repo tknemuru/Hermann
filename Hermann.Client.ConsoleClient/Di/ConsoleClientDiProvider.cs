@@ -63,7 +63,7 @@ namespace Hermann.Client.ConsoleClient.Di
             MyContainer.Register<FieldContext, FieldContext>();
             MyContainer.Register<UsingSlimeGenerator, UsingSlimeRandomGenerator>();
             MyContainer.Register<NextSlimeGenerator, NextSlimeRandomGenerator>();
-            MyContainer.Register<CommandReceiver<NativeCommand, FieldContext>, ConsoleCommandReceiver>();
+            MyContainer.Register<CommandReceiver<NativeCommand, FieldContext>, NativeCommandReceiver>();
             MyContainer.Register<FieldContextReceiver<string>, SimpleTextReceiver>();
             MyContainer.Register<FieldContextSender<string>, SimpleTextSender>();
             DiProvider.SetContainer(MyContainer);

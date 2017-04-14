@@ -39,7 +39,7 @@ namespace Hermann.Client.ConsoleClient.Writers
         public static void Write(FieldContext context)
         {
             Console.WriteLine(Separator);
-            Console.WriteLine(Sender.Send(context));
+            Console.Write(Sender.Send(context));
             Console.WriteLine(Separator);
         }
     }

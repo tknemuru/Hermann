@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 namespace Hermann.Api.Receivers
 {
     /// <summary>
-    /// コンソールからHermannのネイティブコマンドを受信する機能を提供します。
+    /// ネイティブコマンドを受信する機能を提供します。
     /// </summary>
-    public class ConsoleCommandReceiver : CommandReceiver<NativeCommand, FieldContext>
+    public class NativeCommandReceiver : CommandReceiver<NativeCommand, FieldContext>
     {
         /// <summary>
         /// ゲームロジック
@@ -29,7 +29,7 @@ namespace Hermann.Api.Receivers
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public ConsoleCommandReceiver()
+        public NativeCommandReceiver()
         {
             this.Game = DiProvider.GetContainer().GetInstance<Game>();
             this.Sender = DiProvider.GetContainer().GetInstance<FieldContextSender<string>>();
@@ -47,34 +47,16 @@ namespace Hermann.Api.Receivers
             switch (command.Command)
             {
                 case Command.Start:
-                    context = this.Start();
+                    context = this.Game.Start();
                     break;
                 case Command.Move:
-                    context = this.Move(context);
+                    context = this.Game.Update(context);
                     break;
                 default:
                     throw new ArgumentException("コマンドが不正です。Command：" + command.Command);
             }
 
             return context;
-        }
-
-        /// <summary>
-        /// ゲーム開始時の処理を行います。
-        /// </summary>
-        /// <returns>フィールド状態</returns>
-        private FieldContext Start()
-        {
-            return this.Game.CreateInitialFieldContext();
-        }
-
-        /// <summary>
-        /// スライムを動かす処理を行います。
-        /// </summary>
-        /// <returns>フィールド状態</returns>
-        private FieldContext Move(FieldContext context)
-        {
-            return Player.Move(context);
         }
     }
 }
