@@ -12,12 +12,12 @@ using System.Text;
 using System.Threading.Tasks;
 using SimpleInjector;
 
-namespace Hermann.Tests.Di
+namespace Hermann.Client.ConsoleClient.Di
 {
     /// <summary>
-    /// テスト用DIの生成機能を提供します。
+    /// DIの生成機能を提供します。
     /// </summary>
-    public static class TestDiProvider
+    public static class ConsoleClientDiProvider
     {
         /// <summary>
         /// DIコンテナ
@@ -36,7 +36,7 @@ namespace Hermann.Tests.Di
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        static TestDiProvider()
+        static ConsoleClientDiProvider()
         {
             Register();
         }
@@ -67,7 +67,7 @@ namespace Hermann.Tests.Di
             MyContainer.Register<FieldContextReceiver<string>, SimpleTextReceiver>();
             MyContainer.Register<FieldContextSender<string>, SimpleTextSender>();
             DiProvider.SetContainer(MyContainer);
-            MyContainer.Verify();            
+            MyContainer.Verify();
         }
     }
 }

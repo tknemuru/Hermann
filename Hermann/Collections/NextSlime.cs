@@ -14,7 +14,7 @@ namespace Hermann.Collections
         /// <summary>
         /// NEXTスライムの数
         /// </summary>
-        public const int Count = 2;
+        public const int Length = 2;
 
         /// <summary>
         /// NEXTスライムのインデックス

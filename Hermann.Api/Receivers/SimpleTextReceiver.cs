@@ -1,5 +1,6 @@
 ﻿using Hermann.Contexts;
 using Hermann.Collections;
+using Hermann.Di;
 using Hermann.Helpers;
 using System;
 using System.Collections.Generic;
@@ -13,16 +14,16 @@ namespace Hermann.Api.Receivers
     /// <summary>
     /// Hermannにおける標準テキスト形式文字列の受信機能を提供します。
     /// </summary>
-    public class SimpleTextReceiver : IReceivable<string>
+    public class SimpleTextReceiver : FieldContextReceiver<string>
     {
         /// <summary>
         /// 標準テキストファイルを受信しフィールドの状態に変換します。
         /// </summary>
         /// <param name="source">標準テキストファイルパス</param>
         /// <returns>フィールドの状態</returns>
-        public FieldContext Receive(string source)
+        public override FieldContext Receive(string source)
         {
-            var context = new FieldContext();
+            var context = DiProvider.GetContainer().GetInstance<FieldContext>();
             var lines = FileHelper.ReadTextLines(source).ToArray();
             Debug.Assert((lines.Length == SimpleText.Length.Sum), string.Format("テキストファイルの行数が不正です。{0}", lines.Length));
 
@@ -42,7 +43,7 @@ namespace Hermann.Api.Receivers
             context.Ground = Parse(dic[SimpleText.Keys.Ground], bool.Parse);
 
             // 設置残タイム
-            context.BuiltRemainingTime = Parse<int>(dic[SimpleText.Keys.BuiltRemainingTime], int.Parse);
+            context.BuiltRemainingTime = Parse(dic[SimpleText.Keys.BuiltRemainingTime], int.Parse);
 
             // 得点
             context.Score = Parse(dic[SimpleText.Keys.Score], long.Parse);
@@ -275,7 +276,7 @@ namespace Hermann.Api.Receivers
             var nextSlimes = new Slime[Player.Length][][];
             Action<int> initialize = (player) =>
             {
-                nextSlimes[player] = new Slime[NextSlime.Count][];
+                nextSlimes[player] = new Slime[NextSlime.Length][];
                 nextSlimes[player][(int)NextSlime.Index.First] = new Slime[MovableSlime.Length];
                 nextSlimes[player][(int)NextSlime.Index.Second] = new Slime[MovableSlime.Length];
             };
@@ -292,7 +293,7 @@ namespace Hermann.Api.Receivers
                 }
 
                 var nextSlimeLine = values[i].Split(SimpleText.Separator.Player)[(int)FieldIndex.NextSlime].ToCharArray();
-                Debug.Assert(nextSlimeLine.Length == NextSlime.Count, "NEXTスライムの数が不正です。数：" + nextSlimeLine.Length);
+                Debug.Assert(nextSlimeLine.Length == NextSlime.Length, "NEXTスライムの数が不正です。数：" + nextSlimeLine.Length);
                 var nextSlimeIndex = SimpleText.ConvertNextSlimeIndex(i);
                 var movableSlimeUnitIndex = SimpleText.ConvertMovableSlimeUnitIndex(i);
                 nextSlimes[Player.First][(int)nextSlimeIndex][(int)movableSlimeUnitIndex] = SimpleText.ConvertSlime(nextSlimeLine[Player.First]);

@@ -115,10 +115,10 @@ namespace Hermann.Contexts
             this.SlimeFields[Player.Second] = new Dictionary<Slime, uint[]>();
 
             this.NextSlimes = new Slime[Player.Length][][];
-            this.NextSlimes[Player.First] = new Slime[NextSlime.Count][];
+            this.NextSlimes[Player.First] = new Slime[NextSlime.Length][];
             this.NextSlimes[Player.First][(int)NextSlime.Index.First] = new Slime[MovableSlime.Length];
             this.NextSlimes[Player.First][(int)NextSlime.Index.Second] = new Slime[MovableSlime.Length];
-            this.NextSlimes[Player.Second] = new Slime[NextSlime.Count][];
+            this.NextSlimes[Player.Second] = new Slime[NextSlime.Length][];
             this.NextSlimes[Player.Second][(int)NextSlime.Index.First] = new Slime[MovableSlime.Length];
             this.NextSlimes[Player.Second][(int)NextSlime.Index.Second] = new Slime[MovableSlime.Length];
         }

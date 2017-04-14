@@ -45,5 +45,10 @@ namespace Hermann.Contexts
         /// 隠しフィールドのインデックス
         /// </summary>
         public const int HiddenUnitIndex = 0;
+
+        /// <summary>
+        /// 移動可能なスライムの初期シフト量
+        /// </summary>
+        public const int MovableSlimeInitialShift = 21;
     }
 }
