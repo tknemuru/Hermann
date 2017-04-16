@@ -10,6 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Reactive.Linq;
+using Reactive.Bindings;
+using Reactive.Bindings.Notifiers;
 
 namespace Hermann.Client.ConsoleClient
 {
@@ -46,12 +49,12 @@ namespace Hermann.Client.ConsoleClient
         /// <summary>
         /// 入力されたコンソールキー情報
         /// </summary>
-        private static ConsoleKeyInfo KeyInfo { get; set; }
+        private static ReactiveProperty<ConsoleKeyInfo> KeyInfo { get; set; }
 
         /// <summary>
         /// コンソールキー情報がセットされているかどうか
         /// </summary>
-        private static bool HasSetKeyInfo { get; set; }
+        private static BooleanNotifier HasSetKeyInfo { get; set; }
 
         /// <summary>
         /// Mainメソッド
@@ -83,15 +86,31 @@ namespace Hermann.Client.ConsoleClient
             command.Command = Command.Start;
             Context = Receiver.Receive(command);
 
+            // キー変更イベントの購読
+            KeyInfo = new ReactiveProperty<ConsoleKeyInfo>();
+            HasSetKeyInfo = new BooleanNotifier(false);
+            HasSetKeyInfo.Where(h => h)
+                .Subscribe(_ =>
+                {
+                    HasSetKeyInfo.TurnOff();
+                    Context.OperationPlayer = KeyMap.GetPlayer(KeyInfo.Value.Key);
+                    Context.OperationDirection = KeyMap.GetDirection(KeyInfo.Value.Key);
+                    var c = ConsoleClientDiProvider.GetContainer().GetInstance<NativeCommand>();
+                    c.Command = Command.Move;
+                    c.Context = Context;
+                    Context = Receiver.Receive(c);
+                    FieldContextWriter.Write(Context);
+                });
+
             // キーの入力読み込みタスクを開始
             Task.Run(() =>
             {
                 while (true)
                 {
-                    if (!HasSetKeyInfo)
+                    KeyInfo.Value = Console.ReadKey();
+                    if (KeyMap.ContainsKey(KeyInfo.Value.Key))
                     {
-                        KeyInfo = Console.ReadKey();
-                        HasSetKeyInfo = true;
+                        HasSetKeyInfo.TurnOn();
                     }
                 }
             });
@@ -122,26 +141,8 @@ namespace Hermann.Client.ConsoleClient
                 NoneDirectionUpdateFrameCount++;
             }
 
-            // 操作無しの場合は描画して処理終了
-            if (!HasSetKeyInfo || !KeyMap.ContainsKey(KeyInfo.Key))
-            {
-                // 操作対象外のキーが押された場合はtrueになっているので、再び入力待ち状態にする
-                HasSetKeyInfo = false;
-                FieldContextWriter.Write(Context);
-                return;
-            }
-
-            // 操作をした後に描画する
-            Context.OperationPlayer = KeyMap.GetPlayer(KeyInfo.Key);
-            Context.OperationDirection = KeyMap.GetDirection(KeyInfo.Key);
-            var command = ConsoleClientDiProvider.GetContainer().GetInstance<NativeCommand>();
-            command.Command = Command.Move;
-            command.Context = Context;
-            Context = Receiver.Receive(command);
+            // 画面描画
             FieldContextWriter.Write(Context);
-
-            // 再び入力待ち状態にする
-            HasSetKeyInfo = false;
         }
     }
 }
