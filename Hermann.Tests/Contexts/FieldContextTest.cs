@@ -28,7 +28,7 @@ namespace Hermann.Tests.Contexts
 
             // プレイヤが等しくない
             y = CreateEqualsTestDefaultFieldContext();
-            y.OperationPlayer = Player.First;
+            y.OperationPlayer = Player.Index.First;
             Assert.IsFalse(x.Equals(y));
 
             // 方向が等しくない
@@ -65,7 +65,7 @@ namespace Hermann.Tests.Contexts
         {
             var context = new FieldContext();
 
-            context.OperationPlayer = Player.Second;
+            context.OperationPlayer = Player.Index.Second;
             context.OperationDirection = Direction.Right;
 
             context.MovableSlimes[0] = new MovableSlime[2];

@@ -24,12 +24,12 @@ namespace Hermann.Api.Tests.Receivers
         {
             // [001]1P:右
             var context = TestHelper.Receiver.Receive("../../resources/receivers/simple-text-file-receiver/test-field-in-001-001.txt");
-            var slimeFields = context.SlimeFields.Value[Player.First];
-            var movableSlimes = context.MovableSlimes[Player.First];
+            var slimeFields = context.SlimeFields.Value[(int)Player.Index.First];
+            var movableSlimes = context.MovableSlimes[(int)Player.Index.First];
 
             // 検証
             // 1P:右
-            Assert.AreEqual(Player.First, context.OperationPlayer);
+            Assert.AreEqual(Player.Index.First, context.OperationPlayer);
             Assert.AreEqual(Direction.Right, context.OperationDirection);
 
             // 経過時間
@@ -60,20 +60,20 @@ namespace Hermann.Api.Tests.Receivers
             CollectionAssert.AreEqual(new[] { Slime.Red, Slime.Blue, Slime.Green, Slime.Purple }, context.UsingSlimes);
 
             // おじゃまスライム
-            Assert.AreEqual(2, context.ObstructionSlimes[Player.First][ObstructionSlime.Small]);
-            Assert.AreEqual(1, context.ObstructionSlimes[Player.First][ObstructionSlime.Big]);
-            Assert.AreEqual(1, context.ObstructionSlimes[Player.First][ObstructionSlime.Rock]);
-            Assert.AreEqual(1, context.ObstructionSlimes[Player.First][ObstructionSlime.Star]);
-            Assert.AreEqual(1, context.ObstructionSlimes[Player.First][ObstructionSlime.Moon]);
-            Assert.AreEqual(1, context.ObstructionSlimes[Player.First][ObstructionSlime.Crown]);
-            Assert.AreEqual(1, context.ObstructionSlimes[Player.First][ObstructionSlime.Comet]);
-            Assert.AreEqual(1, context.ObstructionSlimes[Player.Second][ObstructionSlime.Small]);
-            Assert.AreEqual(1, context.ObstructionSlimes[Player.Second][ObstructionSlime.Big]);
-            Assert.AreEqual(1, context.ObstructionSlimes[Player.Second][ObstructionSlime.Rock]);
-            Assert.AreEqual(1, context.ObstructionSlimes[Player.Second][ObstructionSlime.Star]);
-            Assert.AreEqual(1, context.ObstructionSlimes[Player.Second][ObstructionSlime.Moon]);
-            Assert.AreEqual(1, context.ObstructionSlimes[Player.Second][ObstructionSlime.Crown]);
-            Assert.AreEqual(1, context.ObstructionSlimes[Player.Second][ObstructionSlime.Comet]);
+            Assert.AreEqual(2, context.ObstructionSlimes[(int)Player.Index.First][ObstructionSlime.Small]);
+            Assert.AreEqual(1, context.ObstructionSlimes[(int)Player.Index.First][ObstructionSlime.Big]);
+            Assert.AreEqual(1, context.ObstructionSlimes[(int)Player.Index.First][ObstructionSlime.Rock]);
+            Assert.AreEqual(1, context.ObstructionSlimes[(int)Player.Index.First][ObstructionSlime.Star]);
+            Assert.AreEqual(1, context.ObstructionSlimes[(int)Player.Index.First][ObstructionSlime.Moon]);
+            Assert.AreEqual(1, context.ObstructionSlimes[(int)Player.Index.First][ObstructionSlime.Crown]);
+            Assert.AreEqual(1, context.ObstructionSlimes[(int)Player.Index.First][ObstructionSlime.Comet]);
+            Assert.AreEqual(1, context.ObstructionSlimes[(int)Player.Index.Second][ObstructionSlime.Small]);
+            Assert.AreEqual(1, context.ObstructionSlimes[(int)Player.Index.Second][ObstructionSlime.Big]);
+            Assert.AreEqual(1, context.ObstructionSlimes[(int)Player.Index.Second][ObstructionSlime.Rock]);
+            Assert.AreEqual(1, context.ObstructionSlimes[(int)Player.Index.Second][ObstructionSlime.Star]);
+            Assert.AreEqual(1, context.ObstructionSlimes[(int)Player.Index.Second][ObstructionSlime.Moon]);
+            Assert.AreEqual(1, context.ObstructionSlimes[(int)Player.Index.Second][ObstructionSlime.Crown]);
+            Assert.AreEqual(1, context.ObstructionSlimes[(int)Player.Index.Second][ObstructionSlime.Comet]);
 
             // フィールド
             // 3行目の左から3番目に緑がひとつ存在する
@@ -96,20 +96,20 @@ namespace Hermann.Api.Tests.Receivers
 
             // NEXTスライム
             // 1P:1つめ
-            Assert.AreEqual(Slime.Green, context.NextSlimes[Player.First][(int)NextSlime.Index.First][(int)MovableSlime.UnitIndex.First]);
-            Assert.AreEqual(Slime.Blue, context.NextSlimes[Player.First][(int)NextSlime.Index.First][(int)MovableSlime.UnitIndex.Second]);
+            Assert.AreEqual(Slime.Green, context.NextSlimes[(int)Player.Index.First][(int)NextSlime.Index.First][(int)MovableSlime.UnitIndex.First]);
+            Assert.AreEqual(Slime.Blue, context.NextSlimes[(int)Player.Index.First][(int)NextSlime.Index.First][(int)MovableSlime.UnitIndex.Second]);
 
             // 1P:2つめ
-            Assert.AreEqual(Slime.Yellow, context.NextSlimes[Player.First][(int)NextSlime.Index.Second][(int)MovableSlime.UnitIndex.First]);
-            Assert.AreEqual(Slime.Red, context.NextSlimes[Player.First][(int)NextSlime.Index.Second][(int)MovableSlime.UnitIndex.Second]);
+            Assert.AreEqual(Slime.Yellow, context.NextSlimes[(int)Player.Index.First][(int)NextSlime.Index.Second][(int)MovableSlime.UnitIndex.First]);
+            Assert.AreEqual(Slime.Red, context.NextSlimes[(int)Player.Index.First][(int)NextSlime.Index.Second][(int)MovableSlime.UnitIndex.Second]);
 
             // 2P:1つめ
-            Assert.AreEqual(Slime.Purple, context.NextSlimes[Player.Second][(int)NextSlime.Index.First][(int)MovableSlime.UnitIndex.First]);
-            Assert.AreEqual(Slime.Red, context.NextSlimes[Player.Second][(int)NextSlime.Index.First][(int)MovableSlime.UnitIndex.Second]);
+            Assert.AreEqual(Slime.Purple, context.NextSlimes[(int)Player.Index.Second][(int)NextSlime.Index.First][(int)MovableSlime.UnitIndex.First]);
+            Assert.AreEqual(Slime.Red, context.NextSlimes[(int)Player.Index.Second][(int)NextSlime.Index.First][(int)MovableSlime.UnitIndex.Second]);
 
             // 2P:2つめ
-            Assert.AreEqual(Slime.Blue, context.NextSlimes[Player.Second][(int)NextSlime.Index.Second][(int)MovableSlime.UnitIndex.First]);
-            Assert.AreEqual(Slime.Green, context.NextSlimes[Player.Second][(int)NextSlime.Index.Second][(int)MovableSlime.UnitIndex.Second]);
+            Assert.AreEqual(Slime.Blue, context.NextSlimes[(int)Player.Index.Second][(int)NextSlime.Index.Second][(int)MovableSlime.UnitIndex.First]);
+            Assert.AreEqual(Slime.Green, context.NextSlimes[(int)Player.Index.Second][(int)NextSlime.Index.Second][(int)MovableSlime.UnitIndex.Second]);
         }
     }
 }

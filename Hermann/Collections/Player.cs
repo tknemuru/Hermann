@@ -15,39 +15,51 @@ namespace Hermann.Collections
     public sealed class Player
     {
         /// <summary>
-        /// 1P
-        /// </summary>
-        public const int First = 0;
-
-        /// <summary>
-        /// 2P
-        /// </summary>
-        public const int Second = 1;
-
-        /// <summary>
         /// プレイヤ数
         /// </summary>
         public const int Length = 2;
+        
+        /// <summary>
+        /// インデックス
+        /// </summary>
+        public enum Index
+        {
+            /// <summary>
+            /// 1P
+            /// </summary>
+            First = 0,
+
+            /// <summary>
+            /// 2P
+            /// </summary>
+            Second,
+        }
 
         /// <summary>
-        /// 左に動かす際の速度
+        /// 移動速度
         /// </summary>
-        private const int LeftSpeed = 1;
+        private static class Speed
+        {
+            /// <summary>
+            /// 左に動かす際の速度
+            /// </summary>
+            public const int Left = 1;
 
-        /// <summary>
-        /// 右に動かす際の速度
-        /// </summary>
-        private const int RightSpeed = -1;
+            /// <summary>
+            /// 右に動かす際の速度
+            /// </summary>
+            public const int Right = -1;
 
-        /// <summary>
-        /// 下に動かす際の速度
-        /// </summary>
-        private const int DownSpeed = 4 * FieldContextConfig.OneLineBitCount;
+            /// <summary>
+            /// 下に動かす際の速度
+            /// </summary>
+            public const int Down = 4 * FieldContextConfig.OneLineBitCount;
 
-        /// <summary>
-        /// 何もしない際の速度
-        /// </summary>
-        private const int NoneSpeed = FieldContextConfig.OneLineBitCount;
+            /// <summary>
+            /// 何もしない際の速度
+            /// </summary>
+            public const int None = FieldContextConfig.OneLineBitCount;
+        }
 
         /// <summary>
         /// スライムを動かします。
@@ -58,24 +70,24 @@ namespace Hermann.Collections
             switch (context.OperationDirection)
             {
                 case Direction.None :
-                    Move(context, ModifyDownShift(context, NoneSpeed));
+                    Move(context, ModifyDownShift(context, Speed.None));
                     break;
                 case Direction.Up:
                     // TODO:あとで実装
                     throw new NotSupportedException();
                 case Direction.Down:
-                    Move(context, ModifyDownShift(context, DownSpeed));
+                    Move(context, ModifyDownShift(context, Speed.Down));
                     break;
                 case Direction.Left:
                     if (IsEnabledLeftMove(context))
                     {
-                        Move(context, LeftSpeed);
+                        Move(context, Speed.Left);
                     }
                     break;
                 case Direction.Right:
                     if (IsEnabledRightMove(context))
                     {
-                        Move(context, RightSpeed);
+                        Move(context, Speed.Right);
                     }
                     break;
                 default :
@@ -91,10 +103,10 @@ namespace Hermann.Collections
         /// <param name="player">プレイヤ</param>
         /// <param name="shift">シフト量</param>
         /// <returns>調整された下に移動するシフト量</returns>
-        public static int ModifyDownShift(FieldContext context, int player, int shift)
+        public static int ModifyDownShift(FieldContext context, Player.Index player, int shift)
         {
             // 底辺越えの判定対象は最下である2つめの移動可能スライムが対象
-            var movableSlimes = context.MovableSlimes[player];
+            var movableSlimes = context.MovableSlimes[(int)player];
             var second = movableSlimes[(int)MovableSlime.UnitIndex.Second];
             var position = second.Position + shift;
             var index = second.Index + (position / FieldContextConfig.FieldUnitBitCount);
@@ -160,8 +172,8 @@ namespace Hermann.Collections
         /// <param name="shift">シフト量</param>
         private static void Move(FieldContext context, int shift)
         {
-            var movableSlimes = context.MovableSlimes[context.OperationPlayer];
-            var slimeFields = context.SlimeFields.Value[context.OperationPlayer];
+            var movableSlimes = context.MovableSlimes[(int)context.OperationPlayer];
+            var slimeFields = context.SlimeFields.Value[(int)context.OperationPlayer];
 
             // １．移動前スライムを消す
             foreach (var movable in movableSlimes)
@@ -189,7 +201,7 @@ namespace Hermann.Collections
         /// <returns>右に移動可能かどうか</returns>
         private static bool IsEnabledRightMove(FieldContext context)
         {
-            var movableSlimes = context.MovableSlimes[context.OperationPlayer];
+            var movableSlimes = context.MovableSlimes[(int)context.OperationPlayer];
             var first = movableSlimes[(int)MovableSlime.UnitIndex.First];
             var second = movableSlimes[(int)MovableSlime.UnitIndex.Second];
 
@@ -204,7 +216,7 @@ namespace Hermann.Collections
             // 縦向きの場合は最下である2つめの移動可能スライムが対象
             var form = MovableSlime.GetUnitForm(movableSlimes);
             if (form == MovableSlime.UnitForm.Vertical &&
-                FieldContextHelper.ExistsSlime(context, context.OperationPlayer, second.Index, second.Position + RightSpeed))
+                FieldContextHelper.ExistsSlime(context, context.OperationPlayer, second.Index, second.Position + Speed.Right))
             {
                 return false;
             }
@@ -212,7 +224,7 @@ namespace Hermann.Collections
             // 移動場所に他スライムが存在していないか？
             // 横向きの場合は最右である1つめの移動可能スライムが対象
             if (form == MovableSlime.UnitForm.Horizontal &&
-                FieldContextHelper.ExistsSlime(context, context.OperationPlayer, first.Index, first.Position + RightSpeed))
+                FieldContextHelper.ExistsSlime(context, context.OperationPlayer, first.Index, first.Position + Speed.Right))
             {
                 return false;
             }
@@ -228,7 +240,7 @@ namespace Hermann.Collections
         private static bool IsEnabledLeftMove(FieldContext context)
         {
             // 判定対象は最左・最下である2つめの移動可能スライムが対象
-            var movableSlimes = context.MovableSlimes[context.OperationPlayer];
+            var movableSlimes = context.MovableSlimes[(int)context.OperationPlayer];
             var second = movableSlimes[(int)MovableSlime.UnitIndex.Second];
 
             // 壁を越えないか？
@@ -238,7 +250,7 @@ namespace Hermann.Collections
             }
 
             // 移動場所に他スライムが存在していないか？
-            if (FieldContextHelper.ExistsSlime(context, context.OperationPlayer, second.Index, second.Position + LeftSpeed))
+            if (FieldContextHelper.ExistsSlime(context, context.OperationPlayer, second.Index, second.Position + Speed.Left))
             {
                 return false;
             }

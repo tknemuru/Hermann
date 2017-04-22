@@ -24,7 +24,7 @@ namespace Hermann.Api.Senders
             var sb = new StringBuilder();
 
             // プレイヤ
-            sb.AppendLine(ToString(SimpleText.Keys.Player, context.OperationPlayer));
+            sb.AppendLine(ToString(SimpleText.Keys.Player, (int)context.OperationPlayer));
 
             // 操作方向
             sb.AppendLine(ToString(SimpleText.Keys.Direction, SimpleText.ConvertDirection(context.OperationDirection)));
@@ -85,7 +85,7 @@ namespace Hermann.Api.Senders
         private static string ArrayToString<T>(string key, T[] value)
         {
             Debug.Assert(value.Length == Player.Length, "値の要素数が不正です。要素数：" + value.Length);
-            return string.Format("{0}{1}{2}{3}{4}", key, SimpleText.Separator.KeyValue, value[Player.First].ToString().ToLower(), SimpleText.Separator.Player, value[Player.Second].ToString().ToLower());
+            return string.Format("{0}{1}{2}{3}{4}", key, SimpleText.Separator.KeyValue, value[(int)Player.Index.First].ToString().ToLower(), SimpleText.Separator.Player, value[(int)Player.Index.Second].ToString().ToLower());
         }
 
         /// <summary>
@@ -116,9 +116,9 @@ namespace Hermann.Api.Senders
             var sb = new StringBuilder();
             sb.AppendLine(string.Format("{0}{1}", SimpleText.Keys.ObstructionSlime, SimpleText.Separator.KeyValue));
 
-            Action<int> toString = (player) =>
+            Action<Player.Index> toString = (player) =>
             {
-                foreach (var ob in value[player])
+                foreach (var ob in value[(int)player])
                 {
                     for (var i = 0; i < ob.Value; i++)
                     {
@@ -127,9 +127,9 @@ namespace Hermann.Api.Senders
                 }
             };
 
-            toString(Player.First);
+            toString(Player.Index.First);
             sb.Append(SimpleText.Separator.Player);
-            toString(Player.Second);
+            toString(Player.Index.Second);
 
             return sb.ToString();
         }
@@ -144,8 +144,8 @@ namespace Hermann.Api.Senders
             var sb = new StringBuilder();
             sb.AppendLine(string.Format("{0}{1}", SimpleText.Keys.Field, SimpleText.Separator.KeyValue));
 
-            var firstFieldList = CreateFieldList(context, Player.First);
-            var secondFieldList = CreateFieldList(context, Player.Second);
+            var firstFieldList = CreateFieldList(context, Player.Index.First);
+            var secondFieldList = CreateFieldList(context, Player.Index.Second);
             var nextSlimeList = CreateNextSlimeList(context.NextSlimes);
             var field = MergeFieldList(firstFieldList, secondFieldList, nextSlimeList);
             sb.Append(field.ToString());
@@ -159,13 +159,13 @@ namespace Hermann.Api.Senders
         /// <param name="field">フィールド</param>
         /// <param name="player">プレイヤ</param>
         /// <param name="isBreak">繰り返し完了を判定するメソッド</param>
-        private static List<string> CreateFieldList(FieldContext context, int player)
+        private static List<string> CreateFieldList(FieldContext context, Player.Index player)
         {
             var fieldList = new List<string>();
             string line = string.Empty;
             var possibilityOfExistsMovableUnit = true;
             var possibilityOfExistsMovablePosition = true;
-            var slimeFields = context.SlimeFields.Value[player];
+            var slimeFields = context.SlimeFields.Value[(int)player];
             for (var unitIndex = 0; unitIndex < FieldContextConfig.FieldUnitCount; unitIndex++)
             {
                 possibilityOfExistsMovableUnit = IsExistsMovableUnit(context, player, unitIndex);
@@ -225,8 +225,8 @@ namespace Hermann.Api.Senders
 
                 var nextSlimeIndex = SimpleText.ConvertNextSlimeIndex(i);
                 var movableSlimeUnitIndex = SimpleText.ConvertMovableSlimeUnitIndex(i);
-                var first = SimpleText.ConvertSlime(nextSlimes[Player.First][(int)nextSlimeIndex][(int)movableSlimeUnitIndex]);
-                var second = SimpleText.ConvertSlime(nextSlimes[Player.Second][(int)nextSlimeIndex][(int)movableSlimeUnitIndex]);
+                var first = SimpleText.ConvertSlime(nextSlimes[(int)Player.Index.First][(int)nextSlimeIndex][(int)movableSlimeUnitIndex]);
+                var second = SimpleText.ConvertSlime(nextSlimes[(int)Player.Index.Second][(int)nextSlimeIndex][(int)movableSlimeUnitIndex]);
                 list.Add(string.Format("{0}{1}", first, second));
             }
 
@@ -240,9 +240,9 @@ namespace Hermann.Api.Senders
         /// <param name="player">プレイヤ</param>
         /// <param name="unitIndex">判定対象のフィールドユニットのインデックス</param>
         /// <returns>指定されたフィールドのユニットに移動可能なスライムが存在するかどうか</returns>
-        private static bool IsExistsMovableUnit(FieldContext context, int player, int unitIndex)
+        private static bool IsExistsMovableUnit(FieldContext context, Player.Index player, int unitIndex)
         {
-            return context.MovableSlimes[player].Any(m => m.Index == unitIndex);
+            return context.MovableSlimes[(int)player].Any(m => m.Index == unitIndex);
         }
 
         /// <summary>
@@ -252,9 +252,9 @@ namespace Hermann.Api.Senders
         /// <param name="player">プレイヤ</param>
         /// <param name="position">判定対象のポジション</param>
         /// <returns>指定されたフィールドのポジションに移動可能なスライムが存在するかどうか</returns>
-        private static bool IsExistsMovablePosition(FieldContext context, int player, int position)
+        private static bool IsExistsMovablePosition(FieldContext context, Player.Index player, int position)
         {
-            return context.MovableSlimes[player].Any(m => m.Position == position);
+            return context.MovableSlimes[(int)player].Any(m => m.Position == position);
         }
 
         /// <summary>
@@ -266,9 +266,9 @@ namespace Hermann.Api.Senders
         /// <param name="unitIndex">フィールド単位のインデックス</param>
         /// <param name="position">ポジション</param>
         /// <returns>指定された場所に移動可能なスライムが存在するかどうか</returns>
-        private static bool IsExsitsMovableColor(FieldContext context, int player, Slime slime, int unitIndex, int position)
+        private static bool IsExsitsMovableColor(FieldContext context, Player.Index player, Slime slime, int unitIndex, int position)
         {
-            return context.MovableSlimes[player].Any(m => m.Slime == slime && m.Index == unitIndex && m.Position == position);
+            return context.MovableSlimes[(int)player].Any(m => m.Slime == slime && m.Index == unitIndex && m.Position == position);
         }
 
         /// <summary>

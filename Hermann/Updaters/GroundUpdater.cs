@@ -21,9 +21,9 @@ namespace Hermann.Updaters
         /// <param name="context">フィールド状態</param>
         public void Update(FieldContext context)
         {
-            FieldContextHelper.ActionForEachPlayer(context, (con, player) =>
+            FieldContextHelper.ForEachPlayer((player) =>
             {
-                con.Ground[player] = Player.ModifyDownShift(context, player, FieldContextConfig.OneLineBitCount) <= 0;
+                context.Ground[(int)player] = Player.ModifyDownShift(context, player, FieldContextConfig.OneLineBitCount) <= 0;
             });
         }
     }

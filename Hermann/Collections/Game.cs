@@ -2,6 +2,7 @@
 using Hermann.Di;
 using Hermann.Generators;
 using Hermann.Updaters;
+using Hermann.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,12 +92,12 @@ namespace Hermann.Collections
             this.NoneDirectionUpdateCount = 0;
             for (var i = 0; i < count; i++)
             {
-                for (var player = 0; player < Player.Length; player++)
+                FieldContextHelper.ForEachPlayer((player) =>
                 {
                     context.OperationPlayer = player;
                     context.OperationDirection = Direction.None;
                     context = Player.Move(context);
-                }
+                });
             }
 
             // プレイヤの操作による移動
@@ -163,13 +164,13 @@ namespace Hermann.Collections
 
             // NEXTスライム
             this.NextSlimeGen.UsingSlime = context.UsingSlimes;
-            for (var player = 0; player < Player.Length; player++)
+            FieldContextHelper.ForEachPlayer((player) =>
             {
-                for (var unit = 0; unit < NextSlime.Length; unit++)
+                FieldContextHelper.ForEachNextSlime((unit) =>
                 {
-                    context.NextSlimes[player][unit] = this.NextSlimeGen.GetNext();
-                }
-            }
+                    context.NextSlimes[(int)player][(int)unit] = this.NextSlimeGen.GetNext();
+                });
+            });
 
             // フィールド
             Func<uint[]> createInitialField = () =>
@@ -178,30 +179,30 @@ namespace Hermann.Collections
                 return field.ToArray();
             };
             var fieldSlimes = ExtensionSlime.Slimes.ToArray();
-            for (var player = 0; player < Player.Length; player++)
+            FieldContextHelper.ForEachPlayer((player) =>
             {
                 for (var slimeIndex = 0; slimeIndex < fieldSlimes.Length; slimeIndex++)
                 {
-                    context.SlimeFields.Value[player].Add(fieldSlimes[slimeIndex], createInitialField());
+                    context.SlimeFields.Value[(int)player].Add(fieldSlimes[slimeIndex], createInitialField());
                 }
-            }
+            });
 
             // 移動可能なスライム
-            for (var player = 0; player < Player.Length; player++)
+            FieldContextHelper.ForEachPlayer((player) =>
             {
                 var movableSlimes = this.NextSlimeGen.GetNext();
-                for (var unitIndex = 0; unitIndex < MovableSlime.Length; unitIndex++)
+                FieldContextHelper.ForEachMovableSlimes((unitIndex) =>
                 {
                     var movable = new MovableSlime();
-                    movable.Slime = movableSlimes[unitIndex];
+                    movable.Slime = movableSlimes[(int)unitIndex];
                     movable.Index = FieldContextConfig.HiddenUnitIndex;
-                    movable.Position = FieldContextConfig.MovableSlimeInitialShift + (unitIndex * FieldContextConfig.OneLineBitCount);
-                    context.MovableSlimes[player][unitIndex] = movable;
+                    movable.Position = FieldContextConfig.MovableSlimeInitialShift + ((int)unitIndex * FieldContextConfig.OneLineBitCount);
+                    context.MovableSlimes[(int)player][(int)unitIndex] = movable;
 
                     // フィールドにも反映させる
-                    context.SlimeFields.Value[player][movable.Slime][movable.Index] |= 1u << movable.Position;
-                }
-            }
+                    context.SlimeFields.Value[(int)player][movable.Slime][movable.Index] |= 1u << movable.Position;
+                });
+            });
 
             return context;
         }

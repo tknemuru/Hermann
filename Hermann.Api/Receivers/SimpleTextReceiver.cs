@@ -34,7 +34,7 @@ namespace Hermann.Api.Receivers
             var dic = buildInfoDictionary(lines);
 
             // プレイヤ
-            context.OperationPlayer = int.Parse(dic[SimpleText.Keys.Player]);
+            context.OperationPlayer = (Player.Index)int.Parse(dic[SimpleText.Keys.Player]);
 
             // 操作方向
             context.OperationDirection = SimpleText.ConvertDirection(dic[SimpleText.Keys.Direction]);
@@ -113,8 +113,8 @@ namespace Hermann.Api.Receivers
         {
             var values = value.Split(SimpleText.Separator.Player);
             T[] results = new T[Player.Length];
-            results[Player.First] = parse(values[Player.First]);
-            results[Player.Second] = parse(values[Player.Second]);
+            results[(int)Player.Index.First] = parse(values[(int)Player.Index.First]);
+            results[(int)Player.Index.Second] = parse(values[(int)Player.Index.Second]);
             return results;
         }
 
@@ -177,11 +177,11 @@ namespace Hermann.Api.Receivers
 
             var values = SplitNewLine(value);
             var slimeFields = new Dictionary<Slime, uint[]>[Player.Length];
-            for (var player = 0; player < Player.Length; player++)
+            FieldContextHelper.ForEachPlayer((player) =>
             {
                 var lines = ExtractOnePlayerFieldLines(values, player);
-                slimeFields[player] = parse(lines);
-            }
+                slimeFields[(int)player] = parse(lines);
+            });
 
             return slimeFields;
         }
@@ -260,11 +260,11 @@ namespace Hermann.Api.Receivers
 
             var values = SplitNewLine(value);
             var movableSlimes = new MovableSlime[Player.Length][];
-            for (var player = 0; player < Player.Length; player++)
+            FieldContextHelper.ForEachPlayer((player) =>
             {
                 var lines = ExtractOnePlayerFieldLines(values, player);
-                movableSlimes[player] = parse(lines);
-            }
+                movableSlimes[(int)player] = parse(lines);
+            });
 
             return movableSlimes;
         }
@@ -277,14 +277,14 @@ namespace Hermann.Api.Receivers
         private static Slime[][][] ParseNextSlimes(string value)
         {
             var nextSlimes = new Slime[Player.Length][][];
-            Action<int> initialize = (player) =>
+            Action<Player.Index> initialize = (player) =>
             {
-                nextSlimes[player] = new Slime[NextSlime.Length][];
-                nextSlimes[player][(int)NextSlime.Index.First] = new Slime[MovableSlime.Length];
-                nextSlimes[player][(int)NextSlime.Index.Second] = new Slime[MovableSlime.Length];
+                nextSlimes[(int)player] = new Slime[NextSlime.Length][];
+                nextSlimes[(int)player][(int)NextSlime.Index.First] = new Slime[MovableSlime.Length];
+                nextSlimes[(int)player][(int)NextSlime.Index.Second] = new Slime[MovableSlime.Length];
             };
-            initialize(Player.First);
-            initialize(Player.Second);
+            initialize(Player.Index.First);
+            initialize(Player.Index.Second);
 
             var values = SplitNewLine(value);
             for (var i = 0; i < values.Length; i++)
@@ -299,8 +299,8 @@ namespace Hermann.Api.Receivers
                 Debug.Assert(nextSlimeLine.Length == NextSlime.Length, "NEXTスライムの数が不正です。数：" + nextSlimeLine.Length);
                 var nextSlimeIndex = SimpleText.ConvertNextSlimeIndex(i);
                 var movableSlimeUnitIndex = SimpleText.ConvertMovableSlimeUnitIndex(i);
-                nextSlimes[Player.First][(int)nextSlimeIndex][(int)movableSlimeUnitIndex] = SimpleText.ConvertSlime(nextSlimeLine[Player.First]);
-                nextSlimes[Player.Second][(int)nextSlimeIndex][(int)movableSlimeUnitIndex] = SimpleText.ConvertSlime(nextSlimeLine[Player.Second]);
+                nextSlimes[(int)Player.Index.First][(int)nextSlimeIndex][(int)movableSlimeUnitIndex] = SimpleText.ConvertSlime(nextSlimeLine[(int)Player.Index.First]);
+                nextSlimes[(int)Player.Index.Second][(int)nextSlimeIndex][(int)movableSlimeUnitIndex] = SimpleText.ConvertSlime(nextSlimeLine[(int)Player.Index.Second]);
             }
 
             return nextSlimes;
@@ -312,9 +312,9 @@ namespace Hermann.Api.Receivers
         /// <param name="orgLines">2プレイヤ分のフィールド情報 + NEXTスライム情報の文字列</param>
         /// <param name="player">対象プレイヤ</param>
         /// <returns>対象プレイヤのフィールド文字列</returns>
-        private static List<string> ExtractOnePlayerFieldLines(string[] orgLines, int player)
+        private static List<string> ExtractOnePlayerFieldLines(string[] orgLines, Player.Index player)
         {
-            var targetIndex = player == Player.First ? FieldIndex.FirstPlayer : FieldIndex.SecondPlayer;
+            var targetIndex = player == Player.Index.First ? FieldIndex.FirstPlayer : FieldIndex.SecondPlayer;
             var lines = new List<string>();
 
             foreach (var orgLine in orgLines)
@@ -356,8 +356,8 @@ namespace Hermann.Api.Receivers
             };
 
             var values = value.Split(SimpleText.Separator.Player);
-            result[Player.First] = parse(values[Player.First].ToCharArray());
-            result[Player.Second] = parse(values[Player.Second].ToCharArray());
+            result[(int)Player.Index.First] = parse(values[(int)Player.Index.First].ToCharArray());
+            result[(int)Player.Index.Second] = parse(values[(int)Player.Index.Second].ToCharArray());
 
             return result;
         }
