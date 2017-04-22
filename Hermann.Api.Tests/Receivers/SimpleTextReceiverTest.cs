@@ -24,7 +24,7 @@ namespace Hermann.Api.Tests.Receivers
         {
             // [001]1P:右
             var context = TestHelper.Receiver.Receive("../../resources/receivers/simple-text-file-receiver/test-field-in-001-001.txt");
-            var slimeFields = context.SlimeFields[Player.First];
+            var slimeFields = context.SlimeFields.Value[Player.First];
             var movableSlimes = context.MovableSlimes[Player.First];
 
             // 検証

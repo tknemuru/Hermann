@@ -80,6 +80,7 @@ namespace Hermann.Client.ConsoleClient
         /// </summary>
         private static void Start()
         {
+            // 初期フィールド状態の取得
             NoneDirectionUpdateFrameCount = 0;
             Receiver = ConsoleClientDiProvider.GetContainer().GetInstance<CommandReceiver<NativeCommand, FieldContext>>();
             var command = ConsoleClientDiProvider.GetContainer().GetInstance<NativeCommand>();
@@ -99,7 +100,6 @@ namespace Hermann.Client.ConsoleClient
                     c.Command = Command.Move;
                     c.Context = Context;
                     Context = Receiver.Receive(c);
-                    FieldContextWriter.Write(Context);
                 });
 
             // キーの入力読み込みタスクを開始
@@ -121,25 +121,12 @@ namespace Hermann.Client.ConsoleClient
         /// </summary>
         private static void Update()
         {
-            if (NoneDirectionUpdateFrameCount >= NoneDirectionUpdateFrameMaxCount)
-            {
-                // 方向：無での更新
-                for (var player = 0; player < Player.Length; player++)
-                {
-                    Context.OperationPlayer = player;
-                    Context.OperationDirection = Direction.None;
-                    var noneCommand = ConsoleClientDiProvider.GetContainer().GetInstance<NativeCommand>();
-                    noneCommand.Command = Command.Move;
-                    noneCommand.Context = Context;
-                    Context = Receiver.Receive(noneCommand);
-                }
-
-                NoneDirectionUpdateFrameCount = 0;
-            }
-            else
-            {
-                NoneDirectionUpdateFrameCount++;
-            }
+            // コマンドの実行
+            Context.OperationDirection = Direction.None;
+            var c = ConsoleClientDiProvider.GetContainer().GetInstance<NativeCommand>();
+            c.Command = Command.Move;
+            c.Context = Context;
+            Context = Receiver.Receive(c);
 
             // 画面描画
             FieldContextWriter.Write(Context);

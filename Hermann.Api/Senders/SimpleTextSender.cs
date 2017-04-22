@@ -165,7 +165,7 @@ namespace Hermann.Api.Senders
             string line = string.Empty;
             var possibilityOfExistsMovableUnit = true;
             var possibilityOfExistsMovablePosition = true;
-            var slimeFields = context.SlimeFields[player];
+            var slimeFields = context.SlimeFields.Value[player];
             for (var unitIndex = 0; unitIndex < FieldContextConfig.FieldUnitCount; unitIndex++)
             {
                 possibilityOfExistsMovableUnit = IsExistsMovableUnit(context, player, unitIndex);

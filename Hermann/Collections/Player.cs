@@ -85,6 +85,73 @@ namespace Hermann.Collections
         }
 
         /// <summary>
+        /// 下に移動するシフト量の調整を行います。
+        /// </summary>
+        /// <param name="context">フィールドの状態</param>
+        /// <param name="player">プレイヤ</param>
+        /// <param name="shift">シフト量</param>
+        /// <returns>調整された下に移動するシフト量</returns>
+        public static int ModifyDownShift(FieldContext context, int player, int shift)
+        {
+            // 底辺越えの判定対象は最下である2つめの移動可能スライムが対象
+            var movableSlimes = context.MovableSlimes[player];
+            var second = movableSlimes[(int)MovableSlime.UnitIndex.Second];
+            var position = second.Position + shift;
+            var index = second.Index + (position / FieldContextConfig.FieldUnitBitCount);
+
+            if (index > FieldContextConfig.FieldUnitCount - 1)
+            {
+                // 底辺を越えている場合は、底辺に着地させる
+                shift -= (((position - FieldContextConfig.FieldUnitBitCount) / FieldContextConfig.OneLineBitCount) + 1) * FieldContextConfig.OneLineBitCount;
+            }
+
+            // 移動先に他スライムが存在している場合は、それ以上下に移動させない
+            var first = movableSlimes[(int)MovableSlime.UnitIndex.First];
+            var maxShiftLine = shift / FieldContextConfig.OneLineBitCount;
+            var shiftLine = maxShiftLine;
+
+            // 1行ずつ移動して移動場所に他スライムが存在するか確認していく
+            for (var line = 1; line <= maxShiftLine; line++)
+            {
+                // 2つめは縦横どちらでも検証が必要
+                position = second.Position + (line * FieldContextConfig.OneLineBitCount);
+                index = second.Index + (position / FieldContextConfig.FieldUnitBitCount);
+                if (FieldContextHelper.ExistsSlime(context, player, index, position))
+                {
+                    // 他スライムのひとつ上まで移動させる
+                    shiftLine = line - 1;
+                    break;
+                }
+
+                // 1つめは横向きの場合のみ検証が必要
+                if (MovableSlime.GetUnitForm(movableSlimes) == MovableSlime.UnitForm.Horizontal)
+                {
+                    position = first.Position + (line * FieldContextConfig.OneLineBitCount);
+                    index = first.Index + (position / FieldContextConfig.FieldUnitBitCount);
+                    if (FieldContextHelper.ExistsSlime(context, player, index, position))
+                    {
+                        // 他スライムのひとつ上まで移動させる
+                        shiftLine = line - 1;
+                        break;
+                    }
+                }
+            }
+
+            return shiftLine * FieldContextConfig.OneLineBitCount;
+        }
+
+        /// <summary>
+        /// 下に移動するシフト量の調整を行います。
+        /// </summary>
+        /// <param name="context">フィールドの状態</param>
+        /// <param name="shift">シフト量</param>
+        /// <returns>調整された下に移動するシフト量</returns>
+        private static int ModifyDownShift(FieldContext context, int shift)
+        {
+            return ModifyDownShift(context, context.OperationPlayer, shift);
+        }
+
+        /// <summary>
         /// スライムを動かします。
         /// </summary>
         /// <param name="context">状態</param>
@@ -94,7 +161,7 @@ namespace Hermann.Collections
         private static void Move(FieldContext context, int shift)
         {
             var movableSlimes = context.MovableSlimes[context.OperationPlayer];
-            var slimeFields = context.SlimeFields[context.OperationPlayer];
+            var slimeFields = context.SlimeFields.Value[context.OperationPlayer];
 
             // １．移動前スライムを消す
             foreach (var movable in movableSlimes)
@@ -111,6 +178,8 @@ namespace Hermann.Collections
                 Debug.Assert(!FieldContextHelper.ExistsSlime(context, context.OperationPlayer, movable.Index, movable.Position), string.Format("他のスライムが移動場所に存在しています。 Index : {0} Position : {1}", movable.Index, movable.Position));
                 slimeFields[movable.Slime][movable.Index] |= 1u << movable.Position;
             }
+
+            context.SlimeFields.ForceNotify();
         }
 
         /// <summary>
@@ -175,61 +244,6 @@ namespace Hermann.Collections
             }
 
             return true;
-        }
-
-        /// <summary>
-        /// 下に移動するシフト量の調整を行います。
-        /// </summary>
-        /// <param name="context">フィールドの状態</param>
-        /// <param name="shift">シフト量</param>
-        /// <returns></returns>
-        private static int ModifyDownShift(FieldContext context, int shift)
-        {
-            // 底辺越えの判定対象は最下である2つめの移動可能スライムが対象
-            var movableSlimes = context.MovableSlimes[context.OperationPlayer];
-            var second = movableSlimes[(int)MovableSlime.UnitIndex.Second];
-            var position = second.Position + shift;
-            var index = second.Index + (position / FieldContextConfig.FieldUnitBitCount);
-
-            if (index > FieldContextConfig.FieldUnitCount - 1)
-            {
-                // 底辺を越えている場合は、底辺に着地させる
-                shift -= (((position - FieldContextConfig.FieldUnitBitCount) / FieldContextConfig.OneLineBitCount) + 1) * FieldContextConfig.OneLineBitCount;
-            }
-
-            // 移動先に他スライムが存在している場合は、それ以上下に移動させない
-            var first = movableSlimes[(int)MovableSlime.UnitIndex.First];
-            var maxShiftLine = shift / FieldContextConfig.OneLineBitCount;
-            var shiftLine = maxShiftLine;
-
-            // 1行ずつ移動して移動場所に他スライムが存在するか確認していく
-            for (var line = 1; line <= maxShiftLine; line++)
-            {
-                // 2つめは縦横どちらでも検証が必要
-                position = second.Position + (line * FieldContextConfig.OneLineBitCount);
-                index = second.Index + (position / FieldContextConfig.FieldUnitBitCount);
-                if (FieldContextHelper.ExistsSlime(context, context.OperationPlayer, index, position))
-                {
-                    // 他スライムのひとつ上まで移動させる
-                    shiftLine = line - 1;
-                    break;
-                }
-
-                // 1つめは横向きの場合のみ検証が必要
-                if (MovableSlime.GetUnitForm(movableSlimes) == MovableSlime.UnitForm.Horizontal)
-                {
-                    position = first.Position + (line * FieldContextConfig.OneLineBitCount);
-                    index = first.Index + (position / FieldContextConfig.FieldUnitBitCount);
-                    if (FieldContextHelper.ExistsSlime(context, context.OperationPlayer, index, position))
-                    {
-                        // 他スライムのひとつ上まで移動させる
-                        shiftLine = line - 1;
-                        break;
-                    }
-                }
-            }
-
-            return shiftLine * FieldContextConfig.OneLineBitCount;
         }
     }
 }

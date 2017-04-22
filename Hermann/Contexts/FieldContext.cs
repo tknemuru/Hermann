@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reactive.Linq;
+using Reactive.Bindings;
+using Reactive.Bindings.Notifiers;
 
 namespace Hermann.Contexts
 {
@@ -80,7 +83,7 @@ namespace Hermann.Contexts
         /// <summary>
         /// スライムごとの配置状態
         /// </summary>
-        public Dictionary<Slime, uint[]>[] SlimeFields { get; set; }
+        public ReactiveProperty<Dictionary<Slime, uint[]>[]> SlimeFields { get; set; }
 
         /// <summary>
         /// NEXTスライム
@@ -110,9 +113,10 @@ namespace Hermann.Contexts
             this.MovableSlimes[Player.First] = new MovableSlime[MovableSlime.Length];
             this.MovableSlimes[Player.Second] = new MovableSlime[MovableSlime.Length];
 
-            this.SlimeFields = new Dictionary<Slime, uint[]>[Player.Length];
-            this.SlimeFields[Player.First] = new Dictionary<Slime, uint[]>();
-            this.SlimeFields[Player.Second] = new Dictionary<Slime, uint[]>();
+            this.SlimeFields = new ReactiveProperty<Dictionary<Slime, uint[]>[]>();
+            this.SlimeFields.Value = new Dictionary<Slime, uint[]>[Player.Length];
+            this.SlimeFields.Value[Player.First] = new Dictionary<Slime, uint[]>();
+            this.SlimeFields.Value[Player.Second] = new Dictionary<Slime, uint[]>();
 
             this.NextSlimes = new Slime[Player.Length][][];
             this.NextSlimes[Player.First] = new Slime[NextSlime.Length][];
@@ -186,8 +190,8 @@ namespace Hermann.Contexts
                 }
 
                 // スライムごとの配置状態
-                var slimeFields = context.SlimeFields[player];
-                var mySlimeFields = this.SlimeFields[player];
+                var slimeFields = context.SlimeFields.Value[player];
+                var mySlimeFields = this.SlimeFields.Value[player];
                 equals.Add(slimeFields.Count == mySlimeFields.Count);
                 foreach (var slime in slimeFields.Keys)
                 {

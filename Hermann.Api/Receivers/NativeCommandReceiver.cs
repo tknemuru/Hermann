@@ -22,17 +22,11 @@ namespace Hermann.Api.Receivers
         private Game Game { get; set; }
 
         /// <summary>
-        /// フィールド状態の送信機能
-        /// </summary>
-        private FieldContextSender<string> Sender { get; set; }
-
-        /// <summary>
         /// コンストラクタ
         /// </summary>
         public NativeCommandReceiver()
         {
             this.Game = DiProvider.GetContainer().GetInstance<Game>();
-            this.Sender = DiProvider.GetContainer().GetInstance<FieldContextSender<string>>();
         }
 
         /// <summary>

@@ -8,6 +8,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reactive.Linq;
+using Reactive.Bindings;
+using Reactive.Bindings.Notifiers;
 
 namespace Hermann.Api.Receivers
 {
@@ -67,7 +70,7 @@ namespace Hermann.Api.Receivers
             context.ObstructionSlimes = ParseObstructionSlime(dic[SimpleText.Keys.ObstructionSlime]);
 
             // フィールド
-            context.SlimeFields = ParseSlimeFields(dic[SimpleText.Keys.Field]);
+            context.SlimeFields = new ReactiveProperty<Dictionary<Slime,uint[]>[]>(ParseSlimeFields(dic[SimpleText.Keys.Field]));
 
             // 移動可能なスライム
             context.MovableSlimes = ParseMovableSlime(dic[SimpleText.Keys.Field]);

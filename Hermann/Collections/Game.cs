@@ -1,11 +1,15 @@
 ﻿using Hermann.Contexts;
 using Hermann.Di;
 using Hermann.Generators;
+using Hermann.Updaters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reactive.Linq;
+using Reactive.Bindings;
+using Reactive.Bindings.Notifiers;
 
 namespace Hermann.Collections
 {
@@ -25,12 +29,30 @@ namespace Hermann.Collections
         private NextSlimeGenerator NextSlimeGen { get; set; }
 
         /// <summary>
+        /// 方向：無で更新する間隔（ミリ秒）
+        /// </summary>
+        private int NoneDirectionUpdateInterval { get; set; }
+
+        /// <summary>
+        /// 方向：無で更新する回数
+        /// </summary>
+        private int NoneDirectionUpdateCount { get; set; }
+
+        /// <summary>
+        /// 接地更新機能
+        /// </summary>
+        private GroundUpdater GroundUpdater { get; set; }
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         public Game()
         {
+            this.NoneDirectionUpdateInterval = 1000;
+            this.NoneDirectionUpdateCount = 0;
             this.NextSlimeGen = DiProvider.GetContainer().GetInstance<NextSlimeGenerator>();
             this.UsingSlimeGen = DiProvider.GetContainer().GetInstance<UsingSlimeGenerator>();
+            this.GroundUpdater = DiProvider.GetContainer().GetInstance<GroundUpdater>();
         }
 
         /// <summary>
@@ -39,7 +61,22 @@ namespace Hermann.Collections
         /// <returns>フィールド状態</returns>
         public FieldContext Start()
         {
-            return this.CreateInitialFieldContext();
+            // 方向：無で更新する回数カウントイベント
+            Observable.Interval(TimeSpan.FromMilliseconds(this.NoneDirectionUpdateInterval))
+                .Subscribe(_ =>
+                {
+                    this.NoneDirectionUpdateCount++;
+                });
+
+            var context = this.CreateInitialFieldContext();
+
+            // 購読登録
+            context.SlimeFields.Subscribe(f =>
+            {
+                this.GroundUpdater.Update(context);
+            });
+
+            return context;
         }
 
         /// <summary>
@@ -49,7 +86,41 @@ namespace Hermann.Collections
         /// <returns>更新されたフィールド状態</returns>
         public FieldContext Update(FieldContext context)
         {
-            return Player.Move(context);
+            // 方向：無での更新
+            var count = this.NoneDirectionUpdateCount;
+            this.NoneDirectionUpdateCount = 0;
+            for (var i = 0; i < count; i++)
+            {
+                for (var player = 0; player < Player.Length; player++)
+                {
+                    context.OperationPlayer = player;
+                    context.OperationDirection = Direction.None;
+                    context = Player.Move(context);
+                }
+            }
+
+            // プレイヤの操作による移動
+            if (context.OperationDirection != Direction.None)
+            {
+                context = Player.Move(context);
+            }
+
+            return context;
+        }
+
+        /// <summary>
+        /// 購読登録を行います。
+        /// </summary>
+        /// <param name="context">フィールド状態</param>
+        private void Subscribe(FieldContext context)
+        {
+            // 接地判定
+            context.SlimeFields.Subscribe(f =>
+            {
+                this.GroundUpdater.Update(context);
+            });
+
+
         }
 
         /// <summary>
@@ -111,7 +182,7 @@ namespace Hermann.Collections
             {
                 for (var slimeIndex = 0; slimeIndex < fieldSlimes.Length; slimeIndex++)
                 {
-                    context.SlimeFields[player].Add(fieldSlimes[slimeIndex], createInitialField());
+                    context.SlimeFields.Value[player].Add(fieldSlimes[slimeIndex], createInitialField());
                 }
             }
 
@@ -128,7 +199,7 @@ namespace Hermann.Collections
                     context.MovableSlimes[player][unitIndex] = movable;
 
                     // フィールドにも反映させる
-                    context.SlimeFields[player][movable.Slime][movable.Index] |= 1u << movable.Position;
+                    context.SlimeFields.Value[player][movable.Slime][movable.Index] |= 1u << movable.Position;
                 }
             }
 
