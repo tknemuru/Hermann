@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Hermann.Helpers;
 
 namespace Hermann.Api.Senders
 {
@@ -33,7 +34,7 @@ namespace Hermann.Api.Senders
             sb.AppendLine(ToString(SimpleText.Keys.Time, context.Time));
 
             // 接地
-            sb.AppendLine(ArrayToString(SimpleText.Keys.Ground, context.Ground));
+            sb.AppendLine(ArrayToString(SimpleText.Keys.Ground, ReactiveHelper.GetValues(context.Ground)));
 
             // 設置残タイム
             sb.AppendLine(ArrayToString(SimpleText.Keys.BuiltRemainingTime, context.BuiltRemainingTime));
@@ -165,7 +166,7 @@ namespace Hermann.Api.Senders
             string line = string.Empty;
             var possibilityOfExistsMovableUnit = true;
             var possibilityOfExistsMovablePosition = true;
-            var slimeFields = context.SlimeFields.Value[(int)player];
+            var slimeFields = context.SlimeFields[(int)player].Value;
             for (var unitIndex = 0; unitIndex < FieldContextConfig.FieldUnitCount; unitIndex++)
             {
                 possibilityOfExistsMovableUnit = IsExistsMovableUnit(context, player, unitIndex);

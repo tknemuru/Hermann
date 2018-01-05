@@ -13,7 +13,7 @@ namespace Hermann.Updaters
     /// <summary>
     /// 接地の更新機能を提供します。
     /// </summary>
-    public class GroundUpdater : IUpdatable
+    public class GroundUpdater : IFieldUpdatable
     {
         /// <summary>
         /// 接地を更新します。
@@ -21,10 +21,17 @@ namespace Hermann.Updaters
         /// <param name="context">フィールド状態</param>
         public void Update(FieldContext context)
         {
-            FieldContextHelper.ForEachPlayer((player) =>
+            var player = context.OperationPlayer;
+
+            // 接地しているか？
+            var isGround = Player.ModifyDownShift(context, player, FieldContextConfig.OneLineBitCount) <= 0;
+            context.Ground[(int)player].Value = isGround;
+
+            if (isGround)
             {
-                context.Ground[(int)player] = Player.ModifyDownShift(context, player, FieldContextConfig.OneLineBitCount) <= 0;
-            });
+                // 接地していたら設置残タイムを設定する
+                context.BuiltRemainingTime[(int)player] = FieldContextConfig.MaxBuiltRemainingTime;
+            }
         }
     }
 }

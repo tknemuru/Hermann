@@ -43,10 +43,10 @@ namespace Hermann.Api.Receivers
             context.Time = long.Parse(dic[SimpleText.Keys.Time]);
 
             // 接地
-            context.Ground = Parse(dic[SimpleText.Keys.Ground], bool.Parse);
+            context.Ground = ParseReactiveProperty(dic[SimpleText.Keys.Ground], bool.Parse);
 
             // 設置残タイム
-            context.BuiltRemainingTime = Parse(dic[SimpleText.Keys.BuiltRemainingTime], int.Parse);
+            context.BuiltRemainingTime = Parse(dic[SimpleText.Keys.BuiltRemainingTime], long.Parse);
 
             // 得点
             context.Score = Parse(dic[SimpleText.Keys.Score], long.Parse);
@@ -70,7 +70,7 @@ namespace Hermann.Api.Receivers
             context.ObstructionSlimes = ParseObstructionSlime(dic[SimpleText.Keys.ObstructionSlime]);
 
             // フィールド
-            context.SlimeFields = new ReactiveProperty<Dictionary<Slime,uint[]>[]>(ParseSlimeFields(dic[SimpleText.Keys.Field]));
+            context.SlimeFields = ParseSlimeFields(dic[SimpleText.Keys.Field]);
 
             // 移動可能なスライム
             context.MovableSlimes = ParseMovableSlime(dic[SimpleText.Keys.Field]);
@@ -103,7 +103,7 @@ namespace Hermann.Api.Receivers
         }
 
         /// <summary>
-        /// 両プレイヤの値を変換します
+        /// 両プレイヤの値を変換します。
         /// </summary>
         /// <typeparam name="T">値の型</typeparam>
         /// <param name="value">値</param>
@@ -116,6 +116,24 @@ namespace Hermann.Api.Receivers
             results[(int)Player.Index.First] = parse(values[(int)Player.Index.First]);
             results[(int)Player.Index.Second] = parse(values[(int)Player.Index.Second]);
             return results;
+        }
+
+        /// <summary>
+        /// 両プレイヤの値をReactivePropertyの値に変換します。
+        /// </summary>
+        /// <typeparam name="T">値の型</typeparam>
+        /// <param name="value">値</param>
+        /// <param name="parse">変換メソッド</param>
+        /// <returns>変換した値の配列</returns>
+        private static ReactiveProperty<T>[] ParseReactiveProperty<T>(string value, Func<string, T> parse)
+        {
+            var properties = new ReactiveProperty<T>[Player.Length];
+            var orgResults = Parse(value, parse);
+            Player.ForEach((player) =>
+            {
+                properties[(int)player] = new ReactiveProperty<T>(orgResults[(int)player]);
+            });
+            return properties;
         }
 
         /// <summary>
@@ -142,7 +160,7 @@ namespace Hermann.Api.Receivers
         /// </summary>
         /// <param name="value">スライムごとの配置状態の文字列</param>
         /// <returns>スライムごとの配置状態</returns>
-        private static Dictionary<Slime, uint[]>[] ParseSlimeFields(string value)
+        private static ReactiveProperty<Dictionary<Slime, uint[]>>[] ParseSlimeFields(string value)
         {
             // 変換を行う
             Func<List<string>, Dictionary<Slime, uint[]>> parse = (lines) =>
@@ -176,14 +194,14 @@ namespace Hermann.Api.Receivers
             };
 
             var values = SplitNewLine(value);
-            var slimeFields = new Dictionary<Slime, uint[]>[Player.Length];
-            FieldContextHelper.ForEachPlayer((player) =>
+            var properties = new ReactiveProperty<Dictionary<Slime, uint[]>>[Player.Length];
+            Player.ForEach((player) =>
             {
                 var lines = ExtractOnePlayerFieldLines(values, player);
-                slimeFields[(int)player] = parse(lines);
+                properties[(int)player] = new ReactiveProperty<Dictionary<Slime, uint[]>>(parse(lines));
             });
 
-            return slimeFields;
+            return properties;
         }
 
         /// <summary>
@@ -260,7 +278,7 @@ namespace Hermann.Api.Receivers
 
             var values = SplitNewLine(value);
             var movableSlimes = new MovableSlime[Player.Length][];
-            FieldContextHelper.ForEachPlayer((player) =>
+            Player.ForEach((player) =>
             {
                 var lines = ExtractOnePlayerFieldLines(values, player);
                 movableSlimes[(int)player] = parse(lines);

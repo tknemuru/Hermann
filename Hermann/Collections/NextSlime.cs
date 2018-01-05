@@ -31,5 +31,16 @@ namespace Hermann.Collections
             /// </summary>
             Second,
         }
+
+        /// 両NEXTスライムに対して戻り値を持たないメソッドを繰り返し実行します。
+        /// </summary>
+        /// <param name="action">戻り値を持たないメソッド</param>
+        public static void ForEach(Action<NextSlime.Index> action)
+        {
+            for (var unit = NextSlime.Index.First; (int)unit < NextSlime.Length; unit++)
+            {
+                action(unit);
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@ using Hermann.Tests.Di;
 using Hermann.Api.Receivers;
 using Hermann.Contexts;
 using Hermann.Collections;
+using Hermann.Helpers;
 using Hermann.Tests.TestHelpers;
 
 namespace Hermann.Api.Tests.Receivers
@@ -24,7 +25,7 @@ namespace Hermann.Api.Tests.Receivers
         {
             // [001]1P:右
             var context = TestHelper.Receiver.Receive("../../resources/receivers/simple-text-file-receiver/test-field-in-001-001.txt");
-            var slimeFields = context.SlimeFields.Value[(int)Player.Index.First];
+            var slimeFields = context.SlimeFields[(int)Player.Index.First].Value;
             var movableSlimes = context.MovableSlimes[(int)Player.Index.First];
 
             // 検証
@@ -36,10 +37,10 @@ namespace Hermann.Api.Tests.Receivers
             Assert.AreEqual(200, context.Time);
 
             // 接地
-            CollectionAssert.AreEqual(new[] { false, true }, context.Ground);
+            CollectionAssert.AreEqual(new[] { false, true }, ReactiveHelper.GetValues(context.Ground));
 
             // 設置残タイム
-            CollectionAssert.AreEqual(new[] { 260, 90 }, context.BuiltRemainingTime);
+            CollectionAssert.AreEqual(new[] { 260L, 90L }, context.BuiltRemainingTime);
 
             // 得点
             CollectionAssert.AreEqual(new[] { 3000L, 2000L }, context.Score);

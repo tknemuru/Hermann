@@ -104,6 +104,18 @@ namespace Hermann.Collections
         }
 
         /// <summary>
+        /// 移動可能なスライムに対して戻り値を持たないメソッドを繰り返し実行します。
+        /// </summary>
+        /// <param name="action">戻り値を持たないメソッド</param>
+        public static void ForEach(Action<MovableSlime.UnitIndex> action)
+        {
+            for (var unitIndex = MovableSlime.UnitIndex.First; (int)unitIndex < MovableSlime.Length; unitIndex++)
+            {
+                action(unitIndex);
+            }
+        }
+
+        /// <summary>
         /// 指定のオブジェクトが現在のオブジェクトと等しいかどうかを判断します。
         /// </summary>
         /// <param name="obj">比較対象のオブジェクト</param>

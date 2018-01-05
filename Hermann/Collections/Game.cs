@@ -5,6 +5,7 @@ using Hermann.Updaters;
 using Hermann.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,11 @@ namespace Hermann.Collections
     /// </summary>
     public sealed class Game
     {
+        /// <summary>
+        /// ストップウォッチ
+        /// </summary>
+        private Stopwatch Stopwatch { get; set; }
+
         /// <summary>
         /// 使用スライム生成機能
         /// </summary>
@@ -40,9 +46,29 @@ namespace Hermann.Collections
         private int NoneDirectionUpdateCount { get; set; }
 
         /// <summary>
+        /// 時間更新機能
+        /// </summary>
+        private TimeUpdater TimeUpdater { get; set; }
+
+        /// <summary>
         /// 接地更新機能
         /// </summary>
         private GroundUpdater GroundUpdater { get; set; }
+
+        /// <summary>
+        /// 設置に関するフィールドの更新機能
+        /// </summary>
+        private BuiltingUpdater BuiltingUpdater { get; set; }
+
+        /// <summary>
+        /// 消去対象のスライムを消済スライムとしてマーキングする機能
+        /// </summary>
+        private SlimeErasingMarker SlimeErasingMarker { get; set; }
+
+        /// <summary>
+        /// 勝数の更新機能
+        /// </summary>
+        private WinCountUpdater WinCountUpdater { get; set; }
 
         /// <summary>
         /// コンストラクタ
@@ -53,7 +79,11 @@ namespace Hermann.Collections
             this.NoneDirectionUpdateCount = 0;
             this.NextSlimeGen = DiProvider.GetContainer().GetInstance<NextSlimeGenerator>();
             this.UsingSlimeGen = DiProvider.GetContainer().GetInstance<UsingSlimeGenerator>();
+            this.TimeUpdater = DiProvider.GetContainer().GetInstance<TimeUpdater>();
             this.GroundUpdater = DiProvider.GetContainer().GetInstance<GroundUpdater>();
+            this.BuiltingUpdater = DiProvider.GetContainer().GetInstance<BuiltingUpdater>();
+            this.SlimeErasingMarker = DiProvider.GetContainer().GetInstance<SlimeErasingMarker>();
+            this.WinCountUpdater = DiProvider.GetContainer().GetInstance<WinCountUpdater>();
         }
 
         /// <summary>
@@ -72,10 +102,7 @@ namespace Hermann.Collections
             var context = this.CreateInitialFieldContext();
 
             // 購読登録
-            context.SlimeFields.Subscribe(f =>
-            {
-                this.GroundUpdater.Update(context);
-            });
+            this.Subscribe(context);
 
             return context;
         }
@@ -92,7 +119,7 @@ namespace Hermann.Collections
             this.NoneDirectionUpdateCount = 0;
             for (var i = 0; i < count; i++)
             {
-                FieldContextHelper.ForEachPlayer((player) =>
+                Player.ForEach((player) =>
                 {
                     context.OperationPlayer = player;
                     context.OperationDirection = Direction.None;
@@ -106,6 +133,9 @@ namespace Hermann.Collections
                 context = Player.Move(context);
             }
 
+            // 時間の更新
+            this.TimeUpdater.Update(context);
+
             return context;
         }
 
@@ -115,13 +145,31 @@ namespace Hermann.Collections
         /// <param name="context">フィールド状態</param>
         private void Subscribe(FieldContext context)
         {
-            // 接地判定
-            context.SlimeFields.Subscribe(f =>
+            Player.ForEach((player) =>
             {
-                this.GroundUpdater.Update(context);
+                // 接地判定
+                context.SlimeFields[(int)player].Subscribe(f =>
+                {
+                    this.GroundUpdater.Update(context);
+                });
+
+                // 接地がfalseに戻ったとき
+                context.Ground[(int)player].Where(g => !g).Subscribe(g =>
+                {
+                    // 1.移動可能スライムを通常のスライムに変換する
+                    this.BuiltingUpdater.Update(context);
+
+                    // 2.消す対象のスライムを消済スライムとしてマーキングする
+                    // 3.連鎖回数をインクリメントする
+                    //   消す対象が存在しなかった場合は連鎖回数を0に戻す
+                    this.SlimeErasingMarker.Update(context);
+
+                    // 4.勝敗を決定する
+                    this.WinCountUpdater.Update(context);
+
+
+                });
             });
-
-
         }
 
         /// <summary>
@@ -139,10 +187,12 @@ namespace Hermann.Collections
             context.Time = 0;
 
             // 接地
-            context.Ground = new[] { false, false };
+            context.Ground = new ReactiveProperty<bool>[Player.Length];
+            context.Ground[(int)Player.Index.First] = new ReactiveProperty<bool>(false);
+            context.Ground[(int)Player.Index.Second] = new ReactiveProperty<bool>(false);
 
             // 設置残タイム
-            context.BuiltRemainingTime = new[] { 0, 0 };
+            context.BuiltRemainingTime = new[] { 0L, 0L };
 
             // 得点
             context.Score = new[] { 0L, 0L };
@@ -164,9 +214,9 @@ namespace Hermann.Collections
 
             // NEXTスライム
             this.NextSlimeGen.UsingSlime = context.UsingSlimes;
-            FieldContextHelper.ForEachPlayer((player) =>
+            Player.ForEach((player) =>
             {
-                FieldContextHelper.ForEachNextSlime((unit) =>
+                NextSlime.ForEach((unit) =>
                 {
                     context.NextSlimes[(int)player][(int)unit] = this.NextSlimeGen.GetNext();
                 });
@@ -179,19 +229,19 @@ namespace Hermann.Collections
                 return field.ToArray();
             };
             var fieldSlimes = ExtensionSlime.Slimes.ToArray();
-            FieldContextHelper.ForEachPlayer((player) =>
+            Player.ForEach((player) =>
             {
                 for (var slimeIndex = 0; slimeIndex < fieldSlimes.Length; slimeIndex++)
                 {
-                    context.SlimeFields.Value[(int)player].Add(fieldSlimes[slimeIndex], createInitialField());
+                    context.SlimeFields[(int)player].Value.Add(fieldSlimes[slimeIndex], createInitialField());
                 }
             });
 
             // 移動可能なスライム
-            FieldContextHelper.ForEachPlayer((player) =>
+            Player.ForEach((player) =>
             {
                 var movableSlimes = this.NextSlimeGen.GetNext();
-                FieldContextHelper.ForEachMovableSlimes((unitIndex) =>
+                MovableSlime.ForEach((unitIndex) =>
                 {
                     var movable = new MovableSlime();
                     movable.Slime = movableSlimes[(int)unitIndex];
@@ -200,7 +250,7 @@ namespace Hermann.Collections
                     context.MovableSlimes[(int)player][(int)unitIndex] = movable;
 
                     // フィールドにも反映させる
-                    context.SlimeFields.Value[(int)player][movable.Slime][movable.Index] |= 1u << movable.Position;
+                    context.SlimeFields[(int)player].Value[movable.Slime][movable.Index] |= 1u << movable.Position;
                 });
             });
 

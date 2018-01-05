@@ -10,7 +10,7 @@ namespace Hermann.Updaters
     /// <summary>
     /// フィールド状態の更新機能を提供します。
     /// </summary>
-    public interface IUpdatable
+    public interface IFieldUpdatable
     {
         /// <summary>
         /// フィールド状態を更新します。
