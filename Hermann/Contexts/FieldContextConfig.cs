@@ -50,5 +50,10 @@ namespace Hermann.Contexts
         /// 移動可能なスライムの初期シフト量
         /// </summary>
         public const int MovableSlimeInitialShift = 21;
+
+        /// <summary>
+        /// 最大設置残タイム（ミリ秒）
+        /// </summary>
+        public const long MaxBuiltRemainingTime = 260;
     }
 }

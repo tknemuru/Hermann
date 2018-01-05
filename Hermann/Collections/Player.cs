@@ -97,6 +97,18 @@ namespace Hermann.Collections
         }
 
         /// <summary>
+        /// 両プレイヤのフィールド情報に対して戻り値を持たないメソッドを繰り返し実行します。
+        /// </summary>
+        /// <param name="action">戻り値を持たないメソッド</param>
+        public static void ForEach(Action<Player.Index> action)
+        {
+            for (var player = Player.Index.First; (int)player < Player.Length; player++)
+            {
+                action(player);
+            }
+        }
+
+        /// <summary>
         /// 下に移動するシフト量の調整を行います。
         /// </summary>
         /// <param name="context">フィールドの状態</param>
@@ -173,7 +185,7 @@ namespace Hermann.Collections
         private static void Move(FieldContext context, int shift)
         {
             var movableSlimes = context.MovableSlimes[(int)context.OperationPlayer];
-            var slimeFields = context.SlimeFields.Value[(int)context.OperationPlayer];
+            var slimeFields = context.SlimeFields[(int)context.OperationPlayer].Value;
 
             // １．移動前スライムを消す
             foreach (var movable in movableSlimes)
@@ -191,7 +203,7 @@ namespace Hermann.Collections
                 slimeFields[movable.Slime][movable.Index] |= 1u << movable.Position;
             }
 
-            context.SlimeFields.ForceNotify();
+            context.SlimeFields[(int)context.OperationPlayer].ForceNotify();
         }
 
         /// <summary>
