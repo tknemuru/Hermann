@@ -109,13 +109,24 @@ namespace Hermann.Collections
         }
 
         /// <summary>
+        /// 指定したプレイヤが接地しているかどうかを判定します。
+        /// </summary>
+        /// <param name="context">フィールドの状態</param>
+        /// <param name="player">プレイヤ</param>
+        /// <returns></returns>
+        public static bool IsGround(FieldContext context, Player.Index player)
+        {
+            return ModifyDownShift(context, player, FieldContextConfig.OneLineBitCount) <= 0;
+        }
+
+        /// <summary>
         /// 下に移動するシフト量の調整を行います。
         /// </summary>
         /// <param name="context">フィールドの状態</param>
         /// <param name="player">プレイヤ</param>
         /// <param name="shift">シフト量</param>
         /// <returns>調整された下に移動するシフト量</returns>
-        public static int ModifyDownShift(FieldContext context, Player.Index player, int shift)
+        private static int ModifyDownShift(FieldContext context, Player.Index player, int shift)
         {
             // 底辺越えの判定対象は最下である2つめの移動可能スライムが対象
             var movableSlimes = context.MovableSlimes[(int)player];

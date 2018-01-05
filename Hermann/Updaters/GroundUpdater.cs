@@ -24,7 +24,7 @@ namespace Hermann.Updaters
             var player = context.OperationPlayer;
 
             // 接地しているか？
-            var isGround = Player.ModifyDownShift(context, player, FieldContextConfig.OneLineBitCount) <= 0;
+            var isGround = Player.IsGround(context, player);
             context.Ground[(int)player].Value = isGround;
 
             if (isGround)
