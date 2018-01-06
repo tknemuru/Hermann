@@ -241,17 +241,7 @@ namespace Hermann.Collections
             Player.ForEach((player) =>
             {
                 var movableSlimes = this.NextSlimeGen.GetNext();
-                MovableSlime.ForEach((unitIndex) =>
-                {
-                    var movable = new MovableSlime();
-                    movable.Slime = movableSlimes[(int)unitIndex];
-                    movable.Index = FieldContextConfig.HiddenUnitIndex;
-                    movable.Position = FieldContextConfig.MovableSlimeInitialShift + ((int)unitIndex * FieldContextConfig.OneLineBitCount);
-                    context.MovableSlimes[(int)player][(int)unitIndex] = movable;
-
-                    // フィールドにも反映させる
-                    context.SlimeFields[(int)player].Value[movable.Slime][movable.Index] |= 1u << movable.Position;
-                });
+                FieldContextHelper.SetMovableSlimeInitialPosition(context, player, movableSlimes);
             });
 
             return context;

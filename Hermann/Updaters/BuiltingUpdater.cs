@@ -1,5 +1,6 @@
 ﻿using Hermann.Collections;
 using Hermann.Contexts;
+using Hermann.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,11 +17,20 @@ namespace Hermann.Updaters
     {
         public void Update(FieldContext context)
         {
-            //Debug.Assert((context.Ground[(int)Player.Index.First] && context.BuiltRemainingTime[(int)Player.Index.First].Value == 0L) ||
-            //    (context.Ground[(int)Player.Index.Second] && context.BuiltRemainingTime[(int)Player.Index.Second].Value == 0L),
-            //    "どちらかのプレイヤの接地がtrueで設置残タイムが0秒であることが呼び出しの前提条件です。");
+            Debug.Assert(
+                (context.Ground[(int)Player.Index.First].Value && context.BuiltRemainingTime[(int)Player.Index.First] <= 0L) ||
+                (context.Ground[(int)Player.Index.Second].Value && context.BuiltRemainingTime[(int)Player.Index.Second] <= 0L),
+                "どちらかのプレイヤの接地がtrueで設置残タイムが0秒以下であることが呼び出しの前提条件です。");
 
-            // 移動可能スライムを通常のスライムに変換する
+            var player = context.OperationPlayer;
+
+            // Nextスライムを移動可能スライムにセットする
+            // フィールド上には移動可能スライムと同じ位置に通常のスライムが配置済なので、移動可能スライムの情報を書き換えれば通常のスライムに変わることになる
+            FieldContextHelper.SetMovableSlimeInitialPosition(
+                context,
+                player,
+                context.NextSlimes[(int)player][(int)NextSlime.Index.First],
+                context.MovableSlimes[(int)player]);
         }
     }
 }
