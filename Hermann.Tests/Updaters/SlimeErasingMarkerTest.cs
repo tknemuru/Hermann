@@ -54,5 +54,18 @@ namespace Hermann.Tests.Updaters
                 "../../resources/updaters/slimeerasingmarker/test-field-in-001-004.txt",
                 this.Updater.Update);
         }
+
+        /// <summary>
+        /// 002：横4
+        /// </summary>
+        [TestMethod]
+        public void 横4()
+        {
+            // 001:1P-2行目-2列目-赤
+            TestHelper.AssertEqualsFieldContext(
+                "../../resources/updaters/slimeerasingmarker/test-field-out-002-001.txt",
+                "../../resources/updaters/slimeerasingmarker/test-field-in-002-001.txt",
+                this.Updater.Update);
+        }
     }
 }

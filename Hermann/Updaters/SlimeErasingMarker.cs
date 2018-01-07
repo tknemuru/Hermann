@@ -15,6 +15,22 @@ namespace Hermann.Updaters
     public class SlimeErasingMarker : IFieldUpdatable
     {
         /// <summary>
+        /// 消去パターンリスト
+        /// </summary>
+        private static List<ErasePattern> ErasePatternList = null;
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        public SlimeErasingMarker()
+        {
+            if (ErasePatternList == null)
+            {
+                ErasePatternList = BuildErasePatternList();
+            }
+        }
+
+        /// <summary>
         /// 消去対象のスライムを消済スライムとしてマーキングします。
         /// </summary>
         /// <param name="context">フィールドの状態</param>
@@ -35,22 +51,29 @@ namespace Hermann.Updaters
                 Debug.Assert(erasedSlimes.Length == fields.Length, string.Format("フィールドの要素数が不正です。要素数：{0}", fields.Length));
               
                 // 最後のユニットの先頭行まで繰り返す
-                for (var horizontalIndex = 0; horizontalIndex < (FieldContextConfig.FieldLineCount - (FieldContextConfig.FieldUnitLineCount - 1)); horizontalIndex++)
+                var maxIndex = (FieldContextConfig.FieldLineCount - (FieldContextConfig.FieldUnitLineCount - 1));
+                for (var horizontalIndex = 0; horizontalIndex < maxIndex; horizontalIndex++)
                 {
                     // ユニットをまたいだ削除パターンを検出するために、開始行を1行ずつずらしながらユニットをマージして一つのユニットを作成する
                     var mergedField = MergeFields(fields, horizontalIndex);
                     var mergedErasedSlime = 0u;
                     
                     // マージしたユニットに対する削除情報を作成する
-                    // １．縦4
-                    uint vertical4 = 0x04040404u;
-                    for (var i = 0; i < FieldContextConfig.VerticalLineLength; i++)
+                    foreach (var erasePattern in ErasePatternList)
                     {
-                        if ((mergedField & vertical4) == vertical4)
+                        uint pattern = erasePattern.Pattern;
+                        for (var v = 0; v < erasePattern.MaxVerticalShift; v++)
                         {
-                            mergedErasedSlime |= vertical4;
+                            pattern = erasePattern.Pattern << v;
+                            for (var h = 0; h < erasePattern.MaxHorizontalShift; h++)
+                            {
+                                if ((mergedField & pattern) == pattern)
+                                {
+                                    mergedErasedSlime |= pattern;
+                                }
+                                pattern <<= FieldContextConfig.OneLineBitCount;
+                            }
                         }
-                        vertical4 <<= 1;
                     }
 
                     // 削除情報を本来のユニット単位に分解する
@@ -190,6 +213,146 @@ namespace Hermann.Updaters
             for (var i = 0; i < a.Length; i++)
             {
                 update(a, b, i);
+            }
+        }
+
+        /// <summary>
+        /// 消去パターンのリストを作成します。
+        /// </summary>
+        /// <returns>消去パターンのリスト</returns>
+        private static List<ErasePattern> BuildErasePatternList()
+        {
+            var list = new List<ErasePattern>();
+
+            // １．縦4
+            list.Add(new ErasePattern(0x04040404u,
+                FieldContextConfig.FieldUnitLineCount - 4 + 1,
+                FieldContextConfig.VerticalLineLength - 1 + 1));
+
+            // ２．横4
+            list.Add(new ErasePattern(0x0000003cu,
+                FieldContextConfig.FieldUnitLineCount - 1 + 1,
+                FieldContextConfig.VerticalLineLength - 4 + 1));
+
+            // ３．L字上1
+            list.Add(new ErasePattern(0x00001c10u,
+                FieldContextConfig.FieldUnitLineCount - 2 + 1,
+                FieldContextConfig.VerticalLineLength - 3 + 1));
+
+            // ４．L字上２
+            list.Add(new ErasePattern(0x000c0808u,
+                FieldContextConfig.FieldUnitLineCount - 3 + 1,
+                FieldContextConfig.VerticalLineLength - 2 + 1));
+
+            // ５．L字下1
+            list.Add(new ErasePattern(0x0000101cu,
+                FieldContextConfig.FieldUnitLineCount - 2 + 1,
+                FieldContextConfig.VerticalLineLength - 3 + 1));
+
+            // ６．L字下2
+            list.Add(new ErasePattern(0x0008080cu,
+                FieldContextConfig.FieldUnitLineCount - 3 + 1,
+                FieldContextConfig.VerticalLineLength - 2 + 1));
+
+            // ７．逆L字上1
+            list.Add(new ErasePattern(0x00001c04u,
+                FieldContextConfig.FieldUnitLineCount - 2 + 1,
+                FieldContextConfig.VerticalLineLength - 3 + 1));
+
+            // ８．逆L字上2
+            list.Add(new ErasePattern(0x000c0404u,
+                FieldContextConfig.FieldUnitLineCount - 3 + 1,
+                FieldContextConfig.VerticalLineLength - 2 + 1));
+
+            // ９．逆L字下1
+            list.Add(new ErasePattern(0x0000041cu,
+                FieldContextConfig.FieldUnitLineCount - 2 + 1,
+                FieldContextConfig.VerticalLineLength - 3 + 1));
+
+            // １０．逆L字下2
+            list.Add(new ErasePattern(0x0004040cu,
+                FieldContextConfig.FieldUnitLineCount - 3 + 1,
+                FieldContextConfig.VerticalLineLength - 2 + 1));
+
+            // １１．四角
+            list.Add(new ErasePattern(0x00000c0cu,
+                FieldContextConfig.FieldUnitLineCount - 2 + 1,
+                FieldContextConfig.VerticalLineLength - 2 + 1));
+
+            // １２．縦ト
+            list.Add(new ErasePattern(0x00080c08u,
+                FieldContextConfig.FieldUnitLineCount - 3 + 1,
+                FieldContextConfig.VerticalLineLength - 2 + 1));
+
+            // １３．横ト
+            list.Add(new ErasePattern(0x0000081cu,
+                FieldContextConfig.FieldUnitLineCount - 2 + 1,
+                FieldContextConfig.VerticalLineLength - 3 + 1));
+
+            // １４．逆縦ト
+            list.Add(new ErasePattern(0x00040c04u,
+                FieldContextConfig.FieldUnitLineCount - 3 + 1,
+                FieldContextConfig.VerticalLineLength - 2 + 1));
+
+            // １５．逆横ト
+            list.Add(new ErasePattern(0x00001c08u,
+                FieldContextConfig.FieldUnitLineCount - 2 + 1,
+                FieldContextConfig.VerticalLineLength - 3 + 1));
+
+            // １６．縦鍵
+            list.Add(new ErasePattern(0x00040c08u,
+                FieldContextConfig.FieldUnitLineCount - 3 + 1,
+                FieldContextConfig.VerticalLineLength - 2 + 1));
+
+            // １７．横鍵
+            list.Add(new ErasePattern(0x00000c18u,
+                FieldContextConfig.FieldUnitLineCount - 2 + 1,
+                FieldContextConfig.VerticalLineLength - 3 + 1));
+
+            // １８．逆縦鍵
+            list.Add(new ErasePattern(0x00080c04u,
+                FieldContextConfig.FieldUnitLineCount - 3 + 1,
+                FieldContextConfig.VerticalLineLength - 2 + 1));
+
+            // １９．逆横鍵
+            list.Add(new ErasePattern(0x0000180cu,
+                FieldContextConfig.FieldUnitLineCount - 2 + 1,
+                FieldContextConfig.VerticalLineLength - 3 + 1));
+
+            return list;
+        }
+
+        /// <summary>
+        /// 消去パターン
+        /// </summary>
+        private class ErasePattern
+        {
+            /// <summary>
+            /// 消去パターン
+            /// </summary>
+            public uint Pattern { get; private set; }
+
+            /// <summary>
+            /// 最大平行シフト量
+            /// </summary>
+            public int MaxHorizontalShift { get; private set; }
+
+            /// <summary>
+            /// 最大垂直シフト量
+            /// </summary>
+            public int MaxVerticalShift { get; private set; }
+
+            /// <summary>
+            /// コンストラクタ
+            /// </summary>
+            /// <param name="pattern">消去パターン</param>
+            /// <param name="maxHorizontalShift">最大平行シフト量</param>
+            /// <param name="maxVerticalShift">最大垂直シフト量</param>
+            public ErasePattern(uint pattern, int maxHorizontalShift, int maxVerticalShift)
+            {
+                this.Pattern = pattern;
+                this.MaxHorizontalShift = maxHorizontalShift;
+                this.MaxVerticalShift = maxVerticalShift;
             }
         }
     }
