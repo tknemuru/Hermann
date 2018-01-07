@@ -42,10 +42,16 @@ namespace Hermann.Tests.Updaters
                 "../../resources/updaters/slimeerasingmarker/test-field-in-001-002.txt",
                 this.Updater.Update);
 
-            // 001:1P-右端列-緑
+            // 003:1P-右端列-緑
             TestHelper.AssertEqualsFieldContext(
                 "../../resources/updaters/slimeerasingmarker/test-field-out-001-003.txt",
                 "../../resources/updaters/slimeerasingmarker/test-field-in-001-003.txt",
+                this.Updater.Update);
+
+            // 004:1P-右端列-赤-1/2の境界
+            TestHelper.AssertEqualsFieldContext(
+                "../../resources/updaters/slimeerasingmarker/test-field-out-001-004.txt",
+                "../../resources/updaters/slimeerasingmarker/test-field-in-001-004.txt",
                 this.Updater.Update);
         }
     }
