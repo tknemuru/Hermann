@@ -13,7 +13,7 @@ namespace Hermann.Updaters
     /// <summary>
     /// 設置に関するフィールドの更新機能を提供します。
     /// </summary>
-    public class BuiltingUpdater : IFieldUpdatable
+    public sealed class BuiltingUpdater : IFieldUpdatable
     {
         public void Update(FieldContext context)
         {

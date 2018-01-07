@@ -1,4 +1,7 @@
-﻿using Hermann.Contexts;
+﻿using Hermann.Collections;
+using Hermann.Contexts;
+using Hermann.Di;
+using Hermann.Generators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,15 +10,45 @@ using System.Threading.Tasks;
 
 namespace Hermann.Updaters
 {
-    public class NextSlimeUpdater : IFieldUpdatable
+    /// <summary>
+    /// NEXTスライムの更新機能を提供します。
+    /// </summary>
+    public sealed class NextSlimeUpdater : IFieldUpdatable
     {
+        /// <summary>
+        /// NEXTスライム生成機能
+        /// </summary>
+        private NextSlimeGenerator NextSlimeGen { get; set; }
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        public NextSlimeUpdater()
+        {
+            this.NextSlimeGen = DiProvider.GetContainer().GetInstance<NextSlimeGenerator>();
+        }
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="nextSlimeGen">NEXTスライム生成機能</param>
+        public NextSlimeUpdater(NextSlimeGenerator nextSlimeGen)
+        {
+            this.NextSlimeGen = nextSlimeGen;
+        }
+
+        /// <summary>
+        /// フィールド状態を更新します。
+        /// </summary>
+        /// <param name="context">フィールドの状態</param>
         public void Update(FieldContext context)
         {
-            // NEXTスライムをフィールドに配置する
+            // 新しいNEXTスライムを生成する
+            var movables = this.NextSlimeGen.GetNext();
 
             // NEXTスライムをスライドする
-
-            // 新しいNEXTスライムを生成する
+            context.NextSlimes[(int)context.OperationPlayer][(int)NextSlime.Index.First] = context.NextSlimes[(int)context.OperationPlayer][(int)NextSlime.Index.Second];
+            context.NextSlimes[(int)context.OperationPlayer][(int)MovableSlime.UnitIndex.Second] = movables;
         }
     }
 }

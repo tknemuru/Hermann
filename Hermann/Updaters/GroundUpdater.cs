@@ -13,7 +13,7 @@ namespace Hermann.Updaters
     /// <summary>
     /// 接地の更新機能を提供します。
     /// </summary>
-    public class GroundUpdater : IFieldUpdatable
+    public sealed class GroundUpdater : IFieldUpdatable
     {
         /// <summary>
         /// 接地を更新します。

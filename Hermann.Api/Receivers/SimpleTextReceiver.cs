@@ -261,6 +261,9 @@ namespace Hermann.Api.Receivers
                     if (isEnd) { break; }
                 }
 
+                Debug.Assert(slimes[(int)MovableSlime.UnitIndex.First] != null, "1番目の移動可能スライムがnullです。");
+                Debug.Assert(slimes[(int)MovableSlime.UnitIndex.Second] != null, "2番目の移動可能スライムがnullです。");
+
                 // 移動可能スライムの順番整形
                 // 横の場合は、2←1とする
                 // 縦の場合は、
