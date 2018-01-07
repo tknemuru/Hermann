@@ -61,7 +61,7 @@ namespace Hermann.Updaters
                     // マージしたユニットに対する削除情報を作成する
                     foreach (var erasePattern in ErasePatternList)
                     {
-                        uint pattern = erasePattern.Pattern;
+                        var pattern = erasePattern.Pattern;
                         for (var v = 0; v < erasePattern.MaxVerticalShift; v++)
                         {
                             pattern = erasePattern.Pattern << v;

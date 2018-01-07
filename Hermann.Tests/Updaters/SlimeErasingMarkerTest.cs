@@ -67,5 +67,31 @@ namespace Hermann.Tests.Updaters
                 "../../resources/updaters/slimeerasingmarker/test-field-in-002-001.txt",
                 this.Updater.Update);
         }
+
+        /// <summary>
+        /// 003：L字上1
+        /// </summary>
+        [TestMethod]
+        public void L字上1()
+        {
+            // 001:1P
+            TestHelper.AssertEqualsFieldContext(
+                "../../resources/updaters/slimeerasingmarker/test-field-out-003-001.txt",
+                "../../resources/updaters/slimeerasingmarker/test-field-in-003-001.txt",
+                this.Updater.Update);
+        }
+
+        /// <summary>
+        /// 004：複合
+        /// </summary>
+        [TestMethod]
+        public void 複合()
+        {
+            // 001:1P
+            TestHelper.AssertEqualsFieldContext(
+                "../../resources/updaters/slimeerasingmarker/test-field-out-004-001.txt",
+                "../../resources/updaters/slimeerasingmarker/test-field-in-004-001.txt",
+                this.Updater.Update);
+        }
     }
 }
