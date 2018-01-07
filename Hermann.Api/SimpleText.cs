@@ -101,6 +101,11 @@ namespace Hermann.Api
             /// おじゃま
             /// </summary>
             public const char Obstruction = 'お';
+
+            /// <summary>
+            /// 消済
+            /// </summary>
+            public const char Erased = '消';
         }
 
         /// <summary>
@@ -517,6 +522,7 @@ namespace Hermann.Api
             slimes.Add(Slime.Red, SlimeSymbol.Red);
             slimes.Add(Slime.Yellow, SlimeSymbol.Yellow);
             slimes.Add(Slime.Obstruction, SlimeSymbol.Obstruction);
+            slimes.Add(Slime.Erased, SlimeSymbol.Erased);
             return slimes;
         }
 
@@ -534,6 +540,7 @@ namespace Hermann.Api
             slimes.Add(SlimeSymbol.Red, Slime.Red);
             slimes.Add(SlimeSymbol.Yellow, Slime.Yellow);
             slimes.Add(SlimeSymbol.Obstruction, Slime.Obstruction);
+            slimes.Add(SlimeSymbol.Erased, Slime.Erased);
             return slimes;
         }
 
@@ -550,6 +557,7 @@ namespace Hermann.Api
             slimes.Add(Slime.Red, MovableSlimeSymbol.Red);
             slimes.Add(Slime.Yellow, MovableSlimeSymbol.Yellow);
             slimes.Add(Slime.Obstruction, SlimeSymbol.Obstruction);
+            slimes.Add(Slime.Erased, SlimeSymbol.Erased);
             return slimes;
         }
 
@@ -566,6 +574,7 @@ namespace Hermann.Api
             slimes.Add(MovableSlimeSymbol.Red, Slime.Red);
             slimes.Add(MovableSlimeSymbol.Yellow, Slime.Yellow);
             slimes.Add(SlimeSymbol.Obstruction, Slime.Obstruction);
+            slimes.Add(SlimeSymbol.Erased, Slime.Erased);
             return slimes;
         }
 

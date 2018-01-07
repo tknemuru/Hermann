@@ -45,6 +45,11 @@ namespace Hermann.Collections
         /// おじゃま
         /// </summary>
         Obstruction = 15,
+
+        /// <summary>
+        /// 消済
+        /// </summary>
+        Erased = 16,
     }
 
     /// <summary>
