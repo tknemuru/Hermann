@@ -55,5 +55,15 @@ namespace Hermann.Contexts
         /// 最大設置残タイム（ミリ秒）
         /// </summary>
         public const long MaxBuiltRemainingTime = 260;
+
+        /// <summary>
+        /// 縦の列数
+        /// </summary>
+        public const int VerticalLineLength = 6;
+
+        /// <summary>
+        /// 横の行数
+        /// </summary>
+        public const int HorizontalLineLength = 12;
     }
 }

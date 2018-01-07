@@ -30,16 +30,22 @@ namespace Hermann.Tests.Updaters
         [TestMethod]
         public void 縦4()
         {
-            // 001:1P-右端列
+            // 001:1P-右端列-赤
             TestHelper.AssertEqualsFieldContext(
                 "../../resources/updaters/slimeerasingmarker/test-field-out-001-001.txt",
                 "../../resources/updaters/slimeerasingmarker/test-field-in-001-001.txt",
                 this.Updater.Update);
 
-            // 001:1P-右から2番目列
+            // 002:1P-右から2番目列-赤
             TestHelper.AssertEqualsFieldContext(
                 "../../resources/updaters/slimeerasingmarker/test-field-out-001-002.txt",
                 "../../resources/updaters/slimeerasingmarker/test-field-in-001-002.txt",
+                this.Updater.Update);
+
+            // 001:1P-右端列-緑
+            TestHelper.AssertEqualsFieldContext(
+                "../../resources/updaters/slimeerasingmarker/test-field-out-001-003.txt",
+                "../../resources/updaters/slimeerasingmarker/test-field-in-001-003.txt",
                 this.Updater.Update);
         }
     }
