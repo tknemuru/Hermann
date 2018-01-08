@@ -1,6 +1,7 @@
 ﻿using Hermann.Collections;
 using Hermann.Contexts;
 using Hermann.Helpers;
+using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,8 +11,13 @@ using System.Threading.Tasks;
 
 namespace Hermann.Updaters
 {
-    public class TimeUpdater : IFieldUpdatable
+    public class TimeUpdater : IFieldUpdatable, INotifiable<bool>
     {
+        /// <summary>
+        /// 通知オブジェクト
+        /// </summary>
+        public ReactiveProperty<bool> Notifier { get; private set; }
+
         /// <summary>
         /// ストップウォッチ
         /// </summary>
@@ -23,6 +29,7 @@ namespace Hermann.Updaters
         public TimeUpdater()
         {
             this.Stopwatch = new Stopwatch();
+            this.Notifier = new ReactiveProperty<bool>(false);
         }
 
         /// <summary>
@@ -47,27 +54,31 @@ namespace Hermann.Updaters
         /// <param name="context">フィールド状態</param>
         public void Update(FieldContext context)
         {
+            var player = context.OperationPlayer;
             this.Stopwatch.Stop();
 
             // 経過時間の更新
             context.Time += this.Stopwatch.ElapsedTicks;
 
-            Player.ForEach((player) =>
+            // 接地していなければ設置残タイムの更新はしない
+            if (!context.Ground[(int)player].Value)
             {
-                // 接地していなければ設置残タイムの更新はしない
-                if (!context.Ground[(int)player].Value)
-                {
-                    return;
-                }
+                return;
+            }
 
-                // 設置残タイムの更新
-                var time = context.BuiltRemainingTime[(int)player] - this.Stopwatch.ElapsedTicks;
-                var hasBuilt = (time <= 0);
-                context.BuiltRemainingTime[(int)player] = hasBuilt ? 0 : time;
+            // 設置残タイムの更新
+            var time = context.BuiltRemainingTime[(int)player] - this.Stopwatch.ElapsedTicks;
+            var hasBuilt = (time <= 0);
+            context.BuiltRemainingTime[(int)player] = hasBuilt ? 0 : time;
 
-                // 設置残タイムが0以下になったら接地をfalseに戻す
-                context.Ground[(int)player].Value = !hasBuilt;
-            });
+            if (hasBuilt)
+            {
+                // 設置完了の通知
+                this.Notifier.Value = !this.Notifier.Value;
+
+                // 接地をfalseに戻しておく
+                context.Ground[(int)player].Value = false;
+            }
 
             this.Stopwatch.Start();
         }

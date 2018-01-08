@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Reactive.Linq;
 using Reactive.Bindings;
 using Reactive.Bindings.Notifiers;
+using Reactive.Bindings.Extensions;
 
 namespace Hermann.Collections
 {
@@ -24,6 +25,11 @@ namespace Hermann.Collections
         /// ストップウォッチ
         /// </summary>
         private Stopwatch Stopwatch { get; set; }
+
+        /// <summary>
+        /// プレイヤ
+        /// </summary>
+        private Player Player { get; set; }
 
         /// <summary>
         /// 使用スライム生成機能
@@ -71,12 +77,28 @@ namespace Hermann.Collections
         private WinCountUpdater WinCountUpdater { get; set; }
 
         /// <summary>
+        /// スライム消去機能
+        /// </summary>
+        private SlimeEraser SlimeEraser { get; set; }
+
+        /// <summary>
+        /// 重力
+        /// </summary>
+        private Gravity Gravity { get; set; }
+
+        /// <summary>
+        /// NEXTスライム更新機能
+        /// </summary>
+        private NextSlimeUpdater NextSlimeUpdater { get; set; }
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         public Game()
         {
             this.NoneDirectionUpdateInterval = 1000;
             this.NoneDirectionUpdateCount = 0;
+            this.Player = DiProvider.GetContainer().GetInstance<Player>();
             this.NextSlimeGen = DiProvider.GetContainer().GetInstance<NextSlimeGenerator>();
             this.UsingSlimeGen = DiProvider.GetContainer().GetInstance<UsingSlimeGenerator>();
             this.TimeUpdater = DiProvider.GetContainer().GetInstance<TimeUpdater>();
@@ -84,6 +106,9 @@ namespace Hermann.Collections
             this.BuiltingUpdater = DiProvider.GetContainer().GetInstance<BuiltingUpdater>();
             this.SlimeErasingMarker = DiProvider.GetContainer().GetInstance<SlimeErasingMarker>();
             this.WinCountUpdater = DiProvider.GetContainer().GetInstance<WinCountUpdater>();
+            this.SlimeEraser = DiProvider.GetContainer().GetInstance<SlimeEraser>();
+            this.Gravity = DiProvider.GetContainer().GetInstance<Gravity>();
+            //this.NextSlimeUpdater = DiProvider.GetContainer().GetInstance<NextSlimeUpdater>();
         }
 
         /// <summary>
@@ -123,14 +148,14 @@ namespace Hermann.Collections
                 {
                     context.OperationPlayer = player;
                     context.OperationDirection = Direction.None;
-                    context = Player.Move(context);
+                    context = this.Player.Move(context);
                 });
             }
 
             // プレイヤの操作による移動
             if (context.OperationDirection != Direction.None)
             {
-                context = Player.Move(context);
+                context = this.Player.Move(context);
             }
 
             // 時間の更新
@@ -145,16 +170,14 @@ namespace Hermann.Collections
         /// <param name="context">フィールド状態</param>
         private void Subscribe(FieldContext context)
         {
-            Player.ForEach((player) =>
-            {
-                // 接地判定
-                context.SlimeFields[(int)player].Subscribe(f =>
+            // 移動毎に接地判定を行う
+            this.Player.Notifier.Subscribe(n =>
                 {
                     this.GroundUpdater.Update(context);
                 });
 
-                // 接地がfalseに戻ったとき
-                context.Ground[(int)player].Where(g => !g).Subscribe(g =>
+            // 設置完了時
+            this.TimeUpdater.Notifier.PropertyChanged += ((notifier, args) =>
                 {
                     // 1.移動可能スライムを通常のスライムに変換する
                     this.BuiltingUpdater.Update(context);
@@ -164,12 +187,15 @@ namespace Hermann.Collections
                     //   消す対象が存在しなかった場合は連鎖回数を0に戻す
                     this.SlimeErasingMarker.Update(context);
 
+                    this.SlimeEraser.Update(context);
+
+                    this.NextSlimeUpdater.Update(context);
+
+                    this.Gravity.Update(context);
+
                     // 4.勝敗を決定する
                     this.WinCountUpdater.Update(context);
-
-
                 });
-            });
         }
 
         /// <summary>
@@ -214,6 +240,7 @@ namespace Hermann.Collections
 
             // NEXTスライム
             this.NextSlimeGen.UsingSlime = context.UsingSlimes;
+            this.NextSlimeUpdater = new NextSlimeUpdater(this.NextSlimeGen);
             Player.ForEach((player) =>
             {
                 NextSlime.ForEach((unit) =>

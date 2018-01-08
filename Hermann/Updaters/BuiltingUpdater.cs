@@ -17,10 +17,10 @@ namespace Hermann.Updaters
     {
         public void Update(FieldContext context)
         {
-            Debug.Assert(
-                (context.Ground[(int)Player.Index.First].Value && context.BuiltRemainingTime[(int)Player.Index.First] <= 0L) ||
-                (context.Ground[(int)Player.Index.Second].Value && context.BuiltRemainingTime[(int)Player.Index.Second] <= 0L),
-                "どちらかのプレイヤの接地がtrueで設置残タイムが0秒以下であることが呼び出しの前提条件です。");
+            //Debug.Assert(
+            //    (context.Ground[(int)Player.Index.First].Value && context.BuiltRemainingTime[(int)Player.Index.First] <= 0L) ||
+            //    (context.Ground[(int)Player.Index.Second].Value && context.BuiltRemainingTime[(int)Player.Index.Second] <= 0L),
+            //    "どちらかのプレイヤの接地がtrueで設置残タイムが0秒以下であることが呼び出しの前提条件です。");
 
             var player = context.OperationPlayer;
 

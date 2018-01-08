@@ -33,7 +33,7 @@ namespace Hermann.Generators
         /// <returns>使用スライム</returns>
         public override Slime[] GetNext()
         {
-            var slimes = ExtensionSlime.Slimes.Where(s => s != Slime.Obstruction);
+            var slimes = ExtensionSlime.Slimes.Where(s => s != Slime.Obstruction && s != Slime.Erased);
             var index = this.RandomGen.Next(slimes.Count() - 1);
             var exclusionSlime = slimes.ElementAt(index);
             slimes = slimes.Where(s => s != exclusionSlime);

@@ -5,6 +5,7 @@ using Hermann.Contexts;
 using Hermann.Collections;
 using Hermann.Di;
 using Hermann.Generators;
+using Hermann.Updaters;
 using System;
 using System.Collections.Generic;
 using System.Linq;

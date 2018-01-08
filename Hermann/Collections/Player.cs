@@ -1,5 +1,7 @@
 ﻿using Hermann.Contexts;
 using Hermann.Helpers;
+using Hermann.Updaters;
+using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,7 +14,7 @@ namespace Hermann.Collections
     /// <summary>
     /// プレイヤ
     /// </summary>
-    public sealed class Player
+    public sealed class Player : INotifiable<bool>
     {
         /// <summary>
         /// プレイヤ数
@@ -33,6 +35,19 @@ namespace Hermann.Collections
             /// 2P
             /// </summary>
             Second,
+        }
+
+        /// <summary>
+        /// 通知オブジェクト
+        /// </summary>
+        public ReactiveProperty<bool> Notifier { get; private set; }
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        public Player()
+        {
+            this.Notifier = new ReactiveProperty<bool>(false);
         }
 
         /// <summary>
@@ -65,7 +80,7 @@ namespace Hermann.Collections
         /// スライムを動かします。
         /// </summary>
         /// <param name="context">コンテキスト</param>
-        public static FieldContext Move(FieldContext context)
+        public FieldContext Move(FieldContext context)
         {
             switch (context.OperationDirection)
             {
@@ -197,7 +212,7 @@ namespace Hermann.Collections
         /// <param name="movableField">操作可能スライムの状態</param>
         /// <param name="colorField">対象色スライムの状態</param>
         /// <param name="shift">シフト量</param>
-        private static void Move(FieldContext context, int shift)
+        private void Move(FieldContext context, int shift)
         {
             var movableSlimes = context.MovableSlimes[(int)context.OperationPlayer];
             var slimeFields = context.SlimeFields[(int)context.OperationPlayer].Value;
@@ -218,7 +233,7 @@ namespace Hermann.Collections
                 slimeFields[movable.Slime][movable.Index] |= 1u << movable.Position;
             }
 
-            context.SlimeFields[(int)context.OperationPlayer].ForceNotify();
+            this.Notifier.Value = !this.Notifier.Value;
         }
 
         /// <summary>
