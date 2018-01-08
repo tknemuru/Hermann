@@ -137,7 +137,9 @@ namespace Hermann.Collections
             if (index > FieldContextConfig.FieldUnitCount - 1)
             {
                 // 底辺を越えている場合は、底辺に着地させる
-                shift -= (((position - FieldContextConfig.FieldUnitBitCount) / FieldContextConfig.OneLineBitCount) + 1) * FieldContextConfig.OneLineBitCount;
+                var absCurrentPosition = (second.Index * FieldContextConfig.FieldUnitBitCount) + second.Position;
+                var absBottomPosition = ((FieldContextConfig.FieldUnitCount - 1) * FieldContextConfig.FieldUnitBitCount) + ((FieldContextConfig.FieldUnitBitCount - 1) - (8 - ((second.Position % FieldContextConfig.OneLineBitCount) + 1)));
+                shift = absBottomPosition - absCurrentPosition;
             }
 
             // 移動先に他スライムが存在している場合は、それ以上下に移動させない
@@ -151,6 +153,7 @@ namespace Hermann.Collections
                 // 2つめは縦横どちらでも検証が必要
                 position = second.Position + (line * FieldContextConfig.OneLineBitCount);
                 index = second.Index + (position / FieldContextConfig.FieldUnitBitCount);
+                position %= FieldContextConfig.FieldUnitBitCount;
                 if (FieldContextHelper.ExistsSlime(context, player, index, position))
                 {
                     // 他スライムのひとつ上まで移動させる
@@ -163,6 +166,7 @@ namespace Hermann.Collections
                 {
                     position = first.Position + (line * FieldContextConfig.OneLineBitCount);
                     index = first.Index + (position / FieldContextConfig.FieldUnitBitCount);
+                    position %= FieldContextConfig.FieldUnitBitCount;
                     if (FieldContextHelper.ExistsSlime(context, player, index, position))
                     {
                         // 他スライムのひとつ上まで移動させる
