@@ -92,6 +92,11 @@ namespace Hermann.Collections
         private NextSlimeUpdater NextSlimeUpdater { get; set; }
 
         /// <summary>
+        /// 設置残タイム更新機能
+        /// </summary>
+        private BuiltRemainingTimeUpdater BuiltRemainingTimeUpdater { get; set; }
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         public Game()
@@ -109,6 +114,7 @@ namespace Hermann.Collections
             this.SlimeEraser = DiProvider.GetContainer().GetInstance<SlimeEraser>();
             this.Gravity = DiProvider.GetContainer().GetInstance<Gravity>();
             //this.NextSlimeUpdater = DiProvider.GetContainer().GetInstance<NextSlimeUpdater>();
+            this.BuiltRemainingTimeUpdater = DiProvider.GetContainer().GetInstance<BuiltRemainingTimeUpdater>();
         }
 
         /// <summary>
@@ -158,6 +164,13 @@ namespace Hermann.Collections
                 context = this.Player.Move(context);
             }
 
+            // 設置残タイムの更新
+            Player.ForEach((player) =>
+            {
+                context.OperationPlayer = player;
+                this.BuiltRemainingTimeUpdater.Update(context);
+            });            
+
             // 時間の更新
             this.TimeUpdater.Update(context);
 
@@ -177,25 +190,26 @@ namespace Hermann.Collections
                 });
 
             // 設置完了時
-            this.TimeUpdater.Notifier.PropertyChanged += ((notifier, args) =>
-                {
-                    // 1.移動可能スライムを通常のスライムに変換する
-                    this.BuiltingUpdater.Update(context);
+            this.BuiltRemainingTimeUpdater.Notifier.Where(n => n == BuiltRemainingTimeUpdater.Notification.HasBuilt).Subscribe(n =>
+            {
+                // 1.移動可能スライムを通常のスライムに変換する
+                this.BuiltingUpdater.Update(context);
 
-                    // 2.消す対象のスライムを消済スライムとしてマーキングする
-                    // 3.連鎖回数をインクリメントする
-                    //   消す対象が存在しなかった場合は連鎖回数を0に戻す
-                    this.SlimeErasingMarker.Update(context);
+                // 2.接地状態を更新する
+                this.GroundUpdater.Update(context);
 
-                    this.SlimeEraser.Update(context);
+                // 3.消す対象のスライムを消済スライムとしてマーキングする
+                this.SlimeErasingMarker.Update(context);
 
-                    this.NextSlimeUpdater.Update(context);
+                this.SlimeEraser.Update(context);
 
-                    this.Gravity.Update(context);
+                this.NextSlimeUpdater.Update(context);
 
-                    // 4.勝敗を決定する
-                    this.WinCountUpdater.Update(context);
-                });
+                this.Gravity.Update(context);
+
+                // 4.勝敗を決定する
+                this.WinCountUpdater.Update(context);
+            });
         }
 
         /// <summary>

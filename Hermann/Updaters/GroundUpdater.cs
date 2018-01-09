@@ -26,12 +26,6 @@ namespace Hermann.Updaters
             // 接地しているか？
             var isGround = Player.IsGround(context, player);
             context.Ground[(int)player].Value = isGround;
-
-            if (isGround)
-            {
-                // 接地していたら設置残タイムを設定する
-                context.BuiltRemainingTime[(int)player] = FieldContextConfig.MaxBuiltRemainingTime;
-            }
         }
     }
 }

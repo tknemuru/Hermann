@@ -14,7 +14,7 @@ namespace Hermann.Collections
     /// <summary>
     /// プレイヤ
     /// </summary>
-    public sealed class Player : INotifiable<bool>
+    public sealed class Player : INotifiable<Player.Index>
     {
         /// <summary>
         /// プレイヤ数
@@ -40,14 +40,14 @@ namespace Hermann.Collections
         /// <summary>
         /// 通知オブジェクト
         /// </summary>
-        public ReactiveProperty<bool> Notifier { get; private set; }
+        public ReactiveProperty<Index> Notifier { get; private set; }
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         public Player()
         {
-            this.Notifier = new ReactiveProperty<bool>(false);
+            this.Notifier = new ReactiveProperty<Index>(Index.First);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Hermann.Collections
                     break;
                 case Direction.Up:
                     // TODO:あとで実装
-                    throw new NotSupportedException();
+                    //throw new NotSupportedException();
                 case Direction.Down:
                     Move(context, ModifyDownShift(context, Speed.Down));
                     break;
@@ -233,7 +233,7 @@ namespace Hermann.Collections
                 slimeFields[movable.Slime][movable.Index] |= 1u << movable.Position;
             }
 
-            this.Notifier.Value = !this.Notifier.Value;
+            this.Notifier.Value = context.OperationPlayer;
         }
 
         /// <summary>
