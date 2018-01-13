@@ -97,6 +97,16 @@ namespace Hermann.Collections
         private BuiltRemainingTimeUpdater BuiltRemainingTimeUpdater { get; set; }
 
         /// <summary>
+        /// 回転方向更新機能
+        /// </summary>
+        private RotationDirectionUpdater RotationDirectionUpdater { get; set; }
+
+        /// <summary>
+        /// 回転方向初期化機能
+        /// </summary>
+        private RotationDirectionInitializer RotationDirectionInitializer { get; set; }
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         public Game()
@@ -115,6 +125,8 @@ namespace Hermann.Collections
             this.Gravity = DiProvider.GetContainer().GetInstance<Gravity>();
             //this.NextSlimeUpdater = DiProvider.GetContainer().GetInstance<NextSlimeUpdater>();
             this.BuiltRemainingTimeUpdater = DiProvider.GetContainer().GetInstance<BuiltRemainingTimeUpdater>();
+            this.RotationDirectionUpdater = DiProvider.GetContainer().GetInstance<RotationDirectionUpdater>();
+            this.RotationDirectionInitializer = DiProvider.GetContainer().GetInstance<RotationDirectionInitializer>();
         }
 
         /// <summary>
@@ -145,6 +157,18 @@ namespace Hermann.Collections
         /// <returns>更新されたフィールド状態</returns>
         public FieldContext Update(FieldContext context)
         {
+            // プレイヤの操作による移動
+            if (context.OperationDirection != Direction.None)
+            {
+                context = this.Player.Move(context);
+
+                // 上に移動の場合は回転方向を変更する
+                if (context.OperationDirection == Direction.Up)
+                {
+                    this.RotationDirectionUpdater.Update(context);
+                }
+            }
+
             // 方向：無での更新
             var count = this.NoneDirectionUpdateCount;
             this.NoneDirectionUpdateCount = 0;
@@ -156,12 +180,6 @@ namespace Hermann.Collections
                     context.OperationDirection = Direction.None;
                     context = this.Player.Move(context);
                 });
-            }
-
-            // プレイヤの操作による移動
-            if (context.OperationDirection != Direction.None)
-            {
-                context = this.Player.Move(context);
             }
 
             // 設置残タイムの更新
@@ -183,9 +201,9 @@ namespace Hermann.Collections
         /// <param name="context">フィールド状態</param>
         private void Subscribe(FieldContext context)
         {
-            // 移動毎に接地判定を行う
             this.Player.Notifier.Subscribe(n =>
                 {
+                    // 移動毎に接地判定を行う
                     this.GroundUpdater.Update(context);
                 });
 
@@ -200,6 +218,9 @@ namespace Hermann.Collections
 
                 // 3.消す対象のスライムを消済スライムとしてマーキングする
                 this.SlimeErasingMarker.Update(context);
+
+                // 4.回転方向を初期化する
+                this.RotationDirectionInitializer.Update(context);
 
                 this.SlimeEraser.Update(context);
 
@@ -222,6 +243,9 @@ namespace Hermann.Collections
 
             // 操作方向
             context.OperationDirection = Direction.None;
+
+            // 回転方向
+            context.RotationDirection = new[] { Direction.Right, Direction.Right };
 
             // 経過時間
             context.Time = 0;

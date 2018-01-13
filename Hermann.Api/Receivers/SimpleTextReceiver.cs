@@ -39,6 +39,9 @@ namespace Hermann.Api.Receivers
             // 操作方向
             context.OperationDirection = SimpleText.ConvertDirection(dic[SimpleText.Keys.Direction]);
 
+            // 回転方向
+            context.RotationDirection = Parse(dic[SimpleText.Keys.RotationDirection], SimpleText.ConvertDirection);
+
             // 経過時間
             context.Time = long.Parse(dic[SimpleText.Keys.Time]);
 

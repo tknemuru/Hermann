@@ -71,6 +71,11 @@ namespace Hermann.Collections
             public const int Down = 4 * FieldContextConfig.OneLineBitCount;
 
             /// <summary>
+            /// 上に動かす際の速度
+            /// </summary>
+            public const int Up = FieldContextConfig.OneLineBitCount * -1;
+
+            /// <summary>
             /// 何もしない際の速度
             /// </summary>
             public const int None = FieldContextConfig.OneLineBitCount;
@@ -88,8 +93,8 @@ namespace Hermann.Collections
                     Move(context, ModifyDownShift(context, Speed.None));
                     break;
                 case Direction.Up:
-                    // TODO:あとで実装
-                    //throw new NotSupportedException();
+                    MoveUp(context);
+                    break;
                 case Direction.Down:
                     Move(context, ModifyDownShift(context, Speed.Down));
                     break;
@@ -108,6 +113,8 @@ namespace Hermann.Collections
                 default :
                     throw new ApplicationException(string.Format("不正な方向です。{0}", context.OperationDirection));
             }
+
+            this.Notifier.Value = context.OperationPlayer;
             return context;
         }
 
@@ -206,6 +213,130 @@ namespace Hermann.Collections
         }
 
         /// <summary>
+        /// 上に移動します。
+        /// </summary>
+        /// <param name="context">フィールド状態</param>
+        private void MoveUp(FieldContext context)
+        {
+            var player = context.OperationPlayer;
+            var movables = context.MovableSlimes[(int)context.OperationPlayer];
+            int beforePosition = 0;
+            int beforeIndex = 0;
+            Slime beforeSlime = Slime.None;
+            int afterPosition = 0;
+            int afterIndex = 0;
+
+            switch (context.RotationDirection[(int)player])
+            {
+                case Direction.Right :
+                    Debug.Assert(MovableSlime.GetUnitForm(context.MovableSlimes[(int)player]) == MovableSlime.UnitForm.Vertical, "移動可能スライムの向きが不正です。");
+                    if (!IsEnabledRightMove(context))
+                    {
+                        return;
+                    }
+
+                    beforePosition = movables[(int)MovableSlime.UnitIndex.First].Position;
+                    beforeIndex = movables[(int)MovableSlime.UnitIndex.First].Index;
+                    afterPosition = movables[(int)MovableSlime.UnitIndex.Second].Position - 1;
+                    afterIndex = movables[(int)MovableSlime.UnitIndex.Second].Index;
+                    Debug.Assert(afterIndex >= 0, string.Format("インデックスが不正です。{0}", afterIndex));
+                    
+                    RemoveSlime(context.SlimeFields[(int)player].Value[movables[(int)MovableSlime.UnitIndex.First].Slime], beforeIndex, beforePosition);
+                    movables[(int)MovableSlime.UnitIndex.First].Position = afterPosition;
+                    movables[(int)MovableSlime.UnitIndex.First].Index = afterIndex;
+                    SetSlime(context.SlimeFields[(int)player].Value[movables[(int)MovableSlime.UnitIndex.First].Slime], afterIndex, afterPosition);
+                    break;
+                case Direction.Down :
+                    Debug.Assert(MovableSlime.GetUnitForm(context.MovableSlimes[(int)player]) == MovableSlime.UnitForm.Horizontal, "移動可能スライムの向きが不正です。");
+                    if (IsGround(context, context.OperationPlayer))
+                    {
+                        return;
+                    }
+
+                    // rb⇒□□⇒□□⇒r□
+                    // □□ rb bb b□
+                    beforePosition = movables[(int)MovableSlime.UnitIndex.Second].Position;
+                    beforeIndex = movables[(int)MovableSlime.UnitIndex.Second].Index;
+                    beforeSlime = movables[(int)MovableSlime.UnitIndex.Second].Slime;
+
+                    this.Move(context, ModifyDownShift(context, FieldContextConfig.OneLineBitCount));
+
+                    RemoveSlime(context.SlimeFields[(int)player].Value[movables[(int)MovableSlime.UnitIndex.Second].Slime], movables[(int)MovableSlime.UnitIndex.Second].Index, movables[(int)MovableSlime.UnitIndex.Second].Position);
+                    movables[(int)MovableSlime.UnitIndex.Second].Slime = movables[(int)MovableSlime.UnitIndex.First].Slime;
+                    SetSlime(context.SlimeFields[(int)player].Value[movables[(int)MovableSlime.UnitIndex.Second].Slime], movables[(int)MovableSlime.UnitIndex.Second].Index, movables[(int)MovableSlime.UnitIndex.Second].Position);
+
+                    RemoveSlime(context.SlimeFields[(int)player].Value[movables[(int)MovableSlime.UnitIndex.First].Slime], movables[(int)MovableSlime.UnitIndex.First].Index, movables[(int)MovableSlime.UnitIndex.First].Position);
+                    movables[(int)MovableSlime.UnitIndex.First].Position = beforePosition;
+                    movables[(int)MovableSlime.UnitIndex.First].Index = beforeIndex;
+                    movables[(int)MovableSlime.UnitIndex.First].Slime = beforeSlime;
+                    SetSlime(context.SlimeFields[(int)player].Value[movables[(int)MovableSlime.UnitIndex.First].Slime], movables[(int)MovableSlime.UnitIndex.First].Index, movables[(int)MovableSlime.UnitIndex.First].Position);
+                    break;
+                case Direction.Left :
+                    Debug.Assert(MovableSlime.GetUnitForm(context.MovableSlimes[(int)player]) == MovableSlime.UnitForm.Vertical, "移動可能スライムの向きが不正です。");
+                    if (!IsEnabledLeftMove(context))
+                    {
+                        return;
+                    }
+
+                    beforePosition = movables[(int)MovableSlime.UnitIndex.Second].Position;
+                    beforeIndex = movables[(int)MovableSlime.UnitIndex.Second].Index;
+                    afterPosition = movables[(int)MovableSlime.UnitIndex.First].Position + 1;
+                    afterIndex = movables[(int)MovableSlime.UnitIndex.First].Index;
+                    Debug.Assert(afterIndex < FieldContextConfig.FieldUnitBitCount, string.Format("インデックスが不正です。{0}", afterIndex));
+                    
+                    RemoveSlime(context.SlimeFields[(int)player].Value[movables[(int)MovableSlime.UnitIndex.Second].Slime], beforeIndex, beforePosition);
+                    movables[(int)MovableSlime.UnitIndex.Second].Position = afterPosition;
+                    movables[(int)MovableSlime.UnitIndex.Second].Index = afterIndex;
+                    SetSlime(context.SlimeFields[(int)player].Value[movables[(int)MovableSlime.UnitIndex.Second].Slime], afterIndex, afterPosition);
+                    break;
+                case Direction.Up :
+                    Debug.Assert(MovableSlime.GetUnitForm(context.MovableSlimes[(int)player]) == MovableSlime.UnitForm.Horizontal, "移動可能スライムの向きが不正です。");
+                    // □□⇒rb⇒rr⇒□r
+                    // rb □□ □□ □b
+                    beforePosition = movables[(int)MovableSlime.UnitIndex.First].Position;
+                    beforeIndex = movables[(int)MovableSlime.UnitIndex.First].Index;
+                    beforeSlime = movables[(int)MovableSlime.UnitIndex.First].Slime;
+
+                    this.Move(context, ModifyUpShift(context, Speed.Up));
+
+                    RemoveSlime(context.SlimeFields[(int)player].Value[movables[(int)MovableSlime.UnitIndex.First].Slime], movables[(int)MovableSlime.UnitIndex.First].Index, movables[(int)MovableSlime.UnitIndex.First].Position);
+                    movables[(int)MovableSlime.UnitIndex.First].Slime = movables[(int)MovableSlime.UnitIndex.Second].Slime;
+                    SetSlime(context.SlimeFields[(int)player].Value[movables[(int)MovableSlime.UnitIndex.First].Slime], movables[(int)MovableSlime.UnitIndex.First].Index, movables[(int)MovableSlime.UnitIndex.First].Position);
+
+                    RemoveSlime(context.SlimeFields[(int)player].Value[movables[(int)MovableSlime.UnitIndex.Second].Slime], movables[(int)MovableSlime.UnitIndex.Second].Index, movables[(int)MovableSlime.UnitIndex.Second].Position);
+                    movables[(int)MovableSlime.UnitIndex.Second].Position = beforePosition;
+                    movables[(int)MovableSlime.UnitIndex.Second].Index = beforeIndex;
+                    movables[(int)MovableSlime.UnitIndex.Second].Slime = beforeSlime;
+                    SetSlime(context.SlimeFields[(int)player].Value[movables[(int)MovableSlime.UnitIndex.Second].Slime], movables[(int)MovableSlime.UnitIndex.Second].Index, movables[(int)MovableSlime.UnitIndex.Second].Position);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 上に移動するシフト量の調整を行います。
+        /// </summary>
+        /// <param name="context">フィールド状態</param>
+        /// <param name="shift">シフト量</param>
+        /// <returns>調整されたシフト量</returns>
+        private int ModifyUpShift(FieldContext context, int shift)
+        {
+            var first = context.MovableSlimes[(int)context.OperationPlayer][(int)MovableSlime.UnitIndex.First];
+            var position = first.Position + shift;
+            var index = first.Index + (position / FieldContextConfig.FieldUnitBitCount) + (position < 0 ? -1 : 0);
+            var modShift = shift;
+
+            if (index < 0)
+            {
+                // 天井を越えている場合は、最上辺に配置させる
+                var absCurrentPosition = (first.Index * FieldContextConfig.FieldUnitBitCount) + first.Position;
+                var absBottomPosition = first.Position % FieldContextConfig.OneLineBitCount;
+                modShift = absBottomPosition - absCurrentPosition;
+            }
+
+            return modShift;
+        }
+
+        /// <summary>
         /// スライムを動かします。
         /// </summary>
         /// <param name="context">状態</param>
@@ -214,13 +345,32 @@ namespace Hermann.Collections
         /// <param name="shift">シフト量</param>
         private void Move(FieldContext context, int shift)
         {
+            if (shift <= (FieldContextConfig.OneLineBitCount * -1))
+            {
+                this.MoveUp(context, shift);
+            }
+            else
+            {
+                this.MoveDown(context, shift);
+            }
+        }
+
+        /// <summary>
+        /// スライムを動かします。
+        /// </summary>
+        /// <param name="context">状態</param>
+        /// <param name="movableField">操作可能スライムの状態</param>
+        /// <param name="colorField">対象色スライムの状態</param>
+        /// <param name="shift">シフト量</param>
+        private void MoveDown(FieldContext context, int shift)
+        {
             var movableSlimes = context.MovableSlimes[(int)context.OperationPlayer];
             var slimeFields = context.SlimeFields[(int)context.OperationPlayer].Value;
 
             // １．移動前スライムを消す
             foreach (var movable in movableSlimes)
             {
-                slimeFields[movable.Slime][movable.Index] &= ~(1u << movable.Position);
+                RemoveSlime(slimeFields[movable.Slime], movable.Index, movable.Position);
             }
 
             // ２．スライムを移動させる
@@ -230,10 +380,66 @@ namespace Hermann.Collections
                 movable.Index += (position / FieldContextConfig.FieldUnitBitCount);
                 movable.Position = position % FieldContextConfig.FieldUnitBitCount;
                 Debug.Assert(!FieldContextHelper.ExistsSlime(context, context.OperationPlayer, movable.Index, movable.Position), string.Format("他のスライムが移動場所に存在しています。 Index : {0} Position : {1}", movable.Index, movable.Position));
-                slimeFields[movable.Slime][movable.Index] |= 1u << movable.Position;
+                SetSlime(slimeFields[movable.Slime], movable.Index, movable.Position);
+            }
+        }
+
+        /// <summary>
+        /// スライムを動かします。
+        /// </summary>
+        /// <param name="context">状態</param>
+        /// <param name="movableField">操作可能スライムの状態</param>
+        /// <param name="colorField">対象色スライムの状態</param>
+        /// <param name="shift">シフト量</param>
+        private void MoveUp(FieldContext context, int shift)
+        {
+            var movableSlimes = context.MovableSlimes[(int)context.OperationPlayer];
+            var slimeFields = context.SlimeFields[(int)context.OperationPlayer].Value;
+
+            // １．移動前スライムを消す
+            foreach (var movable in movableSlimes)
+            {
+                RemoveSlime(slimeFields[movable.Slime], movable.Index, movable.Position);
             }
 
-            this.Notifier.Value = context.OperationPlayer;
+            // ２．スライムを移動させる
+            foreach (var movable in movableSlimes)
+            {
+                var position = movable.Position + shift;
+                movable.Index += (position / FieldContextConfig.FieldUnitBitCount) + (position < 0 ? -1 : 0);
+                if (position < 0)
+                {
+                    movable.Position = FieldContextConfig.FieldUnitBitCount + (position % FieldContextConfig.FieldUnitBitCount);
+                }
+                else
+                {
+                    movable.Position = position % FieldContextConfig.FieldUnitBitCount;
+                }
+                Debug.Assert(!FieldContextHelper.ExistsSlime(context, context.OperationPlayer, movable.Index, movable.Position), string.Format("他のスライムが移動場所に存在しています。 Index : {0} Position : {1}", movable.Index, movable.Position));
+                SetSlime(slimeFields[movable.Slime], movable.Index, movable.Position);
+            }
+        }
+
+        /// <summary>
+        /// 指定したフィールドの位置のスライムを削除します。
+        /// </summary>
+        /// <param name="fields">フィールド</param>
+        /// <param name="index">フィールド単位のインデックス</param>
+        /// <param name="position">位置</param>
+        private static void RemoveSlime(uint[] fields, int index, int position)
+        {
+            fields[index] &= ~(1u << position);
+        }
+
+        /// <summary>
+        /// 指定したフィールドの位置にスライムを排除します。
+        /// </summary>
+        /// <param name="fields">フィールド</param>
+        /// <param name="index">フィールド単位のインデックス</param>
+        /// <param name="position">位置</param>
+        private static void SetSlime(uint[] fields, int index, int position)
+        {
+            fields[index] |= (1u << position);
         }
 
         /// <summary>

@@ -238,6 +238,9 @@ namespace Hermann.Tests.Collections
             TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
         }
 
+        /// <summary>
+        /// 012:Moveで2つ目のフィールド単位において2Pの移動ができる
+        /// </summary>
         [TestMethod]
         public void Moveで2つ目のフィールド単位において2Pの移動ができる()
         {
@@ -245,6 +248,76 @@ namespace Hermann.Tests.Collections
             var context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-012-001.txt");
             var actualContext = this.Player.Move(context);
             var expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-012-001.txt");
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+        }
+
+        /// <summary>
+        /// 013:Moveで1つ目のフィールド単位において上に移動できる
+        /// </summary>
+        [TestMethod]
+        public void Moveで1つ目のフィールド単位において上に移動できる()
+        {
+            // 001:右回転
+            var context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-013-001.txt");
+            var actualContext = this.Player.Move(context);
+            var expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-013-001.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+
+            // 002:下回転
+            context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-013-002.txt");
+            actualContext = this.Player.Move(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-013-002.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+
+            // 003:左回転
+            context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-013-003.txt");
+            actualContext = this.Player.Move(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-013-003.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+
+            // 004:上回転
+            context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-013-004.txt");
+            actualContext = this.Player.Move(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-013-004.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+        }
+
+        /// <summary>
+        /// 014:Moveでフィールド単位をまたいで上に移動できる
+        /// </summary>
+        [TestMethod]
+        public void Moveでフィールド単位をまたいで上に移動できる()
+        {
+            // 001:右回転
+            var context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-014-001.txt");
+            var actualContext = this.Player.Move(context);
+            var expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-014-001.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+
+            // 002:下回転
+            context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-014-002.txt");
+            actualContext = this.Player.Move(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-014-002.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+
+            // 003:左回転
+            context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-014-003.txt");
+            actualContext = this.Player.Move(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-014-003.txt");
+
+            TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
+
+            // 004:上回転
+            context = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-in-014-004.txt");
+            actualContext = this.Player.Move(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/collections/player/test-field-out-014-004.txt");
+
             TestHelper.AssertEqualsFieldContext(expectedContext, actualContext);
         }
     }

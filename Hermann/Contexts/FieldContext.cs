@@ -26,6 +26,11 @@ namespace Hermann.Contexts
         public Direction OperationDirection { get; set; }
 
         /// <summary>
+        /// 回転方向
+        /// </summary>
+        public Direction[] RotationDirection { get; set; }
+
+        /// <summary>
         /// 経過時間
         /// </summary>
         public long Time { get; set; }
@@ -95,6 +100,7 @@ namespace Hermann.Contexts
         /// </summary>
         public FieldContext()
         {
+            this.RotationDirection = new Direction[Player.Length];
             this.Ground = new ReactiveProperty<bool>[Player.Length];
             this.Ground[(int)Player.Index.First] = new ReactiveProperty<bool>();
             this.Ground[(int)Player.Index.Second] = new ReactiveProperty<bool>();
@@ -156,6 +162,9 @@ namespace Hermann.Contexts
 
             for (var player = Player.Index.First; (int)player < Player.Length; player++)
             {
+                // 回転方向
+                equals.Add(context.RotationDirection[(int)player] == this.RotationDirection[(int)player]);
+                
                 // 接地
                 equals.Add(context.Ground[(int)player].Value == this.Ground[(int)player].Value);
 
@@ -233,7 +242,7 @@ namespace Hermann.Contexts
         /// <returns>現在のオブジェクトのハッシュ コード。</returns>
         public override int GetHashCode()
         {
-            return this.OperationPlayer.GetHashCode() ^ this.OperationDirection.GetHashCode() ^ this.Time.GetHashCode() ^ this.Ground.GetHashCode() ^
+            return this.OperationPlayer.GetHashCode() ^ this.OperationDirection.GetHashCode() ^ this.RotationDirection.GetHashCode() ^ this.Time.GetHashCode() ^ this.Ground.GetHashCode() ^
                 this.BuiltRemainingTime.GetHashCode() ^ this.Score.GetHashCode() ^ this.Chain.GetHashCode() ^ this.Offset.GetHashCode() ^
                 this.AllErase.GetHashCode() ^ this.WinCount.GetHashCode() ^ this.ObstructionSlimes.GetHashCode() ^
                 this.MovableSlimes.GetHashCode() ^ this.SlimeFields.GetHashCode() ^ this.NextSlimes.GetHashCode();

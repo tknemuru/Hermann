@@ -90,17 +90,6 @@ namespace Hermann.Client.ConsoleClient
             // キー変更イベントの購読
             KeyInfo = new ReactiveProperty<ConsoleKeyInfo>();
             HasSetKeyInfo = new BooleanNotifier(false);
-            HasSetKeyInfo.Where(h => h)
-                .Subscribe(_ =>
-                {
-                    HasSetKeyInfo.TurnOff();
-                    Context.OperationPlayer = KeyMap.GetPlayer(KeyInfo.Value.Key);
-                    Context.OperationDirection = KeyMap.GetDirection(KeyInfo.Value.Key);
-                    var c = ConsoleClientDiProvider.GetContainer().GetInstance<NativeCommand>();
-                    c.Command = Command.Move;
-                    c.Context = Context;
-                    Context = Receiver.Receive(c);
-                });
 
             // キーの入力読み込みタスクを開始
             Task.Run(() =>
@@ -121,12 +110,24 @@ namespace Hermann.Client.ConsoleClient
         /// </summary>
         private static void Update()
         {
-            // コマンドの実行
+            // 移動方向無コマンドの実行
             Context.OperationDirection = Direction.None;
             var c = ConsoleClientDiProvider.GetContainer().GetInstance<NativeCommand>();
             c.Command = Command.Move;
             c.Context = Context;
             Context = Receiver.Receive(c);
+
+            // 入力を受け付けたコマンドの実行
+            if (HasSetKeyInfo.Value)
+            {
+                HasSetKeyInfo.TurnOff();
+                Context.OperationPlayer = KeyMap.GetPlayer(KeyInfo.Value.Key);
+                Context.OperationDirection = KeyMap.GetDirection(KeyInfo.Value.Key);
+                c = ConsoleClientDiProvider.GetContainer().GetInstance<NativeCommand>();
+                c.Command = Command.Move;
+                c.Context = Context;
+                Context = Receiver.Receive(c);
+            }
 
             // 画面描画
             FieldContextWriter.Write(Context);

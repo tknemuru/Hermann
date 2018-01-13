@@ -30,6 +30,10 @@ namespace Hermann.Api.Senders
             // 操作方向
             sb.AppendLine(ToString(SimpleText.Keys.Direction, SimpleText.ConvertDirection(context.OperationDirection)));
 
+            // 回転方向
+            sb.AppendLine(ArrayToString(SimpleText.Keys.RotationDirection,
+                new[] { SimpleText.ConvertDirection(context.RotationDirection[(int)Player.Index.First]), SimpleText.ConvertDirection(context.RotationDirection[(int)Player.Index.Second]) }));
+
             // 経過時間
             sb.AppendLine(ToString(SimpleText.Keys.Time, context.Time));
 

@@ -196,6 +196,11 @@ namespace Hermann.Api
             public const string Direction = "操作方向";
 
             /// <summary>
+            /// 回転方向
+            /// </summary>
+            public const string RotationDirection = "回転方向";
+
+            /// <summary>
             /// 経過時間
             /// </summary>
             public const string Time = "経過時間";
@@ -274,7 +279,7 @@ namespace Hermann.Api
             /// <summary>
             /// 合計行数
             /// </summary>
-            public const int Sum = 30;
+            public const int Sum = 31;
         }
 
         /// <summary>
