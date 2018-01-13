@@ -34,7 +34,7 @@ namespace Hermann.Generators
             var slimes = new Slime[MovableSlime.Length];
             for (var i = 0; i < MovableSlime.Length; i++)
             {
-                var index = this.RandomGen.Next(this.UsingSlime.Count() - 1);
+                var index = this.RandomGen.Next(this.UsingSlime.Count());
                 slimes[i] = this.UsingSlime[index];
             }
 
