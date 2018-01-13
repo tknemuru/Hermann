@@ -160,7 +160,7 @@ namespace Hermann.Models
             // プレイヤの操作による移動
             if (context.OperationDirection != Direction.None)
             {
-                context = this.Player.Move(context);
+                this.Player.Update(context);
 
                 // 上に移動の場合は回転方向を変更する
                 if (context.OperationDirection == Direction.Up)
@@ -178,7 +178,7 @@ namespace Hermann.Models
                 {
                     context.OperationPlayer = player;
                     context.OperationDirection = Direction.None;
-                    context = this.Player.Move(context);
+                    this.Player.Update(context);
                 });
             }
 

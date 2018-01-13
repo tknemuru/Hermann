@@ -1,5 +1,6 @@
 ﻿using Hermann.Contexts;
 using Hermann.Helpers;
+using Hermann.Models;
 using Hermann.Updaters;
 using Reactive.Bindings;
 using System;
@@ -9,12 +10,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Models
+namespace Hermann.Updaters
 {
     /// <summary>
     /// プレイヤ
     /// </summary>
-    public sealed class Player : INotifiable<Player.Index>
+    public sealed class Player : IFieldUpdatable, INotifiable<Player.Index>
     {
         /// <summary>
         /// プレイヤ数
@@ -85,7 +86,7 @@ namespace Hermann.Models
         /// スライムを動かします。
         /// </summary>
         /// <param name="context">コンテキスト</param>
-        public FieldContext Move(FieldContext context)
+        public void Update(FieldContext context)
         {
             switch (context.OperationDirection)
             {
@@ -115,7 +116,6 @@ namespace Hermann.Models
             }
 
             this.Notifier.Value = context.OperationPlayer;
-            return context;
         }
 
         /// <summary>
