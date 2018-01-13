@@ -3,6 +3,7 @@ using Hermann.Di;
 using Hermann.Generators;
 using Hermann.Updaters;
 using Hermann.Helpers;
+using Hermann.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +15,7 @@ using Reactive.Bindings;
 using Reactive.Bindings.Notifiers;
 using Reactive.Bindings.Extensions;
 
-namespace Hermann.Models
+namespace Hermann
 {
     /// <summary>
     /// ゲームロジックを提供します。
