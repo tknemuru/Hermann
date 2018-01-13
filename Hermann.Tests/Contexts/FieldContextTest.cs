@@ -48,12 +48,12 @@ namespace Hermann.Tests.Contexts
 
             // 1Pのスライムごとの配置状態が等しくない
             y = CreateEqualsTestDefaultFieldContext();
-            y.SlimeFields[0].Value[Slime.Red] = new uint[] { 2u, 4u, 6u };
+            y.SlimeFields[0][Slime.Red] = new uint[] { 2u, 4u, 6u };
             Assert.IsFalse(x.Equals(y));
 
             // 2Pのスライムごとの配置状態が等しくない
             y = CreateEqualsTestDefaultFieldContext();
-            y.SlimeFields[1].Value[Slime.Red] = new uint[] { 2u, 4u, 6u };
+            y.SlimeFields[1][Slime.Red] = new uint[] { 2u, 4u, 6u };
             Assert.IsFalse(x.Equals(y));
         }
 
@@ -78,13 +78,13 @@ namespace Hermann.Tests.Contexts
             var fieldsFirst = new Dictionary<Slime, uint[]>();
             fieldsFirst.Add(Slime.Red, new uint[] {2u, 3u, 6u});
             fieldsFirst.Add(Slime.Blue, new uint[] { 3u, 4u, 7u });
-            context.SlimeFields = new ReactiveProperty<Dictionary<Slime, uint[]>>[Player.Length];
-            context.SlimeFields[0] = new ReactiveProperty<Dictionary<Slime, uint[]>>(fieldsFirst);
+            context.SlimeFields = new Dictionary<Slime, uint[]>[Player.Length];
+            context.SlimeFields[0] = fieldsFirst;
 
             var fieldsSecond = new Dictionary<Slime, uint[]>();
             fieldsSecond.Add(Slime.Red, new uint[] { 3u, 4u, 7u });
             fieldsSecond.Add(Slime.Blue, new uint[] { 2u, 3u, 6u });
-            context.SlimeFields[1] = new ReactiveProperty<Dictionary<Slime, uint[]>>(fieldsSecond);
+            context.SlimeFields[1] = fieldsSecond;
 
             return context;
         }

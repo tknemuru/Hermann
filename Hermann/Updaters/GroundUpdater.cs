@@ -25,7 +25,7 @@ namespace Hermann.Updaters
 
             // 接地しているか？
             var isGround = Player.IsGround(context, player);
-            context.Ground[(int)player].Value = isGround;
+            context.Ground[(int)player] = isGround;
         }
     }
 }

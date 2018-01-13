@@ -46,7 +46,7 @@ namespace Hermann.Api.Receivers
             context.Time = long.Parse(dic[SimpleText.Keys.Time]);
 
             // 接地
-            context.Ground = ParseReactiveProperty(dic[SimpleText.Keys.Ground], bool.Parse);
+            context.Ground = Parse(dic[SimpleText.Keys.Ground], bool.Parse);
 
             // 設置残タイム
             context.BuiltRemainingTime = Parse(dic[SimpleText.Keys.BuiltRemainingTime], long.Parse);
@@ -122,24 +122,6 @@ namespace Hermann.Api.Receivers
         }
 
         /// <summary>
-        /// 両プレイヤの値をReactivePropertyの値に変換します。
-        /// </summary>
-        /// <typeparam name="T">値の型</typeparam>
-        /// <param name="value">値</param>
-        /// <param name="parse">変換メソッド</param>
-        /// <returns>変換した値の配列</returns>
-        private static ReactiveProperty<T>[] ParseReactiveProperty<T>(string value, Func<string, T> parse)
-        {
-            var properties = new ReactiveProperty<T>[Player.Length];
-            var orgResults = Parse(value, parse);
-            Player.ForEach((player) =>
-            {
-                properties[(int)player] = new ReactiveProperty<T>(orgResults[(int)player]);
-            });
-            return properties;
-        }
-
-        /// <summary>
         /// 使用スライムの変換を行います。
         /// </summary>
         /// <param name="value">使用スライム情報の文字列</param>
@@ -163,7 +145,7 @@ namespace Hermann.Api.Receivers
         /// </summary>
         /// <param name="value">スライムごとの配置状態の文字列</param>
         /// <returns>スライムごとの配置状態</returns>
-        private static ReactiveProperty<Dictionary<Slime, uint[]>>[] ParseSlimeFields(string value)
+        private static Dictionary<Slime, uint[]>[] ParseSlimeFields(string value)
         {
             // 変換を行う
             Func<List<string>, Dictionary<Slime, uint[]>> parse = (lines) =>
@@ -197,14 +179,14 @@ namespace Hermann.Api.Receivers
             };
 
             var values = SplitNewLine(value);
-            var properties = new ReactiveProperty<Dictionary<Slime, uint[]>>[Player.Length];
+            var retFields = new Dictionary<Slime, uint[]>[Player.Length];
             Player.ForEach((player) =>
             {
                 var lines = ExtractOnePlayerFieldLines(values, player);
-                properties[(int)player] = new ReactiveProperty<Dictionary<Slime, uint[]>>(parse(lines));
+                retFields[(int)player] = parse(lines);
             });
 
-            return properties;
+            return retFields;
         }
 
         /// <summary>

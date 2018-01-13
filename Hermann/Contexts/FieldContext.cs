@@ -38,7 +38,7 @@ namespace Hermann.Contexts
         /// <summary>
         /// 接地
         /// </summary>
-        public ReactiveProperty<bool>[] Ground { get; set; }
+        public bool[] Ground { get; set; }
 
         /// <summary>
         /// 設置残タイム
@@ -88,7 +88,7 @@ namespace Hermann.Contexts
         /// <summary>
         /// スライムごとの配置状態
         /// </summary>
-        public ReactiveProperty<Dictionary<Slime, uint[]>>[] SlimeFields { get; set; }
+        public Dictionary<Slime, uint[]>[] SlimeFields { get; set; }
 
         /// <summary>
         /// NEXTスライム
@@ -101,9 +101,7 @@ namespace Hermann.Contexts
         public FieldContext()
         {
             this.RotationDirection = new Direction[Player.Length];
-            this.Ground = new ReactiveProperty<bool>[Player.Length];
-            this.Ground[(int)Player.Index.First] = new ReactiveProperty<bool>();
-            this.Ground[(int)Player.Index.Second] = new ReactiveProperty<bool>();
+            this.Ground = new[] { false, false };
             this.BuiltRemainingTime = new long[Player.Length];
             this.Score = new long[Player.Length];
             this.Chain = new int[Player.Length];
@@ -121,11 +119,9 @@ namespace Hermann.Contexts
             this.MovableSlimes[(int)Player.Index.First] = new MovableSlime[MovableSlime.Length];
             this.MovableSlimes[(int)Player.Index.Second] = new MovableSlime[MovableSlime.Length];
 
-            this.SlimeFields = new ReactiveProperty<Dictionary<Slime, uint[]>>[Player.Length];
-            this.SlimeFields[(int)Player.Index.First] = new ReactiveProperty<Dictionary<Slime, uint[]>>();
-            this.SlimeFields[(int)Player.Index.First].Value = new Dictionary<Slime, uint[]>();
-            this.SlimeFields[(int)Player.Index.Second] = new ReactiveProperty<Dictionary<Slime, uint[]>>();
-            this.SlimeFields[(int)Player.Index.Second].Value = new Dictionary<Slime, uint[]>();
+            this.SlimeFields = new Dictionary<Slime, uint[]>[Player.Length];
+            this.SlimeFields[(int)Player.Index.First] = new Dictionary<Slime, uint[]>();
+            this.SlimeFields[(int)Player.Index.Second] = new Dictionary<Slime, uint[]>();
 
             this.NextSlimes = new Slime[Player.Length][][];
             this.NextSlimes[(int)Player.Index.First] = new Slime[NextSlime.Length][];
@@ -166,7 +162,7 @@ namespace Hermann.Contexts
                 equals.Add(context.RotationDirection[(int)player] == this.RotationDirection[(int)player]);
                 
                 // 接地
-                equals.Add(context.Ground[(int)player].Value == this.Ground[(int)player].Value);
+                equals.Add(context.Ground[(int)player] == this.Ground[(int)player]);
 
                 // 設置残タイム
                 equals.Add(context.BuiltRemainingTime[(int)player] == this.BuiltRemainingTime[(int)player]);
@@ -202,8 +198,8 @@ namespace Hermann.Contexts
                 }
 
                 // スライムごとの配置状態
-                var slimeFields = context.SlimeFields[(int)player].Value;
-                var mySlimeFields = this.SlimeFields[(int)player].Value;
+                var slimeFields = context.SlimeFields[(int)player];
+                var mySlimeFields = this.SlimeFields[(int)player];
                 equals.Add(slimeFields.Count == mySlimeFields.Count);
                 foreach (var slime in slimeFields.Keys)
                 {

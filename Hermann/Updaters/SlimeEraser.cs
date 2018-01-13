@@ -24,7 +24,7 @@ namespace Hermann.Updaters
             // 消済スライムを消去する
             for(var i = 0; i < FieldContextConfig.FieldUnitCount; i++)
             {
-                context.SlimeFields[(int)player].Value[Slime.Erased][i] = 0u;
+                context.SlimeFields[(int)player][Slime.Erased][i] = 0u;
             }
         }
     }

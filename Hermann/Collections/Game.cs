@@ -251,9 +251,7 @@ namespace Hermann.Collections
             context.Time = 0;
 
             // 接地
-            context.Ground = new ReactiveProperty<bool>[Player.Length];
-            context.Ground[(int)Player.Index.First] = new ReactiveProperty<bool>(false);
-            context.Ground[(int)Player.Index.Second] = new ReactiveProperty<bool>(false);
+            context.Ground = new[] { false, false };
 
             // 設置残タイム
             context.BuiltRemainingTime = new[] { 0L, 0L };
@@ -298,7 +296,7 @@ namespace Hermann.Collections
             {
                 for (var slimeIndex = 0; slimeIndex < fieldSlimes.Length; slimeIndex++)
                 {
-                    context.SlimeFields[(int)player].Value.Add(fieldSlimes[slimeIndex], createInitialField());
+                    context.SlimeFields[(int)player].Add(fieldSlimes[slimeIndex], createInitialField());
                 }
             });
 

@@ -111,14 +111,14 @@ namespace Hermann.Updaters
             var modifiedShift = shiftLine * FieldContextConfig.OneLineBitCount;
 
             // 移動前スライムを消す
-            context.SlimeFields[(int)player].Value[slime][unitIndex] &= ~(1u << position);
+            context.SlimeFields[(int)player][slime][unitIndex] &= ~(1u << position);
 
             // スライムを移動させる
             var updPosition = position + modifiedShift;
             var updUnitIndex = unitIndex + (updPosition / FieldContextConfig.FieldUnitBitCount);
             updPosition %= FieldContextConfig.FieldUnitBitCount;
             Debug.Assert(!FieldContextHelper.ExistsSlime(context, context.OperationPlayer, updUnitIndex, updPosition), string.Format("他のスライムが移動場所に存在しています。 Index : {0} Position : {1}", updUnitIndex, updPosition));
-            context.SlimeFields[(int)player].Value[slime][updUnitIndex] |= 1u << updPosition;
+            context.SlimeFields[(int)player][slime][updUnitIndex] |= 1u << updPosition;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Hermann.Api.Tests.Receivers
         {
             // [001]1P:右
             var context = TestHelper.Receiver.Receive("../../resources/receivers/simple-text-file-receiver/test-field-in-001-001.txt");
-            var slimeFields = context.SlimeFields[(int)Player.Index.First].Value;
+            var slimeFields = context.SlimeFields[(int)Player.Index.First];
             var movableSlimes = context.MovableSlimes[(int)Player.Index.First];
 
             // 検証
@@ -37,7 +37,7 @@ namespace Hermann.Api.Tests.Receivers
             Assert.AreEqual(200, context.Time);
 
             // 接地
-            CollectionAssert.AreEqual(new[] { false, true }, ReactiveHelper.GetValues(context.Ground));
+            CollectionAssert.AreEqual(new[] { false, true }, context.Ground);
 
             // 設置残タイム
             CollectionAssert.AreEqual(new[] { 260L, 90L }, context.BuiltRemainingTime);

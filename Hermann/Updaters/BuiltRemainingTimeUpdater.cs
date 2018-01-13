@@ -64,7 +64,7 @@ namespace Hermann.Updaters
             var player = context.OperationPlayer;
 
             // 接地していなければ設置残タイムは最大値
-            if (!context.Ground[(int)player].Value)
+            if (!context.Ground[(int)player])
             {
                 context.BuiltRemainingTime[(int)player] = FieldContextConfig.MaxBuiltRemainingTime;
                 this.Notifier.Value = Notification.Moving;

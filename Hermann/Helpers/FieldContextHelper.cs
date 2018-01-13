@@ -24,7 +24,7 @@ namespace Hermann.Helpers
         /// <returns>スライムが存在しているかどうか</returns>
         public static bool ExistsSlime(FieldContext context, Player.Index player, int index, int position)
         {
-            return context.SlimeFields[(int)player].Value.Any(f => (f.Value[index] & (1u << position)) > 0u);
+            return context.SlimeFields[(int)player].Any(f => (f.Value[index] & (1u << position)) > 0u);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Hermann.Helpers
         /// <returns>スライムが存在しているかどうか</returns>
         public static bool ExistsSlime(FieldContext context, Player.Index player, int index, int position, Slime slime)
         {
-            return ((context.SlimeFields[(int)player].Value[slime][index] & (1u << position)) > 0u);
+            return ((context.SlimeFields[(int)player][slime][index] & (1u << position)) > 0u);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Hermann.Helpers
                 context.MovableSlimes[(int)player][(int)unitIndex] = movables[(int)unitIndex];
 
                 // フィールドにも反映させる
-                context.SlimeFields[(int)player].Value[movables[(int)unitIndex].Slime][movables[(int)unitIndex].Index] |= 1u << movables[(int)unitIndex].Position;
+                context.SlimeFields[(int)player][movables[(int)unitIndex].Slime][movables[(int)unitIndex].Index] |= 1u << movables[(int)unitIndex].Position;
             });
         }
 

@@ -44,7 +44,7 @@ namespace Hermann.Updaters
             foreach (var slime in slimes)
             {
                 // 対象スライムのフィールド状態を取得
-                var fields = context.SlimeFields[(int)player].Value[slime];
+                var fields = context.SlimeFields[(int)player][slime];
 
                 // 対象スライムの削除情報を初期化
                 var erasedSlimes = CreateInitialErasedSlimes();
@@ -91,7 +91,7 @@ namespace Hermann.Updaters
             }
 
             // フィールド状態の消済スライム情報を更新する
-            context.SlimeFields[(int)player].Value[Slime.Erased] = erasedAllColorSlimes;
+            context.SlimeFields[(int)player][Slime.Erased] = erasedAllColorSlimes;
 
             // 連鎖回数をインクリメントする
 
