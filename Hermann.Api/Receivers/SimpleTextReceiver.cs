@@ -1,5 +1,5 @@
 ﻿using Hermann.Contexts;
-using Hermann.Collections;
+using Hermann.Models;
 using Hermann.Di;
 using Hermann.Helpers;
 using System;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Collections
+namespace Hermann.Models
 {
     /// <summary>
     /// 移動可能なスライム

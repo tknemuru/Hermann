@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Hermann.Tests.TestHelpers;
 using Hermann.Updaters;
 using Hermann.Generators;
-using Hermann.Collections;
+using Hermann.Models;
 
 namespace Hermann.Tests.Updaters
 {

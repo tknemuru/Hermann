@@ -1,4 +1,4 @@
-﻿using Hermann.Collections;
+﻿using Hermann.Models;
 using Hermann.Contexts;
 using System;
 using System.Collections.Generic;

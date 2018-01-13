@@ -1,9 +1,9 @@
-﻿using Hermann.Collections;
+﻿using Hermann.Models;
 using Hermann.Contexts;
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Hermann.Tests.Collections
+namespace Hermann.Tests.Models
 {
     /// <summary>
     /// MovableSlimeクラスのテスト機能を提供します。

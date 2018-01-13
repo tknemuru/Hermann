@@ -1,4 +1,4 @@
-﻿using Hermann.Collections;
+﻿using Hermann.Models;
 using Hermann.Contexts;
 using System;
 using System.Collections.Generic;
@@ -502,7 +502,7 @@ namespace Hermann.Api
         /// 方向の逆引き変換辞書を作成します。
         /// </summary>
         /// <returns>方向の逆引き変換辞書</returns>
-        private static Dictionary<string, Hermann.Collections.Direction> buildReverseDirections()
+        private static Dictionary<string, Hermann.Models.Direction> buildReverseDirections()
         {
             var directions = new Dictionary<string, Direction>();
             directions.Add(DirectionSymbol.None, Direction.None);

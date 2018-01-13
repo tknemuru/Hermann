@@ -1,5 +1,5 @@
 ﻿using Hermann.Contexts;
-using Hermann.Collections;
+using Hermann.Models;
 using Hermann.Api.Receivers;
 using Hermann.Api.Senders;
 using Hermann.Tests.Di;

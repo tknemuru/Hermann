@@ -1,5 +1,5 @@
 ﻿using Hermann.Contexts;
-using Hermann.Collections;
+using Hermann.Models;
 using Hermann.Api.Commands;
 using Hermann.Client.ConsoleClient.Writers;
 using Hermann.Api.Receivers;

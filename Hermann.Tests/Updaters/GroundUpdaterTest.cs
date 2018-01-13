@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Hermann.Tests.TestHelpers;
-using Hermann.Collections;
+using Hermann.Models;
 using Hermann.Updaters;
 using Hermann.Helpers;
 

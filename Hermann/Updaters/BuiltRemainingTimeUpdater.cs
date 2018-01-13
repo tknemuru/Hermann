@@ -1,4 +1,4 @@
-﻿using Hermann.Collections;
+﻿using Hermann.Models;
 using Hermann.Contexts;
 using Reactive.Bindings;
 using System;

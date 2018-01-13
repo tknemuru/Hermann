@@ -2,7 +2,7 @@
 using Hermann.Api.Senders;
 using Hermann.Api.Commands;
 using Hermann.Contexts;
-using Hermann.Collections;
+using Hermann.Models;
 using Hermann.Di;
 using Hermann.Generators;
 using System;

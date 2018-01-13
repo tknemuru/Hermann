@@ -5,7 +5,7 @@ using SimpleInjector;
 using Hermann.Tests.Di;
 using Hermann.Api.Receivers;
 using Hermann.Contexts;
-using Hermann.Collections;
+using Hermann.Models;
 using Hermann.Helpers;
 using Hermann.Tests.TestHelpers;
 

@@ -14,7 +14,7 @@ using Reactive.Bindings;
 using Reactive.Bindings.Notifiers;
 using Reactive.Bindings.Extensions;
 
-namespace Hermann.Collections
+namespace Hermann.Models
 {
     /// <summary>
     /// ゲームロジックを提供します。
