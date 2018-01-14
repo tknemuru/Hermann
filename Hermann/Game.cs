@@ -145,9 +145,6 @@ namespace Hermann
 
             var context = this.CreateInitialFieldContext();
 
-            // 購読登録
-            this.Subscribe(context);
-
             return context;
         }
 
@@ -161,13 +158,7 @@ namespace Hermann
             // プレイヤの操作による移動
             if (context.OperationDirection != Direction.None)
             {
-                this.Player.Update(context);
-
-                // 上に移動の場合は回転方向を変更する
-                if (context.OperationDirection == Direction.Up)
-                {
-                    this.RotationDirectionUpdater.Update(context);
-                }
+                this.Move(context);
             }
 
             // 方向：無での更新
@@ -179,7 +170,7 @@ namespace Hermann
                 {
                     context.OperationPlayer = player;
                     context.OperationDirection = Direction.None;
-                    this.Player.Update(context);
+                    this.Move(context);
                 });
             }
 
@@ -187,7 +178,7 @@ namespace Hermann
             Player.ForEach((player) =>
             {
                 context.OperationPlayer = player;
-                this.BuiltRemainingTimeUpdater.Update(context);
+                this.UpdateBuilting(context);
             });            
 
             // 時間の更新
@@ -197,19 +188,33 @@ namespace Hermann
         }
 
         /// <summary>
-        /// 購読登録を行います。
+        /// スライムを移動します。
         /// </summary>
-        /// <param name="context">フィールド状態</param>
-        private void Subscribe(FieldContext context)
+        /// <param name="context">フィールドの状態</param>
+        private void Move(FieldContext context)
         {
-            this.Player.Notifier.Subscribe(n =>
-                {
-                    // 移動毎に接地判定を行う
-                    this.GroundUpdater.Update(context);
-                });
+            // 移動
+            this.Player.Update(context);
 
-            // 設置完了時
-            this.BuiltRemainingTimeUpdater.Notifier.Where(n => n == BuiltRemainingTimeUpdater.Notification.HasBuilt).Subscribe(n =>
+            // 上に移動の場合は回転方向を変更する
+            if (context.OperationDirection == Direction.Up)
+            {
+                this.RotationDirectionUpdater.Update(context);
+            }
+
+            // 移動毎に接地判定を行う
+            this.GroundUpdater.Update(context);
+        }
+
+        /// <summary>
+        /// 設置に関する更新を行います。
+        /// </summary>
+        /// <param name="context">フィールドの状態</param>
+        private void UpdateBuilting(FieldContext context)
+        {
+            this.BuiltRemainingTimeUpdater.Update(context);
+
+            if (this.BuiltRemainingTimeUpdater.Notifier.Value == BuiltRemainingTimeUpdater.Notification.HasBuilt)
             {
                 // 1.移動可能スライムを通常のスライムに変換する
                 this.BuiltingUpdater.Update(context);
@@ -231,7 +236,7 @@ namespace Hermann
 
                 // 4.勝敗を決定する
                 this.WinCountUpdater.Update(context);
-            });
+            }
         }
 
         /// <summary>

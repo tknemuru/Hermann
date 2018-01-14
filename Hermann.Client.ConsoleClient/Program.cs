@@ -3,6 +3,7 @@ using Hermann.Models;
 using Hermann.Api.Commands;
 using Hermann.Client.ConsoleClient.Writers;
 using Hermann.Api.Receivers;
+using Hermann.Api.Senders;
 using Hermann.Client.ConsoleClient.Di;
 using System;
 using System.Collections.Generic;
@@ -114,7 +115,7 @@ namespace Hermann.Client.ConsoleClient
             Context.OperationDirection = Direction.None;
             var c = ConsoleClientDiProvider.GetContainer().GetInstance<NativeCommand>();
             c.Command = Command.Move;
-            c.Context = Context;
+            c.Context = Context.DeepCopy();
             Context = Receiver.Receive(c);
 
             // 入力を受け付けたコマンドの実行
@@ -125,7 +126,7 @@ namespace Hermann.Client.ConsoleClient
                 Context.OperationDirection = KeyMap.GetDirection(KeyInfo.Value.Key);
                 c = ConsoleClientDiProvider.GetContainer().GetInstance<NativeCommand>();
                 c.Command = Command.Move;
-                c.Context = Context;
+                c.Context = Context.DeepCopy();
                 Context = Receiver.Receive(c);
             }
 

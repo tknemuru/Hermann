@@ -134,10 +134,106 @@ namespace Hermann.Contexts
         }
 
         /// <summary>
+        /// ディープコピーを行います。
+        /// </summary>
+        /// <returns>ディープコピーされたフィールドの状態</returns>
+        public FieldContext DeepCopy()
+        {
+            var context = new FieldContext();
+
+            // プレイヤ
+            context.OperationPlayer = this.OperationPlayer;
+
+            // 操作方向
+            context.OperationDirection = this.OperationDirection;
+
+            // 経過時間
+            context.Time = this.Time;
+
+            for (var player = Player.Index.First; (int)player < Player.Length; player++)
+            {
+                // 回転方向
+                context.RotationDirection[(int)player] = this.RotationDirection[(int)player];
+
+                // 接地
+                context.Ground[(int)player] = this.Ground[(int)player];
+
+                // 設置残タイム
+                context.BuiltRemainingTime[(int)player] = this.BuiltRemainingTime[(int)player];
+
+                // 得点
+                context.Score[(int)player] = this.Score[(int)player];
+
+                // 連鎖
+                context.Chain[(int)player] = this.Chain[(int)player];
+
+                // 相殺
+                context.Offset[(int)player] = this.Offset[(int)player];
+
+                // 全消
+                context.AllErase[(int)player] = this.AllErase[(int)player];
+
+                // 勝数
+                context.WinCount[(int)player] = this.WinCount[(int)player];
+
+                // 使用スライム
+                for (var i = 0; i < FieldContextConfig.UsingSlimeCount; i++)
+                {
+                    context.UsingSlimes[i] = this.UsingSlimes[i];
+                }
+
+                // おじゃまスライム
+                var obstructionSlimes = context.ObstructionSlimes[(int)player];
+                var myObstructionSlimes = this.ObstructionSlimes[(int)player];
+                foreach (var obstruction in myObstructionSlimes.Keys)
+                {
+                    obstructionSlimes[obstruction] = myObstructionSlimes[obstruction];
+                }
+
+                // スライムごとの配置状態
+                var slimeFields = context.SlimeFields[(int)player];
+                var mySlimeFields = this.SlimeFields[(int)player];
+                foreach (var slime in mySlimeFields.Keys)
+                {
+                    slimeFields.Add(slime, new uint[FieldContextConfig.FieldUnitCount]);
+                    for (var i = 0; i < mySlimeFields[slime].Length; i++)
+                    {
+                        slimeFields[slime][i] = mySlimeFields[slime][i];
+                    }
+                }
+
+                // 移動可能なスライムの配置状態
+                var movable = context.MovableSlimes[(int)player];
+                var myMovable = this.MovableSlimes[(int)player];
+                movable[(int)MovableSlime.UnitIndex.First] = new MovableSlime();
+                movable[(int)MovableSlime.UnitIndex.First].Slime = myMovable[(int)MovableSlime.UnitIndex.First].Slime;
+                movable[(int)MovableSlime.UnitIndex.First].Index = myMovable[(int)MovableSlime.UnitIndex.First].Index;
+                movable[(int)MovableSlime.UnitIndex.First].Position = myMovable[(int)MovableSlime.UnitIndex.First].Position;
+                movable[(int)MovableSlime.UnitIndex.Second] = new MovableSlime();
+                movable[(int)MovableSlime.UnitIndex.Second].Slime = myMovable[(int)MovableSlime.UnitIndex.Second].Slime;
+                movable[(int)MovableSlime.UnitIndex.Second].Index = myMovable[(int)MovableSlime.UnitIndex.Second].Index;
+                movable[(int)MovableSlime.UnitIndex.Second].Position = myMovable[(int)MovableSlime.UnitIndex.Second].Position;
+
+                // NEXTスライム
+                var nextSlimes = context.NextSlimes[(int)player];
+                var myNextSlimes = this.NextSlimes[(int)player];
+                for (var unitIndex = 0; unitIndex < myNextSlimes.Count(); unitIndex++)
+                {
+                    for (var movableIndex = 0; movableIndex < myNextSlimes[unitIndex].Count(); movableIndex++)
+                    {
+                        nextSlimes[unitIndex][movableIndex] = myNextSlimes[unitIndex][movableIndex];
+                    }
+                }
+            }
+
+            return context;
+        }
+
+        /// <summary>
         /// 指定のオブジェクトが現在のオブジェクトと等しいかどうかを判断します。
         /// </summary>
         /// <param name="obj">比較対象のオブジェクト</param>
-        /// <returns></returns>
+        /// <returns>指定のオブジェクトが現在のオブジェクトと等しいかどうか</returns>
         public override bool Equals(object obj)
         {
             if (obj == null || this.GetType() != obj.GetType())
