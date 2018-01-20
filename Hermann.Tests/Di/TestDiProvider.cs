@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SimpleInjector;
 using Hermann.Updaters.Times;
+using Hermann.Updaters;
 
 namespace Hermann.Tests.Di
 {
@@ -64,6 +65,7 @@ namespace Hermann.Tests.Di
             MyContainer.Register<FieldContext, FieldContext>();
             MyContainer.Register<UsingSlimeGenerator, UsingSlimeRandomGenerator>();
             MyContainer.Register<NextSlimeGenerator, NextSlimeRandomGenerator>();
+            MyContainer.Register<NextSlimeUpdater>(() => new NextSlimeUpdater(), Lifestyle.Singleton);
             MyContainer.Register<CommandReceiver<NativeCommand, FieldContext>, NativeCommandReceiver>();
             MyContainer.Register<FieldContextReceiver<string>, SimpleTextReceiver>();
             MyContainer.Register<FieldContextSender<string>, SimpleTextSender>();

@@ -63,11 +63,12 @@ namespace Hermann.Client.ConsoleClient.Di
         {
             MyContainer = new Container();
             MyContainer.Register<FieldContext, FieldContext>();
-            MyContainer.Register<UsingSlimeGenerator, UsingSlimeRandomGenerator>();
-            MyContainer.Register<NextSlimeGenerator, NextSlimeRandomGenerator>();
-            MyContainer.Register<CommandReceiver<NativeCommand, FieldContext>, NativeCommandReceiver>();
-            MyContainer.Register<FieldContextReceiver<string>, SimpleTextReceiver>();
-            MyContainer.Register<FieldContextSender<string>, SimpleTextSender>();
+            MyContainer.Register<UsingSlimeGenerator, UsingSlimeRandomGenerator>(Lifestyle.Singleton);
+            MyContainer.Register<NextSlimeGenerator, NextSlimeRandomGenerator>(Lifestyle.Singleton);
+            MyContainer.Register<NextSlimeUpdater>(() => new NextSlimeUpdater(), Lifestyle.Singleton);
+            MyContainer.Register<CommandReceiver<NativeCommand, FieldContext>, NativeCommandReceiver>(Lifestyle.Singleton);
+            MyContainer.Register<FieldContextReceiver<string>, SimpleTextReceiver>(Lifestyle.Singleton);
+            MyContainer.Register<FieldContextSender<string>, SimpleTextSender>(Lifestyle.Singleton);
             MyContainer.Register<ITimeUpdatable>(() => new TimeElapsedTicksUpdater(), Lifestyle.Singleton);
             MyContainer.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeElapsedTicksUpdater(), Lifestyle.Singleton);
 
