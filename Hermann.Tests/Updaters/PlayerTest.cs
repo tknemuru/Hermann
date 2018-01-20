@@ -321,5 +321,18 @@ namespace Hermann.Tests.Updaters
 
             TestHelper.AssertEqualsFieldContext(expectedContext, context);
         }
+
+        /// <summary>
+        /// 015:Moveで壁・スライムにバッティングして回転できない
+        /// </summary>
+        [TestMethod]
+        public void Moveで壁・スライムにバッティングして回転できない()
+        {
+            // 001:壁際で右
+            TestHelper.AssertEqualsFieldContext(
+                "../../resources/updaters/player/test-field-in-015-001.txt",
+                "../../resources/updaters/player/test-field-out-015-001.txt",
+                this.Player.Update);
+        }
     }
 }
