@@ -14,6 +14,9 @@ using System.Reactive.Linq;
 using Reactive.Bindings;
 using Reactive.Bindings.Notifiers;
 using Reactive.Bindings.Extensions;
+using Hermann.Updaters.Times;
+using Hermann.Analyzers.Fields;
+using Hermann.Initializers.Fields;
 
 namespace Hermann
 {
@@ -55,7 +58,7 @@ namespace Hermann
         /// <summary>
         /// 時間更新機能
         /// </summary>
-        private TimeUpdater TimeUpdater { get; set; }
+        private ITimeUpdatable TimeUpdater { get; set; }
 
         /// <summary>
         /// 接地更新機能
@@ -95,7 +98,7 @@ namespace Hermann
         /// <summary>
         /// 設置残タイム更新機能
         /// </summary>
-        private BuiltRemainingTimeUpdater BuiltRemainingTimeUpdater { get; set; }
+        private IBuiltRemainingTimeUpdatable BuiltRemainingTimeUpdater { get; set; }
 
         /// <summary>
         /// 回転方向更新機能
@@ -108,6 +111,16 @@ namespace Hermann
         private RotationDirectionInitializer RotationDirectionInitializer { get; set; }
 
         /// <summary>
+        /// 移動可能スライムの状態の分析機能
+        /// </summary>
+        private MovableSlimeStateAnalyzer MovableSlimeStateAnalyzer { get; set; }
+
+        /// <summary>
+        /// 設置残タイムの初期化機能
+        /// </summary>
+        private BuiltRemainingTimeInitializer BuiltRemainingTimeInitializer { get; set; }
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         public Game()
@@ -117,7 +130,7 @@ namespace Hermann
             this.Player = DiProvider.GetContainer().GetInstance<Player>();
             this.NextSlimeGen = DiProvider.GetContainer().GetInstance<NextSlimeGenerator>();
             this.UsingSlimeGen = DiProvider.GetContainer().GetInstance<UsingSlimeGenerator>();
-            this.TimeUpdater = DiProvider.GetContainer().GetInstance<TimeUpdater>();
+            this.TimeUpdater = DiProvider.GetContainer().GetInstance<ITimeUpdatable>();
             this.GroundUpdater = DiProvider.GetContainer().GetInstance<GroundUpdater>();
             this.BuiltingUpdater = DiProvider.GetContainer().GetInstance<BuiltingUpdater>();
             this.SlimeErasingMarker = DiProvider.GetContainer().GetInstance<SlimeErasingMarker>();
@@ -125,9 +138,11 @@ namespace Hermann
             this.SlimeEraser = DiProvider.GetContainer().GetInstance<SlimeEraser>();
             this.Gravity = DiProvider.GetContainer().GetInstance<Gravity>();
             //this.NextSlimeUpdater = DiProvider.GetContainer().GetInstance<NextSlimeUpdater>();
-            this.BuiltRemainingTimeUpdater = DiProvider.GetContainer().GetInstance<BuiltRemainingTimeUpdater>();
+            this.BuiltRemainingTimeUpdater = DiProvider.GetContainer().GetInstance<IBuiltRemainingTimeUpdatable>();
             this.RotationDirectionUpdater = DiProvider.GetContainer().GetInstance<RotationDirectionUpdater>();
             this.RotationDirectionInitializer = DiProvider.GetContainer().GetInstance<RotationDirectionInitializer>();
+            this.MovableSlimeStateAnalyzer = DiProvider.GetContainer().GetInstance<MovableSlimeStateAnalyzer>();
+            this.BuiltRemainingTimeInitializer = DiProvider.GetContainer().GetInstance<BuiltRemainingTimeInitializer>();
         }
 
         /// <summary>
@@ -212,9 +227,11 @@ namespace Hermann
         /// <param name="context">フィールドの状態</param>
         private void UpdateBuilting(FieldContext context)
         {
+            this.BuiltRemainingTimeInitializer.Initialize(context);
+
             this.BuiltRemainingTimeUpdater.Update(context);
 
-            if (this.BuiltRemainingTimeUpdater.Notifier.Value == BuiltRemainingTimeUpdater.Notification.HasBuilt)
+            if (this.MovableSlimeStateAnalyzer.Analyze(context) == MovableSlimeStateAnalyzer.Status.HasBuilt)
             {
                 // 1.移動可能スライムを通常のスライムに変換する
                 this.BuiltingUpdater.Update(context);

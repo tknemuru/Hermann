@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SimpleInjector;
+using Hermann.Updaters.Times;
 
 namespace Hermann.Client.ConsoleClient.Di
 {
@@ -67,6 +68,9 @@ namespace Hermann.Client.ConsoleClient.Di
             MyContainer.Register<CommandReceiver<NativeCommand, FieldContext>, NativeCommandReceiver>();
             MyContainer.Register<FieldContextReceiver<string>, SimpleTextReceiver>();
             MyContainer.Register<FieldContextSender<string>, SimpleTextSender>();
+            MyContainer.Register<ITimeUpdatable>(() => new TimeElapsedTicksUpdater(), Lifestyle.Singleton);
+            MyContainer.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeElapsedTicksUpdater(), Lifestyle.Singleton);
+
             DiProvider.SetContainer(MyContainer);
             MyContainer.Verify();
         }

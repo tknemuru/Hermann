@@ -9,9 +9,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Updaters
+namespace Hermann.Updaters.Times
 {
-    public class TimeUpdater : IFieldUpdatable
+    /// <summary>
+    /// 経過時間の更新機能を提供します。
+    /// </summary>
+    public class TimeElapsedTicksUpdater : ITimeUpdatable
     {
         /// <summary>
         /// ストップウォッチ
@@ -21,7 +24,7 @@ namespace Hermann.Updaters
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public TimeUpdater()
+        public TimeElapsedTicksUpdater()
         {
             this.Stopwatch = new Stopwatch();
         }

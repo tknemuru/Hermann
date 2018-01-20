@@ -15,13 +15,34 @@ namespace Hermann.Updaters
     /// <summary>
     /// プレイヤ
     /// </summary>
-    public sealed class Player : IFieldUpdatable, INotifiable<Player.Index>
+    public sealed class Player : IFieldUpdatable, INotifiable<Player.MoveResult>
     {
         /// <summary>
         /// プレイヤ数
         /// </summary>
         public const int Length = 2;
-        
+
+        /// <summary>
+        /// 移動結果
+        /// </summary>
+        public enum MoveResult
+        {
+            /// <summary>
+            /// 失敗
+            /// </summary>
+            Failed,
+
+            /// <summary>
+            /// 成功
+            /// </summary>
+            Success,
+
+            /// <summary>
+            /// 未確定
+            /// </summary>
+            Undefined,
+        }
+
         /// <summary>
         /// インデックス
         /// </summary>
@@ -41,14 +62,14 @@ namespace Hermann.Updaters
         /// <summary>
         /// 通知オブジェクト
         /// </summary>
-        public ReactiveProperty<Index> Notifier { get; private set; }
+        public ReactiveProperty<MoveResult> Notifier { get; private set; }
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         public Player()
         {
-            this.Notifier = new ReactiveProperty<Index>(Index.First);
+            this.Notifier = new ReactiveProperty<MoveResult>(MoveResult.Undefined);
         }
 
         /// <summary>
@@ -88,24 +109,33 @@ namespace Hermann.Updaters
         /// <param name="context">コンテキスト</param>
         public void Update(FieldContext context)
         {
+            var result = MoveResult.Undefined;
+            var shift = 0;
+
             switch (context.OperationDirection)
             {
                 case Direction.None :
-                    Move(context, ModifyDownShift(context, Speed.None));
+                    shift = ModifyDownShift(context, Speed.None);
+                    result = shift == 0 ? MoveResult.Failed : MoveResult.Success;
+                    Move(context, shift);
                     break;
                 case Direction.Up:
-                    MoveUp(context);
+                    result = MoveUp(context);
                     break;
                 case Direction.Down:
-                    Move(context, ModifyDownShift(context, Speed.Down));
+                    shift = ModifyDownShift(context, Speed.Down);
+                    result = shift == 0 ? MoveResult.Failed : MoveResult.Success;
+                    Move(context, shift);
                     break;
                 case Direction.Left:
-                    if (IsEnabledLeftMove(context))
+                    result = IsEnabledLeftMove(context) ? MoveResult.Success : MoveResult.Failed;
+                    if (result == MoveResult.Success)
                     {
                         Move(context, Speed.Left);
                     }
                     break;
                 case Direction.Right:
+                    result = IsEnabledRightMove(context) ? MoveResult.Success : MoveResult.Failed;
                     if (IsEnabledRightMove(context))
                     {
                         Move(context, Speed.Right);
@@ -115,7 +145,8 @@ namespace Hermann.Updaters
                     throw new ApplicationException(string.Format("不正な方向です。{0}", context.OperationDirection));
             }
 
-            this.Notifier.Value = context.OperationPlayer;
+            Debug.Assert(result != MoveResult.Undefined, "移動結果がUndefinedです。");
+            this.Notifier.Value = result;
         }
 
         /// <summary>
@@ -216,7 +247,7 @@ namespace Hermann.Updaters
         /// 上に移動します。
         /// </summary>
         /// <param name="context">フィールド状態</param>
-        private void MoveUp(FieldContext context)
+        private MoveResult MoveUp(FieldContext context)
         {
             var player = context.OperationPlayer;
             var movables = context.MovableSlimes[(int)context.OperationPlayer];
@@ -232,7 +263,7 @@ namespace Hermann.Updaters
                     Debug.Assert(MovableSlime.GetUnitForm(context.MovableSlimes[(int)player]) == MovableSlime.UnitForm.Vertical, "移動可能スライムの向きが不正です。");
                     if (!IsEnabledRightMove(context))
                     {
-                        return;
+                        return MoveResult.Failed;
                     }
 
                     beforePosition = movables[(int)MovableSlime.UnitIndex.First].Position;
@@ -250,7 +281,7 @@ namespace Hermann.Updaters
                     Debug.Assert(MovableSlime.GetUnitForm(context.MovableSlimes[(int)player]) == MovableSlime.UnitForm.Horizontal, "移動可能スライムの向きが不正です。");
                     if (IsGround(context, context.OperationPlayer))
                     {
-                        return;
+                        return MoveResult.Failed;
                     }
 
                     // rb⇒□□⇒□□⇒r□
@@ -275,7 +306,7 @@ namespace Hermann.Updaters
                     Debug.Assert(MovableSlime.GetUnitForm(context.MovableSlimes[(int)player]) == MovableSlime.UnitForm.Vertical, "移動可能スライムの向きが不正です。");
                     if (!IsEnabledLeftMove(context))
                     {
-                        return;
+                        return MoveResult.Failed;
                     }
 
                     beforePosition = movables[(int)MovableSlime.UnitIndex.Second].Position;
@@ -309,7 +340,10 @@ namespace Hermann.Updaters
                     movables[(int)MovableSlime.UnitIndex.Second].Slime = beforeSlime;
                     SetSlime(context.SlimeFields[(int)player][movables[(int)MovableSlime.UnitIndex.Second].Slime], movables[(int)MovableSlime.UnitIndex.Second].Index, movables[(int)MovableSlime.UnitIndex.Second].Position);
                     break;
+                default :
+                    throw new ArgumentException(string.Format("想定外の方向です。{0}", context.RotationDirection[(int)player]));
             }
+            return MoveResult.Success;
         }
 
         /// <summary>

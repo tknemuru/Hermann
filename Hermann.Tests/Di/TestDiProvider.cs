@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SimpleInjector;
+using Hermann.Updaters.Times;
 
 namespace Hermann.Tests.Di
 {
@@ -66,8 +67,11 @@ namespace Hermann.Tests.Di
             MyContainer.Register<CommandReceiver<NativeCommand, FieldContext>, NativeCommandReceiver>();
             MyContainer.Register<FieldContextReceiver<string>, SimpleTextReceiver>();
             MyContainer.Register<FieldContextSender<string>, SimpleTextSender>();
+            MyContainer.Register<ITimeUpdatable>(() => new TimeStableUpdater(0), Lifestyle.Singleton);
+            MyContainer.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(0), Lifestyle.Singleton);
+
             DiProvider.SetContainer(MyContainer);
-            MyContainer.Verify();            
+            MyContainer.Verify();
         }
     }
 }
