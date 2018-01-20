@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Updaters
+namespace Hermann.Notifiers
 {
     /// <summary>
     /// 通知機能を提供します。

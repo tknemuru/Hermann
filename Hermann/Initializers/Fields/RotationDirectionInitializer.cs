@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hermann.Updaters;
 
-namespace Hermann.Updaters
+namespace Hermann.Initializers.Fields
 {
     /// <summary>
     /// 回転方向の初期化機能を提供します。

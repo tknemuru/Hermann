@@ -1,6 +1,7 @@
 ﻿using Hermann.Contexts;
 using Hermann.Helpers;
 using Hermann.Models;
+using Hermann.Notifiers;
 using Hermann.Updaters;
 using Reactive.Bindings;
 using System;
@@ -271,7 +272,7 @@ namespace Hermann.Updaters
                     afterPosition = movables[(int)MovableSlime.UnitIndex.Second].Position - 1;
                     afterIndex = movables[(int)MovableSlime.UnitIndex.Second].Index;
                     Debug.Assert(afterIndex >= 0, string.Format("インデックスが不正です。{0}", afterIndex));
-                    
+
                     RemoveSlime(context.SlimeFields[(int)player][movables[(int)MovableSlime.UnitIndex.First].Slime], beforeIndex, beforePosition);
                     movables[(int)MovableSlime.UnitIndex.First].Position = afterPosition;
                     movables[(int)MovableSlime.UnitIndex.First].Index = afterIndex;
@@ -314,7 +315,7 @@ namespace Hermann.Updaters
                     afterPosition = movables[(int)MovableSlime.UnitIndex.First].Position + 1;
                     afterIndex = movables[(int)MovableSlime.UnitIndex.First].Index;
                     Debug.Assert(afterIndex < FieldContextConfig.FieldUnitBitCount, string.Format("インデックスが不正です。{0}", afterIndex));
-                    
+
                     RemoveSlime(context.SlimeFields[(int)player][movables[(int)MovableSlime.UnitIndex.Second].Slime], beforeIndex, beforePosition);
                     movables[(int)MovableSlime.UnitIndex.Second].Position = afterPosition;
                     movables[(int)MovableSlime.UnitIndex.Second].Index = afterIndex;
