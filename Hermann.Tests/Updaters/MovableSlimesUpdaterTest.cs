@@ -6,10 +6,10 @@ using Hermann.Tests.TestHelpers;
 namespace Hermann.Tests.Updaters
 {
     /// <summary>
-    /// BuiltingUpdaterのテスト機能を提供します。
+    /// MovableSlimesUpdaterのテスト機能を提供します。
     /// </summary>
     [TestClass]
-    public class BuiltingUpdaterTest
+    public class MovableSlimesUpdaterTest
     {
         /// <summary>
         /// 設置情報更新機能
@@ -19,7 +19,7 @@ namespace Hermann.Tests.Updaters
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public BuiltingUpdaterTest()
+        public MovableSlimesUpdaterTest()
         {
             this.Updater = new MovableSlimesUpdater();
         }
@@ -32,14 +32,14 @@ namespace Hermann.Tests.Updaters
         {
             // 001:1P-横-左端
             TestHelper.AssertEqualsFieldContext(
-                "../../resources/updaters/builtingupdater/test-field-out-001-001.txt",
-                "../../resources/updaters/builtingupdater/test-field-in-001-001.txt",
+                "../../resources/updaters/movableslimesupdater/test-field-out-001-001.txt",
+                "../../resources/updaters/movableslimesupdater/test-field-in-001-001.txt",
                 this.Updater.Update);
 
             // 002:2P-縦-右端
             TestHelper.AssertEqualsFieldContext(
-                "../../resources/updaters/builtingupdater/test-field-out-001-002.txt",
-                "../../resources/updaters/builtingupdater/test-field-in-001-002.txt",
+                "../../resources/updaters/movableslimesupdater/test-field-out-001-002.txt",
+                "../../resources/updaters/movableslimesupdater/test-field-in-001-002.txt",
                 this.Updater.Update);
         }
     }
