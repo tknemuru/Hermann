@@ -217,7 +217,7 @@ namespace Hermann.Api.Receivers
                         {
                             if (IsExistsMovableColor(slime, blocks[j]))
                             {
-                                var movable = new MovableSlime();
+                                var movable = DiProvider.GetContainer().GetInstance<MovableSlime>();
                                 movable.Slime = slime;
                                 movable.Index = fieldIndex;
                                 movable.Position = (baseShift * 8) + shift;

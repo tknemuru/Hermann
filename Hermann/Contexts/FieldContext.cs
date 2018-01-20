@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Reactive.Linq;
 using Reactive.Bindings;
 using Reactive.Bindings.Notifiers;
+using Hermann.Di;
 
 namespace Hermann.Contexts
 {
@@ -205,11 +206,11 @@ namespace Hermann.Contexts
                 // 移動可能なスライムの配置状態
                 var movable = context.MovableSlimes[(int)player];
                 var myMovable = this.MovableSlimes[(int)player];
-                movable[(int)MovableSlime.UnitIndex.First] = new MovableSlime();
+                movable[(int)MovableSlime.UnitIndex.First] = DiProvider.GetContainer().GetInstance<MovableSlime>();
                 movable[(int)MovableSlime.UnitIndex.First].Slime = myMovable[(int)MovableSlime.UnitIndex.First].Slime;
                 movable[(int)MovableSlime.UnitIndex.First].Index = myMovable[(int)MovableSlime.UnitIndex.First].Index;
                 movable[(int)MovableSlime.UnitIndex.First].Position = myMovable[(int)MovableSlime.UnitIndex.First].Position;
-                movable[(int)MovableSlime.UnitIndex.Second] = new MovableSlime();
+                movable[(int)MovableSlime.UnitIndex.Second] = DiProvider.GetContainer().GetInstance<MovableSlime>();
                 movable[(int)MovableSlime.UnitIndex.Second].Slime = myMovable[(int)MovableSlime.UnitIndex.Second].Slime;
                 movable[(int)MovableSlime.UnitIndex.Second].Index = myMovable[(int)MovableSlime.UnitIndex.Second].Index;
                 movable[(int)MovableSlime.UnitIndex.Second].Position = myMovable[(int)MovableSlime.UnitIndex.Second].Position;
@@ -243,7 +244,7 @@ namespace Hermann.Contexts
 
             var context = (FieldContext)obj;
             var equals = new List<bool>();
-            
+
             // プレイヤ
             equals.Add(context.OperationPlayer == this.OperationPlayer);
 
@@ -257,7 +258,7 @@ namespace Hermann.Contexts
             {
                 // 回転方向
                 equals.Add(context.RotationDirection[(int)player] == this.RotationDirection[(int)player]);
-                
+
                 // 接地
                 equals.Add(context.Ground[(int)player] == this.Ground[(int)player]);
 

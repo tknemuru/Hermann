@@ -22,20 +22,6 @@ namespace Hermann.Tests.Di
     public static class TestDiProvider
     {
         /// <summary>
-        /// DIコンテナ
-        /// </summary>
-        private static Container MyContainer { get; set; }
-
-        /// <summary>
-        /// DIコンテナをセットします。
-        /// </summary>
-        /// <param name="container">DIコンテナ</param>
-        public static void SetContainer(Container container)
-        {
-            MyContainer = container;
-        }
-
-        /// <summary>
         /// コンストラクタ
         /// </summary>
         static TestDiProvider()
@@ -49,11 +35,7 @@ namespace Hermann.Tests.Di
         /// <returns></returns>
         public static Container GetContainer()
         {
-            if (MyContainer == null)
-            {
-                Register();
-            }
-            return MyContainer;
+            return DiProvider.GetContainer();
         }
 
         /// <summary>
@@ -61,20 +43,10 @@ namespace Hermann.Tests.Di
         /// </summary>
         private static void Register()
         {
-            MyContainer = new Container();
-            MyContainer.Register<FieldContext, FieldContext>();
-            MyContainer.Register<MovableSlime>(() => new MovableSlime());
-            MyContainer.Register<UsingSlimeGenerator, UsingSlimeRandomGenerator>();
-            MyContainer.Register<NextSlimeGenerator, NextSlimeRandomGenerator>();
-            MyContainer.Register<NextSlimeUpdater>();
-            MyContainer.Register<CommandReceiver<NativeCommand, FieldContext>, NativeCommandReceiver>(Lifestyle.Singleton);
-            MyContainer.Register<FieldContextReceiver<string>, SimpleTextReceiver>(Lifestyle.Singleton);
-            MyContainer.Register<FieldContextSender<string>, SimpleTextSender>(Lifestyle.Singleton);
-            MyContainer.Register<ITimeUpdatable>(() => new TimeStableUpdater(0), Lifestyle.Singleton);
-            MyContainer.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(0), Lifestyle.Singleton);
-
-            DiProvider.SetContainer(MyContainer);
-            MyContainer.Verify();
+            var container = DiProvider.GetContainer();
+            container.Register<ITimeUpdatable>(() => new TimeStableUpdater(0), Lifestyle.Singleton);
+            container.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(0), Lifestyle.Singleton);
+            container.Verify();
         }
     }
 }

@@ -22,20 +22,6 @@ namespace Hermann.Client.ConsoleClient.Di
     public static class ConsoleClientDiProvider
     {
         /// <summary>
-        /// DIコンテナ
-        /// </summary>
-        private static Container MyContainer { get; set; }
-
-        /// <summary>
-        /// DIコンテナをセットします。
-        /// </summary>
-        /// <param name="container">DIコンテナ</param>
-        public static void SetContainer(Container container)
-        {
-            MyContainer = container;
-        }
-
-        /// <summary>
         /// コンストラクタ
         /// </summary>
         static ConsoleClientDiProvider()
@@ -49,11 +35,7 @@ namespace Hermann.Client.ConsoleClient.Di
         /// <returns></returns>
         public static Container GetContainer()
         {
-            if (MyContainer == null)
-            {
-                Register();
-            }
-            return MyContainer;
+            return DiProvider.GetContainer();
         }
 
         /// <summary>
@@ -61,20 +43,11 @@ namespace Hermann.Client.ConsoleClient.Di
         /// </summary>
         private static void Register()
         {
-            MyContainer = new Container();
-            MyContainer.Register<FieldContext, FieldContext>();
-            MyContainer.Register<MovableSlime>(() => new MovableSlime());
-            MyContainer.Register<UsingSlimeGenerator, UsingSlimeRandomGenerator>();
-            MyContainer.Register<NextSlimeGenerator, NextSlimeRandomGenerator>();
-            MyContainer.Register<NextSlimeUpdater>();
-            MyContainer.Register<CommandReceiver<NativeCommand, FieldContext>, NativeCommandReceiver>(Lifestyle.Singleton);
-            MyContainer.Register<FieldContextReceiver<string>, SimpleTextReceiver>(Lifestyle.Singleton);
-            MyContainer.Register<FieldContextSender<string>, SimpleTextSender>(Lifestyle.Singleton);
-            MyContainer.Register<ITimeUpdatable>(() => new TimeElapsedTicksUpdater(), Lifestyle.Singleton);
-            MyContainer.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeElapsedTicksUpdater(), Lifestyle.Singleton);
-
-            DiProvider.SetContainer(MyContainer);
-            MyContainer.Verify();
+            var container = DiProvider.GetContainer();
+            container.Register<CommandReceiver<NativeCommand, FieldContext>, NativeCommandReceiver>(Lifestyle.Singleton);
+            container.Register<FieldContextReceiver<string>, SimpleTextReceiver>(Lifestyle.Singleton);
+            container.Register<FieldContextSender<string>, SimpleTextSender>(Lifestyle.Singleton);
+            container.Verify();
         }
     }
 }
