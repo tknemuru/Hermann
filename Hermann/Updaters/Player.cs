@@ -16,7 +16,7 @@ namespace Hermann.Updaters
     /// <summary>
     /// プレイヤ
     /// </summary>
-    public sealed class Player : IFieldUpdatable, INotifiable<Player.MoveResult>
+    public sealed class Player : IPlayerFieldUpdatable, INotifiable<Player.MoveResult>
     {
         /// <summary>
         /// プレイヤ数
@@ -108,7 +108,8 @@ namespace Hermann.Updaters
         /// スライムを動かします。
         /// </summary>
         /// <param name="context">コンテキスト</param>
-        public void Update(FieldContext context)
+        /// <param name="player">プレイヤ</param>
+        public void Update(FieldContext context, Player.Index player)
         {
             var result = MoveResult.Undefined;
             var shift = 0;
@@ -116,30 +117,30 @@ namespace Hermann.Updaters
             switch (context.OperationDirection)
             {
                 case Direction.None :
-                    shift = ModifyDownShift(context, Speed.None);
+                    shift = ModifyDownShift(context, Speed.None, player);
                     result = shift == 0 ? MoveResult.Failed : MoveResult.Success;
-                    Move(context, shift);
+                    Move(context, shift, player);
                     break;
                 case Direction.Up:
-                    result = MoveUp(context);
+                    result = MoveUp(context, player);
                     break;
                 case Direction.Down:
-                    shift = ModifyDownShift(context, Speed.Down);
+                    shift = ModifyDownShift(context, Speed.Down, player);
                     result = shift == 0 ? MoveResult.Failed : MoveResult.Success;
-                    Move(context, shift);
+                    Move(context, shift, player);
                     break;
                 case Direction.Left:
-                    result = IsEnabledLeftMove(context) ? MoveResult.Success : MoveResult.Failed;
+                    result = IsEnabledLeftMove(context, player) ? MoveResult.Success : MoveResult.Failed;
                     if (result == MoveResult.Success)
                     {
-                        Move(context, Speed.Left);
+                        Move(context, Speed.Left, player);
                     }
                     break;
                 case Direction.Right:
-                    result = IsEnabledRightMove(context) ? MoveResult.Success : MoveResult.Failed;
-                    if (IsEnabledRightMove(context))
+                    result = IsEnabledRightMove(context, player) ? MoveResult.Success : MoveResult.Failed;
+                    if (result == MoveResult.Success)
                     {
-                        Move(context, Speed.Right);
+                        Move(context, Speed.Right, player);
                     }
                     break;
                 default :
@@ -170,17 +171,17 @@ namespace Hermann.Updaters
         /// <returns></returns>
         public static bool IsGround(FieldContext context, Player.Index player)
         {
-            return ModifyDownShift(context, player, FieldContextConfig.OneLineBitCount) <= 0;
+            return ModifyDownShift(context, FieldContextConfig.OneLineBitCount, player) <= 0;
         }
 
         /// <summary>
         /// 下に移動するシフト量の調整を行います。
         /// </summary>
         /// <param name="context">フィールドの状態</param>
-        /// <param name="player">プレイヤ</param>
         /// <param name="shift">シフト量</param>
+        /// <param name="player">プレイヤ</param>
         /// <returns>調整された下に移動するシフト量</returns>
-        private static int ModifyDownShift(FieldContext context, Player.Index player, int shift)
+        private static int ModifyDownShift(FieldContext context, int shift, Player.Index player)
         {
             // 底辺越えの判定対象は最下である2つめの移動可能スライムが対象
             var movableSlimes = context.MovableSlimes[(int)player];
@@ -234,24 +235,13 @@ namespace Hermann.Updaters
         }
 
         /// <summary>
-        /// 下に移動するシフト量の調整を行います。
-        /// </summary>
-        /// <param name="context">フィールドの状態</param>
-        /// <param name="shift">シフト量</param>
-        /// <returns>調整された下に移動するシフト量</returns>
-        private static int ModifyDownShift(FieldContext context, int shift)
-        {
-            return ModifyDownShift(context, context.OperationPlayer, shift);
-        }
-
-        /// <summary>
         /// 上に移動します。
         /// </summary>
         /// <param name="context">フィールド状態</param>
-        private MoveResult MoveUp(FieldContext context)
+        /// <param name="player">プレイヤ</param>
+        private MoveResult MoveUp(FieldContext context, Player.Index player)
         {
-            var player = context.OperationPlayer;
-            var movables = context.MovableSlimes[(int)context.OperationPlayer];
+            var movables = context.MovableSlimes[(int)player];
             int beforePosition = 0;
             int beforeIndex = 0;
             Slime beforeSlime = Slime.None;
@@ -262,7 +252,7 @@ namespace Hermann.Updaters
             {
                 case Direction.Right :
                     Debug.Assert(MovableSlime.GetUnitForm(context.MovableSlimes[(int)player]) == MovableSlime.UnitForm.Vertical, "移動可能スライムの向きが不正です。");
-                    if (!IsEnabledRightMove(context))
+                    if (!IsEnabledRightMove(context, player))
                     {
                         return MoveResult.Failed;
                     }
@@ -280,7 +270,7 @@ namespace Hermann.Updaters
                     break;
                 case Direction.Down :
                     Debug.Assert(MovableSlime.GetUnitForm(context.MovableSlimes[(int)player]) == MovableSlime.UnitForm.Horizontal, "移動可能スライムの向きが不正です。");
-                    if (IsGround(context, context.OperationPlayer))
+                    if (IsGround(context, player))
                     {
                         return MoveResult.Failed;
                     }
@@ -291,7 +281,7 @@ namespace Hermann.Updaters
                     beforeIndex = movables[(int)MovableSlime.UnitIndex.Second].Index;
                     beforeSlime = movables[(int)MovableSlime.UnitIndex.Second].Slime;
 
-                    this.Move(context, ModifyDownShift(context, FieldContextConfig.OneLineBitCount));
+                    this.Move(context, ModifyDownShift(context, FieldContextConfig.OneLineBitCount, player), player);
 
                     RemoveSlime(context.SlimeFields[(int)player][movables[(int)MovableSlime.UnitIndex.Second].Slime], movables[(int)MovableSlime.UnitIndex.Second].Index, movables[(int)MovableSlime.UnitIndex.Second].Position);
                     movables[(int)MovableSlime.UnitIndex.Second].Slime = movables[(int)MovableSlime.UnitIndex.First].Slime;
@@ -305,7 +295,7 @@ namespace Hermann.Updaters
                     break;
                 case Direction.Left :
                     Debug.Assert(MovableSlime.GetUnitForm(context.MovableSlimes[(int)player]) == MovableSlime.UnitForm.Vertical, "移動可能スライムの向きが不正です。");
-                    if (!IsEnabledLeftMove(context))
+                    if (!IsEnabledLeftMove(context, player))
                     {
                         return MoveResult.Failed;
                     }
@@ -329,7 +319,7 @@ namespace Hermann.Updaters
                     beforeIndex = movables[(int)MovableSlime.UnitIndex.First].Index;
                     beforeSlime = movables[(int)MovableSlime.UnitIndex.First].Slime;
 
-                    this.Move(context, ModifyUpShift(context, Speed.Up));
+                    this.Move(context, ModifyUpShift(context, Speed.Up, player), player);
 
                     RemoveSlime(context.SlimeFields[(int)player][movables[(int)MovableSlime.UnitIndex.First].Slime], movables[(int)MovableSlime.UnitIndex.First].Index, movables[(int)MovableSlime.UnitIndex.First].Position);
                     movables[(int)MovableSlime.UnitIndex.First].Slime = movables[(int)MovableSlime.UnitIndex.Second].Slime;
@@ -352,10 +342,11 @@ namespace Hermann.Updaters
         /// </summary>
         /// <param name="context">フィールド状態</param>
         /// <param name="shift">シフト量</param>
+        /// <param name="player">プレイヤ</param>
         /// <returns>調整されたシフト量</returns>
-        private int ModifyUpShift(FieldContext context, int shift)
+        private int ModifyUpShift(FieldContext context, int shift, Player.Index player)
         {
-            var first = context.MovableSlimes[(int)context.OperationPlayer][(int)MovableSlime.UnitIndex.First];
+            var first = context.MovableSlimes[(int)player][(int)MovableSlime.UnitIndex.First];
             var position = first.Position + shift;
             var index = first.Index + (position / FieldContextConfig.FieldUnitBitCount) + (position < 0 ? -1 : 0);
             var modShift = shift;
@@ -378,15 +369,16 @@ namespace Hermann.Updaters
         /// <param name="movableField">操作可能スライムの状態</param>
         /// <param name="colorField">対象色スライムの状態</param>
         /// <param name="shift">シフト量</param>
-        private void Move(FieldContext context, int shift)
+        /// <param name="player">プレイヤ</param>
+        private void Move(FieldContext context, int shift, Player.Index player)
         {
             if (shift <= (FieldContextConfig.OneLineBitCount * -1))
             {
-                this.MoveUp(context, shift);
+                this.MoveUp(context, shift, player);
             }
             else
             {
-                this.MoveDown(context, shift);
+                this.MoveDown(context, shift, player);
             }
         }
 
@@ -394,13 +386,12 @@ namespace Hermann.Updaters
         /// スライムを動かします。
         /// </summary>
         /// <param name="context">状態</param>
-        /// <param name="movableField">操作可能スライムの状態</param>
-        /// <param name="colorField">対象色スライムの状態</param>
         /// <param name="shift">シフト量</param>
-        private void MoveDown(FieldContext context, int shift)
+        /// <param name="player">プレイヤ</param>
+        private void MoveDown(FieldContext context, int shift, Player.Index player)
         {
-            var movableSlimes = context.MovableSlimes[(int)context.OperationPlayer];
-            var slimeFields = context.SlimeFields[(int)context.OperationPlayer];
+            var movableSlimes = context.MovableSlimes[(int)player];
+            var slimeFields = context.SlimeFields[(int)player];
 
             // １．移動前スライムを消す
             foreach (var movable in movableSlimes)
@@ -414,7 +405,7 @@ namespace Hermann.Updaters
                 var position = movable.Position + shift;
                 movable.Index += (position / FieldContextConfig.FieldUnitBitCount);
                 movable.Position = position % FieldContextConfig.FieldUnitBitCount;
-                Debug.Assert(!FieldContextHelper.ExistsSlime(context, context.OperationPlayer, movable.Index, movable.Position), string.Format("他のスライムが移動場所に存在しています。 Index : {0} Position : {1}", movable.Index, movable.Position));
+                Debug.Assert(!FieldContextHelper.ExistsSlime(context, player, movable.Index, movable.Position), string.Format("他のスライムが移動場所に存在しています。 Index : {0} Position : {1}", movable.Index, movable.Position));
                 SetSlime(slimeFields[movable.Slime], movable.Index, movable.Position);
             }
         }
@@ -423,13 +414,12 @@ namespace Hermann.Updaters
         /// スライムを動かします。
         /// </summary>
         /// <param name="context">状態</param>
-        /// <param name="movableField">操作可能スライムの状態</param>
-        /// <param name="colorField">対象色スライムの状態</param>
         /// <param name="shift">シフト量</param>
-        private void MoveUp(FieldContext context, int shift)
+        /// <param name="player">プレイヤ</param>
+        private void MoveUp(FieldContext context, int shift, Player.Index player)
         {
-            var movableSlimes = context.MovableSlimes[(int)context.OperationPlayer];
-            var slimeFields = context.SlimeFields[(int)context.OperationPlayer];
+            var movableSlimes = context.MovableSlimes[(int)player];
+            var slimeFields = context.SlimeFields[(int)player];
 
             // １．移動前スライムを消す
             foreach (var movable in movableSlimes)
@@ -450,7 +440,7 @@ namespace Hermann.Updaters
                 {
                     movable.Position = position % FieldContextConfig.FieldUnitBitCount;
                 }
-                Debug.Assert(!FieldContextHelper.ExistsSlime(context, context.OperationPlayer, movable.Index, movable.Position), string.Format("他のスライムが移動場所に存在しています。 Index : {0} Position : {1}", movable.Index, movable.Position));
+                Debug.Assert(!FieldContextHelper.ExistsSlime(context, player, movable.Index, movable.Position), string.Format("他のスライムが移動場所に存在しています。 Index : {0} Position : {1}", movable.Index, movable.Position));
                 SetSlime(slimeFields[movable.Slime], movable.Index, movable.Position);
             }
         }
@@ -481,10 +471,11 @@ namespace Hermann.Updaters
         /// 右に移動可能かどうかを判定します。
         /// </summary>
         /// <param name="context">フィールドの状態</param>
+        /// <param name="player">プレイヤ</param>
         /// <returns>右に移動可能かどうか</returns>
-        private static bool IsEnabledRightMove(FieldContext context)
+        private static bool IsEnabledRightMove(FieldContext context, Player.Index player)
         {
-            var movableSlimes = context.MovableSlimes[(int)context.OperationPlayer];
+            var movableSlimes = context.MovableSlimes[(int)player];
             var first = movableSlimes[(int)MovableSlime.UnitIndex.First];
             var second = movableSlimes[(int)MovableSlime.UnitIndex.Second];
 
@@ -499,7 +490,7 @@ namespace Hermann.Updaters
             // 縦向きの場合は最下である2つめの移動可能スライムが対象
             var form = MovableSlime.GetUnitForm(movableSlimes);
             if (form == MovableSlime.UnitForm.Vertical &&
-                FieldContextHelper.ExistsSlime(context, context.OperationPlayer, second.Index, second.Position + Speed.Right))
+                FieldContextHelper.ExistsSlime(context, player, second.Index, second.Position + Speed.Right))
             {
                 return false;
             }
@@ -507,7 +498,7 @@ namespace Hermann.Updaters
             // 移動場所に他スライムが存在していないか？
             // 横向きの場合は最右である1つめの移動可能スライムが対象
             if (form == MovableSlime.UnitForm.Horizontal &&
-                FieldContextHelper.ExistsSlime(context, context.OperationPlayer, first.Index, first.Position + Speed.Right))
+                FieldContextHelper.ExistsSlime(context, player, first.Index, first.Position + Speed.Right))
             {
                 return false;
             }
@@ -519,11 +510,12 @@ namespace Hermann.Updaters
         /// 左に移動可能かどうかを判定します。
         /// </summary>
         /// <param name="context">フィールドの状態</param>
+        /// <param name="player">プレイヤ</param>
         /// <returns>左に移動可能かどうか</returns>
-        private static bool IsEnabledLeftMove(FieldContext context)
+        private static bool IsEnabledLeftMove(FieldContext context, Player.Index player)
         {
             // 判定対象は最左・最下である2つめの移動可能スライムが対象
-            var movableSlimes = context.MovableSlimes[(int)context.OperationPlayer];
+            var movableSlimes = context.MovableSlimes[(int)player];
             var second = movableSlimes[(int)MovableSlime.UnitIndex.Second];
 
             // 壁を越えないか？
@@ -533,7 +525,7 @@ namespace Hermann.Updaters
             }
 
             // 移動場所に他スライムが存在していないか？
-            if (FieldContextHelper.ExistsSlime(context, context.OperationPlayer, second.Index, second.Position + Speed.Left))
+            if (FieldContextHelper.ExistsSlime(context, player, second.Index, second.Position + Speed.Left))
             {
                 return false;
             }

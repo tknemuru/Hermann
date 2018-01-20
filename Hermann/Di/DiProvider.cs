@@ -7,8 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SimpleInjector;
-using Hermann.Updaters;
-using Hermann.Updaters.Times;
 
 namespace Hermann.Di
 {
@@ -39,27 +37,9 @@ namespace Hermann.Di
         {
             if (MyContainer == null)
             {
-                Register();
+                throw new InvalidOperationException("コンテナのインスタンスが生成されていません。");
             }
             return MyContainer;
-        }
-
-        /// <summary>
-        /// 依存性の登録を行います。
-        /// </summary>
-        private static void Register()
-        {
-            MyContainer = new Container();
-            MyContainer.Register<FieldContext, FieldContext>();
-            MyContainer.Register<MovableSlime>(() => new MovableSlime());
-            MyContainer.Register<UsingSlimeGenerator, UsingSlimeRandomGenerator>();
-            MyContainer.Register<NextSlimeGenerator, NextSlimeRandomGenerator>();
-            MyContainer.Register<NextSlimeUpdater>();
-            MyContainer.Register<ITimeUpdatable>(() => new TimeElapsedTicksUpdater(), Lifestyle.Singleton);
-            MyContainer.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeElapsedTicksUpdater(), Lifestyle.Singleton);
-
-            MyContainer.Options.AllowOverridingRegistrations = true;
-            DiProvider.SetContainer(MyContainer);
         }
     }
 }

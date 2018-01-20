@@ -190,7 +190,7 @@ namespace Hermann
             // プレイヤの操作による移動
             if (context.OperationDirection != Direction.None)
             {
-                this.Move(context);
+                this.Move(context, context.OperationPlayer);
             }
 
             // 方向：無での更新
@@ -200,17 +200,15 @@ namespace Hermann
             {
                 Player.ForEach((player) =>
                 {
-                    context.OperationPlayer = player;
                     context.OperationDirection = Direction.None;
-                    this.Move(context);
+                    this.Move(context, player);
                 });
             }
 
             // 設置残タイムの更新
             Player.ForEach((player) =>
             {
-                context.OperationPlayer = player;
-                this.UpdateBuilting(context);
+                this.UpdateBuilting(context, player);
             });
 
             // 時間の更新
@@ -223,13 +221,14 @@ namespace Hermann
         /// スライムを移動します。
         /// </summary>
         /// <param name="context">フィールドの状態</param>
-        private void Move(FieldContext context)
+        /// <param name="player">プレイヤ</param>
+        private void Move(FieldContext context, Player.Index player)
         {
             // 移動
-            this.Player.Update(context);
+            this.Player.Update(context, player);
 
-            // 上に移動の場合は回転方向を変更する
-            if (context.OperationDirection == Direction.Up)
+            // 回転が成功した場合は回転方向を変更する
+            if (context.OperationDirection == Direction.Up && this.Player.Notifier.Value == Player.MoveResult.Success)
             {
                 this.RotationDirectionUpdater.Update(context);
             }
@@ -242,7 +241,8 @@ namespace Hermann
         /// 設置に関する更新を行います。
         /// </summary>
         /// <param name="context">フィールドの状態</param>
-        private void UpdateBuilting(FieldContext context)
+        /// <param name="player">プレイヤ</param>
+        private void UpdateBuilting(FieldContext context, Player.Index player)
         {
             this.BuiltRemainingTimeInitializer.Initialize(context);
 
@@ -250,8 +250,6 @@ namespace Hermann
 
             if (this.MovableSlimeStateAnalyzer.Analyze(context) == MovableSlimeStateAnalyzer.Status.HasBuilt)
             {
-                var player = context.OperationPlayer;
-
                 // 1.移動可能スライムを通常のスライムに変換する
                 this.MovableSlimesUpdater.Update(context, player);
 
