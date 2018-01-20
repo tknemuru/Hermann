@@ -25,7 +25,8 @@ namespace Hermann.Tests.Updaters
         {
             var nextSlimeGen = new NextSlimeAssignedGenerator(new[] { Slime.Red, Slime.Purple });
             nextSlimeGen.UsingSlime = new[] { Slime.Red, Slime.Purple, Slime.Blue, Slime.Green };
-            this.Updater = new NextSlimeUpdater(nextSlimeGen);
+            this.Updater = new NextSlimeUpdater();
+            this.Updater.Injection(nextSlimeGen);
         }
 
         /// <summary>

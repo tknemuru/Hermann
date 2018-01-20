@@ -58,7 +58,7 @@ namespace Hermann
         /// <summary>
         /// 設置に関するフィールドの更新機能
         /// </summary>
-        private BuiltingUpdater BuiltingUpdater { get; set; }
+        private MovableSlimesUpdater BuiltingUpdater { get; set; }
 
         /// <summary>
         /// 消去対象のスライムを消済スライムとしてマーキングする機能
@@ -116,6 +116,21 @@ namespace Hermann
         private FieldContextInitializer FieldContextInitializer { get; set; }
 
         /// <summary>
+        /// 移動可能スライムの更新機能
+        /// </summary>
+        private MovableSlimesUpdater MovableSlimesUpdater { get; set; }
+
+        /// <summary>
+        /// NEXTスライムの生成機能
+        /// </summary>
+        private NextSlimeGenerator NextSlimeGenerator { get; set; }
+
+        /// <summary>
+        /// 使用スライムの生成機能
+        /// </summary>
+        private UsingSlimeGenerator UsingSlimeGenerator { get; set; }
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         public Game()
@@ -125,7 +140,7 @@ namespace Hermann
             this.Player = DiProvider.GetContainer().GetInstance<Player>();
             this.TimeUpdater = DiProvider.GetContainer().GetInstance<ITimeUpdatable>();
             this.GroundUpdater = DiProvider.GetContainer().GetInstance<GroundUpdater>();
-            this.BuiltingUpdater = DiProvider.GetContainer().GetInstance<BuiltingUpdater>();
+            this.BuiltingUpdater = DiProvider.GetContainer().GetInstance<MovableSlimesUpdater>();
             this.SlimeErasingMarker = DiProvider.GetContainer().GetInstance<SlimeErasingMarker>();
             this.WinCountUpdater = DiProvider.GetContainer().GetInstance<WinCountUpdater>();
             this.SlimeEraser = DiProvider.GetContainer().GetInstance<SlimeEraser>();
@@ -135,8 +150,15 @@ namespace Hermann
             this.RotationDirectionInitializer = DiProvider.GetContainer().GetInstance<RotationDirectionInitializer>();
             this.MovableSlimeStateAnalyzer = DiProvider.GetContainer().GetInstance<MovableSlimeStateAnalyzer>();
             this.BuiltRemainingTimeInitializer = DiProvider.GetContainer().GetInstance<BuiltRemainingTimeInitializer>();
-            this.FieldContextInitializer = DiProvider.GetContainer().GetInstance<FieldContextInitializer>();
+            this.UsingSlimeGenerator = DiProvider.GetContainer().GetInstance<UsingSlimeGenerator>();
+            this.MovableSlimesUpdater = DiProvider.GetContainer().GetInstance<MovableSlimesUpdater>();
+
+            this.NextSlimeGenerator = DiProvider.GetContainer().GetInstance<NextSlimeGenerator>();
+            this.NextSlimeGenerator.UsingSlime = this.UsingSlimeGenerator.GetNext();
             this.NextSlimeUpdater = DiProvider.GetContainer().GetInstance<NextSlimeUpdater>();
+            this.NextSlimeUpdater.Injection(this.NextSlimeGenerator);
+            this.FieldContextInitializer = DiProvider.GetContainer().GetInstance<FieldContextInitializer>();
+            this.FieldContextInitializer.Injection(this.NextSlimeGenerator, this.MovableSlimesUpdater, this.NextSlimeUpdater);
         }
 
         /// <summary>
@@ -228,8 +250,10 @@ namespace Hermann
 
             if (this.MovableSlimeStateAnalyzer.Analyze(context) == MovableSlimeStateAnalyzer.Status.HasBuilt)
             {
+                var player = context.OperationPlayer;
+
                 // 1.移動可能スライムを通常のスライムに変換する
-                this.BuiltingUpdater.Update(context);
+                this.MovableSlimesUpdater.Update(context, player);
 
                 // 2.接地状態を更新する
                 this.GroundUpdater.Update(context);
@@ -242,7 +266,7 @@ namespace Hermann
 
                 this.SlimeEraser.Update(context);
 
-                this.NextSlimeUpdater.Update(context);
+                this.NextSlimeUpdater.Update(context, player);
 
                 this.Gravity.Update(context);
 

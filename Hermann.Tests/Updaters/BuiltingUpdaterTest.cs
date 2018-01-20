@@ -14,14 +14,14 @@ namespace Hermann.Tests.Updaters
         /// <summary>
         /// 設置情報更新機能
         /// </summary>
-        private BuiltingUpdater Updater { get; set; }
+        private MovableSlimesUpdater Updater { get; set; }
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         public BuiltingUpdaterTest()
         {
-            this.Updater = new BuiltingUpdater();
+            this.Updater = new MovableSlimesUpdater();
         }
 
         /// <summary>

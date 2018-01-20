@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimpleInjector;
+using Hermann.Updaters;
 
 namespace Hermann.Tests.TestHelpers
 {
@@ -113,6 +114,35 @@ namespace Hermann.Tests.TestHelpers
         }
 
         /// <summary>
+        /// 更新後のフィールドの状態が期待通りであることを検証します。
+        /// </summary>
+        /// <param name="expectedFilePath">期待するフィールド状態を示すテキストファイルパス</param>
+        /// <param name="actualFilePath">検証対象のフィールド状態を示すテキストファイルパス</param>
+        /// <param name="updater">フィールド更新機能</param>
+        public static void AssertEqualsFieldContext(string expectedFilePath, string actualFilePath, Action<FieldContext, Player.Index> updater)
+        {
+            var expected = TestHelper.Receiver.Receive(expectedFilePath);
+            var actual = TestHelper.Receiver.Receive(actualFilePath);
+            updater(actual, actual.OperationPlayer);
+            AssertEqualsFieldContext(expected, actual);
+        }
+
+        /// <summary>
+        /// 更新後のフィールドの状態が期待通りであることを検証します。
+        /// </summary>
+        /// <param name="expectedFilePath">期待するフィールド状態を示すテキストファイルパス</param>
+        /// <param name="actualFilePath">検証対象のフィールド状態を示すテキストファイルパス</param>
+        /// <param name="updater">フィールド更新機能</param>
+        /// <param name="player">プレイヤ</param>
+        public static void AssertEqualsFieldContext(string expectedFilePath, string actualFilePath, Action<FieldContext, Player.Index> updater, Player.Index player)
+        {
+            var expected = TestHelper.Receiver.Receive(expectedFilePath);
+            var actual = TestHelper.Receiver.Receive(actualFilePath);
+            updater(actual, player);
+            AssertEqualsFieldContext(expected, actual);
+        }
+
+        /// <summary>
         /// フィールドの状態が同一であることを検証します。
         /// </summary>
         /// <param name="expected">期待値</param>
@@ -135,7 +165,7 @@ namespace Hermann.Tests.TestHelpers
             field = field.PadLeft(FieldContextConfig.FieldUnitBitCount, '0');
             var fieldStates = field.ToCharArray().Reverse().ToArray();
             var result = new StringBuilder();
-            
+
             for (var line = 1; line < 5; line++)
             {
                 result.Append(Environment.NewLine);

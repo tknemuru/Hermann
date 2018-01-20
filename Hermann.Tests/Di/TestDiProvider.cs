@@ -63,12 +63,13 @@ namespace Hermann.Tests.Di
         {
             MyContainer = new Container();
             MyContainer.Register<FieldContext, FieldContext>();
+            MyContainer.Register<MovableSlime>(() => new MovableSlime());
             MyContainer.Register<UsingSlimeGenerator, UsingSlimeRandomGenerator>();
             MyContainer.Register<NextSlimeGenerator, NextSlimeRandomGenerator>();
-            MyContainer.Register<NextSlimeUpdater>(() => new NextSlimeUpdater(), Lifestyle.Singleton);
-            MyContainer.Register<CommandReceiver<NativeCommand, FieldContext>, NativeCommandReceiver>();
-            MyContainer.Register<FieldContextReceiver<string>, SimpleTextReceiver>();
-            MyContainer.Register<FieldContextSender<string>, SimpleTextSender>();
+            MyContainer.Register<NextSlimeUpdater>();
+            MyContainer.Register<CommandReceiver<NativeCommand, FieldContext>, NativeCommandReceiver>(Lifestyle.Singleton);
+            MyContainer.Register<FieldContextReceiver<string>, SimpleTextReceiver>(Lifestyle.Singleton);
+            MyContainer.Register<FieldContextSender<string>, SimpleTextSender>(Lifestyle.Singleton);
             MyContainer.Register<ITimeUpdatable>(() => new TimeStableUpdater(0), Lifestyle.Singleton);
             MyContainer.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(0), Lifestyle.Singleton);
 

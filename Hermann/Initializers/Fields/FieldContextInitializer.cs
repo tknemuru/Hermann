@@ -18,6 +18,34 @@ namespace Hermann.Initializers.Fields
     public class FieldContextInitializer : IFieldInitializable
     {
         /// <summary>
+        /// Nextスライム生成機能
+        /// </summary>
+        private NextSlimeGenerator NextSlimeGen { get; set; }
+
+        /// <summary>
+        /// 移動可能スライム更新機能
+        /// </summary>
+        private MovableSlimesUpdater MovableSlimeUp { get; set; }
+
+        /// <summary>
+        /// NEXTスライム更新機能
+        /// </summary>
+        private NextSlimeUpdater NextSlimeUp { get; set; }
+
+        /// <summary>
+        /// 依存する機能を注入します。
+        /// </summary>
+        /// <param name="nextSlimeGen">Nextスライム生成機能</param>
+        /// <param name="movableUp">移動可能スライム更新機能</param>
+        /// <param name="nextSlimeUp">NEXTスライム更新機能</param>
+        public void Injection(NextSlimeGenerator nextSlimeGen, MovableSlimesUpdater movableUp, NextSlimeUpdater nextSlimeUp)
+        {
+            this.NextSlimeGen = nextSlimeGen;
+            this.MovableSlimeUp = movableUp;
+            this.NextSlimeUp = nextSlimeUp;
+        }
+
+        /// <summary>
         ///フィールド状態の初期化を行います。
         /// </summary>
         /// <param name="context">フィールド状態</param>
@@ -54,16 +82,14 @@ namespace Hermann.Initializers.Fields
             context.WinCount = new[] { 0, 0 };
 
             // 使用スライム
-            context.UsingSlimes = DiProvider.GetContainer().GetInstance<UsingSlimeGenerator>().GetNext();
+            context.UsingSlimes = this.NextSlimeGen.UsingSlime;
 
             // NEXTスライム
-            var nextSlimeGen = DiProvider.GetContainer().GetInstance<NextSlimeGenerator>();
-            nextSlimeGen.UsingSlime = context.UsingSlimes;
             Player.ForEach((player) =>
             {
                 NextSlime.ForEach((unit) =>
                 {
-                    context.NextSlimes[(int)player][(int)unit] = nextSlimeGen.GetNext();
+                    context.NextSlimes[(int)player][(int)unit] = this.NextSlimeGen.GetNext();
                 });
             });
 
@@ -85,8 +111,12 @@ namespace Hermann.Initializers.Fields
             // 移動可能なスライム
             Player.ForEach((player) =>
             {
-                var movableSlimes = nextSlimeGen.GetNext();
-                FieldContextHelper.SetMovableSlimeInitialPosition(context, player, movableSlimes);
+                MovableSlime.ForEach((unitIndex) =>
+                {
+                    context.MovableSlimes[(int)player][(int)unitIndex] = DiProvider.GetContainer().GetInstance<MovableSlime>();
+                });
+                this.MovableSlimeUp.Update(context, player);
+                this.NextSlimeUp.Update(context, player);
             });
         }
     }
