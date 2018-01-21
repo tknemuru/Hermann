@@ -347,17 +347,15 @@ namespace Hermann.Api.Receivers
             Func<char[], Dictionary<ObstructionSlime, int>> parse = (vals) =>
             {
                 var dic = new Dictionary<ObstructionSlime, int>();
+                foreach (var ob in Enum.GetValues(typeof(ObstructionSlime)))
+                {
+                    dic.Add((ObstructionSlime)ob, 0);
+                }
+
                 foreach (var val in vals)
                 {
                     var key = SimpleText.ConvertObstructionSlime(val);
-                    if (dic.ContainsKey(key))
-                    {
-                        dic[key] += 1;
-                    }
-                    else
-                    {
-                        dic.Add(key, 1);
-                    }
+                    dic[key] += 1;
                 }
                 return dic;
             };

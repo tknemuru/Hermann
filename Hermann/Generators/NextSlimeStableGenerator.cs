@@ -11,7 +11,7 @@ namespace Hermann.Generators
     /// <summary>
     /// 指定したNEXTスライムを生成する機能を提供します。
     /// </summary>
-    public class NextSlimeAssignedGenerator : NextSlimeGenerator
+    public class NextSlimeStableGenerator : NextSlimeGenerator
     {
         /// <summary>
         /// NEXTスライム
@@ -22,7 +22,7 @@ namespace Hermann.Generators
         /// コンストラクタ
         /// </summary>
         /// <param name="nextSlimes">NEXTスライム</param>
-        public NextSlimeAssignedGenerator(Slime[] nextSlimes)
+        public NextSlimeStableGenerator(Slime[] nextSlimes)
         {
             Debug.Assert(nextSlimes.Length == NextSlime.Length, string.Format("NEXTスライムの要素数が不正です。数：{0}", nextSlimes.Length));
 

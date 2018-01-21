@@ -1,4 +1,5 @@
 ﻿using Hermann.Contexts;
+using Hermann.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,24 @@ using System.Threading.Tasks;
 
 namespace Hermann.Updaters
 {
-    public class ObstructionSlimeCalculator : IFieldUpdatable
+    /// <summary>
+    /// おじゃまスライム数の計算機能を提供します。
+    /// </summary>
+    public class ObstructionSlimeCalculator : IPlayerFieldUpdatable
     {
-        public void Update(FieldContext context)
+        /// <summary>
+        /// おじゃまスライム数を算出します。
+        /// </summary>
+        /// <param name="context">フィールド状態</param>
+        /// <param name="player">プレイヤ</param>
+        public void Update(FieldContext context, Player.Index player)
         {
-            // 連鎖数等を元におじゃまスライムの数を算出する
+            var chain = context.Chain[(int)player];
+            if (chain > 0)
+            {
+                var opposite = player == Player.Index.First ? Player.Index.Second : Player.Index.First;
+                context.ObstructionSlimes[(int)opposite][ObstructionSlime.Small] = 6;
+            }
         }
     }
 }

@@ -292,7 +292,14 @@ namespace Hermann.Contexts
                 equals.Add(obstructionSlimes.Count == myObstructionSlimes.Count);
                 foreach (var obstruction in obstructionSlimes.Keys)
                 {
-                    equals.Add(obstructionSlimes[obstruction] == myObstructionSlimes[obstruction]);
+                    if (myObstructionSlimes.ContainsKey(obstruction))
+                    {
+                        equals.Add(obstructionSlimes[obstruction] == myObstructionSlimes[obstruction]);
+                    }
+                    else
+                    {
+                        equals.Add(obstructionSlimes[obstruction] == 0);
+                    }
                 }
 
                 // スライムごとの配置状態

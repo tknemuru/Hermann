@@ -49,7 +49,7 @@ namespace Hermann.Updaters
                 // 対象スライムの削除情報を初期化
                 var erasedSlimes = CreateInitialErasedSlimes();
                 Debug.Assert(erasedSlimes.Length == fields.Length, string.Format("フィールドの要素数が不正です。要素数：{0}", fields.Length));
-              
+
                 // 最後のユニットの先頭行まで繰り返す
                 var maxIndex = (FieldContextConfig.FieldLineCount - (FieldContextConfig.FieldUnitLineCount - 1));
                 for (var horizontalIndex = 0; horizontalIndex < maxIndex; horizontalIndex++)
@@ -57,7 +57,7 @@ namespace Hermann.Updaters
                     // ユニットをまたいだ削除パターンを検出するために、開始行を1行ずつずらしながらユニットをマージして一つのユニットを作成する
                     var mergedField = MergeFields(fields, horizontalIndex);
                     var mergedErasedSlime = 0u;
-                    
+
                     // マージしたユニットに対する削除情報を作成する
                     foreach (var erasePattern in ErasePatternList)
                     {
@@ -92,10 +92,6 @@ namespace Hermann.Updaters
 
             // フィールド状態の消済スライム情報を更新する
             context.SlimeFields[(int)player][Slime.Erased] = erasedAllColorSlimes;
-
-            // 連鎖回数をインクリメントする
-
-            // 消す対象が存在しなかった場合は連鎖回数を0に戻す
         }
 
         /// <summary>

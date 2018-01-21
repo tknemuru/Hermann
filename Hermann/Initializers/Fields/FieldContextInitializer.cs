@@ -93,6 +93,15 @@ namespace Hermann.Initializers.Fields
                 });
             });
 
+            // おじゃまスライム
+            Player.ForEach((player) =>
+            {
+                foreach (var ob in Enum.GetValues(typeof(ObstructionSlime)))
+                {
+                    context.ObstructionSlimes[(int)player].Add((ObstructionSlime)ob, 0);
+                }
+            });
+
             // フィールド
             Func<uint[]> createInitialField = () =>
             {

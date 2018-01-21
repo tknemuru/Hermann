@@ -49,7 +49,7 @@ namespace Hermann.Contexts
         /// <summary>
         /// 移動可能なスライムの初期シフト量
         /// </summary>
-        public const int MovableSlimeInitialShift = 21;
+        public const int MovableSlimeInitialShift = 5;
 
         /// <summary>
         /// 最大設置残タイム（ミリ秒）

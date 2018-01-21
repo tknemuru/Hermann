@@ -41,6 +41,7 @@ namespace Hermann.Tests.Di
         static TestDiProvider()
         {
             Register();
+            MyContainer.Verify();
         }
 
         /// <summary>
@@ -52,6 +53,7 @@ namespace Hermann.Tests.Di
             if (MyContainer == null)
             {
                 Register();
+                MyContainer.Verify();
             }
             return MyContainer;
         }
@@ -62,6 +64,7 @@ namespace Hermann.Tests.Di
         public static void Register()
         {
             MyContainer = new Container();
+            MyContainer.Options.AllowOverridingRegistrations = true;
             MyContainer.Register<FieldContext, FieldContext>();
             MyContainer.Register<MovableSlime>(() => new MovableSlime());
             MyContainer.Register<UsingSlimeGenerator, UsingSlimeRandomGenerator>();
@@ -74,7 +77,6 @@ namespace Hermann.Tests.Di
             MyContainer.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(0));
 
             DiProvider.SetContainer(MyContainer);
-            MyContainer.Verify();
         }
     }
 }
