@@ -13,16 +13,15 @@ namespace Hermann.Updaters
     /// <summary>
     /// 接地の更新機能を提供します。
     /// </summary>
-    public sealed class GroundUpdater : IFieldUpdatable
+    public sealed class GroundUpdater : IPlayerFieldUpdatable
     {
         /// <summary>
         /// 接地を更新します。
         /// </summary>
         /// <param name="context">フィールド状態</param>
-        public void Update(FieldContext context)
+        /// <param name="player">プレイヤ</param>
+        public void Update(FieldContext context, Player.Index player)
         {
-            var player = context.OperationPlayer;
-
             // 接地しているか？
             var isGround = Player.IsGround(context, player);
             context.Ground[(int)player] = isGround;

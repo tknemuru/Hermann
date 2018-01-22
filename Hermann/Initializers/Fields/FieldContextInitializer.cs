@@ -64,7 +64,7 @@ namespace Hermann.Initializers.Fields
             context.Ground = new[] { false, false };
 
             // 設置残タイム
-            context.BuiltRemainingTime = new[] { 0L, 0L };
+            context.BuiltRemainingTime = new[] { FieldContextConfig.MaxBuiltRemainingTime, FieldContextConfig.MaxBuiltRemainingTime };
 
             // 得点
             context.Score = new[] { 0L, 0L };

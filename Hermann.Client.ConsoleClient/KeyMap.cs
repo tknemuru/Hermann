@@ -75,10 +75,10 @@ namespace Hermann.Client.ConsoleClient
             dic.Add(ConsoleKey.DownArrow, Player.Index.First);
             dic.Add(ConsoleKey.LeftArrow, Player.Index.First);
 
-            dic.Add(ConsoleKey.H, Player.Index.Second);
-            dic.Add(ConsoleKey.J, Player.Index.Second);
-            dic.Add(ConsoleKey.K, Player.Index.Second);
-            dic.Add(ConsoleKey.L, Player.Index.Second);
+            dic.Add(ConsoleKey.NumPad8, Player.Index.Second);
+            dic.Add(ConsoleKey.NumPad6, Player.Index.Second);
+            dic.Add(ConsoleKey.NumPad2, Player.Index.Second);
+            dic.Add(ConsoleKey.NumPad4, Player.Index.Second);
 
             return dic;
         }
@@ -95,10 +95,10 @@ namespace Hermann.Client.ConsoleClient
             dic.Add(ConsoleKey.DownArrow, Direction.Down);
             dic.Add(ConsoleKey.LeftArrow, Direction.Left);
 
-            dic.Add(ConsoleKey.H, Direction.Left);
-            dic.Add(ConsoleKey.J, Direction.Down);
-            dic.Add(ConsoleKey.K, Direction.Up);
-            dic.Add(ConsoleKey.L, Direction.Right);
+            dic.Add(ConsoleKey.NumPad4, Direction.Left);
+            dic.Add(ConsoleKey.NumPad2, Direction.Down);
+            dic.Add(ConsoleKey.NumPad8, Direction.Up);
+            dic.Add(ConsoleKey.NumPad6, Direction.Right);
 
             return dic;
         }

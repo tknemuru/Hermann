@@ -211,7 +211,7 @@ namespace Hermann
             }
             else if (context.BuiltRemainingTime[(int)player] <= 0)
             {
-                // 設置残タイムが0未満なら落下処理
+                // 設置残タイムが0未満
                 this.Drop(context, player);
             }
             else
@@ -261,10 +261,13 @@ namespace Hermann
                 });
             }
 
-            // 接地の更新
-            this.GroundUpdater.Update(context);
+            Player.ForEach((player) =>
+                {
+                    // 接地の更新
+                    this.GroundUpdater.Update(context, player);
+                });
 
-            if (this.MovableSlimeStateAnalyzer.Analyze(context) == MovableSlimeStateAnalyzer.Status.HasBuilt)
+            if (this.MovableSlimeStateAnalyzer.Analyze(context, context.OperationPlayer) == MovableSlimeStateAnalyzer.Status.HasBuilt)
             {
                 // 連鎖開始
                 context.Chain[(int)context.OperationPlayer]++;
@@ -280,7 +283,7 @@ namespace Hermann
         {
             if (context.Chain[(int)player] == 1)
             {
-                // 1.移動可能スライムを通常のスライムに変換する
+                // 移動可能スライムを通常のスライムに変換する
                 this.MovableSlimesUpdater.Update(context, player);
                 // 重力で落とす
                 this.Gravity.Update(context, player);
@@ -289,7 +292,7 @@ namespace Hermann
             }
             else if (context.Chain[(int)player] % 2 == 0)
             {
-                // 3.消す対象のスライムを消済スライムとしてマーキングする
+                // 消す対象のスライムを消済スライムとしてマーキングする
                 this.SlimeErasingMarker.Update(context);
 
                 // 連鎖数の更新
@@ -324,18 +327,17 @@ namespace Hermann
         /// <param name="player">プレイヤ</param>
         private void Drop(FieldContext context, Player.Index player)
         {
-            // おじゃまスライムを落とす
-            var oppsite = Player.GetOppositeIndex(player);
-            this.ObstructionSlimeDropper.Update(context, oppsite);
-            this.Gravity.Update(context, oppsite);
+            // 自分自身のおじゃまスライムを落とす
+            this.ObstructionSlimeDropper.Update(context, player);
+            this.Gravity.Update(context, player);
 
             // 落としきったら移動のために状態初期化
             if (context.ObstructionSlimes[(int)player].All(ob => ob.Value == 0))
             {
-                // 2.接地状態を更新する
-                this.GroundUpdater.Update(context);
+                // 接地状態を更新する
+                this.GroundUpdater.Update(context, player);
 
-                // 4.回転方向を初期化する
+                // 回転方向を初期化する
                 this.RotationDirectionInitializer.Update(context);
 
                 // 設置残タイム
@@ -343,45 +345,9 @@ namespace Hermann
 
                 this.NextSlimeUpdater.Update(context, player);
 
-                // 4.勝敗を決定する
+                // 勝敗を決定する
                 this.WinCountUpdater.Update(context);
             }
         }
-
-        /// <summary>
-        /// 設置に関する更新を行います。
-        /// </summary>
-        /// <param name="context">フィールドの状態</param>
-        /// <param name="player">プレイヤ</param>
-        //private void UpdateBuilting(FieldContext context, Player.Index player)
-        //{
-        //    this.BuiltRemainingTimeInitializer.Initialize(context);
-
-        //    this.BuiltRemainingTimeUpdater.Update(context);
-
-        //    if (this.MovableSlimeStateAnalyzer.Analyze(context) == MovableSlimeStateAnalyzer.Status.HasBuilt)
-        //    {
-        //        // 1.移動可能スライムを通常のスライムに変換する
-        //        this.MovableSlimesUpdater.Update(context, player);
-
-        //        // 2.接地状態を更新する
-        //        this.GroundUpdater.Update(context);
-
-        //        // 3.消す対象のスライムを消済スライムとしてマーキングする
-        //        this.SlimeErasingMarker.Update(context);
-
-        //        // 4.回転方向を初期化する
-        //        this.RotationDirectionInitializer.Update(context);
-
-        //        this.SlimeEraser.Update(context);
-
-        //        this.NextSlimeUpdater.Update(context, player);
-
-        //        this.Gravity.Update(context);
-
-        //        // 4.勝敗を決定する
-        //        this.WinCountUpdater.Update(context);
-        //    }
-        //}
     }
 }

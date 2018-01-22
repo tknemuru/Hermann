@@ -14,6 +14,7 @@ using System.Threading;
 using System.Reactive.Linq;
 using Reactive.Bindings;
 using Reactive.Bindings.Notifiers;
+using Hermann.Updaters;
 
 namespace Hermann.Client.ConsoleClient
 {
@@ -58,6 +59,11 @@ namespace Hermann.Client.ConsoleClient
         private static BooleanNotifier HasSetKeyInfo { get; set; }
 
         /// <summary>
+        /// 無移動のプレイヤ
+        /// </summary>
+        private static Player.Index NoneMovePlayer { get; set; }
+
+        /// <summary>
         /// Mainメソッド
         /// </summary>
         /// <param name="args"></param>
@@ -81,6 +87,8 @@ namespace Hermann.Client.ConsoleClient
         /// </summary>
         private static void Start()
         {
+            NoneMovePlayer = Player.Index.First;
+
             // 初期フィールド状態の取得
             NoneDirectionUpdateFrameCount = 0;
             Receiver = ConsoleClientDiProvider.GetContainer().GetInstance<CommandReceiver<NativeCommand, FieldContext>>();
@@ -116,6 +124,8 @@ namespace Hermann.Client.ConsoleClient
             var c = ConsoleClientDiProvider.GetContainer().GetInstance<NativeCommand>();
             c.Command = Command.Move;
             c.Context = Context.DeepCopy();
+            c.Context.OperationPlayer = NoneMovePlayer;
+            NoneMovePlayer = Player.GetOppositeIndex(NoneMovePlayer);
             Context = Receiver.Receive(c);
 
             // 入力を受け付けたコマンドの実行

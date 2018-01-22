@@ -103,9 +103,16 @@ namespace Hermann.Tests
             expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-002-009.txt");
             TestHelper.AssertEqualsFieldContext(expectedContext, context);
 
+            // 010:相手が設置済でなければおじゃまスライムは配置するだけ
             context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-002-010.txt");
             this.Game.Update(context);
             expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-002-010.txt");
+            TestHelper.AssertEqualsFieldContext(expectedContext, context);
+
+            // 011:相手が設置済であればおじゃまスライムを落とす
+            context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-002-011.txt");
+            this.Game.Update(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-002-011.txt");
             TestHelper.AssertEqualsFieldContext(expectedContext, context);
 
             TestDiProvider.Register();

@@ -1,4 +1,5 @@
 ﻿using Hermann.Contexts;
+using Hermann.Updaters;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +12,7 @@ namespace Hermann.Analyzers.Fields
     /// <summary>
     /// 移動可能スライムの状態の分析機能を提供します。
     /// </summary>
-    public class MovableSlimeStateAnalyzer : IFieldAnalyzable<MovableSlimeStateAnalyzer.Status>
+    public class MovableSlimeStateAnalyzer : IPlayerFieldAnalyzable<MovableSlimeStateAnalyzer.Status>
     {
         /// <summary>
         /// 移動可能スライムの状態
@@ -43,10 +44,10 @@ namespace Hermann.Analyzers.Fields
         /// 移動可能スライムの状態を返却します。
         /// </summary>
         /// <param name="context">フィールド状態</param>
+        /// <param name="player">プレイヤ</param>
         /// <returns>移動可能スライムの状態</returns>
-        public Status Analyze(FieldContext context)
+        public Status Analyze(FieldContext context, Player.Index player)
         {
-            var player = context.OperationPlayer;
             var status = Status.Undefined;
 
             // 接地していなければ移動中
