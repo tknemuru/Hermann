@@ -13,7 +13,7 @@ namespace Hermann.Updaters
     /// <summary>
     /// 重力
     /// </summary>
-    public sealed class Gravity : IFieldUpdatable
+    public sealed class Gravity : IPlayerFieldUpdatable
     {
         /// <summary>
         /// 重力量の規定値
@@ -24,7 +24,8 @@ namespace Hermann.Updaters
         /// 重力によるフィールド状態の更新を行います。
         /// </summary>
         /// <param name="context">フィールドの状態</param>
-        public void Update(FieldContext context)
+        /// <param name="player">プレイヤ</param>
+        public void Update(FieldContext context, Player.Index player)
         {
             // 最底辺から順に重力をかけていく
             for (var unitIndex = FieldContextConfig.FieldUnitCount - 1; unitIndex >= 0; unitIndex--)
@@ -33,7 +34,7 @@ namespace Hermann.Updaters
                 {
                     foreach (var slime in ExtensionSlime.Slimes)
                     {
-                        Reflect(context, slime, position, unitIndex, DefaultGravity);
+                        Reflect(context, player, slime, position, unitIndex, DefaultGravity);
                     }
                 }
             }
@@ -43,15 +44,15 @@ namespace Hermann.Updaters
         /// 指定した場所に対して重力をかけます。
         /// </summary>
         /// <param name="context">フィールドの状態</param>
+        /// <param name="player">プレイヤ</param>
         /// <param name="slime">スライム</param>
         /// <param name="position">ユニット内の位置</param>
         /// <param name="unitIndex">ユニットのインデックス</param>
         /// <param name="g">重力の強さ</param>
-        private static void Reflect(FieldContext context, Slime slime, int position, int unitIndex, int g)
+        private static void Reflect(FieldContext context, Player.Index player, Slime slime, int position, int unitIndex, int g)
         {
             Debug.Assert(g > 0, "重力が1より小さいです。");
 
-            var player = context.OperationPlayer;
             var isMovable = false;
 
             // 移動可能スライムは重力に影響されない
@@ -117,7 +118,7 @@ namespace Hermann.Updaters
             var updPosition = position + modifiedShift;
             var updUnitIndex = unitIndex + (updPosition / FieldContextConfig.FieldUnitBitCount);
             updPosition %= FieldContextConfig.FieldUnitBitCount;
-            Debug.Assert(!FieldContextHelper.ExistsSlime(context, context.OperationPlayer, updUnitIndex, updPosition), string.Format("他のスライムが移動場所に存在しています。 Index : {0} Position : {1}", updUnitIndex, updPosition));
+            Debug.Assert(!FieldContextHelper.ExistsSlime(context, player, updUnitIndex, updPosition), string.Format("他のスライムが移動場所に存在しています。 Index : {0} Position : {1}", updUnitIndex, updPosition));
             context.SlimeFields[(int)player][slime][updUnitIndex] |= 1u << updPosition;
         }
     }

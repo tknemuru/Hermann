@@ -283,7 +283,7 @@ namespace Hermann
                 // 1.移動可能スライムを通常のスライムに変換する
                 this.MovableSlimesUpdater.Update(context, player);
                 // 重力で落とす
-                this.Gravity.Update(context);
+                this.Gravity.Update(context, player);
 
                 context.Chain[(int)player]++;
             }
@@ -311,7 +311,7 @@ namespace Hermann
                 this.SlimeEraser.Update(context);
 
                 // 重力で落とす
-                this.Gravity.Update(context);
+                this.Gravity.Update(context, player);
 
                 context.Chain[(int)player]++;
             }
@@ -325,7 +325,9 @@ namespace Hermann
         private void Drop(FieldContext context, Player.Index player)
         {
             // おじゃまスライムを落とす
-            this.ObstructionSlimeDropper.Update(context, player);
+            var oppsite = Player.GetOppositeIndex(player);
+            this.ObstructionSlimeDropper.Update(context, oppsite);
+            this.Gravity.Update(context, oppsite);
 
             // 落としきったら移動のために状態初期化
             if (context.ObstructionSlimes[(int)player].All(ob => ob.Value == 0))
