@@ -37,7 +37,7 @@ namespace Hermann.Updaters
         public void Update(FieldContext context)
         {
             var player = context.OperationPlayer;
-            var slimes = ExtensionSlime.Slimes.Where(s => s != Slime.Erased);
+            var slimes = ExtensionSlime.Slimes.Where(s => s != Slime.Erased && s != Slime.Obstruction);
             var erasedAllColorSlimes = CreateInitialErasedSlimes();
 
             // 各色のスライムを消済スライムに変換していく

@@ -93,5 +93,18 @@ namespace Hermann.Tests.Updaters
                 "../../resources/updaters/slimeerasingmarker/test-field-in-004-001.txt",
                 this.Updater.Update);
         }
+
+        /// <summary>
+        /// 005：おじゃまスライムは消済マークされない
+        /// </summary>
+        [TestMethod]
+        public void おじゃまスライムは消済マークされない()
+        {
+            // 001:1P
+            TestHelper.AssertEqualsFieldContext(
+                "../../resources/updaters/slimeerasingmarker/test-field-out-005-001.txt",
+                "../../resources/updaters/slimeerasingmarker/test-field-in-005-001.txt",
+                this.Updater.Update);
+        }
     }
 }
