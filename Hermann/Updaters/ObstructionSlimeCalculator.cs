@@ -23,7 +23,7 @@ namespace Hermann.Updaters
             var chain = context.Chain[(int)player];
             if (chain > 0)
             {
-                var opposite = player == Player.Index.First ? Player.Index.Second : Player.Index.First;
+                var opposite = Player.GetOppositeIndex(player);
                 context.ObstructionSlimes[(int)opposite][ObstructionSlime.Small] = 6;
             }
         }

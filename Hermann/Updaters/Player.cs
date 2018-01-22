@@ -175,6 +175,16 @@ namespace Hermann.Updaters
         }
 
         /// <summary>
+        /// 反対のインデックスを取得します。
+        /// </summary>
+        /// <param name="index">インデックス</param>
+        /// <returns>反対のインデックス</returns>
+        public static Index GetOppositeIndex(Index index)
+        {
+            return index == Index.First ? Index.Second : Index.First;
+        }
+
+        /// <summary>
         /// 下に移動するシフト量の調整を行います。
         /// </summary>
         /// <param name="context">フィールドの状態</param>

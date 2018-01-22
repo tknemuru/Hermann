@@ -13,7 +13,7 @@ namespace Hermann.Updaters
         public void Update(FieldContext context, Player.Index player)
         {
             // おじゃまスライムをフィールドに落とす
-            var opposite = player == Player.Index.First ? Player.Index.Second : Player.Index.First;
+            var opposite = Player.GetOppositeIndex(player);
             var maxIndex = FieldContextConfig.FieldUnitBitCount - 1;
             var obsSlimes = context.ObstructionSlimes[(int)opposite];
             var updObsSlimes = new Dictionary<ObstructionSlime, int>();
