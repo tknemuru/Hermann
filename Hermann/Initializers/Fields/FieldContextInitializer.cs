@@ -57,6 +57,9 @@ namespace Hermann.Initializers.Fields
             // 回転方向
             context.RotationDirection = new[] { Direction.Right, Direction.Right };
 
+            // プレイヤの行動
+            context.PlayerBehavior = new[] { PlayerBehavior.Undefined, PlayerBehavior.Undefined };
+
             // 経過時間
             context.Time = 0;
 

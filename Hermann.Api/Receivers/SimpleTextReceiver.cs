@@ -29,7 +29,7 @@ namespace Hermann.Api.Receivers
         {
             var context = DiProvider.GetContainer().GetInstance<FieldContext>();
             var lines = FileHelper.ReadTextLines(source).ToArray();
-            Debug.Assert((lines.Length == SimpleText.Length.Sum), string.Format("テキストファイルの行数が不正です。{0}", lines.Length));
+            //Debug.Assert((lines.Length == SimpleText.Length.Sum), string.Format("テキストファイルの行数が不正です。{0}", lines.Length));
 
             // 辞書の作成
             var dic = buildInfoDictionary(lines);

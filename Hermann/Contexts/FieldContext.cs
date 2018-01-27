@@ -33,6 +33,11 @@ namespace Hermann.Contexts
         public Direction[] RotationDirection { get; set; }
 
         /// <summary>
+        /// プレイヤの行動
+        /// </summary>
+        public PlayerBehavior[] PlayerBehavior { get; set; }
+
+        /// <summary>
         /// 経過時間
         /// </summary>
         public long Time { get; set; }
@@ -110,6 +115,7 @@ namespace Hermann.Contexts
             this.Offset = new bool[Player.Length];
             this.AllErase = new bool[Player.Length];
             this.WinCount = new int[Player.Length];
+            this.PlayerBehavior = new PlayerBehavior[Player.Length];
 
             this.UsingSlimes = new Slime[FieldContextConfig.UsingSlimeCount];
 
@@ -153,6 +159,9 @@ namespace Hermann.Contexts
 
             for (var player = Player.Index.First; (int)player < Player.Length; player++)
             {
+                // プレイヤの行動
+                context.PlayerBehavior[(int)player] = this.PlayerBehavior[(int)player];
+
                 // 回転方向
                 context.RotationDirection[(int)player] = this.RotationDirection[(int)player];
 
@@ -256,6 +265,9 @@ namespace Hermann.Contexts
 
             for (var player = Player.Index.First; (int)player < Player.Length; player++)
             {
+                // プレイヤの行動
+                equals.Add(context.PlayerBehavior[(int)player] == this.PlayerBehavior[(int)player]);
+
                 // 回転方向
                 equals.Add(context.RotationDirection[(int)player] == this.RotationDirection[(int)player]);
 
