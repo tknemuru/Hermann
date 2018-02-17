@@ -146,6 +146,11 @@ namespace Hermann
         private ScoreCalculator ScoreCalculator { get; set; }
 
         /// <summary>
+        /// おじゃまスライム消去機能
+        /// </summary>
+        private ObstructionSlimeErasingMarker ObstructionSlimeErasingMarker { get; set; }
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         public Game()
@@ -170,6 +175,7 @@ namespace Hermann
             this.ObstructionSlimeCalculator = DiProvider.GetContainer().GetInstance<ObstructionSlimeCalculator>();
             this.ObstructionSlimeDropper = DiProvider.GetContainer().GetInstance<ObstructionSlimeRandomDropper>();
             this.ScoreCalculator = DiProvider.GetContainer().GetInstance<ScoreCalculator>();
+            this.ObstructionSlimeErasingMarker = DiProvider.GetContainer().GetInstance<ObstructionSlimeErasingMarker>();
 
             this.NextSlimeGenerator = DiProvider.GetContainer().GetInstance<NextSlimeGenerator>();
             this.NextSlimeGenerator.UsingSlime = this.UsingSlimeGenerator.GetNext();
@@ -300,6 +306,9 @@ namespace Hermann
             {
                 // 消す対象のスライムを消済スライムとしてマーキングする
                 this.SlimeErasingMarker.Update(context);
+
+                // 隣接するおじゃまスライムを消済スライムとしてマーキングする
+                this.ObstructionSlimeErasingMarker.Update(context, player);
 
                 // 連鎖数の更新
                 if (context.SlimeFields[(int)player][Slime.Erased].Any(f => f > 0))

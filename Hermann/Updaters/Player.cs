@@ -491,7 +491,7 @@ namespace Hermann.Updaters
 
             // 壁を越えないか？
             // 壁越えチェック対象は最右である1つめの移動可能スライムが対象
-            if (!(((1u << first.Position) & 0xf8f8f8f8u) > 0))
+            if (FieldContextHelper.IsCloseToRightWall(first.Position))
             {
                 return false;
             }
@@ -529,7 +529,7 @@ namespace Hermann.Updaters
             var second = movableSlimes[(int)MovableSlime.UnitIndex.Second];
 
             // 壁を越えないか？
-            if (!(((1u << second.Position) & 0x7f7f7f7fu) > 0))
+            if (FieldContextHelper.IsCloseToLeftWall(second.Position))
             {
                 return false;
             }

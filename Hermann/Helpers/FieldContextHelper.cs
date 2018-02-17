@@ -41,5 +41,25 @@ namespace Hermann.Helpers
         {
             return ((context.SlimeFields[(int)player][slime][index] & (1u << position)) > 0u);
         }
+
+        /// <summary>
+        /// 右の壁際かどうかを判定します。
+        /// </summary>
+        /// <param name="index">インデックス</param>
+        /// <returns>右の壁際かどうか</returns>
+        public static bool IsCloseToRightWall(int index)
+        {
+            return !(((1u << index) & 0xf8f8f8f8u) > 0);
+        }
+
+        /// <summary>
+        /// 左の壁際かどうかを判定します。
+        /// </summary>
+        /// <param name="index">インデックス</param>
+        /// <returns>左の壁際かどうか</returns>
+        public static bool IsCloseToLeftWall(int index)
+        {
+            return !(((1u << index) & 0x7f7f7f7fu) > 0);
+        }
     }
 }
