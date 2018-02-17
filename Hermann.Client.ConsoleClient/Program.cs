@@ -64,6 +64,11 @@ namespace Hermann.Client.ConsoleClient
         private static Player.Index NoneMovePlayer { get; set; }
 
         /// <summary>
+        /// 前回の勝ち数
+        /// </summary>
+        private static int[] LastWinCount { get; set; }
+
+        /// <summary>
         /// Mainメソッド
         /// </summary>
         /// <param name="args"></param>
@@ -88,6 +93,7 @@ namespace Hermann.Client.ConsoleClient
         private static void Start()
         {
             NoneMovePlayer = Player.Index.First;
+            LastWinCount = new[] { 0, 0 };
 
             // 初期フィールド状態の取得
             NoneDirectionUpdateFrameCount = 0;
@@ -119,6 +125,12 @@ namespace Hermann.Client.ConsoleClient
         /// </summary>
         private static void Update()
         {
+            if (IsEnd(Context))
+            {
+                Console.WriteLine(string.Format("{0}Pの勝ちです。", (int)GetWinPlayer(Context) + 1));
+                return;
+            }
+
             // 移動方向無コマンドの実行
             Context.OperationDirection = Direction.None;
             var c = ConsoleClientDiProvider.GetContainer().GetInstance<NativeCommand>();
@@ -142,6 +154,34 @@ namespace Hermann.Client.ConsoleClient
 
             // 画面描画
             FieldContextWriter.Write(Context);
+        }
+
+        /// <summary>
+        /// 勝負の結果が出たかどうかを判定します。
+        /// </summary>
+        /// <param name="context">フィールド状態</param>
+        /// <returns>勝負の結果が出たかどうか</returns>
+        private static bool IsEnd(FieldContext context)
+        {
+            return (LastWinCount[(int)Player.Index.First] != context.WinCount[(int)Player.Index.First] ||
+                LastWinCount[(int)Player.Index.Second] != context.WinCount[(int)Player.Index.Second]);
+        }
+
+        /// <summary>
+        /// TODO:勝ったプレイヤを取得します。
+        /// </summary>
+        /// <param name="context">フィールド状態</param>
+        /// <returns>勝ったプレイヤ</returns>
+        private static Player.Index GetWinPlayer(FieldContext context)
+        {
+            if (LastWinCount[(int)Player.Index.First] != context.WinCount[(int)Player.Index.First])
+            {
+                return Player.Index.First;
+            }
+            else
+            {
+                return Player.Index.Second;
+            }
         }
     }
 }

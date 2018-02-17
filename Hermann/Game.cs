@@ -356,7 +356,7 @@ namespace Hermann
             this.MovableSlimesUpdater.Update(context, player, MovableSlimesUpdater.Option.AfterDropObstruction);
 
             // 勝敗を決定する
-            this.WinCountUpdater.Update(context);
+            this.WinCountUpdater.Update(context, player);
 
             // 接地状態を更新する
             this.GroundUpdater.Update(context, player);
