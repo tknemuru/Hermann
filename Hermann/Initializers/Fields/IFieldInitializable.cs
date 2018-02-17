@@ -12,10 +12,5 @@ namespace Hermann.Initializers.Fields
     /// </summary>
     public interface IFieldInitializable : IInitializable<FieldContext>
     {
-        /// <summary>
-        /// フィールド状態に対する初期化処理を行います。
-        /// </summary>
-        /// <param name="context">初期化されたフィールド状態</param>
-        void Initialize(FieldContext context);
     }
 }

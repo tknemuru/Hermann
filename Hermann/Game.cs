@@ -290,7 +290,7 @@ namespace Hermann
             if (context.Chain[(int)player] == 1)
             {
                 // 移動可能スライムを通常のスライムに変換する
-                this.MovableSlimesUpdater.Update(context, player);
+                this.MovableSlimesUpdater.Update(context, player, MovableSlimesUpdater.Option.BeforeDropObstruction);
                 // 重力で落とす
                 this.Gravity.Update(context, player);
 
@@ -336,31 +336,30 @@ namespace Hermann
         /// <param name="player">プレイヤ</param>
         private void Drop(FieldContext context, Player.Index player)
         {
-            while (ObstructionSlimeHelper.ExistsObstructionSlime(context.ObstructionSlimes[(int)player]))
+            if (ObstructionSlimeHelper.ExistsObstructionSlime(context.ObstructionSlimes[(int)player]))
             {
                 // 自分自身のおじゃまスライムを落とす
                 this.ObstructionSlimeDropper.Update(context, player);
                 this.Gravity.Update(context, player);
-
-                // 勝敗を決定する
-                this.WinCountUpdater.Update(context);
             }
 
-            // 落としきったら移動のために状態初期化
-            if (context.ObstructionSlimes[(int)player].All(ob => ob.Value == 0))
-            {
-                // 接地状態を更新する
-                this.GroundUpdater.Update(context, player);
+            // 移動可能スライムを初期位置に移動する
+            this.MovableSlimesUpdater.Update(context, player, MovableSlimesUpdater.Option.AfterDropObstruction);
 
-                // 回転方向を初期化する
-                this.RotationDirectionInitializer.Update(context);
+            // 勝敗を決定する
+            this.WinCountUpdater.Update(context);
 
-                // 設置残タイム
-                this.BuiltRemainingTimeInitializer.Initialize(context);
+            // 接地状態を更新する
+            this.GroundUpdater.Update(context, player);
 
-                // 新しいNextスライムを用意
-                this.NextSlimeUpdater.Update(context, player);
-            }
+            // 回転方向を初期化する
+            this.RotationDirectionInitializer.Update(context);
+
+            // 設置残タイム
+            this.BuiltRemainingTimeInitializer.Initialize(context);
+
+            // 新しいNextスライムを用意
+            this.NextSlimeUpdater.Update(context, player);
         }
     }
 }

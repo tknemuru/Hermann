@@ -34,13 +34,15 @@ namespace Hermann.Tests.Updaters
             TestHelper.AssertEqualsFieldContext(
                 "../../resources/updaters/movableslimesupdater/test-field-out-001-001.txt",
                 "../../resources/updaters/movableslimesupdater/test-field-in-001-001.txt",
-                this.Updater.Update);
+                this.Updater.Update,
+                MovableSlimesUpdater.Option.BeforeDropObstruction);
 
             // 002:2P-縦-右端
             TestHelper.AssertEqualsFieldContext(
                 "../../resources/updaters/movableslimesupdater/test-field-out-001-002.txt",
                 "../../resources/updaters/movableslimesupdater/test-field-in-001-002.txt",
-                this.Updater.Update);
+                this.Updater.Update,
+                MovableSlimesUpdater.Option.BeforeDropObstruction);
         }
     }
 }

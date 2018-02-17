@@ -127,7 +127,7 @@ namespace Hermann.Initializers.Fields
                 {
                     context.MovableSlimes[(int)player][(int)unitIndex] = DiProvider.GetContainer().GetInstance<MovableSlime>();
                 });
-                this.MovableSlimeUp.Update(context, player);
+                this.MovableSlimeUp.Update(context, player, MovableSlimesUpdater.Option.Initial);
                 this.NextSlimeUp.Update(context, player);
             });
         }

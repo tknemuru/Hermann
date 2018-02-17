@@ -133,6 +133,21 @@ namespace Hermann.Tests.TestHelpers
         /// <param name="expectedFilePath">期待するフィールド状態を示すテキストファイルパス</param>
         /// <param name="actualFilePath">検証対象のフィールド状態を示すテキストファイルパス</param>
         /// <param name="updater">フィールド更新機能</param>
+        /// <param name="param">パラメータ</param>
+        public static void AssertEqualsFieldContext<T>(string expectedFilePath, string actualFilePath, Action<FieldContext, Player.Index, T> updater, T param)
+        {
+            var expected = TestHelper.Receiver.Receive(expectedFilePath);
+            var actual = TestHelper.Receiver.Receive(actualFilePath);
+            updater(actual, actual.OperationPlayer, param);
+            AssertEqualsFieldContext(expected, actual);
+        }
+
+        /// <summary>
+        /// 更新後のフィールドの状態が期待通りであることを検証します。
+        /// </summary>
+        /// <param name="expectedFilePath">期待するフィールド状態を示すテキストファイルパス</param>
+        /// <param name="actualFilePath">検証対象のフィールド状態を示すテキストファイルパス</param>
+        /// <param name="updater">フィールド更新機能</param>
         /// <param name="player">プレイヤ</param>
         public static void AssertEqualsFieldContext(string expectedFilePath, string actualFilePath, Action<FieldContext, Player.Index> updater, Player.Index player)
         {
