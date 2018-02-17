@@ -13,6 +13,19 @@ namespace Hermann.Helpers
     public static class FileHelper
     {
         /// <summary>
+        /// ファイルパスの初期値
+        /// </summary>
+        private static readonly string DefaultFilePath;
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        static FileHelper()
+        {
+            DefaultFilePath = string.Format(@"./log/{0}.txt", DateTime.Now.ToString("yyyyMMddhhmmss"));
+        }
+
+        /// <summary>
         /// <para>ファイルから文字列のリストを取得します。</para>
         /// </summary>
         /// <param name="filePath">ファイルパス</param>
@@ -29,6 +42,87 @@ namespace Hermann.Helpers
                     yield return line;
                 }
             }
+        }
+
+        /// <summary>
+        /// 文字列に改行コードを付与して出力します。
+        /// </summary>
+        /// <param name="line"></param>
+        public static void WriteLine(string line)
+        {
+            WriteLine(line, DefaultFilePath);
+        }
+
+        /// <summary>
+        /// <para>文字列に改行コードを付与して出力します。</para>
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static void WriteLine(string line, string filePath, bool append = true)
+        {
+            CreateDirectory(GetFileDirectory(filePath));
+
+            using (System.IO.StreamWriter sr = new System.IO.StreamWriter(filePath, append, System.Text.Encoding.GetEncoding("Shift_JIS")))
+            {
+                sr.WriteLine(line);
+            }
+        }
+
+        /// <summary>
+        /// <para>文字列をファイルに出力する</para>
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static void Write(string str)
+        {
+            Write(str, DefaultFilePath);
+        }
+
+        /// <summary>
+        /// <para>文字列をファイルに出力する</para>
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static void Write(string str, string filePath, bool append = true)
+        {
+            CreateDirectory(GetFileDirectory(filePath));
+
+            using (System.IO.StreamWriter sr = new System.IO.StreamWriter(filePath, append, System.Text.Encoding.GetEncoding("Shift_JIS")))
+            {
+                sr.Write(str);
+            }
+        }
+
+        /// <summary>
+        /// ディレクトリを作成する
+        /// </summary>
+        /// <param name="path"></param>
+        public static void CreateDirectory(string path)
+        {
+            if (File.Exists(path)) { return; }
+            Directory.CreateDirectory(path);
+        }
+
+        /// <summary>
+        /// ファイル名を含めたフルパスからファイル名を除いたパスを返す
+        /// </summary>
+        /// <param name="fullPath"></param>
+        /// <returns></returns>
+        public static string GetFileDirectory(string fullPath, char delimiter = '/')
+        {
+            List<string> directorys = fullPath.Replace('\\', delimiter).Split(delimiter).ToList();
+            if (directorys.Count == 1)
+            {
+                return fullPath;
+            }
+
+            string retPath = "";
+            for (int i = 0; i < (directorys.Count - 1); i++)
+            {
+                retPath += directorys[i] + delimiter;
+            }
+
+            return retPath.Substring(0, (retPath.Length - 1));
         }
     }
 }

@@ -62,7 +62,7 @@ namespace Hermann.Updaters
                 if (isFraction)
                 {
                     rank = this.GetNext(targetRanks, lastRank);
-                    targetRanks = targetRanks.Select(r => r).Where(r => r != rank);
+                    targetRanks = targetRanks.Select(r => r).Where(r => r != rank).ToArray();
                 }
                 else
                 {

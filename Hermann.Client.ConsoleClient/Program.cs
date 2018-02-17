@@ -15,6 +15,7 @@ using System.Reactive.Linq;
 using Reactive.Bindings;
 using Reactive.Bindings.Notifiers;
 using Hermann.Updaters;
+using Hermann.Helpers;
 
 namespace Hermann.Client.ConsoleClient
 {
@@ -42,6 +43,11 @@ namespace Hermann.Client.ConsoleClient
         /// コマンドの受信機能
         /// </summary>
         private static CommandReceiver<NativeCommand, FieldContext> Receiver;
+
+        /// <summary>
+        /// フィールドの送信機能
+        /// </summary>
+        private static FieldContextSender<string> Sender;
 
         /// <summary>
         /// 方向：無で更新するフレーム回数
@@ -98,6 +104,7 @@ namespace Hermann.Client.ConsoleClient
             // 初期フィールド状態の取得
             NoneDirectionUpdateFrameCount = 0;
             Receiver = ConsoleClientDiProvider.GetContainer().GetInstance<CommandReceiver<NativeCommand, FieldContext>>();
+            Sender = ConsoleClientDiProvider.GetContainer().GetInstance<FieldContextSender<string>>();
             var command = ConsoleClientDiProvider.GetContainer().GetInstance<NativeCommand>();
             command.Command = Command.Start;
             Context = Receiver.Receive(command);
@@ -138,6 +145,8 @@ namespace Hermann.Client.ConsoleClient
             c.Context = Context.DeepCopy();
             c.Context.OperationPlayer = NoneMovePlayer;
             NoneMovePlayer = Player.GetOppositeIndex(NoneMovePlayer);
+            FileHelper.WriteLine("----- 移動方向無コマンドの実行 -----");
+            FileHelper.WriteLine(Sender.Send(Context));
             Context = Receiver.Receive(c);
 
             // 入力を受け付けたコマンドの実行
@@ -149,6 +158,8 @@ namespace Hermann.Client.ConsoleClient
                 c = ConsoleClientDiProvider.GetContainer().GetInstance<NativeCommand>();
                 c.Command = Command.Move;
                 c.Context = Context.DeepCopy();
+                FileHelper.WriteLine("----- 入力を受け付けたコマンドの実行 -----");
+                FileHelper.WriteLine(Sender.Send(Context));
                 Context = Receiver.Receive(c);
             }
 

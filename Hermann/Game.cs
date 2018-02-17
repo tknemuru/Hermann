@@ -264,12 +264,16 @@ namespace Hermann
             this.NoneDirectionUpdateCount = 0;
             for (var i = 0; i < count; i++)
             {
+                // 移動
                 Player.ForEach((p) =>
                 {
-                    context.OperationDirection = Direction.None;
+                    if (context.BuiltRemainingTime[(int)p] > 0)
+                    {
+                        context.OperationDirection = Direction.None;
 
-                    // 移動
-                    this.Player.Update(context, p);
+                        // 移動
+                        this.Player.Update(context, p);
+                    }
                 });
             }
 
