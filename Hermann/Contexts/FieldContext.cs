@@ -48,6 +48,11 @@ namespace Hermann.Contexts
         public long[] BuiltRemainingTime { get; set; }
 
         /// <summary>
+        /// 使用済得点
+        /// </summary>
+        public long[] UsedScore { get; set; }
+
+        /// <summary>
         /// 得点
         /// </summary>
         public long[] Score { get; set; }
@@ -105,6 +110,7 @@ namespace Hermann.Contexts
             this.RotationDirection = new Direction[Player.Length];
             this.Ground = new[] { false, false };
             this.BuiltRemainingTime = new long[Player.Length];
+            this.UsedScore = new long[Player.Length];
             this.Score = new long[Player.Length];
             this.Chain = new int[Player.Length];
             this.Offset = new bool[Player.Length];
@@ -161,6 +167,9 @@ namespace Hermann.Contexts
 
                 // 設置残タイム
                 context.BuiltRemainingTime[(int)player] = this.BuiltRemainingTime[(int)player];
+
+                // 使用済得点
+                context.UsedScore[(int)player] = this.UsedScore[(int)player];
 
                 // 得点
                 context.Score[(int)player] = this.Score[(int)player];
@@ -264,6 +273,9 @@ namespace Hermann.Contexts
 
                 // 設置残タイム
                 equals.Add(context.BuiltRemainingTime[(int)player] == this.BuiltRemainingTime[(int)player]);
+
+                // 使用済得点
+                equals.Add(context.UsedScore[(int)player] == this.UsedScore[(int)player]);
 
                 // 得点
                 equals.Add(context.Score[(int)player] == this.Score[(int)player]);

@@ -80,12 +80,12 @@ namespace Hermann.Api.Tests.Receivers
             // フィールド
             // 3行目の左から3番目に緑がひとつ存在する
             TestHelper.AssertAreEqualUint(TestHelper.GetField(3, 3), slimeFields[Slime.Green][TestHelper.GetFieldUnitIndex(3)]);
-                     
+
             // 4行目の左から3番目に黄がひとつ存在する
             TestHelper.AssertAreEqualUint(TestHelper.GetField(4, 3), slimeFields[Slime.Yellow][TestHelper.GetFieldUnitIndex(4)]);
 
-            // 16行目の左から2番目におじゃまがひとつ存在する
-            TestHelper.AssertAreEqualUint(TestHelper.GetField(16, 2), slimeFields[Slime.Obstruction][TestHelper.GetFieldUnitIndex(16)]);
+            // 20行目の左から2番目におじゃまがひとつ存在する
+            TestHelper.AssertAreEqualUint(TestHelper.GetField(20, 2), slimeFields[Slime.Obstruction][TestHelper.GetFieldUnitIndex(20)]);
 
             // 3行目の左から3番目に移動可能な緑がひとつ存在する
             Assert.AreEqual(TestHelper.GetFieldUnitIndex(3), movableSlimes[(int)MovableSlime.UnitIndex.First].Index);

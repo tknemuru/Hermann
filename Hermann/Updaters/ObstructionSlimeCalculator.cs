@@ -1,4 +1,5 @@
 ﻿using Hermann.Contexts;
+using Hermann.Helpers;
 using Hermann.Models;
 using System;
 using System.Collections.Generic;
@@ -20,12 +21,17 @@ namespace Hermann.Updaters
         /// <param name="player">プレイヤ</param>
         public void Update(FieldContext context, Player.Index player)
         {
-            var chain = context.Chain[(int)player];
-            if (chain > 0)
-            {
-                var opposite = Player.GetOppositeIndex(player);
-                context.ObstructionSlimes[(int)opposite][ObstructionSlime.Small] = 6;
-            }
+            var score = context.Score[(int)player] - context.UsedScore[(int)player];
+            var opposite = Player.GetOppositeIndex(player);
+
+            // 得点には既に存在するおじゃまスライム分の得点も加算する
+            score += ObstructionSlimeHelper.ObstructionsToScore(context.ObstructionSlimes[(int)opposite]);
+
+            // 加算するおじゃまスライムを生成
+            context.ObstructionSlimes[(int)opposite] = ObstructionSlimeHelper.ScoreToObstructions(score);
+
+            // 使用済得点の更新
+            context.UsedScore[(int)player] = context.Score[(int)player] - ObstructionSlimeHelper.GetScoreRemainder(score);
         }
     }
 }

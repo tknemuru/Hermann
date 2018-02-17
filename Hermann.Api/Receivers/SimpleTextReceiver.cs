@@ -55,6 +55,9 @@ namespace Hermann.Api.Receivers
             // 得点
             context.Score = Parse(dic[SimpleText.Keys.Score], long.Parse);
 
+            // 使用済得点
+            context.UsedScore = Parse(dic[SimpleText.Keys.UsedScore], long.Parse);
+
             // 連鎖
             context.Chain = Parse(dic[SimpleText.Keys.Chain], int.Parse);
 

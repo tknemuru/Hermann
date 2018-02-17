@@ -30,8 +30,8 @@ namespace Hermann.Updaters
             MovableSlime.ForEach((unitIndex) =>
             {
                 movables[(int)unitIndex].Slime = slimes[(int)unitIndex];
-                movables[(int)unitIndex].Index = FieldContextConfig.HiddenUnitIndex;
-                movables[(int)unitIndex].Position = FieldContextConfig.MovableSlimeInitialShift + ((int)unitIndex * FieldContextConfig.OneLineBitCount);
+                movables[(int)unitIndex].Index = FieldContextConfig.MinHiddenUnitIndex;
+                movables[(int)unitIndex].Position = FieldContextConfig.MovableSlimeInitialShiftBeforeDroped + ((int)unitIndex * FieldContextConfig.OneLineBitCount);
                 context.MovableSlimes[(int)player][(int)unitIndex] = movables[(int)unitIndex];
 
                 // フィールドにも反映させる

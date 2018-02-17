@@ -163,17 +163,17 @@ namespace Hermann.Api
             /// 星
             /// </summary>
             public const char Star = '星';
-            
+
             /// <summary>
             /// 月
             /// </summary>
             public const char Moon = '月';
-            
+
             /// <summary>
             /// 王冠
             /// </summary>
             public const char Crown = '王';
-            
+
             /// <summary>
             /// 彗星
             /// </summary>
@@ -219,6 +219,11 @@ namespace Hermann.Api
             /// 得点
             /// </summary>
             public const string Score = "得点";
+
+            /// <summary>
+            /// 使用済得点
+            /// </summary>
+            public const string UsedScore = "使用済得点";
 
             /// <summary>
             /// 連鎖
@@ -279,7 +284,7 @@ namespace Hermann.Api
             /// <summary>
             /// 合計行数
             /// </summary>
-            public const int Sum = 31;
+            public const int Sum = 36;
         }
 
         /// <summary>
@@ -290,22 +295,22 @@ namespace Hermann.Api
             /// <summary>
             /// NEXTスライム：1つめの集合体の1つめのスライム
             /// </summary>
-            public const int NextSlimeFirstUnitFirstSlime = 4;
+            public const int NextSlimeFirstUnitFirstSlime = 8;
 
             /// <summary>
             /// NEXTスライム：1つめの集合体の2つめのスライム
             /// </summary>
-            public const int NextSlimeFirstUnitSecondSlime = 5;
+            public const int NextSlimeFirstUnitSecondSlime = 9;
 
             /// <summary>
             /// NEXTスライム：2つめの集合体の1つめのスライム
             /// </summary>
-            public const int NextSlimeSecondUnitFirstSlime = 7;
+            public const int NextSlimeSecondUnitFirstSlime = 11;
 
             /// <summary>
             /// NEXTスライム：2つめの集合体の2つめのスライム
             /// </summary>
-            public const int NextSlimeSecondUnitSecondSlime = 8;
+            public const int NextSlimeSecondUnitSecondSlime = 12;
         }
 
         /// <summary>
@@ -357,7 +362,7 @@ namespace Hermann.Api
         /// NEXTスライムのインデックスの変換辞書
         /// </summary>
         private static readonly Dictionary<int, NextSlime.Index> NextSlimeIndexs = buildNextSlimeIndexs();
-        
+
         /// <summary>
         /// 移動可能なスライムのインデックスの変換辞書
         /// </summary>

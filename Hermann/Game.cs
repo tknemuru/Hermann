@@ -136,9 +136,14 @@ namespace Hermann
         private ObstructionSlimeCalculator ObstructionSlimeCalculator { get; set; }
 
         /// <summary>
-        ///
+        /// おじゃまスライム落下機能
         /// </summary>
-        private ObstructionSlimeDropper ObstructionSlimeDropper { get; set; }
+        private ObstructionSlimeRandomDropper ObstructionSlimeDropper { get; set; }
+
+        /// <summary>
+        ///　得点計算機能
+        /// </summary>
+        private ScoreCalculator ScoreCalculator { get; set; }
 
         /// <summary>
         /// コンストラクタ
@@ -163,7 +168,8 @@ namespace Hermann
             this.UsingSlimeGenerator = DiProvider.GetContainer().GetInstance<UsingSlimeGenerator>();
             this.MovableSlimesUpdater = DiProvider.GetContainer().GetInstance<MovableSlimesUpdater>();
             this.ObstructionSlimeCalculator = DiProvider.GetContainer().GetInstance<ObstructionSlimeCalculator>();
-            this.ObstructionSlimeDropper = DiProvider.GetContainer().GetInstance<ObstructionSlimeDropper>();
+            this.ObstructionSlimeDropper = DiProvider.GetContainer().GetInstance<ObstructionSlimeRandomDropper>();
+            this.ScoreCalculator = DiProvider.GetContainer().GetInstance<ScoreCalculator>();
 
             this.NextSlimeGenerator = DiProvider.GetContainer().GetInstance<NextSlimeGenerator>();
             this.NextSlimeGenerator.UsingSlime = this.UsingSlimeGenerator.GetNext();
@@ -307,6 +313,9 @@ namespace Hermann
             }
             else
             {
+                // 得点を計算
+                this.ScoreCalculator.Update(context, player);
+
                 // おじゃまスライムを算出して加算
                 this.ObstructionSlimeCalculator.Update(context, player);
 
@@ -327,9 +336,15 @@ namespace Hermann
         /// <param name="player">プレイヤ</param>
         private void Drop(FieldContext context, Player.Index player)
         {
-            // 自分自身のおじゃまスライムを落とす
-            this.ObstructionSlimeDropper.Update(context, player);
-            this.Gravity.Update(context, player);
+            while (ObstructionSlimeHelper.ExistsObstructionSlime(context.ObstructionSlimes[(int)player]))
+            {
+                // 自分自身のおじゃまスライムを落とす
+                this.ObstructionSlimeDropper.Update(context, player);
+                this.Gravity.Update(context, player);
+
+                // 勝敗を決定する
+                this.WinCountUpdater.Update(context);
+            }
 
             // 落としきったら移動のために状態初期化
             if (context.ObstructionSlimes[(int)player].All(ob => ob.Value == 0))
@@ -343,10 +358,8 @@ namespace Hermann
                 // 設置残タイム
                 this.BuiltRemainingTimeInitializer.Initialize(context);
 
+                // 新しいNextスライムを用意
                 this.NextSlimeUpdater.Update(context, player);
-
-                // 勝敗を決定する
-                this.WinCountUpdater.Update(context);
             }
         }
     }

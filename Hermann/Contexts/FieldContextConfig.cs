@@ -14,7 +14,7 @@ namespace Hermann.Contexts
         /// <summary>
         /// フィールドを分割したユニットの要素数
         /// </summary>
-        public const int FieldUnitCount = 4;
+        public const int FieldUnitCount = 5;
 
         /// <summary>
         /// フィールドユニット内の行数
@@ -42,14 +42,29 @@ namespace Hermann.Contexts
         public const int UsingSlimeCount = 4;
 
         /// <summary>
-        /// 隠しフィールドのインデックス
+        /// 隠しフィールドの最小インデックス
         /// </summary>
-        public const int HiddenUnitIndex = 0;
+        public const int MinHiddenUnitIndex = 0;
 
         /// <summary>
-        /// 移動可能なスライムの初期シフト量
+        /// 隠しフィールドの最大インデックス
         /// </summary>
-        public const int MovableSlimeInitialShift = 5;
+        public const int MaxHiddenUnitIndex = 1;
+
+        /// <summary>
+        /// 移動可能なスライムの初期シフト量（おじゃまスライム落下前）
+        /// </summary>
+        public const int MovableSlimeInitialShiftBeforeDroped = 5;
+
+        /// <summary>
+        /// 移動可能なスライムの調整シフト量（おじゃまスライム落下後）
+        /// </summary>
+        public const int MovableSlimeInitialShiftAfterDroped = 21;
+
+        /// <summary>
+        /// おじゃまスライムを配置する最小シフト量
+        /// </summary>
+        public const int MinObstructionSlimeSetShift = 16;
 
         /// <summary>
         /// 最大設置残タイム（ミリ秒）
@@ -64,6 +79,6 @@ namespace Hermann.Contexts
         /// <summary>
         /// 横の行数
         /// </summary>
-        public const int HorizontalLineLength = 12;
+        public const int HorizontalLineLength = FieldUnitLineCount * FieldUnitCount;
     }
 }

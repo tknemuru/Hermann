@@ -47,6 +47,9 @@ namespace Hermann.Api.Senders
             // 得点
             sb.AppendLine(ArrayToString(SimpleText.Keys.Score, context.Score));
 
+            // 使用済得点
+            sb.AppendLine(ArrayToString(SimpleText.Keys.UsedScore, context.UsedScore));
+
             // 連鎖
             sb.AppendLine(ArrayToString(SimpleText.Keys.Chain, context.Chain));
 
@@ -197,7 +200,7 @@ namespace Hermann.Api.Senders
 
                     if (!isExists)
                     {
-                        line = ((FieldContextConfig.HiddenUnitIndex == unitIndex) ? SimpleText.SlimeSymbol.NoneHidden : SimpleText.SlimeSymbol.None) + line;
+                        line = ((FieldContextConfig.MinHiddenUnitIndex <= unitIndex && unitIndex <= FieldContextConfig.MaxHiddenUnitIndex) ? SimpleText.SlimeSymbol.NoneHidden : SimpleText.SlimeSymbol.None) + line;
                     }
 
                     // 改行
