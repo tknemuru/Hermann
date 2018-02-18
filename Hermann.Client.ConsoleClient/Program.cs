@@ -57,12 +57,12 @@ namespace Hermann.Client.ConsoleClient
         /// <summary>
         /// 入力されたコンソールキー情報
         /// </summary>
-        private static ReactiveProperty<ConsoleKeyInfo> KeyInfo { get; set; }
+        private static List<ConsoleKeyInfo> KeyInfos { get; set; }
 
         /// <summary>
-        /// コンソールキー情報がセットされているかどうか
+        /// コンソールキー情報がブロック中かどうか
         /// </summary>
-        private static BooleanNotifier HasSetKeyInfo { get; set; }
+        private static bool IsBlockedKeyInfo { get; set; }
 
         /// <summary>
         /// 無移動のプレイヤ
@@ -110,18 +110,17 @@ namespace Hermann.Client.ConsoleClient
             Context = Receiver.Receive(command);
 
             // キー変更イベントの購読
-            KeyInfo = new ReactiveProperty<ConsoleKeyInfo>();
-            HasSetKeyInfo = new BooleanNotifier(false);
+            KeyInfos = new List<ConsoleKeyInfo>();
+            IsBlockedKeyInfo = false;
 
             // キーの入力読み込みタスクを開始
             Task.Run(() =>
             {
                 while (true)
                 {
-                    KeyInfo.Value = Console.ReadKey();
-                    if (KeyMap.ContainsKey(KeyInfo.Value.Key))
+                    if (!IsBlockedKeyInfo)
                     {
-                        HasSetKeyInfo.TurnOn();
+                        KeyInfos.Add(Console.ReadKey());
                     }
                 }
             });
@@ -150,16 +149,20 @@ namespace Hermann.Client.ConsoleClient
             Context = Receiver.Receive(c);
 
             // 入力を受け付けたコマンドの実行
-            if (HasSetKeyInfo.Value)
+            IsBlockedKeyInfo = true;
+            var keys = KeyInfos.Select(k => k).ToList();
+            KeyInfos.Clear();
+            IsBlockedKeyInfo = false;
+
+            foreach (var key in keys)
             {
-                if (!KeyMap.ContainsKey(KeyInfo.Value.Key))
+                if (!KeyMap.ContainsKey(key.Key))
                 {
                     return;
                 }
 
-                HasSetKeyInfo.TurnOff();
-                Context.OperationPlayer = KeyMap.GetPlayer(KeyInfo.Value.Key);
-                Context.OperationDirection = KeyMap.GetDirection(KeyInfo.Value.Key);
+                Context.OperationPlayer = KeyMap.GetPlayer(key.Key);
+                Context.OperationDirection = KeyMap.GetDirection(key.Key);
                 c = ConsoleClientDiProvider.GetContainer().GetInstance<NativeCommand>();
                 c.Command = Command.Move;
                 c.Context = Context.DeepCopy();
