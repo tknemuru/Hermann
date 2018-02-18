@@ -152,6 +152,11 @@ namespace Hermann.Client.ConsoleClient
             // 入力を受け付けたコマンドの実行
             if (HasSetKeyInfo.Value)
             {
+                if (!KeyMap.ContainsKey(KeyInfo.Value.Key))
+                {
+                    return;
+                }
+
                 HasSetKeyInfo.TurnOff();
                 Context.OperationPlayer = KeyMap.GetPlayer(KeyInfo.Value.Key);
                 Context.OperationDirection = KeyMap.GetDirection(KeyInfo.Value.Key);
