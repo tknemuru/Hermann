@@ -326,7 +326,7 @@ namespace Hermann.Tests.Updaters
         /// 015:Moveで壁・スライムにバッティングして回転できない
         /// </summary>
         [TestMethod]
-        public void Moveで壁・スライムにバッティングして回転できない()
+        public void Moveで壁スライムにバッティングして回転できない()
         {
             // 001:壁際で右
             TestHelper.AssertEqualsFieldContext(

@@ -48,7 +48,7 @@ namespace Hermann.Tests
         ///002:移動・１連鎖・落下
         /// </summary>
         [TestMethod]
-        public void 移動・１連鎖・落下()
+        public void 移動１連鎖落下()
         {
             TestDiProvider.Register();
             var container = TestDiProvider.GetContainer();

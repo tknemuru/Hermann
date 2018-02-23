@@ -29,6 +29,7 @@ bin/
 web.Debug.config
 web.Release.config
 web.config
+.vs
 
 # public
 #/public/
@@ -46,3 +47,6 @@ web.config
 # compass
 .sass-cache/
 compass_start.bat
+
+# Unity
+Temp/

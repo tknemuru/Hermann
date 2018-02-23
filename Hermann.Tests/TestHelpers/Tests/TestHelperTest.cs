@@ -32,7 +32,7 @@ namespace Hermann.Tests.TestHelpers.Tests
         /// 002:行・列指定のGetShiftテスト
         /// </summary>
         [TestMethod]
-        public void 行・列指定のGetShiftテスト()
+        public void 行列指定のGetShiftテスト()
         {
             // 1行目の右端
             Assert.AreEqual(2, TestHelper.GetShift(1, 6));
