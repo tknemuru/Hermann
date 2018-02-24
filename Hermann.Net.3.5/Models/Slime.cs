@@ -68,5 +68,45 @@ namespace Hermann.Models
         {
             Slimes = ((IEnumerable<Slime>)Enum.GetValues(typeof(Slime))).Where(slime => slime != Slime.None);
         }
+
+        /// <summary>
+        /// スライム名を取得します。
+        /// </summary>
+        /// <param name="slime">スライム</param>
+        /// <returns>スライム名</returns>
+        public static string GetName(this Slime slime)
+        {
+            var name = string.Empty;
+            switch (slime)
+            {
+                case Slime.Blue:
+                    name = "Blue";
+                    break;
+                case Slime.Erased:
+                    name = "Erased";
+                    break;
+                case Slime.Green:
+                    name = "Green";
+                    break;
+                case Slime.None:
+                    name = "None";
+                    break;
+                case Slime.Obstruction:
+                    name = "Obstruction";
+                    break;
+                case Slime.Purple:
+                    name = "Purple";
+                    break;
+                case Slime.Red:
+                    name = "Red";
+                    break;
+                case Slime.Yellow:
+                    name = "Yellow";
+                    break;
+                default:
+                    throw new ArgumentException("スライムが不正です");
+            }
+            return name;
+        }
     }
 }
