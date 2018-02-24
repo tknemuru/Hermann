@@ -31,9 +31,9 @@ namespace Hermann
         private Stopwatch Stopwatch { get; set; }
 
         /// <summary>
-        /// プレイヤ
+        /// スライム移動機能
         /// </summary>
-        private Player Player { get; set; }
+        private SlimeMover SlimeMover { get; set; }
 
         /// <summary>
         /// 方向：無で更新する間隔（ミリ秒）
@@ -157,7 +157,7 @@ namespace Hermann
         {
             this.NoneDirectionUpdateInterval = 1000;
             this.NoneDirectionUpdateCount = 0;
-            this.Player = DiProvider.GetContainer().GetInstance<Player>();
+            this.SlimeMover = DiProvider.GetContainer().GetInstance<SlimeMover>();
             this.TimeUpdater = DiProvider.GetContainer().GetInstance<ITimeUpdatable>();
             this.GroundUpdater = DiProvider.GetContainer().GetInstance<GroundUpdater>();
             this.BuiltingUpdater = DiProvider.GetContainer().GetInstance<MovableSlimesUpdater>();
@@ -250,10 +250,10 @@ namespace Hermann
             // プレイヤの操作による移動
             if (context.OperationDirection != Direction.None)
             {
-                this.Player.Update(context, context.OperationPlayer);
+                this.SlimeMover.Update(context, context.OperationPlayer);
 
                 // 回転が成功した場合は回転方向を変更する
-                if (context.OperationDirection == Direction.Up && this.Player.Notifier.Value == Player.MoveResult.Success)
+                if (context.OperationDirection == Direction.Up && this.SlimeMover.Notifier.Value == SlimeMover.MoveResult.Success)
                 {
                     this.RotationDirectionUpdater.Update(context);
                 }
@@ -272,7 +272,7 @@ namespace Hermann
                         context.OperationDirection = Direction.None;
 
                         // 移動
-                        this.Player.Update(context, p);
+                        this.SlimeMover.Update(context, p);
                     }
                 });
             }

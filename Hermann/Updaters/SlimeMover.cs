@@ -14,15 +14,10 @@ using System.Threading.Tasks;
 namespace Hermann.Updaters
 {
     /// <summary>
-    /// プレイヤ
+    /// スライムの移動機能を提供します。
     /// </summary>
-    public sealed class Player : IPlayerFieldUpdatable, INotifiable<Player.MoveResult>
+    public sealed class SlimeMover : IPlayerFieldUpdatable, INotifiable<SlimeMover.MoveResult>
     {
-        /// <summary>
-        /// プレイヤ数
-        /// </summary>
-        public const int Length = 2;
-
         /// <summary>
         /// 移動結果
         /// </summary>
@@ -45,22 +40,6 @@ namespace Hermann.Updaters
         }
 
         /// <summary>
-        /// インデックス
-        /// </summary>
-        public enum Index
-        {
-            /// <summary>
-            /// 1P
-            /// </summary>
-            First = 0,
-
-            /// <summary>
-            /// 2P
-            /// </summary>
-            Second,
-        }
-
-        /// <summary>
         /// 通知オブジェクト
         /// </summary>
         public ReactiveProperty<MoveResult> Notifier { get; private set; }
@@ -68,7 +47,7 @@ namespace Hermann.Updaters
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public Player()
+        public SlimeMover()
         {
             this.Notifier = new ReactiveProperty<MoveResult>(MoveResult.Undefined);
         }
@@ -152,18 +131,6 @@ namespace Hermann.Updaters
         }
 
         /// <summary>
-        /// 両プレイヤのフィールド情報に対して戻り値を持たないメソッドを繰り返し実行します。
-        /// </summary>
-        /// <param name="action">戻り値を持たないメソッド</param>
-        public static void ForEach(Action<Player.Index> action)
-        {
-            for (var player = Player.Index.First; (int)player < Player.Length; player++)
-            {
-                action(player);
-            }
-        }
-
-        /// <summary>
         /// 指定したプレイヤが接地しているかどうかを判定します。
         /// </summary>
         /// <param name="context">フィールドの状態</param>
@@ -172,16 +139,6 @@ namespace Hermann.Updaters
         public static bool IsGround(FieldContext context, Player.Index player)
         {
             return ModifyDownShift(context, FieldContextConfig.OneLineBitCount, player) <= 0;
-        }
-
-        /// <summary>
-        /// 反対のインデックスを取得します。
-        /// </summary>
-        /// <param name="index">インデックス</param>
-        /// <returns>反対のインデックス</returns>
-        public static Index GetOppositeIndex(Index index)
-        {
-            return index == Index.First ? Index.Second : Index.First;
         }
 
         /// <summary>

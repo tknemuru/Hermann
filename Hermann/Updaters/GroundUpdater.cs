@@ -23,7 +23,7 @@ namespace Hermann.Updaters
         public void Update(FieldContext context, Player.Index player)
         {
             // 接地しているか？
-            var isGround = Player.IsGround(context, player);
+            var isGround = SlimeMover.IsGround(context, player);
             context.Ground[(int)player] = isGround;
         }
     }

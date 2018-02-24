@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 {
 
     /// <summary>
-    /// スライム
+    /// スライムオブジェクト
     /// </summary>
     public GameObject SlimeObject;
 
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     {
         var slimeObj = Instantiate(this.SlimeObject);
         var uiSlime = slimeObj.GetComponent<UiSlime>();
-        uiSlime.Initialize(slimeObj, new Vector3(0, 0, -1), Slime.Red);
+        uiSlime.Initialize(slimeObj, Player.Index.First, 0, 0, Slime.Red);
     }
 
     // Update is called once per frame

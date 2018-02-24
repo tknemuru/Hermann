@@ -23,8 +23,12 @@ public class UiSlime : MonoBehaviour {
     /// <summary>
     /// 初期化処理を行います。
     /// </summary>
-    /// <param name="slime"></param>
-    public void Initialize(GameObject obj, Vector3 vector, Slime slime)
+    /// <param name="obj">スライムオブジェクト</param>
+    /// <param name="player">プレイヤ</param>
+    /// <param name="unit">フィールドユニット</param>
+    /// <param name="index">ユニット内のインデックス</param>
+    /// <param name="slime">スライム</param>
+    public void Initialize(GameObject obj, Player.Index player, int unit, int index, Slime slime)
     {
         obj.transform.parent = GameObject.Find("1PField").transform;
         obj.transform.localPosition = new Vector3(0, 0, -1);
