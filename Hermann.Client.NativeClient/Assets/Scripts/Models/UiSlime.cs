@@ -26,8 +26,8 @@ public class UiSlime : MonoBehaviour {
     /// <param name="slime"></param>
     public void Initialize(GameObject obj, Vector3 vector, Slime slime)
     {
-        obj.transform.parent = GameObject.Find("Canvas").transform;
-        obj.GetComponent<Transform>().SetPositionAndRotation(new Vector3(10, 10, -1), Quaternion.identity);
+        obj.transform.parent = GameObject.Find("1PField").transform;
+        obj.transform.localPosition = new Vector3(0, 0, -1);
 
         var sprite = SpriteHelper.GetSprite("red_default");
         obj.AddComponent<Image>().sprite = sprite;
