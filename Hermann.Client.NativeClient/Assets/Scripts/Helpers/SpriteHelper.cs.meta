@@ -1,13 +1,11 @@
 fileFormatVersion: 2
-guid: 0be94e50f94605149b74b6e5ca748d20
-timeCreated: 1519413522
+guid: 9dc8406592123c944b5a4454791278df
+timeCreated: 1519405870
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - SlimeObject: {fileID: 1662190930104442, guid: 5317ee3e87cb5d640b43b949868e7ed2,
-      type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
