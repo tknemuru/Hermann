@@ -3,50 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using Hermann.Models;
 using Hermann.Contexts;
+using Assets.Scripts.Updater;
 
 /// <summary>
 /// ゲーム管理機能を提供します。
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-
     /// <summary>
     /// スライムオブジェクト
     /// </summary>
     public GameObject SlimeObject;
 
+    /// <summary>
+    /// フィールド情報のUIフィールドへの反映機能
+    /// </summary>
+    public FieldContextReflector FieldContextReflector { get; set; }
+
     // Use this for initialization
     void Start()
     {
+        this.FieldContextReflector = ScriptableObject.CreateInstance<FieldContextReflector>();
+        this.FieldContextReflector.Initialize(this.SlimeObject);
+
         Player.ForEach(player =>
         {
-            for (var unit = 0; unit < FieldContextConfig.FieldUnitCount; unit++)
-            {
-                var slime = Slime.None;
-                if (unit == 2)
-                {
-                    slime = Slime.Blue;
-                }
-                else if (unit == 3)
-                {
-                    slime = Slime.Green;
-                }
-                else if (unit == 4)
-                {
-                    slime = Slime.Yellow;
-                }
-                else
-                {
-                    slime = Slime.Red;
-                }
-
-                for (var index = 0; index < FieldContextConfig.FieldUnitBitCount; index++)
-                {
-                    var slimeObj = Instantiate(this.SlimeObject);
-                    var uiSlime = slimeObj.GetComponent<UiSlime>();
-                    uiSlime.Initialize(slimeObj, player, unit, index, slime);
-                }
-            }
+            this.FieldContextReflector.Update(player, new FieldContext());
         });
     }
 
