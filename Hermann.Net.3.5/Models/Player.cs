@@ -52,4 +52,31 @@ namespace Hermann.Models
             return index == Index.First ? Index.Second : Index.First;
         }
     }
+
+    public static class ExtensionPlayer
+    {
+        /// <summary>
+        /// プレイヤ名を取得します。
+        /// </summary>
+        /// <param name="player">プレイヤ</param>
+        /// <returns>プレイヤ名</returns>
+        public static string GetName(this Player.Index player)
+        {
+            var name = string.Empty;
+
+            switch (player)
+            {
+                case Player.Index.First:
+                    name = "1P";
+                    break;
+                case Player.Index.Second:
+                    name = "2P";
+                    break;
+                default:
+                    throw new ArgumentException("プレイヤが不正です。");
+            }
+
+            return name;
+        }
+    }
 }
