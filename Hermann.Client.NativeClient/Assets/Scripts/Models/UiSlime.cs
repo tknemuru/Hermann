@@ -49,6 +49,8 @@ public class UiSlime : MonoBehaviour {
         // サイズ・位置から座標を取得し、セット
         var position = FieldPositionConverter.GetSlimeFieldPosition(TransformHelper.GetScaledSize(field.GetComponent<RectTransform>()).x,
             TransformHelper.GetScaledSize(slime.GetComponent<Image>()).x,
+            TransformHelper.GetScaledSize(field.GetComponent<RectTransform>()).y,
+            TransformHelper.GetScaledSize(slime.GetComponent<Image>()).y,
             unit,
             index);
         TransformHelper.SetPosition(slime.GetComponent<RectTransform>(), position);

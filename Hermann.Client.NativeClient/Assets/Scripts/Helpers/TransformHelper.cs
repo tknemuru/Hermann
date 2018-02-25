@@ -49,7 +49,7 @@ namespace Assets.Scripts.Helpers
         /// <returns>比率調整されたサイズ</returns>
         public static Vector2 GetScaledSize(RectTransform obj)
         {
-            return new Vector2(GetSize(obj).x * GetScale(obj).x, GetSize(obj).y * GetScale(obj).y);
+            return new Vector2(obj.rect.width, obj.rect.height);
         }
 
         /// <summary>

@@ -25,17 +25,20 @@ namespace Assets.Scripts.Helpers
         /// </summary>
         /// <param name="fieldWidth">フィールドの横幅</param>
         /// <param name="slimeWidth">スライムの横幅</param>
+        /// <param name="fieldHeight">フィールドの縦幅</param>
+        /// <param name="slimeHeight">フィールドの縦幅</param>
         /// <param name="unit">フィールドユニット</param>
         /// <param name="index">フィールドインデックス</param>
         /// <returns>フィールド座標</returns>
-        public static Vector3 GetSlimeFieldPosition(float fieldWidth, float slimeWidth, int unit, int index)
+        public static Vector3 GetSlimeFieldPosition(float fieldWidth, float slimeWidth, float fieldHeight, float slimeHeight, int unit, int index)
         {
             var x = (fieldWidth / 2f) - (slimeWidth / 2f);
+            var y = (fieldHeight / 2f) - (slimeHeight / 2f);
 
             var line = FieldContextHelper.GetLineIndex(unit, index);
             var column = FieldContextHelper.GetColumnIndex(index);
 
-            return new Vector3((x - (slimeWidth * column)), BaseY + (UnitY * line), BaseZ);
+            return new Vector3((x - (slimeWidth * column)), (y + (slimeHeight * line)), BaseZ);
         }
     }
 }
