@@ -38,7 +38,7 @@ namespace Assets.Scripts.Helpers
             var line = FieldContextHelper.GetLineIndex(unit, index);
             var column = FieldContextHelper.GetColumnIndex(index);
 
-            return new Vector3((x - (slimeWidth * column)), (y + (slimeHeight * line)), BaseZ);
+            return new Vector3((x - (slimeWidth * column)), (y - (slimeHeight * line)), BaseZ);
         }
     }
 }
