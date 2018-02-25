@@ -59,6 +59,11 @@ namespace Assets.Scripts.Updater
         {
             for (var unit = 0; unit < FieldContextConfig.FieldUnitCount; unit++)
             {
+                if(unit <= FieldContextConfig.MaxHiddenUnitIndex)
+                {
+                    continue;
+                }
+
                 var color = Slime.None;
                 if (unit == 2)
                 {
@@ -79,6 +84,11 @@ namespace Assets.Scripts.Updater
 
                 for (var index = 0; index < FieldContextConfig.FieldUnitBitCount; index++)
                 {
+                    if(index % FieldContextConfig.OneLineBitCount < FieldContextConfig.OneLineBitCount - FieldContextConfig.VerticalLineLength)
+                    {
+                        continue;
+                    }
+
                     var field = UiFieldHelper.GetPlayerField(player);
                     var slime = Instantiate(this.SlimeObject);
 
