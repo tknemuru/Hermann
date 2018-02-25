@@ -1,18 +1,26 @@
-﻿using Hermann.Contexts;
+﻿using Assets.Scripts.Helpers;
+using Hermann.Contexts;
+using Hermann.Helpers;
 using Hermann.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Updater
 {
     /// <summary>
-    /// フィールド情報のUIフィールドへの反映機能を提供します。
+    /// フィールド情報をUIフィールドへ反映する機能を提供します。
     /// </summary>
     public class FieldContextReflector : ScriptableObject, IUiPlayerFieldParameterizedUpdatable<FieldContext>
     {
+        /// <summary>
+        /// オブジェクトの基底Z値
+        /// </summary>
+        private const float BaseZ = -1;
+
         /// <summary>
         /// スライムオブジェクト
         /// </summary>
@@ -35,36 +43,140 @@ namespace Assets.Scripts.Updater
         /// 指定したプレイヤのUIフィールド状態を更新します。
         /// </summary>
         /// <param name="player">プレイヤ</param>
-        /// <param name="param">パラメータ</param>
-        public void Update(Player.Index player, FieldContext param)
+        /// <param name="context">フィールド状態</param>
+        public void Update(Player.Index player, FieldContext context)
+        {
+            this.ReflectSlimeField(player, context);
+            this.ReflectNextSlimeField(player, context);
+        }
+
+        /// <summary>
+        /// スライム状態の反映を行います。
+        /// </summary>
+        /// <param name="player">プレイヤ</param>
+        /// <param name="context">フィールド状態</param>
+        private void ReflectSlimeField(Player.Index player, FieldContext context)
         {
             for (var unit = 0; unit < FieldContextConfig.FieldUnitCount; unit++)
             {
-                var slime = Slime.None;
+                var color = Slime.None;
                 if (unit == 2)
                 {
-                    slime = Slime.Blue;
+                    color = Slime.Blue;
                 }
                 else if (unit == 3)
                 {
-                    slime = Slime.Green;
+                    color = Slime.Green;
                 }
                 else if (unit == 4)
                 {
-                    slime = Slime.Yellow;
+                    color = Slime.Yellow;
                 }
                 else
                 {
-                    slime = Slime.Red;
+                    color = Slime.Red;
                 }
 
                 for (var index = 0; index < FieldContextConfig.FieldUnitBitCount; index++)
                 {
-                    var slimeObj = Instantiate(this.SlimeObject);
-                    var uiSlime = slimeObj.GetComponent<UiSlime>();
-                    uiSlime.Initialize(slimeObj, player, unit, index, slime);
+                    var field = UiFieldHelper.GetPlayerField(player);
+                    var slime = Instantiate(this.SlimeObject);
+
+                    // フィールドを親にセット
+                    slime.transform.SetParent(field.transform);
+
+                    // 初期化
+                    var uiSlime = slime.GetComponent<UiSlime>();
+                    uiSlime.Initialize(slime, player, color);
+
+                    // サイズ・位置から座標を取得し、セット
+                    var position = GetSlimeFieldPosition(TransformHelper.GetScaledSize(field.GetComponent<RectTransform>()).x,
+                        TransformHelper.GetScaledSize(slime.GetComponent<Image>()).x,
+                        TransformHelper.GetScaledSize(field.GetComponent<RectTransform>()).y,
+                        TransformHelper.GetScaledSize(slime.GetComponent<Image>()).y,
+                        unit,
+                        index);
+                    TransformHelper.SetPosition(slime.GetComponent<RectTransform>(), position);
                 }
             }
+        }
+
+        /// <summary>
+        /// Nextスライムの反映を行います。
+        /// </summary>
+        /// <param name="player">プレイヤ</param>
+        /// <param name="context">フィールド状態</param>
+        private void ReflectNextSlimeField(Player.Index player, FieldContext context)
+        {
+            var nextField = UiFieldHelper.GetPlayerNextSlimeField(player);
+
+            NextSlime.ForEach(next =>
+            {
+                MovableSlime.ForEach(movable =>
+                {
+                    var color = context.NextSlimes[(int)player][(int)next][(int)movable];
+                    // TODO:あとで削除
+                    color = Slime.Red;
+                    var field = UiFieldHelper.GetPlayerField(player);
+                    var slime = Instantiate(this.SlimeObject);
+
+                    // フィールド上のスライムと同じサイズ調整を行うために、一度フィールドを親にセットする
+                    slime.transform.SetParent(field.transform);
+
+                    // 初期化
+                    var uiSlime = slime.GetComponent<UiSlime>();
+                    uiSlime.Initialize(slime, player, color);
+
+                    // 初期化完了後にNextスライムフィールドを親にセットし直す
+                    slime.transform.SetParent(nextField.transform);
+
+                    // サイズ・位置から座標を取得し、セット
+                    var position = GetNextSlimeFieldPosition(TransformHelper.GetScaledSize(nextField.GetComponent<RectTransform>()).y,
+                        TransformHelper.GetScaledSize(slime.GetComponent<Image>()).y,
+                        next,
+                        movable);
+                    TransformHelper.SetPosition(slime.GetComponent<RectTransform>(), position);
+                });
+            });
+        }
+
+        /// <summary>
+        /// 指定したユニット・ユニット内のインデックスに対応したフィールド座標を取得します。
+        /// </summary>
+        /// <param name="fieldWidth">フィールドの横幅</param>
+        /// <param name="slimeWidth">スライムの横幅</param>
+        /// <param name="fieldHeight">フィールドの縦幅</param>
+        /// <param name="slimeHeight">フィールドの縦幅</param>
+        /// <param name="unit">フィールドユニット</param>
+        /// <param name="index">フィールドインデックス</param>
+        /// <returns>フィールド座標</returns>
+        private static Vector3 GetSlimeFieldPosition(float fieldWidth, float slimeWidth, float fieldHeight, float slimeHeight, int unit, int index)
+        {
+            var x = (fieldWidth / 2f) - (slimeWidth / 2f);
+            var y = (fieldHeight / 2f) - (slimeHeight / 2f);
+
+            var line = FieldContextHelper.GetLineIndex(unit, index);
+            var column = FieldContextHelper.GetColumnIndex(index);
+
+            return new Vector3((x - (slimeWidth * column)), (y - (slimeHeight * line)), BaseZ);
+        }
+
+        /// <summary>
+        /// 指定したNextスライムの座標を取得します。
+        /// </summary>
+        /// <param name="nextFieldHeight">Nextスライムフィールドの高さ</param>
+        /// <param name="slimeHeight">スライムの高さ</param>
+        /// <param name="nextIndex">Nextスライムのインデックス</param>
+        /// <param name="movableIndex">移動可能スライムのインデックス</param>
+        /// <returns>Nextスライムの座標</returns>
+        private static Vector3 GetNextSlimeFieldPosition(float nextFieldHeight, float slimeHeight, NextSlime.Index nextIndex, MovableSlime.UnitIndex movableIndex)
+        {
+            var y = (nextFieldHeight / 2f) - (slimeHeight / 2f);
+
+            var index = (int)nextIndex * NextSlime.Length + (int)movableIndex;
+            var padding = index >= NextSlime.Length ? nextFieldHeight / ((MovableSlime.Length * NextSlime.Length) + 1) : 0f;
+
+            return new Vector3(0f, y - ((slimeHeight * index) + padding));
         }
     }
 }

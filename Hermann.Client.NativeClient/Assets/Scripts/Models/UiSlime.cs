@@ -7,7 +7,7 @@ using Assets.Scripts.Helpers;
 using Hermann.Contexts;
 
 /// <summary>
-/// スライム
+/// UIスライム
 /// </summary>
 public class UiSlime : MonoBehaviour {
     /// <summary>
@@ -32,30 +32,21 @@ public class UiSlime : MonoBehaviour {
     /// </summary>
     /// <param name="slime">スライムオブジェクト</param>
     /// <param name="player">プレイヤ</param>
-    /// <param name="unit">フィールドユニット</param>
-    /// <param name="index">ユニット内のインデックス</param>
     /// <param name="color">スライム</param>
-    public void Initialize(GameObject slime, Player.Index player, int unit, int index, Slime color)
+    public void Initialize(GameObject slime, Player.Index player, Slime color)
     {
         // スライム画像の読み込み
-        var sprite = SpriteHelper.GetSprite(GetSlimeSpliteName(color));
-        var field = GameObject.Find(GetFieldName(player));
-        slime.AddComponent<Image>().sprite = sprite;
-        slime.transform.SetParent(GameObject.Find(GetFieldName(player)).transform);
+        slime.AddComponent<Image>().sprite = SpriteHelper.GetSprite(GetSlimeSpliteName(color));
 
         // スライム画像のサイズを調整
-        AdjustImageSize(field, slime);
-
-        // サイズ・位置から座標を取得し、セット
-        var position = FieldPositionConverter.GetSlimeFieldPosition(TransformHelper.GetScaledSize(field.GetComponent<RectTransform>()).x,
-            TransformHelper.GetScaledSize(slime.GetComponent<Image>()).x,
-            TransformHelper.GetScaledSize(field.GetComponent<RectTransform>()).y,
-            TransformHelper.GetScaledSize(slime.GetComponent<Image>()).y,
-            unit,
-            index);
-        TransformHelper.SetPosition(slime.GetComponent<RectTransform>(), position);
+        AdjustImageSize(UiFieldHelper.GetPlayerField(player), slime);
     }
 
+    /// <summary>
+    /// スライムの画像サイズを調整します。
+    /// </summary>
+    /// <param name="field">フィールド</param>
+    /// <param name="slime">スライム</param>
     private static void AdjustImageSize(GameObject field, GameObject slime)
     {
         var imageScale = TransformHelper.GetScale(slime.GetComponent<Image>());
@@ -67,17 +58,7 @@ public class UiSlime : MonoBehaviour {
 
         // フィールドの横幅から比率を算出して更新
         var scale = TransformHelper.GetSize(field.GetComponent<RectTransform>()).x / (imageSize.x * FieldContextConfig.VerticalLineLength);
-        TransformHelper.SetScale(slime.GetComponent<Image>(), new Vector3(scale, scale, -1f));
-    }
-
-    /// <summary>
-    /// フィールド名を取得します。
-    /// </summary>
-    /// <param name="player">プレイヤ</param>
-    /// <returns>フィールド名</returns>
-    private static string GetFieldName(Player.Index player)
-    {
-        return player.GetName() + "Field";
+        TransformHelper.SetScale(slime.GetComponent<Image>(), new Vector3(scale, scale, 0f));
     }
 
     /// <summary>
