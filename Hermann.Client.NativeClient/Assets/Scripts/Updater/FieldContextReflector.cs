@@ -14,7 +14,7 @@ namespace Assets.Scripts.Updater
     /// <summary>
     /// フィールド情報をUIフィールドへ反映する機能を提供します。
     /// </summary>
-    public class FieldContextReflector : ScriptableObject, IUiPlayerFieldParameterizedUpdatable<FieldContext>
+    public class FieldContextReflector : ScriptableObject, IUiPlayerFieldParameterizedUpdatable<List<GameObject>, FieldContext>
     {
         /// <summary>
         /// オブジェクトの基底Z値
@@ -44,10 +44,12 @@ namespace Assets.Scripts.Updater
         /// </summary>
         /// <param name="player">プレイヤ</param>
         /// <param name="context">フィールド状態</param>
-        public void Update(Player.Index player, FieldContext context)
+        public List<GameObject> Update(Player.Index player, FieldContext context)
         {
-            this.ReflectSlimeField(player, context);
-            this.ReflectNextSlimeField(player, context);
+            var slimes = new List<GameObject>();
+            this.ReflectSlimeField(player, context, slimes);
+            this.ReflectNextSlimeField(player, context, slimes);
+            return slimes;
         }
 
         /// <summary>
@@ -55,7 +57,8 @@ namespace Assets.Scripts.Updater
         /// </summary>
         /// <param name="player">プレイヤ</param>
         /// <param name="context">フィールド状態</param>
-        private void ReflectSlimeField(Player.Index player, FieldContext context)
+        /// <param name="slimes">追加したスライムのリスト</param>
+        private void ReflectSlimeField(Player.Index player, FieldContext context, List<GameObject> slimes)
         {
             for (var unit = 0; unit < FieldContextConfig.FieldUnitCount; unit++)
             {
@@ -91,6 +94,7 @@ namespace Assets.Scripts.Updater
 
                     var field = UiFieldHelper.GetPlayerField(player);
                     var slime = Instantiate(this.SlimeObject);
+                    slimes.Add(slime);
 
                     // フィールドを親にセット
                     slime.transform.SetParent(field.transform);
@@ -116,7 +120,8 @@ namespace Assets.Scripts.Updater
         /// </summary>
         /// <param name="player">プレイヤ</param>
         /// <param name="context">フィールド状態</param>
-        private void ReflectNextSlimeField(Player.Index player, FieldContext context)
+        /// <param name="slimes">追加したスライムのリスト</param>
+        private void ReflectNextSlimeField(Player.Index player, FieldContext context, List<GameObject> slimes)
         {
             var nextField = UiFieldHelper.GetPlayerNextSlimeField(player);
 
@@ -129,6 +134,7 @@ namespace Assets.Scripts.Updater
                     color = Slime.Red;
                     var field = UiFieldHelper.GetPlayerField(player);
                     var slime = Instantiate(this.SlimeObject);
+                    slimes.Add(slime);
 
                     // フィールド上のスライムと同じサイズ調整を行うために、一度フィールドを親にセットする
                     slime.transform.SetParent(field.transform);
