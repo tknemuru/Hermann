@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
-[assembly: AssemblyTitle("Hermann.Net.3.5")]
+[assembly: AssemblyTitle("Hermann.Client.NativeClient.Di")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Hermann.Net.3.5")]
+[assembly: AssemblyProduct("Hermann.Client.NativeClient.Di")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // このプロジェクトが COM に公開される場合、次の GUID が typelib の ID になります
-[assembly: Guid("b39febc7-efe7-4846-8b50-3f4b3332a16d")]
+[assembly: Guid("20487d64-ccb8-4bc2-8312-cc6dab2d1128")]
 
 // アセンブリのバージョン情報は次の 4 つの値で構成されています:
 //

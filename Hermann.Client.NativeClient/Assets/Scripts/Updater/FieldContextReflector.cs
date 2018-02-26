@@ -67,27 +67,21 @@ namespace Assets.Scripts.Updater
                     continue;
                 }
 
-                var color = Slime.None;
-                if (unit == 2)
-                {
-                    color = Slime.Blue;
-                }
-                else if (unit == 3)
-                {
-                    color = Slime.Green;
-                }
-                else if (unit == 4)
-                {
-                    color = Slime.Yellow;
-                }
-                else
-                {
-                    color = Slime.Red;
-                }
-
                 for (var index = 0; index < FieldContextConfig.FieldUnitBitCount; index++)
                 {
                     if(index % FieldContextConfig.OneLineBitCount < FieldContextConfig.OneLineBitCount - FieldContextConfig.VerticalLineLength)
+                    {
+                        continue;
+                    }
+
+                    // スライム色を取得
+                    // TODO
+                    var color = Slime.None;
+                    if(ExtensionSlime.Slimes.Any(s => FieldContextHelper.ExistsSlime(context, player, unit, index, s)))
+                    {
+                        color = ExtensionSlime.Slimes.Select(s => s).Where(s => FieldContextHelper.ExistsSlime(context, player, unit, index, s)).First();
+                    }
+                    else
                     {
                         continue;
                     }
@@ -130,8 +124,6 @@ namespace Assets.Scripts.Updater
                 MovableSlime.ForEach(movable =>
                 {
                     var color = context.NextSlimes[(int)player][(int)next][(int)movable];
-                    // TODO:あとで削除
-                    color = Slime.Red;
                     var field = UiFieldHelper.GetPlayerField(player);
                     var slime = Instantiate(this.SlimeObject);
                     slimes.Add(slime);

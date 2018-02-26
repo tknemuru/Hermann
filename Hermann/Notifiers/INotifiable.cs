@@ -15,6 +15,6 @@ namespace Hermann.Notifiers
         /// <summary>
         /// 通知オブジェクト
         /// </summary>
-        ReactiveProperty<T> Notifier { get; }
+        T Notifier { get; }
     }
 }

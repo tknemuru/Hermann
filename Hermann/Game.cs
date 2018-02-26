@@ -253,7 +253,7 @@ namespace Hermann
                 this.SlimeMover.Update(context, context.OperationPlayer);
 
                 // 回転が成功した場合は回転方向を変更する
-                if (context.OperationDirection == Direction.Up && this.SlimeMover.Notifier.Value == SlimeMover.MoveResult.Success)
+                if (context.OperationDirection == Direction.Up && this.SlimeMover.Notifier == SlimeMover.MoveResult.Success)
                 {
                     this.RotationDirectionUpdater.Update(context);
                 }

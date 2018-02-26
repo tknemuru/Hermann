@@ -42,14 +42,14 @@ namespace Hermann.Updaters
         /// <summary>
         /// 通知オブジェクト
         /// </summary>
-        public ReactiveProperty<MoveResult> Notifier { get; private set; }
+        public MoveResult Notifier { get; private set; }
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         public SlimeMover()
         {
-            this.Notifier = new ReactiveProperty<MoveResult>(MoveResult.Undefined);
+            this.Notifier = MoveResult.Undefined;
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace Hermann.Updaters
             }
 
             Debug.Assert(result != MoveResult.Undefined, "移動結果がUndefinedです。");
-            this.Notifier.Value = result;
+            this.Notifier = result;
         }
 
         /// <summary>
