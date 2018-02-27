@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// フィールドの送信機能
     /// </summary>
-    private static FieldContextSender<string> Sender;
+    //private static FieldContextSender<string> Sender;
 
     /// <summary>
     /// 方向：無で更新するフレーム回数
@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
         // 初期フィールド状態の取得
         NoneDirectionUpdateFrameCount = 0;
         Receiver = NativeClientDiProvider.GetContainer().GetInstance<CommandReceiver<NativeCommand, FieldContext>>();
-        Sender = NativeClientDiProvider.GetContainer().GetInstance<FieldContextSender<string>>();
+        //Sender = NativeClientDiProvider.GetContainer().GetInstance<FieldContextSender<string>>();
         var command = NativeClientDiProvider.GetContainer().GetInstance<NativeCommand>();
         command.Command = Command.Start;
         Context = Receiver.Receive(command);
@@ -113,8 +113,8 @@ public class GameManager : MonoBehaviour
         c.Context = Context.DeepCopy();
         c.Context.OperationPlayer = NoneMovePlayer;
         NoneMovePlayer = Player.GetOppositeIndex(NoneMovePlayer);
-        FileHelper.WriteLine("----- 移動方向無コマンドの実行 -----");
-        FileHelper.WriteLine(Sender.Send(Context));
+        //FileHelper.WriteLine("----- 移動方向無コマンドの実行 -----");
+        //FileHelper.WriteLine(Sender.Send(Context));
         Context = Receiver.Receive(c);
 
         // 入力を受け付けたコマンドの実行
@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
         {
             if (!KeyMap.ContainsKey(key))
             {
-                return;
+                continue;
             }
 
             Context.OperationPlayer = KeyMap.GetPlayer(key);
@@ -135,8 +135,8 @@ public class GameManager : MonoBehaviour
             c = NativeClientDiProvider.GetContainer().GetInstance<NativeCommand>();
             c.Command = Command.Move;
             c.Context = Context.DeepCopy();
-            FileHelper.WriteLine("----- 入力を受け付けたコマンドの実行 -----");
-            FileHelper.WriteLine(Sender.Send(Context));
+            //FileHelper.WriteLine("----- 入力を受け付けたコマンドの実行 -----");
+            //FileHelper.WriteLine(Sender.Send(Context));
             Context = Receiver.Receive(c);
         }
 

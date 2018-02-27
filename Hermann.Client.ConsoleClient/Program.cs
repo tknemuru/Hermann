@@ -158,7 +158,7 @@ namespace Hermann.Client.ConsoleClient
             {
                 if (!KeyMap.ContainsKey(key.Key))
                 {
-                    return;
+                    continue;
                 }
 
                 Context.OperationPlayer = KeyMap.GetPlayer(key.Key);
