@@ -44,6 +44,11 @@ public class GameManager : MonoBehaviour
     private static CommandReceiver<NativeCommand, FieldContext> Receiver;
 
     /// <summary>
+    /// UI飾り情報の受信機能
+    /// </summary>
+    private static UiDecorationContainerReceiver UiDecorationContainerReceiver;
+
+    /// <summary>
     /// フィールドの送信機能
     /// </summary>
     //private static FieldContextSender<string> Sender;
@@ -91,6 +96,7 @@ public class GameManager : MonoBehaviour
         NoneDirectionUpdateFrameCount = 0;
         Receiver = NativeClientDiProvider.GetContainer().GetInstance<CommandReceiver<NativeCommand, FieldContext>>();
         //Sender = NativeClientDiProvider.GetContainer().GetInstance<FieldContextSender<string>>();
+        UiDecorationContainerReceiver = NativeClientDiProvider.GetContainer().GetInstance<UiDecorationContainerReceiver>();
         var command = NativeClientDiProvider.GetContainer().GetInstance<NativeCommand>();
         command.Command = Command.Start;
         Context = Receiver.Receive(command);
@@ -140,6 +146,15 @@ public class GameManager : MonoBehaviour
             Context = Receiver.Receive(c);
         }
 
+        var container = UiDecorationContainerReceiver.Receive(Context);
+        // TODO：あとで消す
+        //FileHelper.WriteLine("----- 結合状態 -----");
+        //var joinStatus = container.SlimeJoinStatus[(int)Player.Index.First];
+        //for(var i = 0; i < joinStatus.Length; i++)
+        //{
+        //    FileHelper.WriteLine(string.Format("[{0}]{1}", i, joinStatus[i]));
+        //}
+
         // 画面描画
         Player.ForEach(player =>
         {
@@ -147,7 +162,7 @@ public class GameManager : MonoBehaviour
             {
                 Destroy(slime);
             }
-            this.Slimes[player] = this.FieldContextReflector.Update(player, Context);
+            this.Slimes[player] = this.FieldContextReflector.Update(player, container);
         });
     }
 }

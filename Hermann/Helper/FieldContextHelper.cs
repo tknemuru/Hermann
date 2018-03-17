@@ -41,6 +41,27 @@ namespace Hermann.Helpers
         }
 
         /// <summary>
+        /// 指定した場所に移動可能スライムが存在しているかどうかを判定します。
+        /// </summary>
+        /// <param name="context">フィールドの状態</param>
+        /// <param name="player">対象プレイヤ</param>
+        /// <param name="index">フィールド単位のインデックス</param>
+        /// <param name="position">フィールド単位内の場所</param>
+        /// <returns>移動スライムが存在しているかどうか</returns>
+        public static bool ExistsMovableSlime(FieldContext context, Player.Index player, int index, int position)
+        {
+            var existsMovable = false;
+            MovableSlime.ForEach(movable =>
+            {
+                if (context.MovableSlimes[(int)player][(int)movable].Index == index && context.MovableSlimes[(int)player][(int)movable].Position == position)
+                {
+                    existsMovable = true;
+                }
+            });
+            return existsMovable;
+        }
+
+        /// <summary>
         /// 右の壁際かどうかを判定します。
         /// </summary>
         /// <param name="index">インデックス</param>

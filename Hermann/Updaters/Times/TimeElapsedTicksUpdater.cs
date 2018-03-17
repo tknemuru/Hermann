@@ -53,8 +53,8 @@ namespace Hermann.Updaters.Times
         {
             // 経過時間の更新
             this.Stopwatch.Stop();
-            context.Time += this.Stopwatch.ElapsedTicks;
-            this.Stopwatch.Start();
+            context.Time += this.Stopwatch.ElapsedMilliseconds;
+            this.Stopwatch.Restart();
         }
     }
 }

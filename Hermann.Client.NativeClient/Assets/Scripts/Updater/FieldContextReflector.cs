@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Helpers;
+using Hermann.Api.Containers;
 using Hermann.Contexts;
 using Hermann.Helpers;
 using Hermann.Models;
@@ -14,7 +15,7 @@ namespace Assets.Scripts.Updater
     /// <summary>
     /// フィールド情報をUIフィールドへ反映する機能を提供します。
     /// </summary>
-    public class FieldContextReflector : ScriptableObject, IUiPlayerFieldParameterizedUpdatable<List<GameObject>, FieldContext>
+    public class FieldContextReflector : ScriptableObject, IUiPlayerFieldParameterizedUpdatable<List<GameObject>, UiDecorationContainer>
     {
         /// <summary>
         /// オブジェクトの基底Z値
@@ -43,12 +44,12 @@ namespace Assets.Scripts.Updater
         /// 指定したプレイヤのUIフィールド状態を更新します。
         /// </summary>
         /// <param name="player">プレイヤ</param>
-        /// <param name="context">フィールド状態</param>
-        public List<GameObject> Update(Player.Index player, FieldContext context)
+        /// <param name="container">フィールド情報コンテナ</param>
+        public List<GameObject> Update(Player.Index player, UiDecorationContainer container)
         {
             var slimes = new List<GameObject>();
-            this.ReflectSlimeField(player, context, slimes);
-            this.ReflectNextSlimeField(player, context, slimes);
+            this.ReflectSlimeField(player, container, slimes);
+            this.ReflectNextSlimeField(player, container, slimes);
             return slimes;
         }
 
@@ -57,8 +58,8 @@ namespace Assets.Scripts.Updater
         /// </summary>
         /// <param name="player">プレイヤ</param>
         /// <param name="context">フィールド状態</param>
-        /// <param name="slimes">追加したスライムのリスト</param>
-        private void ReflectSlimeField(Player.Index player, FieldContext context, List<GameObject> slimes)
+        /// <param name="container">フィールド情報コンテナ</param>
+        private void ReflectSlimeField(Player.Index player, UiDecorationContainer container, List<GameObject> slimes)
         {
             for (var unit = 0; unit < FieldContextConfig.FieldUnitCount; unit++)
             {
@@ -77,9 +78,9 @@ namespace Assets.Scripts.Updater
                     // スライム色を取得
                     // TODO
                     var color = Slime.None;
-                    if(ExtensionSlime.Slimes.Any(s => FieldContextHelper.ExistsSlime(context, player, unit, index, s)))
+                    if(ExtensionSlime.Slimes.Any(s => FieldContextHelper.ExistsSlime(container.FieldContext, player, unit, index, s)))
                     {
-                        color = ExtensionSlime.Slimes.Select(s => s).Where(s => FieldContextHelper.ExistsSlime(context, player, unit, index, s)).First();
+                        color = ExtensionSlime.Slimes.Select(s => s).Where(s => FieldContextHelper.ExistsSlime(container.FieldContext, player, unit, index, s)).First();
                     }
                     else
                     {
@@ -93,9 +94,14 @@ namespace Assets.Scripts.Updater
                     // フィールドを親にセット
                     slime.transform.SetParent(field.transform);
 
+                    // スライム初期化のために結合状態を取得
+                    var joinStateIndex = ((unit - (FieldContextConfig.MaxHiddenUnitIndex + 1)) * FieldContextConfig.FieldUnitBitCount) + index;
+                    var joinState = container.SlimeJoinStatus[(int)player][joinStateIndex];
+                    //FileHelper.WriteLine(string.Format("joinStateIndex:{0} joinState:{1}", joinStateIndex, joinState));
+
                     // 初期化
                     var uiSlime = slime.GetComponent<UiSlime>();
-                    uiSlime.Initialize(slime, player, color);
+                    uiSlime.Initialize(slime, player, color, joinState);
 
                     // サイズ・位置から座標を取得し、セット
                     var position = GetSlimeFieldPosition(TransformHelper.GetScaledSize(field.GetComponent<RectTransform>()).x,
@@ -114,8 +120,8 @@ namespace Assets.Scripts.Updater
         /// </summary>
         /// <param name="player">プレイヤ</param>
         /// <param name="context">フィールド状態</param>
-        /// <param name="slimes">追加したスライムのリスト</param>
-        private void ReflectNextSlimeField(Player.Index player, FieldContext context, List<GameObject> slimes)
+        /// <param name="container">フィールド情報コンテナ</param>
+        private void ReflectNextSlimeField(Player.Index player, UiDecorationContainer container, List<GameObject> slimes)
         {
             var nextField = UiFieldHelper.GetPlayerNextSlimeField(player);
 
@@ -123,7 +129,7 @@ namespace Assets.Scripts.Updater
             {
                 MovableSlime.ForEach(movable =>
                 {
-                    var color = context.NextSlimes[(int)player][(int)next][(int)movable];
+                    var color = container.FieldContext.NextSlimes[(int)player][(int)next][(int)movable];
                     var field = UiFieldHelper.GetPlayerField(player);
                     var slime = Instantiate(this.SlimeObject);
                     slimes.Add(slime);
@@ -133,7 +139,7 @@ namespace Assets.Scripts.Updater
 
                     // 初期化
                     var uiSlime = slime.GetComponent<UiSlime>();
-                    uiSlime.Initialize(slime, player, color);
+                    uiSlime.Initialize(slime, player, color, SlimeJoinState.Default);
 
                     // 初期化完了後にNextスライムフィールドを親にセットし直す
                     slime.transform.SetParent(nextField.transform);

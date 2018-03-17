@@ -52,7 +52,7 @@ namespace Hermann.Tests
         {
             TestDiProvider.Register();
             var container = TestDiProvider.GetContainer();
-            container.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(300));
+            container.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(300, 300));
             container.Register<NextSlimeGenerator>(() => new NextSlimeStableGenerator(new[] { Slime.Red, Slime.Blue }));
             container.Register<UsingSlimeGenerator>(() => new UsingSlimeStableGenerator(new[] { Slime.Red, Slime.Blue, Slime.Green, Slime.Purple }));
             container.Verify();

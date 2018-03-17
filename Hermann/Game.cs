@@ -233,6 +233,10 @@ namespace Hermann
                 {
                     this.BuiltRemainingTimeUpdater.Update(context);
                 }
+                else
+                {
+                    this.BuiltRemainingTimeUpdater.Reset(context);
+                }
 
                 // それ以外は移動処理
                 this.Move(context);

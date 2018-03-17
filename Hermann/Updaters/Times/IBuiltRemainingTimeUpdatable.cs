@@ -12,5 +12,10 @@ namespace Hermann.Updaters.Times
     /// </summary>
     public interface IBuiltRemainingTimeUpdatable : IFieldUpdatable
     {
+        /// <summary>
+        /// 計測を停止して、経過時間をゼロにリセットします。
+        /// </summary>
+        /// <param name="context">フィールド状態</param>
+        void Reset(FieldContext context);
     }
 }

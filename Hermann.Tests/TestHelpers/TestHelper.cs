@@ -60,10 +60,16 @@ namespace Hermann.Tests.TestHelpers
         /// </summary>
         /// <param name="lineIndex">何行目か</param>
         /// <param name="columnIndex">何列目か</param>
+        /// <param name="addUnderUnitBitCount">指定した行より小さいフィールド単位のビットカウントをシフト量に足すかどうか</param>
         /// <returns>指定した行・列のシフト量</returns>
-        public static int GetShift(int lineIndex, int columnIndex)
+        public static int GetShift(int lineIndex, int columnIndex, bool addUnderUnitBitCount = false)
         {
-            return GetShift(lineIndex) + (FieldContextConfig.OneLineBitCount - columnIndex);
+            var shift = GetShift(lineIndex) + (FieldContextConfig.OneLineBitCount - columnIndex);
+            if (addUnderUnitBitCount)
+            {
+                shift += (GetFieldUnitIndex(lineIndex) * FieldContextConfig.FieldUnitBitCount);
+            }
+            return shift;
         }
 
         /// <summary>

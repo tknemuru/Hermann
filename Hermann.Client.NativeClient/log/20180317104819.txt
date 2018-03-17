@@ -1,0 +1,3510 @@
+----- 移動方向無コマンドの実行 -----
+プレイヤ:0
+操作方向:無
+回転方向:右|右
+経過時間:0
+接地:false|false
+設置残タイム:260|260
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・Ｂ・・・|　　|・・Ｂ・・・
+・・Ｂ・・・|　　|・・Ｙ・・・
+ロロロロロロ|緑青|ロロロロロロ
+ロロロロロロ|緑紫|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:0
+操作方向:無
+回転方向:右|右
+経過時間:0
+接地:false|false
+設置残タイム:12|260
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・Ｂ・・・|　　|・・Ｂ・・・
+・・Ｂ・・・|　　|・・Ｙ・・・
+ロロロロロロ|緑青|ロロロロロロ
+ロロロロロロ|緑紫|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:1
+操作方向:無
+回転方向:右|右
+経過時間:167
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・Ｂ・・・|　　|・・Ｂ・・・
+・・Ｂ・・・|　　|・・Ｙ・・・
+ロロロロロロ|緑青|ロロロロロロ
+ロロロロロロ|緑紫|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:0
+操作方向:無
+回転方向:右|右
+経過時間:470
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・Ｂ・・・|　　|・・Ｂ・・・
+・・Ｂ・・・|　　|・・Ｙ・・・
+ロロロロロロ|緑青|ロロロロロロ
+ロロロロロロ|緑紫|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:1
+操作方向:無
+回転方向:右|右
+経過時間:622
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・Ｂ・・・|　　|・・Ｂ・・・
+・・Ｂ・・・|　　|・・Ｙ・・・
+ロロロロロロ|緑青|ロロロロロロ
+ロロロロロロ|緑紫|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:0
+操作方向:無
+回転方向:右|右
+経過時間:755
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・Ｂ・・・|　　|・・Ｂ・・・
+・・Ｂ・・・|　　|・・Ｙ・・・
+ロロロロロロ|緑青|ロロロロロロ
+ロロロロロロ|緑紫|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:1
+操作方向:無
+回転方向:右|右
+経過時間:883
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・Ｂ・・・|　　|・・Ｂ・・・
+・・Ｂ・・・|　　|・・Ｙ・・・
+ロロロロロロ|緑青|ロロロロロロ
+ロロロロロロ|緑紫|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:0
+操作方向:無
+回転方向:右|右
+経過時間:1007
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・Ｂ・・・|　　|・・Ｂ・・・
+ロロＢロロロ|緑青|ロロＹロロロ
+ロロロロロロ|緑紫|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:1
+操作方向:無
+回転方向:右|右
+経過時間:1127
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・Ｂ・・・|　　|・・Ｂ・・・
+ロロＢロロロ|緑青|ロロＹロロロ
+ロロロロロロ|緑紫|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:0
+操作方向:無
+回転方向:右|右
+経過時間:1252
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・Ｂ・・・|　　|・・Ｂ・・・
+ロロＢロロロ|緑青|ロロＹロロロ
+ロロロロロロ|緑紫|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:1
+操作方向:無
+回転方向:右|右
+経過時間:1370
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・Ｂ・・・|　　|・・Ｂ・・・
+ロロＢロロロ|緑青|ロロＹロロロ
+ロロロロロロ|緑紫|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:0
+操作方向:無
+回転方向:右|右
+経過時間:1525
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・Ｂ・・・|　　|・・Ｂ・・・
+ロロＢロロロ|緑青|ロロＹロロロ
+ロロロロロロ|緑紫|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:1
+操作方向:無
+回転方向:右|右
+経過時間:1644
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・Ｂ・・・|　　|・・Ｂ・・・
+ロロＢロロロ|緑青|ロロＹロロロ
+ロロロロロロ|緑紫|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:0
+操作方向:無
+回転方向:右|右
+経過時間:1762
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・Ｂ・・・|　　|・・Ｂ・・・
+ロロＢロロロ|緑青|ロロＹロロロ
+ロロロロロロ|緑紫|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:1
+操作方向:無
+回転方向:右|右
+経過時間:1882
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・Ｂ・・・|　　|・・Ｂ・・・
+ロロＢロロロ|緑青|ロロＹロロロ
+ロロロロロロ|緑紫|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:0
+操作方向:無
+回転方向:右|右
+経過時間:2004
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+ロロＢロロロ|緑青|ロロＢロロロ
+ロロＢロロロ|緑紫|ロロＹロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:1
+操作方向:無
+回転方向:右|右
+経過時間:2159
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+ロロＢロロロ|緑青|ロロＢロロロ
+ロロＢロロロ|緑紫|ロロＹロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:0
+操作方向:無
+回転方向:右|右
+経過時間:2284
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+ロロＢロロロ|緑青|ロロＢロロロ
+ロロＢロロロ|緑紫|ロロＹロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:1
+操作方向:無
+回転方向:右|右
+経過時間:2417
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+ロロＢロロロ|緑青|ロロＢロロロ
+ロロＢロロロ|緑紫|ロロＹロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:0
+操作方向:無
+回転方向:右|右
+経過時間:2542
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+ロロＢロロロ|緑青|ロロＢロロロ
+ロロＢロロロ|緑紫|ロロＹロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:1
+操作方向:無
+回転方向:右|右
+経過時間:2661
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+ロロＢロロロ|緑青|ロロＢロロロ
+ロロＢロロロ|緑紫|ロロＹロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:0
+操作方向:無
+回転方向:右|右
+経過時間:2771
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+ロロＢロロロ|緑青|ロロＢロロロ
+ロロＢロロロ|緑紫|ロロＹロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:1
+操作方向:無
+回転方向:右|右
+経過時間:2886
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+ロロＢロロロ|緑青|ロロＢロロロ
+ロロＢロロロ|緑紫|ロロＹロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:0
+操作方向:無
+回転方向:右|右
+経過時間:3000
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+ロロロロロロ|緑青|ロロロロロロ
+ロロＢロロロ|緑紫|ロロＢロロロ
+ロロＢロロロ|　　|ロロＹロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:1
+操作方向:無
+回転方向:右|右
+経過時間:3117
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+ロロロロロロ|緑青|ロロロロロロ
+ロロＢロロロ|緑紫|ロロＢロロロ
+ロロＢロロロ|　　|ロロＹロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default
+----- 移動方向無コマンドの実行 -----
+プレイヤ:0
+操作方向:無
+回転方向:右|右
+経過時間:3237
+接地:false|false
+設置残タイム:12|12
+得点:0|0
+使用済得点:0|0
+連鎖:0|0
+相殺:false|false
+全消:false|false
+勝数:0|0
+使用スライム:青緑黄紫
+おじゃまスライム:
+|
+フィールド:
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+・・・・・・|　　|・・・・・・
+ロロロロロロ|緑青|ロロロロロロ
+ロロＢロロロ|緑紫|ロロＢロロロ
+ロロＢロロロ|　　|ロロＹロロロ
+ロロロロロロ|黄黄|ロロロロロロ
+ロロロロロロ|緑緑|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+ロロロロロロ|　　|ロロロロロロ
+
+----- 結合状態 -----
+[0]Default
+[1]Default
+[2]Default
+[3]Default
+[4]Default
+[5]Default
+[6]Default
+[7]Default
+[8]Default
+[9]Default
+[10]Default
+[11]Default
+[12]Default
+[13]Default
+[14]Default
+[15]Default
+[16]Default
+[17]Default
+[18]Default
+[19]Default
+[20]Default
+[21]Default
+[22]Default
+[23]Default
+[24]Default
+[25]Default
+[26]Default
+[27]Default
+[28]Default
+[29]Default
+[30]Default
+[31]Default
+[32]Default
+[33]Default
+[34]Default
+[35]Default
+[36]Default
+[37]Default
+[38]Default
+[39]Default
+[40]Default
+[41]Default
+[42]Default
+[43]Default
+[44]Default
+[45]Default
+[46]Default
+[47]Default
+[48]Default
+[49]Default
+[50]Default
+[51]Default
+[52]Default
+[53]Default
+[54]Default
+[55]Default
+[56]Default
+[57]Default
+[58]Default
+[59]Default
+[60]Default
+[61]Default
+[62]Default
+[63]Default
+[64]Default
+[65]Default
+[66]Default
+[67]Default
+[68]Default
+[69]Default
+[70]Default
+[71]Default
+[72]Default
+[73]Default
+[74]Default
+[75]Default
+[76]Default
+[77]Default
+[78]Default
+[79]Default
+[80]Default
+[81]Default
+[82]Default
+[83]Default
+[84]Default
+[85]Default
+[86]Default
+[87]Default
+[88]Default
+[89]Default
+[90]Default
+[91]Default
+[92]Default
+[93]Default
+[94]Default
+[95]Default

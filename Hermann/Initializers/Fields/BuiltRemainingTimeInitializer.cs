@@ -20,11 +20,7 @@ namespace Hermann.Initializers.Fields
         {
             var player = context.OperationPlayer;
 
-            // 接地していなければ設置残タイムは最大値
-            if (!context.Ground[(int)player])
-            {
-                context.BuiltRemainingTime[(int)player] = FieldContextConfig.MaxBuiltRemainingTime;
-            }
+            context.BuiltRemainingTime[(int)player] = FieldContextConfig.MaxBuiltRemainingTime;
         }
     }
 }

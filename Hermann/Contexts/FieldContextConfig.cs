@@ -71,6 +71,11 @@ namespace Hermann.Contexts
         public const long MaxBuiltRemainingTime = 260;
 
         /// <summary>
+        /// 最大設置フレーム回数
+        /// </summary>
+        public const long MaxBuiltRemainingFrameCount = 12;
+
+        /// <summary>
         /// 縦の列数
         /// </summary>
         public const int VerticalLineLength = 6;

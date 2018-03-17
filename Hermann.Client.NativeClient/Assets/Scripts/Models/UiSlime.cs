@@ -33,10 +33,11 @@ public class UiSlime : MonoBehaviour {
     /// <param name="slime">スライムオブジェクト</param>
     /// <param name="player">プレイヤ</param>
     /// <param name="color">スライム</param>
-    public void Initialize(GameObject slime, Player.Index player, Slime color)
+    /// <param name="joinState">結合状態</param>
+    public void Initialize(GameObject slime, Player.Index player, Slime color, SlimeJoinState joinState)
     {
         // スライム画像の読み込み
-        slime.AddComponent<Image>().sprite = SpriteHelper.GetSprite(GetSlimeSpliteName(color));
+        slime.AddComponent<Image>().sprite = SpriteHelper.GetSprite(GetSlimeSpliteName(color, joinState));
 
         // スライム画像のサイズを調整
         AdjustImageSize(UiFieldHelper.GetPlayerField(player), slime);
@@ -65,9 +66,10 @@ public class UiSlime : MonoBehaviour {
     /// スライムのスプライト名を取得します。
     /// </summary>
     /// <param name="slime">スライム</param>
+    /// <param name="joinState">結合状態</param>
     /// <returns>スライムのスプライト名</returns>
-    private static string GetSlimeSpliteName(Slime slime)
+    private static string GetSlimeSpliteName(Slime slime, SlimeJoinState joinState)
     {
-        return slime.GetName().ToLower() + "_default";
+        return slime.GetName().ToLower() + "_" + joinState.GetName().ToLower();
     }
 }

@@ -74,7 +74,7 @@ namespace Hermann.Tests.Di
             MyContainer.Register<FieldContextReceiver<string>, SimpleTextReceiver>();
             MyContainer.Register<FieldContextSender<string>, SimpleTextSender>();
             MyContainer.Register<ITimeUpdatable>(() => new TimeStableUpdater(0));
-            MyContainer.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(0));
+            MyContainer.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(0, FieldContextConfig.MaxBuiltRemainingTime));
 
             DiProvider.SetContainer(MyContainer);
         }
