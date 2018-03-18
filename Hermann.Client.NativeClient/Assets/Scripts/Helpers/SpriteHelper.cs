@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hermann.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,17 @@ namespace Assets.Scripts.Helpers
         /// <returns>指定したファイル名の分割したスプライト画像</returns>
         public static Sprite GetSprite(string name)
         {
-            return Sprites[name];
+            Sprite sprite = null;
+            try
+            {
+                sprite = Sprites[name];
+            }
+            catch(Exception ex)
+            {
+                FileHelper.WriteLine(ex.ToString());
+                FileHelper.WriteLine("例外発生時名称：" + name);
+            }
+            return sprite;
         }
 
         /// <summary>

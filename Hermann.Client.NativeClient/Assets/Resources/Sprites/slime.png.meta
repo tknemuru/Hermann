@@ -24,7 +24,7 @@ TextureImporter:
     21300034: green_down
     21300036: green_up
     21300038: green_up_down
-    21300040: slime_20
+    21300040: green_right
     21300042: green_down_right
     21300044: green_up_right
     21300046: green_up_down_right
@@ -592,7 +592,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: slime_20
+      name: green_right
       rect:
         serializedVersion: 2
         x: 129

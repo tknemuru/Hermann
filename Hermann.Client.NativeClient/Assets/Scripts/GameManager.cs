@@ -19,6 +19,11 @@ using Hermann.Helpers;
 public class GameManager : MonoBehaviour
 {
     /// <summary>
+    /// デバッグモードかどうか
+    /// </summary>
+    public static bool Debug = true;
+
+    /// <summary>
     /// スライムオブジェクト
     /// </summary>
     public GameObject SlimeObject;
@@ -51,7 +56,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// フィールドの送信機能
     /// </summary>
-    //private static FieldContextSender<string> Sender;
+    private static FieldContextSender<string> Sender;
 
     /// <summary>
     /// 方向：無で更新するフレーム回数
@@ -95,7 +100,7 @@ public class GameManager : MonoBehaviour
         // 初期フィールド状態の取得
         NoneDirectionUpdateFrameCount = 0;
         Receiver = NativeClientDiProvider.GetContainer().GetInstance<CommandReceiver<NativeCommand, FieldContext>>();
-        //Sender = NativeClientDiProvider.GetContainer().GetInstance<FieldContextSender<string>>();
+        Sender = NativeClientDiProvider.GetContainer().GetInstance<FieldContextSender<string>>();
         UiDecorationContainerReceiver = NativeClientDiProvider.GetContainer().GetInstance<UiDecorationContainerReceiver>();
         var command = NativeClientDiProvider.GetContainer().GetInstance<NativeCommand>();
         command.Command = Command.Start;
@@ -119,8 +124,8 @@ public class GameManager : MonoBehaviour
         c.Context = Context.DeepCopy();
         c.Context.OperationPlayer = NoneMovePlayer;
         NoneMovePlayer = Player.GetOppositeIndex(NoneMovePlayer);
-        //FileHelper.WriteLine("----- 移動方向無コマンドの実行 -----");
-        //FileHelper.WriteLine(Sender.Send(Context));
+        DebugLog("----- 移動方向無コマンドの実行 -----");
+        DebugLog(Sender.Send(Context));
         Context = Receiver.Receive(c);
 
         // 入力を受け付けたコマンドの実行
@@ -141,19 +146,12 @@ public class GameManager : MonoBehaviour
             c = NativeClientDiProvider.GetContainer().GetInstance<NativeCommand>();
             c.Command = Command.Move;
             c.Context = Context.DeepCopy();
-            //FileHelper.WriteLine("----- 入力を受け付けたコマンドの実行 -----");
-            //FileHelper.WriteLine(Sender.Send(Context));
+            DebugLog("----- 入力を受け付けたコマンドの実行 -----");
+            DebugLog(Sender.Send(Context));
             Context = Receiver.Receive(c);
         }
 
         var container = UiDecorationContainerReceiver.Receive(Context);
-        // TODO：あとで消す
-        //FileHelper.WriteLine("----- 結合状態 -----");
-        //var joinStatus = container.SlimeJoinStatus[(int)Player.Index.First];
-        //for(var i = 0; i < joinStatus.Length; i++)
-        //{
-        //    FileHelper.WriteLine(string.Format("[{0}]{1}", i, joinStatus[i]));
-        //}
 
         // 画面描画
         Player.ForEach(player =>
@@ -164,5 +162,17 @@ public class GameManager : MonoBehaviour
             }
             this.Slimes[player] = this.FieldContextReflector.Update(player, container);
         });
+    }
+
+    /// <summary>
+    /// デバッグログを出力します。
+    /// </summary>
+    /// <param name="log">ログ文字列</param>
+    private static void DebugLog(string log)
+    {
+        if (Debug)
+        {
+            FileHelper.WriteLine(log);
+        }
     }
 }

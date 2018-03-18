@@ -97,7 +97,6 @@ namespace Assets.Scripts.Updater
                     // スライム初期化のために結合状態を取得
                     var joinStateIndex = ((unit - (FieldContextConfig.MaxHiddenUnitIndex + 1)) * FieldContextConfig.FieldUnitBitCount) + index;
                     var joinState = container.SlimeJoinStatus[(int)player][joinStateIndex];
-                    //FileHelper.WriteLine(string.Format("joinStateIndex:{0} joinState:{1}", joinStateIndex, joinState));
 
                     // 初期化
                     var uiSlime = slime.GetComponent<UiSlime>();

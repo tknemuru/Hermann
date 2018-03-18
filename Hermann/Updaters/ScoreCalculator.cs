@@ -24,6 +24,11 @@ namespace Hermann.Updaters
         private const int ChainModRate = 2;
 
         /// <summary>
+        /// 落下ボーナス点
+        /// </summary>
+        private const int DownBonus = 1;
+
+        /// <summary>
         /// 連鎖に対する倍率テーブル
         /// </summary>
         private static readonly Dictionary<int, int> MagnificationTable = BuildMagnificationTable();
@@ -57,7 +62,10 @@ namespace Hermann.Updaters
             // 倍率
             var magnification = MagnificationTable[chain];
 
-            context.Score[(int)player] += baseScore * magnification;
+            // ボーナス
+            var bonus = context.OperationDirection == Direction.Down ? DownBonus : 0;
+
+            context.Score[(int)player] += (baseScore * magnification) + bonus;
         }
 
         /// <summary>
