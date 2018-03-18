@@ -62,6 +62,19 @@ namespace Hermann.Helpers
         }
 
         /// <summary>
+        /// 指定した場所のスライムを取得します。
+        /// </summary>
+        /// <param name="context">フィールドの状態</param>
+        /// <param name="player">プレイヤ</param>
+        /// <param name="unit">フィールドユニット</param>
+        /// <param name="index">ユニット内のインデックス</param>
+        /// <returns></returns>
+        public static Slime GetSlime(FieldContext context, Player.Index player, int unit, int index)
+        {
+            return ExtensionSlime.Slimes.Select(s => s).Where(s => ExistsSlime(context, player, unit, index, s)).FirstOrDefault();
+        }
+
+        /// <summary>
         /// 右の壁際かどうかを判定します。
         /// </summary>
         /// <param name="index">インデックス</param>

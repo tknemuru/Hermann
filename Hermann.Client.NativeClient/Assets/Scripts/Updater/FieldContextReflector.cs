@@ -76,13 +76,8 @@ namespace Assets.Scripts.Updater
                     }
 
                     // スライム色を取得
-                    // TODO
-                    var color = Slime.None;
-                    if(ExtensionSlime.Slimes.Any(s => FieldContextHelper.ExistsSlime(container.FieldContext, player, unit, index, s)))
-                    {
-                        color = ExtensionSlime.Slimes.Select(s => s).Where(s => FieldContextHelper.ExistsSlime(container.FieldContext, player, unit, index, s)).First();
-                    }
-                    else
+                    var color = FieldContextHelper.GetSlime(container.FieldContext, player, unit, index);
+                    if(color == Slime.None)
                     {
                         continue;
                     }

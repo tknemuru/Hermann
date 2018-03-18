@@ -26,7 +26,7 @@ namespace Hermann.Updaters
         /// <summary>
         /// 落下ボーナス点
         /// </summary>
-        private const int DownBonus = 1;
+        private const int DownBonus = 0;
 
         /// <summary>
         /// 連鎖に対する倍率テーブル
