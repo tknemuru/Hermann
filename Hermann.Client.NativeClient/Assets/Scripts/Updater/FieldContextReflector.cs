@@ -50,6 +50,7 @@ namespace Assets.Scripts.Updater
             var slimes = new List<GameObject>();
             this.ReflectSlimeField(player, container, slimes);
             this.ReflectNextSlimeField(player, container, slimes);
+            this.ReflectObstructionSlimes(player, container, slimes);
             return slimes;
         }
 
@@ -149,6 +150,54 @@ namespace Assets.Scripts.Updater
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="container"></param>
+        /// <param name="slimes"></param>
+        private void ReflectObstructionSlimes(Player.Index player, UiDecorationContainer container, List<GameObject> slimes)
+        {
+            // TODO:後で消す
+            //container.FieldContext.ObstructionSlimes[(int)player][ObstructionSlime.Big] = 1;
+            //container.FieldContext.ObstructionSlimes[(int)player][ObstructionSlime.Comet] = 1;
+            //container.FieldContext.ObstructionSlimes[(int)player][ObstructionSlime.Crown] = 1;
+            //container.FieldContext.ObstructionSlimes[(int)player][ObstructionSlime.Moon] = 1;
+            //container.FieldContext.ObstructionSlimes[(int)player][ObstructionSlime.Rock] = 1;
+            //container.FieldContext.ObstructionSlimes[(int)player][ObstructionSlime.Star] = 1;
+            //container.FieldContext.ObstructionSlimes[(int)player][ObstructionSlime.Small] = 5;
+
+            // 大きい順にソート
+            var obstructions = container.FieldContext.ObstructionSlimes[(int)player].OrderByDescending(obs => obs.Key);
+            var index = FieldContextConfig.VerticalLineLength - 1;
+
+            foreach (var obs in obstructions)
+            {
+                for(var i = 0; i < obs.Value && index >= 0; i++)
+                {
+                    var field = UiFieldHelper.GetPlayerField(player);
+                    var slime = Instantiate(this.SlimeObject);
+                    slimes.Add(slime);
+
+                    // フィールドを親にセット
+                    slime.transform.SetParent(field.transform);
+
+                    // 初期化
+                    var uiSlime = slime.GetComponent<UiSlime>();
+                    uiSlime.Initialize(slime, player, obs.Key);
+
+                    // サイズ・位置から座標を取得し、セット
+                    var position = GetObstructionSlimePosition(TransformHelper.GetScaledSize(field.GetComponent<RectTransform>()).x,
+                        TransformHelper.GetScaledSize(slime.GetComponent<Image>()).x,
+                        TransformHelper.GetScaledSize(field.GetComponent<RectTransform>()).y,
+                        TransformHelper.GetScaledSize(slime.GetComponent<Image>()).y,
+                        index);
+                    TransformHelper.SetPosition(slime.GetComponent<RectTransform>(), position);
+                    index--;
+                }
+            }
+        }
+
+        /// <summary>
         /// 指定したユニット・ユニット内のインデックスに対応したフィールド座標を取得します。
         /// </summary>
         /// <param name="fieldWidth">フィールドの横幅</param>
@@ -185,6 +234,25 @@ namespace Assets.Scripts.Updater
             var padding = index >= NextSlime.Length ? nextFieldHeight / ((MovableSlime.Length * NextSlime.Length) + 1) : 0f;
 
             return new Vector3(0f, y - ((slimeHeight * index) + padding));
+        }
+
+        /// <summary>
+        /// 指定したおじゃまスライムの座標を取得します。
+        /// </summary>
+        /// <param name="fieldWidth">フィールドの横幅</param>
+        /// <param name="slimeWidth">スライムの横幅</param>
+        /// <param name="fieldHeight">フィールドの縦幅</param>
+        /// <param name="slimeHeight">フィールドの縦幅</param>
+        /// <param name="index">順番</param>
+        /// <returns>指定したおじゃまスライムの座標</returns>
+        private static Vector3 GetObstructionSlimePosition(float fieldWidth, float slimeWidth, float fieldHeight, float slimeHeight, int index)
+        {
+            Debug.Assert(index <= FieldContextConfig.VerticalLineLength, "indexが横幅を超えています。");
+
+            var x = (fieldWidth / 2f) - (slimeWidth / 2f);
+            var y = (fieldHeight / 2f) + (slimeHeight / 2f);
+
+            return new Vector3((x - (slimeWidth * index)), y, BaseZ);
         }
     }
 }

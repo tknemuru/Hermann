@@ -44,6 +44,21 @@ public class UiSlime : MonoBehaviour {
     }
 
     /// <summary>
+    /// 初期化処理を行います。
+    /// </summary>
+    /// <param name="slime">スライムオブジェクト</param>
+    /// <param name="player">プレイヤ</param>
+    /// <param name="obs">おじゃまスライム</param>
+    public void Initialize(GameObject slime, Player.Index player, ObstructionSlime obs)
+    {
+        // おじゃまスライム画像の読み込み
+        slime.AddComponent<Image>().sprite = SpriteHelper.GetSprite(GetObstructionSlimeSpliteName(obs));
+
+        // おじゃまスライム画像のサイズを調整
+        AdjustImageSize(UiFieldHelper.GetPlayerField(player), slime);
+    }
+
+    /// <summary>
     /// スライムの画像サイズを調整します。
     /// </summary>
     /// <param name="field">フィールド</param>
@@ -71,5 +86,15 @@ public class UiSlime : MonoBehaviour {
     private static string GetSlimeSpliteName(Slime slime, SlimeJoinState joinState)
     {
         return slime.GetName().ToLower() + "_" + joinState.GetName().ToLower();
+    }
+
+    /// <summary>
+    /// おじゃまスライムのスプライト名を取得します。
+    /// </summary>
+    /// <param name="obs">おじゃまスライム</param>
+    /// <returns>おじゃまスライムのスプライト名</returns>
+    private static string GetObstructionSlimeSpliteName(ObstructionSlime obs)
+    {
+        return "obstruction_" + obs.GetName().ToLower();
     }
 }

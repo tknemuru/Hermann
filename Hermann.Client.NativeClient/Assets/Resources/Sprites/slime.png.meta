@@ -100,7 +100,7 @@ TextureImporter:
     21300186: blue_highreso
     21300188: yellow_highreso
     21300190: red_highreso
-    21300192: meteor
+    21300192: obstruction_comet
     21300194: yellow_small
     21300196: purple_small
     21300198: yellow_very_small
@@ -1656,7 +1656,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: meteor
+      name: obstruction_comet
       rect:
         serializedVersion: 2
         x: 385
