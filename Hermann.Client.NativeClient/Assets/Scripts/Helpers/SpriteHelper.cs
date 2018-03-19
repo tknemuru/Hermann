@@ -31,8 +31,8 @@ namespace Assets.Scripts.Helpers
             }
             catch(Exception ex)
             {
-                FileHelper.WriteLine(ex.ToString());
-                FileHelper.WriteLine("例外発生時名称：" + name);
+                FileHelper.WriteLine("unexpected sprite name. -> " + name);
+                throw ex;
             }
             return sprite;
         }

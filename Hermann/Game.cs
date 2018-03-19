@@ -261,6 +261,12 @@ namespace Hermann
                 {
                     this.RotationDirectionUpdater.Update(context);
                 }
+
+                // 移動が成功した場合は得点計算を行う
+                if (this.SlimeMover.Notifier == SlimeMover.MoveResult.Success)
+                {
+                    this.ScoreCalculator.Update(context, context.OperationPlayer);
+                }
             }
 
             // 方向：無での更新

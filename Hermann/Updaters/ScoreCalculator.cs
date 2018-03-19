@@ -26,7 +26,7 @@ namespace Hermann.Updaters
         /// <summary>
         /// 落下ボーナス点
         /// </summary>
-        private const int DownBonus = 0;
+        private const int DownBonus = 1;
 
         /// <summary>
         /// 連鎖に対する倍率テーブル
@@ -40,6 +40,19 @@ namespace Hermann.Updaters
         /// <param name="player">プレイヤ</param>
         public void Update(FieldContext context, Player.Index player)
         {
+            // 連鎖数
+            var chain = context.Chain[(int)player] / ChainModRate;
+
+            // ボーナス
+            var bonus = context.OperationDirection == Direction.Down ? DownBonus : 0;
+            context.Score[(int)player] += bonus;
+
+            // 連鎖数0以下ならボーナスのみ加算して処理終了
+            if (chain <= 0)
+            {
+                return;
+            }
+
             // 消したスライム数を算出
             var erasedCount = 0;
             for(var i = 0; i < FieldContextConfig.FieldUnitBitCount; i++)
@@ -56,16 +69,10 @@ namespace Hermann.Updaters
             // 基本点
             var baseScore = erasedCount * BaseRate;
 
-            // 連鎖数
-            var chain = context.Chain[(int)player] / ChainModRate;
-
             // 倍率
-            var magnification = MagnificationTable[chain];
+            var magnification = MagnificationTable[chain];            
 
-            // ボーナス
-            var bonus = context.OperationDirection == Direction.Down ? DownBonus : 0;
-
-            context.Score[(int)player] += (baseScore * magnification) + bonus;
+            context.Score[(int)player] += baseScore * magnification;
         }
 
         /// <summary>

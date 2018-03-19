@@ -114,6 +114,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (IsEnd(Context))
+        {
+            return;
+        }
+
         // 入力受付
         KeyInfos = KeyInfos.Concat(KeyMap.GetKeys().Select(k => k).Where(k => Input.GetKeyDown(k))).ToList();
 
@@ -162,6 +167,17 @@ public class GameManager : MonoBehaviour
             }
             this.Slimes[player] = this.FieldContextReflector.Update(player, container);
         });
+    }
+
+    /// <summary>
+    /// 勝負の結果が出たかどうかを判定します。
+    /// </summary>
+    /// <param name="context">フィールド状態</param>
+    /// <returns>勝負の結果が出たかどうか</returns>
+    private static bool IsEnd(FieldContext context)
+    {
+        return (LastWinCount[(int)Player.Index.First] != context.WinCount[(int)Player.Index.First] ||
+            LastWinCount[(int)Player.Index.Second] != context.WinCount[(int)Player.Index.Second]);
     }
 
     /// <summary>
