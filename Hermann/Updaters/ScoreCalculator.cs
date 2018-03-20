@@ -19,11 +19,6 @@ namespace Hermann.Updaters
         private const int BaseRate = 10;
 
         /// <summary>
-        /// 連鎖数の補正割合
-        /// </summary>
-        private const int ChainModRate = 2;
-
-        /// <summary>
         /// 落下ボーナス点
         /// </summary>
         private const int DownBonus = 1;
@@ -41,7 +36,7 @@ namespace Hermann.Updaters
         public void Update(FieldContext context, Player.Index player)
         {
             // 連鎖数
-            var chain = context.Chain[(int)player] / ChainModRate;
+            var chain = context.Chain[(int)player];
 
             // ボーナス
             var bonus = context.OperationDirection == Direction.Down ? DownBonus : 0;

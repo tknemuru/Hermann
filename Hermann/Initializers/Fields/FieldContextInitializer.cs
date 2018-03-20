@@ -54,6 +54,9 @@ namespace Hermann.Initializers.Fields
             // 操作方向
             context.OperationDirection = Direction.None;
 
+            // イベント
+            context.FieldEvent = new[] { FieldEvent.None, FieldEvent.None };
+
             // 回転方向
             context.RotationDirection = new[] { Direction.Right, Direction.Right };
 

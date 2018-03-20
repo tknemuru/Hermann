@@ -30,10 +30,44 @@ namespace Hermann.Api
         }
 
         /// <summary>
+        /// フィールドイベントを示す記号
+        /// </summary>
+        public static class FieldEventSymbol
+        {
+            /// <summary>
+            /// 無
+            /// </summary>
+            public const string None = "無";
+
+            /// <summary>
+            /// 連鎖開始
+            /// </summary>
+            public const string StartChain = "連鎖開始";
+
+            /// <summary>
+            /// 消済マーク
+            /// </summary>
+            public const string MarkErasing = "消済マーク";
+
+            /// <summary>
+            /// 削除
+            /// </summary>
+            public const string Erase = "削除";
+
+            /// <summary>
+            /// おじゃまスライム落下
+            /// </summary>
+            public const string DropObstructions = "おじゃまスライム落下";
+        }
+
+        /// <summary>
         /// 方向を示す記号
         /// </summary>
         public static class DirectionSymbol
         {
+            /// <summary>
+            /// 無
+            /// </summary>
             public const string None = "無";
 
             /// <summary>
@@ -191,6 +225,11 @@ namespace Hermann.Api
             public const string Player = "プレイヤ";
 
             /// <summary>
+            /// イベント
+            /// </summary>
+            public const string FieldEvent = "イベント";
+
+            /// <summary>
             /// 操作方向
             /// </summary>
             public const string Direction = "操作方向";
@@ -284,7 +323,7 @@ namespace Hermann.Api
             /// <summary>
             /// 合計行数
             /// </summary>
-            public const int Sum = 36;
+            public const int Sum = 37;
         }
 
         /// <summary>
@@ -314,78 +353,108 @@ namespace Hermann.Api
         }
 
         /// <summary>
+        /// イベントの変換辞書
+        /// </summary>
+        private static readonly Dictionary<FieldEvent, string> FieldEvents = BuildFieldEvents();
+
+        /// <summary>
+        /// イベントの逆引き変換辞書
+        /// </summary>
+        private static readonly Dictionary<string, FieldEvent> ReverseFieldEvents = BuildReverseFieldEvents();
+
+        /// <summary>
         /// 方向の変換辞書
         /// </summary>
-        private static readonly Dictionary<Direction, string> Directions = buildDirections();
+        private static readonly Dictionary<Direction, string> Directions = BuildDirections();
 
         /// <summary>
         /// 方向の逆引き変換辞書
         /// </summary>
-        private static readonly Dictionary<string, Direction> ReverseDirections = buildReverseDirections();
+        private static readonly Dictionary<string, Direction> ReverseDirections = BuildReverseDirections();
 
         /// <summary>
         /// スライムの変換辞書
         /// </summary>
-        private static readonly Dictionary<Slime, char> Slimes = buildSlimes();
+        private static readonly Dictionary<Slime, char> Slimes = BuildSlimes();
 
         /// <summary>
         /// スライムの逆引き変換辞書
         /// </summary>
-        private static readonly Dictionary<char, Slime> ReverseSlimes = buildReverseSlimes();
+        private static readonly Dictionary<char, Slime> ReverseSlimes = BuildReverseSlimes();
 
         /// <summary>
         /// 移動可能なスライムの変換辞書
         /// </summary>
-        private static readonly Dictionary<Slime, char> MovableSlimes = buildMovableSlimes();
+        private static readonly Dictionary<Slime, char> MovableSlimes = BuildMovableSlimes();
 
         /// <summary>
         /// 移動可能なスライムの逆引き変換辞書
         /// </summary>
-        private static readonly Dictionary<char, Slime> ReverseMovableSlimes = buildReverseMovableSlimes();
+        private static readonly Dictionary<char, Slime> ReverseMovableSlimes = BuildReverseMovableSlimes();
 
         /// <summary>
         /// 複数行情報の行数辞書
         /// </summary>
-        private static readonly Dictionary<string, int> MultiLineLengths = buildMultiLineLengths();
+        private static readonly Dictionary<string, int> MultiLineLengths = BuildMultiLineLengths();
 
         /// <summary>
         /// おじゃまぷよの変換辞書
         /// </summary>
-        private static readonly Dictionary<ObstructionSlime, char> ObstructionSlimes = buildObstructionSlimes();
+        private static readonly Dictionary<ObstructionSlime, char> ObstructionSlimes = BuildObstructionSlimes();
 
         /// <summary>
         /// おじゃまぷよの逆引き変換辞書
         /// </summary>
-        private static readonly Dictionary<char, ObstructionSlime> ReverseObstructionSlimes = buildReverseObstructionSlimes();
+        private static readonly Dictionary<char, ObstructionSlime> ReverseObstructionSlimes = BuildReverseObstructionSlimes();
 
         /// <summary>
         /// NEXTスライムのインデックスの変換辞書
         /// </summary>
-        private static readonly Dictionary<int, NextSlime.Index> NextSlimeIndexs = buildNextSlimeIndexs();
+        private static readonly Dictionary<int, NextSlime.Index> NextSlimeIndexs = BuildNextSlimeIndexs();
 
         /// <summary>
         /// 移動可能なスライムのインデックスの変換辞書
         /// </summary>
-        private static readonly Dictionary<int, MovableSlime.UnitIndex> MovableSlimeIndexs = buildMovableSlimeIndexs();
+        private static readonly Dictionary<int, MovableSlime.UnitIndex> MovableSlimeIndexs = BuildMovableSlimeIndexs();
 
         /// <summary>
-        /// 方向の変換を行います。
+        /// フィールドイベントの変換を行います。
         /// </summary>
-        /// <param name="directions">変換前の方向</param>
-        /// <returns>変換後の方向</returns>
-        public static string ConvertDirection(Direction directions)
+        /// <param name="fieldEvent">変換前のフィールドイベント</param>
+        /// <returns>変換後のフィールドイベント</returns>
+        public static string ConvertFieldEvent(FieldEvent fieldEvent)
         {
-            return Directions[directions];
+            return FieldEvents[fieldEvent];
+        }
+
+        /// <summary>
+        /// フィールドイベントの変換を行います。
+        /// </summary>
+        /// <param name="fieldEvent">変換前のフィールドイベント</param>
+        /// <returns>変換後のフィールドイベント</returns>
+        public static FieldEvent ConvertFieldEvent(string fieldEvent)
+        {
+            return ReverseFieldEvents[fieldEvent];
         }
 
         /// <summary>
         /// 方向の変換を行います。
         /// </summary>
-        /// <param name="directions">変換前の方向</param>
+        /// <param name="direction">変換前の方向</param>
         /// <returns>変換後の方向</returns>
-        public static Direction ConvertDirection(string directions)
+        public static string ConvertDirection(Direction direction)
         {
-            return ReverseDirections[directions];
+            return Directions[direction];
+        }
+
+        /// <summary>
+        /// 方向の変換を行います。
+        /// </summary>
+        /// <param name="direction">変換前の方向</param>
+        /// <returns>変換後の方向</returns>
+        public static Direction ConvertDirection(string direction)
+        {
+            return ReverseDirections[direction];
         }
 
         /// <summary>
@@ -489,10 +558,40 @@ namespace Hermann.Api
         }
 
         /// <summary>
+        /// フィールドイベントの変換辞書を作成します。
+        /// </summary>
+        /// <returns>フィールドイベントの変換辞書</returns>
+        private static Dictionary<FieldEvent, string> BuildFieldEvents()
+        {
+            var fieldEvents = new Dictionary<FieldEvent, string>();
+            fieldEvents.Add(FieldEvent.None, FieldEventSymbol.None);
+            fieldEvents.Add(FieldEvent.DropObstructions, FieldEventSymbol.DropObstructions);
+            fieldEvents.Add(FieldEvent.Erase, FieldEventSymbol.Erase);
+            fieldEvents.Add(FieldEvent.MarkErasing, FieldEventSymbol.MarkErasing);
+            fieldEvents.Add(FieldEvent.StartChain, FieldEventSymbol.StartChain);
+            return fieldEvents;
+        }
+
+        /// <summary>
+        /// 方向の逆引き変換辞書を作成します。
+        /// </summary>
+        /// <returns>方向の逆引き変換辞書</returns>
+        private static Dictionary<string, FieldEvent> BuildReverseFieldEvents()
+        {
+            var fieldEvents = new Dictionary<string, FieldEvent>();
+            fieldEvents.Add(FieldEventSymbol.None, FieldEvent.None);
+            fieldEvents.Add(FieldEventSymbol.DropObstructions, FieldEvent.DropObstructions);
+            fieldEvents.Add(FieldEventSymbol.Erase, FieldEvent.Erase);
+            fieldEvents.Add(FieldEventSymbol.MarkErasing, FieldEvent.MarkErasing);
+            fieldEvents.Add(FieldEventSymbol.StartChain, FieldEvent.StartChain);
+            return fieldEvents;
+        }
+
+        /// <summary>
         /// 方向の変換辞書を作成します。
         /// </summary>
         /// <returns>方向の変換辞書</returns>
-        private static Dictionary<Direction, string> buildDirections()
+        private static Dictionary<Direction, string> BuildDirections()
         {
             var directions = new Dictionary<Direction, string>();
             directions.Add(Direction.None, DirectionSymbol.None);
@@ -507,7 +606,7 @@ namespace Hermann.Api
         /// 方向の逆引き変換辞書を作成します。
         /// </summary>
         /// <returns>方向の逆引き変換辞書</returns>
-        private static Dictionary<string, Hermann.Models.Direction> buildReverseDirections()
+        private static Dictionary<string, Direction> BuildReverseDirections()
         {
             var directions = new Dictionary<string, Direction>();
             directions.Add(DirectionSymbol.None, Direction.None);
@@ -522,7 +621,7 @@ namespace Hermann.Api
         /// スライムの変換辞書を作成します。
         /// </summary>
         /// <returns>スライムの変換辞書</returns>
-        private static Dictionary<Slime, char> buildSlimes()
+        private static Dictionary<Slime, char> BuildSlimes()
         {
             var slimes = new Dictionary<Slime, char>();
             slimes.Add(Slime.None, SlimeSymbol.None);
@@ -540,7 +639,7 @@ namespace Hermann.Api
         /// スライムの変換辞書を作成します。
         /// </summary>
         /// <returns>スライムの変換辞書</returns>
-        private static Dictionary<char, Slime> buildReverseSlimes()
+        private static Dictionary<char, Slime> BuildReverseSlimes()
         {
             var slimes = new Dictionary<char, Slime>();
             slimes.Add(SlimeSymbol.None, Slime.None);
@@ -558,7 +657,7 @@ namespace Hermann.Api
         /// 移動可能なスライムの変換辞書を作成します。
         /// </summary>
         /// <returns>移動可能なスライムの変換辞書</returns>
-        private static Dictionary<Slime, char> buildMovableSlimes()
+        private static Dictionary<Slime, char> BuildMovableSlimes()
         {
             var slimes = new Dictionary<Slime, char>();
             slimes.Add(Slime.Blue, MovableSlimeSymbol.Blue);
@@ -575,7 +674,7 @@ namespace Hermann.Api
         /// 移動可能なスライムの逆引き変換辞書を作成します。
         /// </summary>
         /// <returns>移動可能なスライムの変換辞書</returns>
-        private static Dictionary<char, Slime> buildReverseMovableSlimes()
+        private static Dictionary<char, Slime> BuildReverseMovableSlimes()
         {
             var slimes = new Dictionary<char, Slime>();
             slimes.Add(MovableSlimeSymbol.Blue, Slime.Blue);
@@ -592,7 +691,7 @@ namespace Hermann.Api
         /// 複数行情報の行数辞書を作成します。
         /// </summary>
         /// <returns>複数行情報の行数辞書</returns>
-        private static Dictionary<string, int> buildMultiLineLengths()
+        private static Dictionary<string, int> BuildMultiLineLengths()
         {
             var lengths = new Dictionary<string, int>();
             lengths.Add(Keys.ObstructionSlime, Length.Obstruction);
@@ -604,7 +703,7 @@ namespace Hermann.Api
         /// おじゃまスライムの変換辞書を作成します。
         /// </summary>
         /// <returns>おじゃまスライムの変換辞書</returns>
-        private static Dictionary<ObstructionSlime, char> buildObstructionSlimes()
+        private static Dictionary<ObstructionSlime, char> BuildObstructionSlimes()
         {
             var dic = new Dictionary<ObstructionSlime, char>();
             dic.Add(ObstructionSlime.Small, ObstructionSlimeSymbol.Small);
@@ -622,7 +721,7 @@ namespace Hermann.Api
         /// おじゃまスライムの逆引き変換辞書を作成します。
         /// </summary>
         /// <returns>おじゃまスライムの逆引き変換辞書</returns>
-        private static Dictionary<char, ObstructionSlime> buildReverseObstructionSlimes()
+        private static Dictionary<char, ObstructionSlime> BuildReverseObstructionSlimes()
         {
             var dic = new Dictionary<char, ObstructionSlime>();
             dic.Add(ObstructionSlimeSymbol.Small, ObstructionSlime.Small);
@@ -640,7 +739,7 @@ namespace Hermann.Api
         /// NEXTスライムのインデックスの変換辞書を作成します。
         /// </summary>
         /// <returns>NEXTスライムのインデックスの変換辞書</returns>
-        private static Dictionary<int, NextSlime.Index> buildNextSlimeIndexs()
+        private static Dictionary<int, NextSlime.Index> BuildNextSlimeIndexs()
         {
             var dic = new Dictionary<int, NextSlime.Index>();
             dic.Add(SimpleText.Index.NextSlimeFirstUnitFirstSlime, NextSlime.Index.First);
@@ -655,7 +754,7 @@ namespace Hermann.Api
         /// 移動可能なスライムのインデックスの変換辞書を作成します。
         /// </summary>
         /// <returns></returns>
-        private static Dictionary<int, MovableSlime.UnitIndex> buildMovableSlimeIndexs()
+        private static Dictionary<int, MovableSlime.UnitIndex> BuildMovableSlimeIndexs()
         {
             var dic = new Dictionary<int, MovableSlime.UnitIndex>();
             dic.Add(SimpleText.Index.NextSlimeFirstUnitFirstSlime, MovableSlime.UnitIndex.First);

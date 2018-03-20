@@ -119,5 +119,41 @@ namespace Hermann.Tests
             TestDiProvider.GetContainer().Verify();
             this.Game = new Game();
         }
+
+        /// <summary>
+        /// 003:設置残タイム0で移動して接地を解除する
+        /// </summary>
+        [TestMethod]
+        public void 設置残タイム0で移動して接地を解除する()
+        {
+            TestDiProvider.Register();
+            var container = TestDiProvider.GetContainer();
+            container.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(1, 12));
+            container.Verify();
+            this.Game = new Game();
+
+            var context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-003-001.txt");
+            this.Game.Update(context);
+            var expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-003-001.txt");
+            TestHelper.AssertEqualsFieldContext(expectedContext, context);
+        }
+
+        /// <summary>
+        /// 004:設置残タイムが0になった時点で連鎖開始される
+        /// </summary>
+        [TestMethod]
+        public void 設置残タイムが0になった時点で連鎖開始される()
+        {
+            TestDiProvider.Register();
+            var container = TestDiProvider.GetContainer();
+            container.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(1, 12));
+            container.Verify();
+            this.Game = new Game();
+
+            var context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-004-001.txt");
+            this.Game.Update(context);
+            var expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-004-001.txt");
+            TestHelper.AssertEqualsFieldContext(expectedContext, context);
+        }
     }
 }

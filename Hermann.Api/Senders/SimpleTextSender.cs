@@ -28,6 +28,10 @@ namespace Hermann.Api.Senders
             // プレイヤ
             sb.AppendLine(ToString(SimpleText.Keys.Player, (int)context.OperationPlayer));
 
+            // イベント
+            sb.AppendLine(ArrayToString(SimpleText.Keys.FieldEvent,
+                new[] { SimpleText.ConvertFieldEvent(context.FieldEvent[(int)Player.Index.First]), SimpleText.ConvertFieldEvent(context.FieldEvent[(int)Player.Index.Second]) }));
+
             // 操作方向
             sb.AppendLine(ToString(SimpleText.Keys.Direction, SimpleText.ConvertDirection(context.OperationDirection)));
 

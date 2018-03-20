@@ -17,6 +17,11 @@ namespace Hermann.Contexts
         public Player.Index OperationPlayer { get; set; }
 
         /// <summary>
+        /// イベント
+        /// </summary>
+        public FieldEvent[] FieldEvent { get; set; }
+
+        /// <summary>
         /// 操作方向
         /// </summary>
         public Direction OperationDirection { get; set; }
@@ -101,6 +106,7 @@ namespace Hermann.Contexts
         /// </summary>
         public FieldContext()
         {
+            this.FieldEvent = new FieldEvent[Player.Length];
             this.RotationDirection = new Direction[Player.Length];
             this.Ground = new[] { false, false };
             this.BuiltRemainingTime = new long[Player.Length];
@@ -153,6 +159,9 @@ namespace Hermann.Contexts
 
             for (var player = Player.Index.First; (int)player < Player.Length; player++)
             {
+                // イベント
+                context.FieldEvent[(int)player] = this.FieldEvent[(int)player];
+
                 // 回転方向
                 context.RotationDirection[(int)player] = this.RotationDirection[(int)player];
 
@@ -263,6 +272,9 @@ namespace Hermann.Contexts
 
             for (var player = Player.Index.First; (int)player < Player.Length; player++)
             {
+                // イベント
+                equals.Add(context.FieldEvent[(int)player] == this.FieldEvent[(int)player]);
+
                 // 回転方向
                 equals.Add(context.RotationDirection[(int)player] == this.RotationDirection[(int)player]);
 
@@ -353,7 +365,7 @@ namespace Hermann.Contexts
         /// <returns>現在のオブジェクトのハッシュ コード。</returns>
         public override int GetHashCode()
         {
-            return this.OperationPlayer.GetHashCode() ^ this.OperationDirection.GetHashCode() ^ this.RotationDirection.GetHashCode() ^ this.Time.GetHashCode() ^ this.Ground.GetHashCode() ^
+            return this.OperationPlayer.GetHashCode() ^ this.FieldEvent.GetHashCode() ^ this.OperationDirection.GetHashCode() ^ this.RotationDirection.GetHashCode() ^ this.Time.GetHashCode() ^ this.Ground.GetHashCode() ^
                 this.BuiltRemainingTime.GetHashCode() ^ this.Score.GetHashCode() ^ this.Chain.GetHashCode() ^ this.Offset.GetHashCode() ^
                 this.AllErase.GetHashCode() ^ this.WinCount.GetHashCode() ^ this.ObstructionSlimes.GetHashCode() ^
                 this.MovableSlimes.GetHashCode() ^ this.SlimeFields.GetHashCode() ^ this.NextSlimes.GetHashCode();

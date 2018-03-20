@@ -37,6 +37,9 @@ namespace Hermann.Api.Receivers
             // プレイヤ
             context.OperationPlayer = (Player.Index)int.Parse(dic[SimpleText.Keys.Player]);
 
+            // イベント
+            context.FieldEvent = Parse(dic[SimpleText.Keys.FieldEvent], SimpleText.ConvertFieldEvent);
+
             // 操作方向
             context.OperationDirection = SimpleText.ConvertDirection(dic[SimpleText.Keys.Direction]);
 

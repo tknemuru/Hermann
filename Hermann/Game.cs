@@ -106,11 +106,6 @@ namespace Hermann
         private MovableSlimeStateAnalyzer MovableSlimeStateAnalyzer { get; set; }
 
         /// <summary>
-        /// 設置残タイムの初期化機能
-        /// </summary>
-        private BuiltRemainingTimeInitializer BuiltRemainingTimeInitializer { get; set; }
-
-        /// <summary>
         ///フィールド状態の初期化機能
         /// </summary>
         private FieldContextInitializer FieldContextInitializer { get; set; }
@@ -169,7 +164,6 @@ namespace Hermann
             this.RotationDirectionUpdater = DiProvider.GetContainer().GetInstance<RotationDirectionUpdater>();
             this.RotationDirectionInitializer = DiProvider.GetContainer().GetInstance<RotationDirectionInitializer>();
             this.MovableSlimeStateAnalyzer = DiProvider.GetContainer().GetInstance<MovableSlimeStateAnalyzer>();
-            this.BuiltRemainingTimeInitializer = DiProvider.GetContainer().GetInstance<BuiltRemainingTimeInitializer>();
             this.UsingSlimeGenerator = DiProvider.GetContainer().GetInstance<UsingSlimeGenerator>();
             this.MovableSlimesUpdater = DiProvider.GetContainer().GetInstance<MovableSlimesUpdater>();
             this.ObstructionSlimeCalculator = DiProvider.GetContainer().GetInstance<ObstructionSlimeCalculator>();
@@ -216,30 +210,35 @@ namespace Hermann
             // 時間の更新
             this.TimeUpdater.Update(context);
 
-            if (context.Chain[(int)player] > 0)
+            switch (context.FieldEvent[(int)player])
             {
-                // 連鎖数が1以上なら連鎖処理
-                this.Chain(context, player);
-            }
-            else if (context.BuiltRemainingTime[(int)player] <= 0)
-            {
-                // 設置残タイムが0未満
-                this.Drop(context, player);
-            }
-            else
-            {
-                // 設置残タイムの更新
-                if (context.Ground[(int)player])
-                {
-                    this.BuiltRemainingTimeUpdater.Update(context);
-                }
-                else
-                {
-                    this.BuiltRemainingTimeUpdater.Reset(context);
-                }
+                case FieldEvent.StartChain:
+                    this.StartChain(context, player);
+                    break;
+                case FieldEvent.MarkErasing:
+                    this.MarkErasing(context, player);
+                    break;
+                case FieldEvent.Erase:
+                    this.Erase(context, player);
+                    break;
+                case FieldEvent.DropObstructions:
+                    this.Drop(context, player);
+                    break;
+                case FieldEvent.None:
+                    // 設置残タイムの更新
+                    if (context.Ground[(int)player])
+                    {
+                        this.BuiltRemainingTimeUpdater.Update(context);
+                    }
+                    else
+                    {
+                        this.BuiltRemainingTimeUpdater.Reset(context);
+                    }
 
-                // それ以外は移動処理
-                this.Move(context);
+                    this.Move(context);
+                    break;
+                default:
+                    throw new ArgumentException("イベントが不正です");
             }
 
             return context;
@@ -251,10 +250,12 @@ namespace Hermann
         /// <param name="context">フィールドの状態</param>
         private void Move(FieldContext context)
         {
+            var player = context.OperationPlayer;
+
             // プレイヤの操作による移動
             if (context.OperationDirection != Direction.None)
             {
-                this.SlimeMover.Update(context, context.OperationPlayer);
+                this.SlimeMover.Update(context, player);
 
                 // 回転が成功した場合は回転方向を変更する
                 if (context.OperationDirection == Direction.Up && this.SlimeMover.Notifier == SlimeMover.MoveResult.Success)
@@ -265,7 +266,7 @@ namespace Hermann
                 // 移動が成功した場合は得点計算を行う
                 if (this.SlimeMover.Notifier == SlimeMover.MoveResult.Success)
                 {
-                    this.ScoreCalculator.Update(context, context.OperationPlayer);
+                    this.ScoreCalculator.Update(context, player);
                 }
             }
 
@@ -274,6 +275,7 @@ namespace Hermann
             this.NoneDirectionUpdateCount = 0;
             for (var i = 0; i < count; i++)
             {
+                // TODO:なんか微妙
                 // 移動
                 Player.ForEach((p) =>
                 {
@@ -287,69 +289,72 @@ namespace Hermann
                 });
             }
 
-            Player.ForEach((player) =>
+            Player.ForEach((p) =>
                 {
                     // 接地の更新
-                    this.GroundUpdater.Update(context, player);
+                    this.GroundUpdater.Update(context, p);
                 });
 
-            if (this.MovableSlimeStateAnalyzer.Analyze(context, context.OperationPlayer) == MovableSlimeStateAnalyzer.Status.HasBuilt)
+            if (this.MovableSlimeStateAnalyzer.Analyze(context, player) == MovableSlimeStateAnalyzer.Status.HasBuilt)
             {
                 // 連鎖開始
-                context.Chain[(int)context.OperationPlayer]++;
+                context.FieldEvent[(int)player] = FieldEvent.StartChain;
             }
         }
 
         /// <summary>
-        /// 連鎖処理を行います。
+        /// 連鎖処理を開始します。
         /// </summary>
         /// <param name="context">フィールド状態</param>
         /// <param name="player">プレイヤ</param>
-        private void Chain(FieldContext context, Player.Index player)
+        private void StartChain(FieldContext context, Player.Index player)
         {
-            if (context.Chain[(int)player] == 1)
-            {
-                // 移動可能スライムを通常のスライムに変換する
-                this.MovableSlimesUpdater.Update(context, player, MovableSlimesUpdater.Option.BeforeDropObstruction);
-                // 重力で落とす
-                this.Gravity.Update(context, player);
+            // 移動可能スライムを通常のスライムに変換する
+            this.MovableSlimesUpdater.Update(context, player, MovableSlimesUpdater.Option.BeforeDropObstruction);
+            // 重力で落とす
+            this.Gravity.Update(context, player);
+            // 接地の更新
+            this.GroundUpdater.Update(context, player);
 
+            context.FieldEvent[(int)player] = FieldEvent.MarkErasing;
+        }
+
+        private void MarkErasing(FieldContext context, Player.Index player)
+        {
+            // 消す対象のスライムを消済スライムとしてマーキングする
+            this.SlimeErasingMarker.Update(context);
+
+            // 隣接するおじゃまスライムを消済スライムとしてマーキングする
+            this.ObstructionSlimeErasingMarker.Update(context, player);
+
+            // 連鎖数の更新
+            if (context.SlimeFields[(int)player][Slime.Erased].Any(f => f > 0))
+            {
                 context.Chain[(int)player]++;
-            }
-            else if (context.Chain[(int)player] % 2 == 0)
-            {
-                // 消す対象のスライムを消済スライムとしてマーキングする
-                this.SlimeErasingMarker.Update(context);
-
-                // 隣接するおじゃまスライムを消済スライムとしてマーキングする
-                this.ObstructionSlimeErasingMarker.Update(context, player);
-
-                // 連鎖数の更新
-                if (context.SlimeFields[(int)player][Slime.Erased].Any(f => f > 0))
-                {
-                    context.Chain[(int)player]++;
-                }
-                else
-                {
-                    context.Chain[(int)player] = 0;
-                }
+                context.FieldEvent[(int)player] = FieldEvent.Erase;
             }
             else
             {
-                // 得点を計算
-                this.ScoreCalculator.Update(context, player);
-
-                // おじゃまスライムを算出して加算
-                this.ObstructionSlimeCalculator.Update(context, player);
-
-                // 消済スライムを削除する
-                this.SlimeEraser.Update(context);
-
-                // 重力で落とす
-                this.Gravity.Update(context, player);
-
-                context.Chain[(int)player]++;
+                context.Chain[(int)player] = 0;
+                context.FieldEvent[(int)player] = FieldEvent.DropObstructions;
             }
+        }
+
+        private void Erase(FieldContext context, Player.Index player)
+        {
+            // 得点を計算
+            this.ScoreCalculator.Update(context, player);
+
+            // おじゃまスライムを算出して加算
+            this.ObstructionSlimeCalculator.Update(context, player);
+
+            // 消済スライムを削除する
+            this.SlimeEraser.Update(context);
+
+            // 重力で落とす
+            this.Gravity.Update(context, player);
+
+            context.FieldEvent[(int)player] = FieldEvent.MarkErasing;
         }
 
         /// <summary>
@@ -379,10 +384,12 @@ namespace Hermann
             this.RotationDirectionInitializer.Update(context);
 
             // 設置残タイム
-            this.BuiltRemainingTimeInitializer.Initialize(context);
+            this.BuiltRemainingTimeUpdater.Reset(context);
 
             // 新しいNextスライムを用意
             this.NextSlimeUpdater.Update(context, player);
+
+            context.FieldEvent[(int)player] = FieldEvent.None;
         }
     }
 }
