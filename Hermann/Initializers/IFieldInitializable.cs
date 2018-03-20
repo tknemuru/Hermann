@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Initializers.Fields
+namespace Hermann.Initializers
 {
     /// <summary>
     /// フィールド状態に対する初期化機能を提供します。

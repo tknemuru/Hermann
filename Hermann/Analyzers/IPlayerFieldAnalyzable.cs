@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Analyzers.Fields
+namespace Hermann.Analyzers
 {
     /// <summary>
     /// 指定したプレイヤのフィールド状態の分析機能を提供します。

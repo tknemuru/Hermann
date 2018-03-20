@@ -1,5 +1,5 @@
 ﻿using System;
-using Hermann.Analyzers.Fields;
+using Hermann.Analyzers;
 using Hermann.Contexts;
 using Hermann.Helpers;
 using Hermann.Models;
@@ -34,7 +34,7 @@ namespace Hermann.Tests.Analyzers.Fields
         public void スライムの結合状態が分析できる()
         {
             // 001:上下左右結合以外
-            var context = TestHelper.Receiver.Receive("../../resources/analyzers/fields/slimejoinstateanalyzer/test-field-in-001-001.txt");
+            var context = TestHelper.Receiver.Receive("../../resources/analyzers/slimejoinstateanalyzer/test-field-in-001-001.txt");
             var status = this.Analyzer.Analyze(context, context.OperationPlayer);
 
             // 初期状態
@@ -87,7 +87,7 @@ namespace Hermann.Tests.Analyzers.Fields
             Assert.AreEqual(SlimeJoinState.UpRightLeft, status[TestHelper.GetShift(12, 4, true)]);
 
             // 002:上下左右結合
-            context = TestHelper.Receiver.Receive("../../resources/analyzers/fields/slimejoinstateanalyzer/test-field-in-001-002.txt");
+            context = TestHelper.Receiver.Receive("../../resources/analyzers/slimejoinstateanalyzer/test-field-in-001-002.txt");
             status = this.Analyzer.Analyze(context, context.OperationPlayer);
 
             // 上下右左結合
@@ -100,7 +100,7 @@ namespace Hermann.Tests.Analyzers.Fields
         public void 消済スライムの結合状態が分析できる()
         {
             // 001:上下左右結合以外
-            var context = TestHelper.Receiver.Receive("../../resources/analyzers/fields/slimejoinstateanalyzer/test-field-in-002-001.txt");
+            var context = TestHelper.Receiver.Receive("../../resources/analyzers/slimejoinstateanalyzer/test-field-in-002-001.txt");
             var status = this.Analyzer.Analyze(context, context.OperationPlayer);
 
             // 初期状態
@@ -153,7 +153,7 @@ namespace Hermann.Tests.Analyzers.Fields
             Assert.AreEqual(SlimeJoinState.Default, status[TestHelper.GetShift(12, 4, true)]);
 
             // 002:上下左右結合
-            context = TestHelper.Receiver.Receive("../../resources/analyzers/fields/slimejoinstateanalyzer/test-field-in-002-002.txt");
+            context = TestHelper.Receiver.Receive("../../resources/analyzers/slimejoinstateanalyzer/test-field-in-002-002.txt");
             status = this.Analyzer.Analyze(context, context.OperationPlayer);
 
             // 上下右左結合

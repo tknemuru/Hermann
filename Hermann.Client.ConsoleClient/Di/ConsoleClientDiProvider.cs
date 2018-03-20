@@ -71,7 +71,7 @@ namespace Hermann.Client.ConsoleClient.Di
             MyContainer.Register<FieldContextReceiver<string>, SimpleTextReceiver>(Lifestyle.Singleton);
             MyContainer.Register<FieldContextSender<string>, SimpleTextSender>(Lifestyle.Singleton);
             MyContainer.Register<ITimeUpdatable>(() => new TimeElapsedTicksUpdater());
-            MyContainer.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeElapsedTicksUpdater());
+            MyContainer.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(1, 3));
 
             DiProvider.SetContainer(MyContainer);
             MyContainer.Verify();

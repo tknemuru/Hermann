@@ -1,4 +1,4 @@
-﻿using Hermann.Analyzers.Fields;
+﻿using Hermann.Analyzers;
 using Hermann.Api.Containers;
 using Hermann.Contexts;
 using Hermann.Di;
