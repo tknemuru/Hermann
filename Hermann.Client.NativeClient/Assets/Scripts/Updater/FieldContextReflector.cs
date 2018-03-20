@@ -150,7 +150,7 @@ namespace Assets.Scripts.Updater
         }
 
         /// <summary>
-        /// 
+        /// おじゃまスライムの反映を行います。
         /// </summary>
         /// <param name="player"></param>
         /// <param name="container"></param>
@@ -187,9 +187,9 @@ namespace Assets.Scripts.Updater
 
                     // サイズ・位置から座標を取得し、セット
                     var position = GetObstructionSlimePosition(TransformHelper.GetScaledSize(field.GetComponent<RectTransform>()).x,
-                        TransformHelper.GetScaledSize(slime.GetComponent<Image>()).x,
+                        UiFieldHelper.GetOneColumnWidth(),
                         TransformHelper.GetScaledSize(field.GetComponent<RectTransform>()).y,
-                        TransformHelper.GetScaledSize(slime.GetComponent<Image>()).y,
+                        UiFieldHelper.GetOneColumnWidth(),
                         index);
                     TransformHelper.SetPosition(slime.GetComponent<RectTransform>(), position);
                     index--;

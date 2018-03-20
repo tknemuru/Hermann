@@ -55,7 +55,8 @@ public class UiSlime : MonoBehaviour {
         slime.AddComponent<Image>().sprite = SpriteHelper.GetSprite(GetObstructionSlimeSpliteName(obs));
 
         // おじゃまスライム画像のサイズを調整
-        AdjustImageSize(UiFieldHelper.GetPlayerField(player), slime);
+        var scale = obs == ObstructionSlime.Small ? 0.5f : 1.0f;
+        AdjustImageSize(UiFieldHelper.GetPlayerField(player), slime, scale);
     }
 
     /// <summary>
@@ -63,7 +64,8 @@ public class UiSlime : MonoBehaviour {
     /// </summary>
     /// <param name="field">フィールド</param>
     /// <param name="slime">スライム</param>
-    private static void AdjustImageSize(GameObject field, GameObject slime)
+    /// <param name="customScale">標準比率にかける任意の調整比率</param>
+    private static void AdjustImageSize(GameObject field, GameObject slime, float customScale = 1.0f)
     {
         var imageScale = TransformHelper.GetScale(slime.GetComponent<Image>());
         var imageSize = TransformHelper.GetSize(slime.GetComponent<Image>());
@@ -74,6 +76,7 @@ public class UiSlime : MonoBehaviour {
 
         // フィールドの横幅から比率を算出して更新
         var scale = TransformHelper.GetSize(field.GetComponent<RectTransform>()).x / (imageSize.x * FieldContextConfig.VerticalLineLength);
+        scale *= customScale;
         TransformHelper.SetScale(slime.GetComponent<Image>(), new Vector3(scale, scale, 0f));
     }
 

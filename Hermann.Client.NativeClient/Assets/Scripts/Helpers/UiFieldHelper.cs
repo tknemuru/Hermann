@@ -1,4 +1,5 @@
-﻿using Hermann.Models;
+﻿using Hermann.Contexts;
+using Hermann.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,15 @@ namespace Assets.Scripts.Helpers
         public static GameObject GetPlayerNextSlimeField(Player.Index player)
         {
             return GameObject.Find(GetNextSlimeFieldName(player));
+        }
+
+        /// <summary>
+        /// 1列の横幅を取得します。
+        /// </summary>
+        /// <returns>1列の横幅</returns>
+        public static float GetOneColumnWidth()
+        {
+            return TransformHelper.GetSize(GetPlayerField(Player.Index.First).GetComponent<RectTransform>()).x / FieldContextConfig.VerticalLineLength;
         }
 
         /// <summary>
