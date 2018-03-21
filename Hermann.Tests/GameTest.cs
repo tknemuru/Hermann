@@ -115,6 +115,21 @@ namespace Hermann.Tests
             expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-002-011.txt");
             TestHelper.AssertEqualsFieldContext(expectedContext, context);
 
+            context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-002-012.txt");
+            this.Game.Update(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-002-012.txt");
+            TestHelper.AssertEqualsFieldContext(expectedContext, context);
+
+            context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-002-013.txt");
+            this.Game.Update(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-002-013.txt");
+            TestHelper.AssertEqualsFieldContext(expectedContext, context);
+
+            context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-002-014.txt");
+            this.Game.Update(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-002-014.txt");
+            TestHelper.AssertEqualsFieldContext(expectedContext, context);
+
             TestDiProvider.Register();
             TestDiProvider.GetContainer().Verify();
             this.Game = new Game();

@@ -22,6 +22,11 @@ namespace Hermann
     public sealed class Game
     {
         /// <summary>
+        /// おじゃまスライムを落下させる重力の強さ
+        /// </summary>
+        private const int ObstructionSlimeDropGravityStrength = 1;
+
+        /// <summary>
         /// ストップウォッチ
         /// </summary>
         private Stopwatch Stopwatch { get; set; }
@@ -92,11 +97,6 @@ namespace Hermann
         private RotationDirectionUpdater RotationDirectionUpdater { get; set; }
 
         /// <summary>
-        /// 回転方向初期化機能
-        /// </summary>
-        private RotationDirectionInitializer RotationDirectionInitializer { get; set; }
-
-        /// <summary>
         ///フィールド状態の初期化機能
         /// </summary>
         private FieldContextInitializer FieldContextInitializer { get; set; }
@@ -153,7 +153,6 @@ namespace Hermann
             this.Gravity = DiProvider.GetContainer().GetInstance<Gravity>();
             this.BuiltRemainingTimeUpdater = DiProvider.GetContainer().GetInstance<IBuiltRemainingTimeUpdatable>();
             this.RotationDirectionUpdater = DiProvider.GetContainer().GetInstance<RotationDirectionUpdater>();
-            this.RotationDirectionInitializer = DiProvider.GetContainer().GetInstance<RotationDirectionInitializer>();
             this.UsingSlimeGenerator = DiProvider.GetContainer().GetInstance<UsingSlimeGenerator>();
             this.MovableSlimesUpdater = DiProvider.GetContainer().GetInstance<MovableSlimesUpdater>();
             this.ObstructionSlimeCalculator = DiProvider.GetContainer().GetInstance<ObstructionSlimeCalculator>();
@@ -202,6 +201,9 @@ namespace Hermann
 
             switch (context.FieldEvent[(int)player])
             {
+                case FieldEvent.None:
+                    this.Move(context);
+                    break;
                 case FieldEvent.StartChain:
                     this.StartChain(context, player);
                     break;
@@ -212,10 +214,10 @@ namespace Hermann
                     this.Erase(context, player);
                     break;
                 case FieldEvent.DropObstructions:
-                    this.Drop(context, player);
+                    this.DropObstructions(context, player);
                     break;
-                case FieldEvent.None:
-                    this.Move(context);
+                case FieldEvent.NextPreparation:
+                    this.NextPreparation(context, player);
                     break;
                 default:
                     throw new ArgumentException("イベントが不正です");
@@ -231,6 +233,7 @@ namespace Hermann
         private void Move(FieldContext context)
         {
             var player = context.OperationPlayer;
+            var moveParam = DiProvider.GetContainer().GetInstance<SlimeMover.Param>();
 
             // 設置残タイムの更新
             if (context.Ground[(int)player])
@@ -246,18 +249,21 @@ namespace Hermann
             // プレイヤの操作による移動
             if (context.OperationDirection != Direction.None)
             {
-                this.SlimeMover.Update(context, player);
+                this.SlimeMover.Update(context, player, moveParam);
 
-                // 回転が成功した場合は回転方向を変更する
-                if (context.OperationDirection == Direction.Up && this.SlimeMover.Notifier == SlimeMover.MoveResult.Success)
+                if(moveParam.ResultState == SlimeMover.ResultState.Success)
                 {
-                    this.RotationDirectionUpdater.Update(context);
-                }
+                    // 回転が成功した場合は回転方向を変更する
+                    if (context.OperationDirection == Direction.Up)
+                    {
+                        this.RotationDirectionUpdater.Update(context);
+                    }
 
-                // 移動が成功した場合は得点計算を行う
-                if (this.SlimeMover.Notifier == SlimeMover.MoveResult.Success)
-                {
-                    this.ScoreCalculator.Update(context, player);
+                    // 下への移動が成功した場合は得点計算を行う
+                    if (context.OperationDirection == Direction.Down)
+                    {
+                        this.ScoreCalculator.Update(context, player, moveParam.ResultDistance);
+                    }
                 }
             }
 
@@ -270,7 +276,7 @@ namespace Hermann
                 Player.ForEach((p) =>
                 {
                     context.OperationDirection = Direction.None;
-                    this.SlimeMover.Update(context, p);
+                    this.SlimeMover.Update(context, p, moveParam);
                 });
             }
 
@@ -297,7 +303,7 @@ namespace Hermann
             // 移動可能スライムを通常のスライムに変換する
             this.MovableSlimesUpdater.Update(context, player, MovableSlimesUpdater.Option.BeforeDropObstruction);
             // 重力で落とす
-            this.Gravity.Update(context, player);
+            this.Gravity.Update(context, player, new Gravity.Param());
 
             context.FieldEvent[(int)player] = FieldEvent.MarkErasing;
         }
@@ -345,7 +351,7 @@ namespace Hermann
             this.SlimeEraser.Update(context);
 
             // 重力で落とす
-            this.Gravity.Update(context, player);
+            this.Gravity.Update(context, player, new Gravity.Param());
 
             context.FieldEvent[(int)player] = FieldEvent.MarkErasing;
         }
@@ -355,15 +361,31 @@ namespace Hermann
         /// </summary>
         /// <param name="context">フィールド状態</param>
         /// <param name="player">プレイヤ</param>
-        private void Drop(FieldContext context, Player.Index player)
+        private void DropObstructions(FieldContext context, Player.Index player)
         {
-            if (ObstructionSlimeHelper.ExistsObstructionSlime(context.ObstructionSlimes[(int)player]))
-            {
-                // 自分自身のおじゃまスライムを落とす
-                this.ObstructionSlimeDropper.Update(context, player);
-                this.Gravity.Update(context, player);
-            }
+            context.FieldEvent[(int)player] = FieldEvent.NextPreparation;
 
+            var param = new Gravity.Param();
+            param.Strength = ObstructionSlimeDropGravityStrength;
+
+            // 自分自身のおじゃまスライムを落とす
+            this.ObstructionSlimeDropper.Update(context, player);
+            this.Gravity.Update(context, player, param);
+
+            // まだ落下途中なので落下処理を継続
+            if (param.ResultState == Gravity.ResultState.Moved)
+            {
+                context.FieldEvent[(int)player] = FieldEvent.DropObstructions;
+            }
+        }
+
+        /// <summary>
+        /// 次のスライムを動かす準備を行います。
+        /// </summary>
+        /// <param name="context">フィールド状態</param>
+        /// <param name="player">プレイヤ</param>
+        private void NextPreparation(FieldContext context, Player.Index player)
+        {
             // 移動可能スライムを初期位置に移動する
             this.MovableSlimesUpdater.Update(context, player, MovableSlimesUpdater.Option.AfterDropObstruction);
 
@@ -374,7 +396,7 @@ namespace Hermann
             this.GroundUpdater.Update(context, player);
 
             // 回転方向を初期化する
-            this.RotationDirectionInitializer.Update(context);
+            context.RotationDirection[(int)player] = FieldContextConfig.InitialDirection;
 
             // 設置残タイム
             this.BuiltRemainingTimeUpdater.Reset(context);

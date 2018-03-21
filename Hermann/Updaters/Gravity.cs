@@ -13,20 +13,79 @@ namespace Hermann.Updaters
     /// <summary>
     /// 重力
     /// </summary>
-    public sealed class Gravity : IPlayerFieldUpdatable
+    public sealed class Gravity : IPlayerFieldParameterizedUpdatable<Gravity.Param>
     {
+        /// <summary>
+        /// 重力をかけた結果
+        /// </summary>
+        public enum ResultState
+        {
+            /// <summary>
+            /// 移動有
+            /// </summary>
+            Moved,
+
+            /// <summary>
+            /// 移動無
+            /// </summary>
+            NotMoved,
+
+            /// <summary>
+            /// 未確定
+            /// </summary>
+            Undefined,
+        }
+
+        /// <summary>
+        /// 重力に関するパラメータを格納します。
+        /// </summary>
+        public class Param
+        {
+            /// <summary>
+            /// 重力の強さ
+            /// </summary>
+            public int Strength { get; set; }
+
+            /// <summary>
+            /// 落下距離
+            /// </summary>
+            public ResultState ResultState { get; set; }
+
+            /// <summary>
+            /// コンストラクタ
+            /// </summary>
+            public Param()
+            {
+                this.Strength = DefaultStrength;
+                this.ResultState = ResultState.Undefined;
+            }
+
+            /// <summary>
+            /// コンストラクタ
+            /// </summary>
+            /// <param name="strength">重力の強さ</param>
+            public Param(int strength)
+            {
+                this.Strength = strength;
+                this.ResultState = ResultState.Undefined;
+            }
+        }
+
         /// <summary>
         /// 重力量の規定値
         /// </summary>
-        private const int DefaultGravity = FieldContextConfig.HorizontalLineLength;
+        private const int DefaultStrength = FieldContextConfig.HorizontalLineLength;
 
         /// <summary>
         /// 重力によるフィールド状態の更新を行います。
         /// </summary>
         /// <param name="context">フィールドの状態</param>
         /// <param name="player">プレイヤ</param>
-        public void Update(FieldContext context, Player.Index player)
+        /// <param name="param">パラメータ</param>
+        public void Update(FieldContext context, Player.Index player, Param param)
         {
+            param.ResultState = ResultState.NotMoved;
+
             // 最底辺から順に重力をかけていく
             for (var unitIndex = FieldContextConfig.FieldUnitCount - 1; unitIndex >= 0; unitIndex--)
             {
@@ -34,7 +93,7 @@ namespace Hermann.Updaters
                 {
                     foreach (var slime in ExtensionSlime.Slimes)
                     {
-                        Reflect(context, player, slime, position, unitIndex, DefaultGravity);
+                        Reflect(context, player, slime, position, unitIndex, param);
                     }
                 }
             }
@@ -48,10 +107,10 @@ namespace Hermann.Updaters
         /// <param name="slime">スライム</param>
         /// <param name="position">ユニット内の位置</param>
         /// <param name="unitIndex">ユニットのインデックス</param>
-        /// <param name="g">重力の強さ</param>
-        private static void Reflect(FieldContext context, Player.Index player, Slime slime, int position, int unitIndex, int g)
+        /// <param name="param">パラメータ</param>
+        private static void Reflect(FieldContext context, Player.Index player, Slime slime, int position, int unitIndex, Param param)
         {
-            Debug.Assert(g > 0, "重力が1より小さいです。");
+            Debug.Assert(param.Strength > 0, "重力が1より小さいです。");
 
             var isMovable = false;
 
@@ -77,7 +136,7 @@ namespace Hermann.Updaters
             }
 
             // シフト量
-            var shift = g * FieldContextConfig.OneLineBitCount;
+            var shift = param.Strength * FieldContextConfig.OneLineBitCount;
             var testPosition = position + shift;
             var testUnitIndex = unitIndex + (testPosition / FieldContextConfig.FieldUnitBitCount);
 
@@ -110,6 +169,12 @@ namespace Hermann.Updaters
 
             // 補正したシフト量
             var modifiedShift = shiftLine * FieldContextConfig.OneLineBitCount;
+
+            // 一度でも移動するのならば結果を移動有にする
+            if(modifiedShift > 0)
+            {
+                param.ResultState = ResultState.Moved;
+            }
 
             // 移動前スライムを消す
             context.SlimeFields[(int)player][slime][unitIndex] &= ~(1u << position);

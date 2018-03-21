@@ -58,7 +58,7 @@ namespace Hermann.Initializers
             context.FieldEvent = new[] { FieldEvent.None, FieldEvent.None };
 
             // 回転方向
-            context.RotationDirection = new[] { Direction.Right, Direction.Right };
+            context.RotationDirection = new[] { FieldContextConfig.InitialDirection, FieldContextConfig.InitialDirection };
 
             // 経過時間
             context.Time = 0;

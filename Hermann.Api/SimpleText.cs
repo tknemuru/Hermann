@@ -58,6 +58,11 @@ namespace Hermann.Api
             /// おじゃまスライム落下
             /// </summary>
             public const string DropObstructions = "おじゃまスライム落下";
+
+            /// <summary>
+            /// 準備
+            /// </summary>
+            public const string NextPreparation = "準備";
         }
 
         /// <summary>
@@ -569,6 +574,7 @@ namespace Hermann.Api
             fieldEvents.Add(FieldEvent.Erase, FieldEventSymbol.Erase);
             fieldEvents.Add(FieldEvent.MarkErasing, FieldEventSymbol.MarkErasing);
             fieldEvents.Add(FieldEvent.StartChain, FieldEventSymbol.StartChain);
+            fieldEvents.Add(FieldEvent.NextPreparation, FieldEventSymbol.NextPreparation);
             return fieldEvents;
         }
 
@@ -584,6 +590,7 @@ namespace Hermann.Api
             fieldEvents.Add(FieldEventSymbol.Erase, FieldEvent.Erase);
             fieldEvents.Add(FieldEventSymbol.MarkErasing, FieldEvent.MarkErasing);
             fieldEvents.Add(FieldEventSymbol.StartChain, FieldEvent.StartChain);
+            fieldEvents.Add(FieldEventSymbol.NextPreparation, FieldEvent.NextPreparation);
             return fieldEvents;
         }
 

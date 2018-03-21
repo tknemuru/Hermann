@@ -34,13 +34,15 @@ namespace Hermann.Tests.Updaters
             TestHelper.AssertEqualsFieldContext(
                 "../../resources/updaters/gravity/test-field-out-001-001.txt",
                 "../../resources/updaters/gravity/test-field-in-001-001.txt",
-                this.Updater.Update);
+                this.Updater.Update,
+                new Gravity.Param());
 
             // 002:1P-複数色-他スライム有り
             TestHelper.AssertEqualsFieldContext(
                 "../../resources/updaters/gravity/test-field-out-001-002.txt",
                 "../../resources/updaters/gravity/test-field-in-001-002.txt",
-                this.Updater.Update);
+                this.Updater.Update,
+                new Gravity.Param());
         }
 
         /// <summary>
@@ -53,7 +55,8 @@ namespace Hermann.Tests.Updaters
             TestHelper.AssertEqualsFieldContext(
                 "../../resources/updaters/gravity/test-field-out-002-001.txt",
                 "../../resources/updaters/gravity/test-field-in-002-001.txt",
-                this.Updater.Update);
+                this.Updater.Update,
+                new Gravity.Param());
         }
     }
 }

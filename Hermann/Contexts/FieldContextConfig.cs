@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hermann.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -84,5 +85,10 @@ namespace Hermann.Contexts
         /// 横の行数
         /// </summary>
         public const int HorizontalLineLength = FieldUnitLineCount * FieldUnitCount;
+
+        /// <summary>
+        /// 回転方向の初期値
+        /// </summary>
+        public const Direction InitialDirection = Direction.Right;
     }
 }

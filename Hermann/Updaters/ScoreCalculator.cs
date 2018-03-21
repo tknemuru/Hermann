@@ -11,7 +11,7 @@ namespace Hermann.Updaters
     /// <summary>
     /// 得点計算機能を提供します。
     /// </summary>
-    public sealed class ScoreCalculator : IPlayerFieldUpdatable
+    public sealed class ScoreCalculator : IPlayerFieldParameterizedUpdatable<int>
     {
         /// <summary>
         /// 基本点のベース比率
@@ -33,13 +33,13 @@ namespace Hermann.Updaters
         /// </summary>
         /// <param name="context">フィールド状態</param>
         /// <param name="player">プレイヤ</param>
-        public void Update(FieldContext context, Player.Index player)
+        public void Update(FieldContext context, Player.Index player, int downDistance = 0)
         {
             // 連鎖数
             var chain = context.Chain[(int)player];
 
             // ボーナス
-            var bonus = context.OperationDirection == Direction.Down ? DownBonus : 0;
+            var bonus = context.OperationDirection == Direction.Down ? downDistance * DownBonus : 0;
             context.Score[(int)player] += bonus;
 
             // 連鎖数0以下ならボーナスのみ加算して処理終了
