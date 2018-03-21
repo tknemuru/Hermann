@@ -91,11 +91,12 @@ namespace Hermann.Initializers
             context.UsingSlimes = this.NextSlimeGen.UsingSlime;
 
             // NEXTスライム
-            Player.ForEach((player) =>
+            NextSlime.ForEach((unit) =>
             {
-                NextSlime.ForEach((unit) =>
+                var movables = this.NextSlimeGen.GetNext();
+                Player.ForEach((player) =>
                 {
-                    context.NextSlimes[(int)player][(int)unit] = this.NextSlimeGen.GetNext();
+                    context.NextSlimes[(int)player][(int)unit] = movables;
                 });
             });
 
