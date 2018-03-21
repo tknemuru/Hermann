@@ -37,16 +37,6 @@ namespace Hermann
         private SlimeMover SlimeMover { get; set; }
 
         /// <summary>
-        /// 方向：無で更新する間隔（ミリ秒）
-        /// </summary>
-        private int NoneDirectionUpdateInterval { get; set; }
-
-        /// <summary>
-        /// 方向：無で更新する回数
-        /// </summary>
-        private int NoneDirectionUpdateCount { get; set; }
-
-        /// <summary>
         /// 時間更新機能
         /// </summary>
         private ITimeUpdatable TimeUpdater { get; set; }
@@ -141,8 +131,6 @@ namespace Hermann
         /// </summary>
         public Game()
         {
-            this.NoneDirectionUpdateInterval = 1000;
-            this.NoneDirectionUpdateCount = 0;
             this.SlimeMover = DiProvider.GetContainer().GetInstance<SlimeMover>();
             this.TimeUpdater = DiProvider.GetContainer().GetInstance<ITimeUpdatable>();
             this.GroundUpdater = DiProvider.GetContainer().GetInstance<GroundUpdater>();
@@ -174,13 +162,6 @@ namespace Hermann
         /// <returns>フィールド状態</returns>
         public FieldContext Start()
         {
-            // 方向：無で更新する回数カウントイベント
-            Observable.Interval(TimeSpan.FromMilliseconds(this.NoneDirectionUpdateInterval))
-                .Subscribe(_ =>
-                {
-                    this.NoneDirectionUpdateCount++;
-                });
-
             var context = DiProvider.GetContainer().GetInstance<FieldContext>();
             this.FieldContextInitializer.Initialize(context);
 
@@ -246,38 +227,22 @@ namespace Hermann
                 this.BuiltRemainingTimeUpdater.Reset(context);
             }
 
-            // プレイヤの操作による移動
-            if (context.OperationDirection != Direction.None)
+            // 移動実行
+            this.SlimeMover.Update(context, player, moveParam);
+
+            if (moveParam.ResultState == SlimeMover.ResultState.Success)
             {
-                this.SlimeMover.Update(context, player, moveParam);
-
-                if(moveParam.ResultState == SlimeMover.ResultState.Success)
+                // 回転が成功した場合は回転方向を変更する
+                if (context.OperationDirection == Direction.Up)
                 {
-                    // 回転が成功した場合は回転方向を変更する
-                    if (context.OperationDirection == Direction.Up)
-                    {
-                        this.RotationDirectionUpdater.Update(context);
-                    }
-
-                    // 下への移動が成功した場合は得点計算を行う
-                    if (context.OperationDirection == Direction.Down)
-                    {
-                        this.ScoreCalculator.Update(context, player, moveParam.ResultDistance);
-                    }
+                    this.RotationDirectionUpdater.Update(context);
                 }
-            }
 
-            // 方向：無での更新
-            var count = this.NoneDirectionUpdateCount;
-            this.NoneDirectionUpdateCount = 0;
-            for (var i = 0; i < count; i++)
-            {
-                // 移動
-                Player.ForEach((p) =>
+                // 下への移動が成功した場合は得点計算を行う
+                if (context.OperationDirection == Direction.Down)
                 {
-                    context.OperationDirection = Direction.None;
-                    this.SlimeMover.Update(context, p, moveParam);
-                });
+                    this.ScoreCalculator.Update(context, player, moveParam.ResultDistance);
+                }
             }
 
             Player.ForEach((p) =>

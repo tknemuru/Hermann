@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Assets.Scripts.Di;
 using Hermann.Client.ConsoleClient;
 using Hermann.Helpers;
+using System;
 
 /// <summary>
 /// ゲーム管理機能を提供します。
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// デバッグモードかどうか
     /// </summary>
-    public static bool Debug = true;
+    public static bool IsDebug = false;
 
     /// <summary>
     /// スライムオブジェクト
@@ -59,9 +60,9 @@ public class GameManager : MonoBehaviour
     private static FieldContextSender<string> Sender;
 
     /// <summary>
-    /// 方向：無で更新するフレーム回数
+    /// 方向：無で更新するフレーム回数累計
     /// </summary>
-    private static int NoneDirectionUpdateFrameCount { get; set; }
+    private static int[] NoneDirectionUpdateFrameElapsed { get; set; }
 
     /// <summary>
     /// 入力されたコンソールキー情報
@@ -74,11 +75,6 @@ public class GameManager : MonoBehaviour
     private static bool IsBlockedKeyInfo { get; set; }
 
     /// <summary>
-    /// 無移動のプレイヤ
-    /// </summary>
-    private static Player.Index NoneMovePlayer { get; set; }
-
-    /// <summary>
     /// 前回の勝ち数
     /// </summary>
     private static int[] LastWinCount { get; set; }
@@ -86,7 +82,6 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        NoneMovePlayer = Player.Index.First;
         LastWinCount = new[] { 0, 0 };
 
         this.Slimes = new Dictionary<Player.Index, List<GameObject>>();
@@ -98,7 +93,7 @@ public class GameManager : MonoBehaviour
         this.FieldContextReflector.Initialize(this.SlimeObject);
 
         // 初期フィールド状態の取得
-        NoneDirectionUpdateFrameCount = 0;
+        NoneDirectionUpdateFrameElapsed = new[] { 0, 0 };
         Receiver = NativeClientDiProvider.GetContainer().GetInstance<CommandReceiver<NativeCommand, FieldContext>>();
         Sender = NativeClientDiProvider.GetContainer().GetInstance<FieldContextSender<string>>();
         UiDecorationContainerReceiver = NativeClientDiProvider.GetContainer().GetInstance<UiDecorationContainerReceiver>();
@@ -106,7 +101,6 @@ public class GameManager : MonoBehaviour
         command.Command = Command.Start;
         Context = Receiver.Receive(command);
 
-        // キー変更イベントの購読
         KeyInfos = new List<KeyCode>();
         IsBlockedKeyInfo = false;
     }
@@ -120,42 +114,35 @@ public class GameManager : MonoBehaviour
         }
 
         // 入力受付
-        KeyInfos = KeyInfos.Concat(KeyMap.GetKeys().Select(k => k).Where(k => Input.GetKeyDown(k))).ToList();
-
-        // 移動方向無コマンドの実行
-        Context.OperationDirection = Direction.None;
-        var c = NativeClientDiProvider.GetContainer().GetInstance<NativeCommand>();
-        c.Command = Command.Move;
-        c.Context = Context.DeepCopy();
-        c.Context.OperationPlayer = NoneMovePlayer;
-        NoneMovePlayer = Player.GetOppositeIndex(NoneMovePlayer);
-        DebugLog("----- 移動方向無コマンドの実行 -----");
-        DebugLog(Sender.Send(Context));
-        Context = Receiver.Receive(c);
-
-        // 入力を受け付けたコマンドの実行
-        IsBlockedKeyInfo = true;
-        var keys = KeyInfos.Select(k => k).ToList();
-        KeyInfos.Clear();
-        IsBlockedKeyInfo = false;
-
-        foreach (var key in keys)
+        var keyInfos = new KeyCode[Player.Length][];
+        Player.ForEach(player =>
         {
-            if (!KeyMap.ContainsKey(key))
+            keyInfos[(int)player] = KeyMap.GetKeys().Select(k => k).
+                Where(k => Input.GetKeyDown(k) && KeyMap.GetPlayer(k) == player).
+                ToArray();
+        });
+
+        Player.ForEach(player =>
+        {
+            // フィールド状態の更新
+            NoneDirectionUpdateFrameElapsed[(int)player]++;
+            var requireNoneDirectionUpdate = (NoneDirectionUpdateFrameElapsed[(int)player] >= FieldContextConfig.NoneDirectionUpdateFrameCount || Context.Ground[(int)player]);
+            if (requireNoneDirectionUpdate)
             {
-                continue;
+                NoneDirectionUpdateFrameElapsed[(int)player] = 0;
             }
 
-            Context.OperationPlayer = KeyMap.GetPlayer(key);
-            Context.OperationDirection = KeyMap.GetDirection(key);
-            c = NativeClientDiProvider.GetContainer().GetInstance<NativeCommand>();
-            c.Command = Command.Move;
-            c.Context = Context.DeepCopy();
-            DebugLog("----- 入力を受け付けたコマンドの実行 -----");
-            DebugLog(Sender.Send(Context));
-            Context = Receiver.Receive(c);
-        }
+            if (Context.FieldEvent[(int)player] == FieldEvent.None)
+            {
+                UpdateDuringNoneEvent(player, keyInfos[(int)player], requireNoneDirectionUpdate);
+            }
+            else
+            {
+                UpdateDuringOccurrenceEvent(player);
+            }
+        });
 
+        // 描画用情報の取得
         var container = UiDecorationContainerReceiver.Receive(Context);
 
         // 画面描画
@@ -167,6 +154,57 @@ public class GameManager : MonoBehaviour
             }
             this.Slimes[player] = this.FieldContextReflector.Update(player, container);
         });
+    }
+
+    /// <summary>
+    /// イベントが発生していないときの更新処理を実行します。
+    /// </summary>
+    /// <param name="player">プレイヤ</param>
+    private static void UpdateDuringOccurrenceEvent(Player.Index player)
+    {
+        // 移動方向無コマンドの実行
+        Move(player, Direction.None, "----- 移動方向無コマンドの実行 -----");
+        NoneDirectionUpdateFrameElapsed[(int)player] = FieldContextConfig.NoneDirectionUpdateFrameCount;
+    }
+
+    /// <summary>
+    /// イベントが発生しているときの更新処理を実行します。
+    /// </summary>
+    /// <param name="player">プレイヤ</param>
+    /// <param name="keys">入力キーリスト</param>
+    /// <param name="requireNoneDirectionUpdate">移動方向無での更新が必要かどうか</param>
+    private static void UpdateDuringNoneEvent(Player.Index player, KeyCode[] keys, bool requireNoneDirectionUpdate)
+    {
+        // 移動方向無コマンドの実行
+        if (requireNoneDirectionUpdate)
+        {
+            Move(player, Direction.None, "----- 移動方向無コマンドの実行 -----");
+        }
+
+        // 入力を受け付けたコマンドの実行
+        foreach (var key in keys)
+        {
+            Debug.Assert(KeyMap.GetPlayer(key) == player, "受け付けたキーとプレイヤの関係が不正です。");
+            Move(player, KeyMap.GetDirection(key), "----- 入力を受け付けたコマンドの実行 -----");
+        }
+    }
+
+    /// <summary>
+    /// 移動を実行します。
+    /// </summary>
+    /// <param name="player">プレイヤ</param>
+    /// <param name="direction">移動方向</param>
+    /// <param name="debugLogTitle">デバッグ出力用タイトル</param>
+    private static void Move(Player.Index player, Direction direction, string debugLogTitle)
+    {
+        Context.OperationPlayer = player;
+        Context.OperationDirection = direction;
+        var c = NativeClientDiProvider.GetContainer().GetInstance<NativeCommand>();
+        c.Command = Command.Move;
+        c.Context = Context;
+        DebugLog(debugLogTitle);
+        DebugLog(Sender.Send(Context));
+        Context = Receiver.Receive(c);
     }
 
     /// <summary>
@@ -186,7 +224,7 @@ public class GameManager : MonoBehaviour
     /// <param name="log">ログ文字列</param>
     private static void DebugLog(string log)
     {
-        if (Debug)
+        if (IsDebug)
         {
             FileHelper.WriteLine(log);
         }

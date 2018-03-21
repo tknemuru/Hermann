@@ -90,5 +90,10 @@ namespace Hermann.Contexts
         /// 回転方向の初期値
         /// </summary>
         public const Direction InitialDirection = Direction.Right;
+
+        /// <summary>
+        /// 方向：無で更新するフレーム回数
+        /// </summary>
+        public const int NoneDirectionUpdateFrameCount = 30;
     }
 }
