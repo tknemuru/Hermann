@@ -268,10 +268,8 @@ namespace Hermann
         {
             // 移動可能スライムを通常のスライムに変換する
             this.MovableSlimesUpdater.Update(context, player, MovableSlimesUpdater.Option.BeforeDropObstruction);
-            // 重力で落とす
-            this.Gravity.Update(context, player, new Gravity.Param());
 
-            context.FieldEvent[(int)player] = FieldEvent.MarkErasing;
+            context.FieldEvent[(int)player] = FieldEvent.DropSlimes;
         }
 
         /// <summary>

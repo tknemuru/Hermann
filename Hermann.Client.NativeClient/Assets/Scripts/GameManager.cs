@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// デバッグモードかどうか
     /// </summary>
-    public static bool IsDebug = false;
+    public static bool IsDebug = true;
 
     /// <summary>
     /// スライムオブジェクト
