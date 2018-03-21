@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 namespace Hermann.Updaters
 {
     /// <summary>
-    /// おじゃまスライムのランダムな落下機能を提供します。
+    /// おじゃまスライムのランダムな配置機能を提供します。
     /// </summary>
-    public class ObstructionSlimeRandomDropper : ObstructionSlimeDropper
+    public class ObstructionSlimeRandomSetter : ObstructionSlimeSetter
     {
         /// <summary>
         /// 乱数生成機能
@@ -23,13 +23,13 @@ namespace Hermann.Updaters
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public ObstructionSlimeRandomDropper()
+        public ObstructionSlimeRandomSetter()
         {
             this.RandomGen = new Random();
         }
 
         /// <summary>
-        /// 次に落下させる列を取得します。
+        /// 次に配置する列を取得します。
         /// </summary>
         /// <param name="ranks">列の候補</param>
         /// <returns>次に落下させる列</returns>

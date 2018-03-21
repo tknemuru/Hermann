@@ -74,7 +74,7 @@ namespace Hermann.Updaters
         /// <summary>
         /// 重力量の規定値
         /// </summary>
-        private const int DefaultStrength = FieldContextConfig.HorizontalLineLength;
+        private const int DefaultStrength = 1;
 
         /// <summary>
         /// 重力によるフィールド状態の更新を行います。

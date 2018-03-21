@@ -24,11 +24,17 @@ namespace Hermann.Api.Containers
         public SlimeJoinState[][] SlimeJoinStatus { get; set; }
 
         /// <summary>
+        /// 削除時のアニメーション累積フレーム数
+        /// </summary>
+        public int[] EraseAnimationFrameElapsedCount { get; set; }
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         public UiDecorationContainer()
         {
             this.SlimeJoinStatus = new SlimeJoinState[Player.Length][];
+            this.EraseAnimationFrameElapsedCount = new[] { 0, 0 };
         }
     }
 }

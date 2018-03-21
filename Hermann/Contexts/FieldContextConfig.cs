@@ -94,6 +94,11 @@ namespace Hermann.Contexts
         /// <summary>
         /// 方向：無で更新するフレーム回数
         /// </summary>
-        public const int NoneDirectionUpdateFrameCount = 30;
+        public const int NoneDirectionUpdateFrameCount = 60;
+
+        /// <summary>
+        /// 削除時のアニメーションフレーム数
+        /// </summary>
+        public const int EraseAnimationFrameCount = 34;
     }
 }

@@ -83,9 +83,19 @@ namespace Hermann.Tests
             expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-002-005.txt");
             TestHelper.AssertEqualsFieldContext(expectedContext, context);
 
-            context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-002-006.txt");
+            context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-002-006-001.txt");
             this.Game.Update(context);
-            expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-002-006.txt");
+            expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-002-006-001.txt");
+            TestHelper.AssertEqualsFieldContext(expectedContext, context);
+
+            context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-002-006-002.txt");
+            this.Game.Update(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-002-006-002.txt");
+            TestHelper.AssertEqualsFieldContext(expectedContext, context);
+
+            context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-002-006-003.txt");
+            this.Game.Update(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-002-006-003.txt");
             TestHelper.AssertEqualsFieldContext(expectedContext, context);
 
             context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-002-007.txt");
@@ -98,9 +108,14 @@ namespace Hermann.Tests
             expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-002-008.txt");
             TestHelper.AssertEqualsFieldContext(expectedContext, context);
 
-            context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-002-009.txt");
+            context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-002-009-001.txt");
             this.Game.Update(context);
-            expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-002-009.txt");
+            expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-002-009-001.txt");
+            TestHelper.AssertEqualsFieldContext(expectedContext, context);
+
+            context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-002-009-002.txt");
+            this.Game.Update(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-002-009-002.txt");
             TestHelper.AssertEqualsFieldContext(expectedContext, context);
 
             // 010:相手が設置済でなければおじゃまスライムは配置するだけ

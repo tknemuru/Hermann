@@ -22,11 +22,6 @@ namespace Hermann
     public sealed class Game
     {
         /// <summary>
-        /// おじゃまスライムを落下させる重力の強さ
-        /// </summary>
-        private const int ObstructionSlimeDropGravityStrength = 1;
-
-        /// <summary>
         /// ストップウォッチ
         /// </summary>
         private Stopwatch Stopwatch { get; set; }
@@ -112,9 +107,9 @@ namespace Hermann
         private ObstructionSlimeCalculator ObstructionSlimeCalculator { get; set; }
 
         /// <summary>
-        /// おじゃまスライム落下機能
+        /// おじゃまスライム配置機能
         /// </summary>
-        private ObstructionSlimeRandomDropper ObstructionSlimeDropper { get; set; }
+        private ObstructionSlimeRandomSetter ObstructionSlimeRandomSetter { get; set; }
 
         /// <summary>
         ///　得点計算機能
@@ -144,7 +139,7 @@ namespace Hermann
             this.UsingSlimeGenerator = DiProvider.GetContainer().GetInstance<UsingSlimeGenerator>();
             this.MovableSlimesUpdater = DiProvider.GetContainer().GetInstance<MovableSlimesUpdater>();
             this.ObstructionSlimeCalculator = DiProvider.GetContainer().GetInstance<ObstructionSlimeCalculator>();
-            this.ObstructionSlimeDropper = DiProvider.GetContainer().GetInstance<ObstructionSlimeRandomDropper>();
+            this.ObstructionSlimeRandomSetter = DiProvider.GetContainer().GetInstance<ObstructionSlimeRandomSetter>();
             this.ScoreCalculator = DiProvider.GetContainer().GetInstance<ScoreCalculator>();
             this.ObstructionSlimeErasingMarker = DiProvider.GetContainer().GetInstance<ObstructionSlimeErasingMarker>();
 
@@ -191,8 +186,14 @@ namespace Hermann
                 case FieldEvent.MarkErasing:
                     this.MarkErasing(context, player);
                     break;
+                case FieldEvent.SetObstructions:
+                    this.SetObstructions(context, player);
+                    break;
                 case FieldEvent.Erase:
                     this.Erase(context, player);
+                    break;
+                case FieldEvent.DropSlimes:
+                    this.DropSlimes(context, player);
                     break;
                 case FieldEvent.DropObstructions:
                     this.DropObstructions(context, player);
@@ -295,7 +296,7 @@ namespace Hermann
             else
             {
                 context.Chain[(int)player] = 0;
-                context.FieldEvent[(int)player] = FieldEvent.DropObstructions;
+                context.FieldEvent[(int)player] = FieldEvent.SetObstructions;
             }
         }
 
@@ -315,10 +316,39 @@ namespace Hermann
             // 消済スライムを削除する
             this.SlimeEraser.Update(context);
 
-            // 重力で落とす
-            this.Gravity.Update(context, player, new Gravity.Param());
+            context.FieldEvent[(int)player] = FieldEvent.DropSlimes;
+        }
 
-            context.FieldEvent[(int)player] = FieldEvent.MarkErasing;
+        /// <summary>
+        /// スライムの落下処理を行います。
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="player"></param>
+        private void DropSlimes(FieldContext context, Player.Index player)
+        {
+            var param = new Gravity.Param();
+
+            // 重力で落とす
+            this.Gravity.Update(context, player, param);
+
+            // 落下処理完了
+            if (param.ResultState == Gravity.ResultState.NotMoved)
+            {
+                context.FieldEvent[(int)player] = FieldEvent.MarkErasing;
+            }
+        }
+
+        /// <summary>
+        /// おじゃまスライムをフィールドに配置します。
+        /// </summary>
+        /// <param name="context">フィールド状態</param>
+        /// <param name="player">プレイヤ</param>
+        private void SetObstructions(FieldContext context, Player.Index player)
+        {
+            // 自分自身のフィールドにおじゃまスライムを配置する
+            this.ObstructionSlimeRandomSetter.Update(context, player);
+
+            context.FieldEvent[(int)player] = FieldEvent.DropObstructions;
         }
 
         /// <summary>
@@ -328,19 +358,15 @@ namespace Hermann
         /// <param name="player">プレイヤ</param>
         private void DropObstructions(FieldContext context, Player.Index player)
         {
-            context.FieldEvent[(int)player] = FieldEvent.NextPreparation;
-
             var param = new Gravity.Param();
-            param.Strength = ObstructionSlimeDropGravityStrength;
 
             // 自分自身のおじゃまスライムを落とす
-            this.ObstructionSlimeDropper.Update(context, player);
             this.Gravity.Update(context, player, param);
 
-            // まだ落下途中なので落下処理を継続
-            if (param.ResultState == Gravity.ResultState.Moved)
+            // 落下処理完了
+            if (param.ResultState == Gravity.ResultState.NotMoved)
             {
-                context.FieldEvent[(int)player] = FieldEvent.DropObstructions;
+                context.FieldEvent[(int)player] = FieldEvent.NextPreparation;
             }
         }
 

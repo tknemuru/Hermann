@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 namespace Hermann.Updaters
 {
     /// <summary>
-    /// おじゃまスライムのシーケンシャルな落下機能を提供します。
+    /// おじゃまスライムのシーケンシャルな配置機能を提供します。
     /// </summary>
-    public class ObstructionSlimeSequentialDropper : ObstructionSlimeDropper
+    public class ObstructionSlimeSequentialSetter : ObstructionSlimeSetter
     {
         /// <summary>
-        /// 次に落下させる列を取得します。
+        /// 次に配置する列を取得します。
         /// </summary>
         /// <param name="ranks">列の候補</param>
         /// <returns>次に落下させる列</returns>

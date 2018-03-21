@@ -50,9 +50,19 @@ namespace Hermann.Api
             public const string MarkErasing = "消済マーク";
 
             /// <summary>
+            /// おじゃまスライム配置
+            /// </summary>
+            public const string SetObstructions = "おじゃまスライム配置";
+
+            /// <summary>
             /// 削除
             /// </summary>
             public const string Erase = "削除";
+
+            /// <summary>
+            /// スライム落下
+            /// </summary>
+            public const string DropSlimes = "スライム落下";
 
             /// <summary>
             /// おじゃまスライム落下
@@ -573,8 +583,10 @@ namespace Hermann.Api
             fieldEvents.Add(FieldEvent.DropObstructions, FieldEventSymbol.DropObstructions);
             fieldEvents.Add(FieldEvent.Erase, FieldEventSymbol.Erase);
             fieldEvents.Add(FieldEvent.MarkErasing, FieldEventSymbol.MarkErasing);
+            fieldEvents.Add(FieldEvent.SetObstructions, FieldEventSymbol.SetObstructions);
             fieldEvents.Add(FieldEvent.StartChain, FieldEventSymbol.StartChain);
             fieldEvents.Add(FieldEvent.NextPreparation, FieldEventSymbol.NextPreparation);
+            fieldEvents.Add(FieldEvent.DropSlimes, FieldEventSymbol.DropSlimes);
             return fieldEvents;
         }
 
@@ -589,8 +601,10 @@ namespace Hermann.Api
             fieldEvents.Add(FieldEventSymbol.DropObstructions, FieldEvent.DropObstructions);
             fieldEvents.Add(FieldEventSymbol.Erase, FieldEvent.Erase);
             fieldEvents.Add(FieldEventSymbol.MarkErasing, FieldEvent.MarkErasing);
+            fieldEvents.Add(FieldEventSymbol.SetObstructions, FieldEvent.SetObstructions);
             fieldEvents.Add(FieldEventSymbol.StartChain, FieldEvent.StartChain);
             fieldEvents.Add(FieldEventSymbol.NextPreparation, FieldEvent.NextPreparation);
+            fieldEvents.Add(FieldEventSymbol.DropSlimes, FieldEvent.DropSlimes);
             return fieldEvents;
         }
 

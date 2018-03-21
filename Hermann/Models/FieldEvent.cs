@@ -27,9 +27,19 @@ namespace Hermann.Models
         MarkErasing,
 
         /// <summary>
+        /// おじゃまスライム配置
+        /// </summary>
+        SetObstructions,
+
+        /// <summary>
         /// 削除
         /// </summary>
         Erase,
+
+        /// <summary>
+        /// スライム落下
+        /// </summary>
+        DropSlimes,
 
         /// <summary>
         /// おじゃまスライム落下

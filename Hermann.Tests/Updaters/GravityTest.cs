@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Hermann.Updaters;
 using Hermann.Tests.TestHelpers;
+using Hermann.Contexts;
 
 namespace Hermann.Tests.Updaters
 {
@@ -51,12 +52,17 @@ namespace Hermann.Tests.Updaters
         [TestMethod]
         public void ユニットをまたいで落下()
         {
+            var param = new Gravity.Param
+            {
+                Strength = FieldContextConfig.HorizontalLineLength
+            };
+
             // 001:1P
             TestHelper.AssertEqualsFieldContext(
                 "../../resources/updaters/gravity/test-field-out-002-001.txt",
                 "../../resources/updaters/gravity/test-field-in-002-001.txt",
                 this.Updater.Update,
-                new Gravity.Param());
+                param);
         }
     }
 }

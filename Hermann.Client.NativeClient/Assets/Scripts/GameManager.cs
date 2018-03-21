@@ -79,10 +79,16 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private static int[] LastWinCount { get; set; }
 
+    /// <summary>
+    /// 削除時のアニメーション累積フレーム数
+    /// </summary>
+    private static int[] EraseAnimationFrameElapsedCount { get; set; }
+
     // Use this for initialization
     void Start()
     {
         LastWinCount = new[] { 0, 0 };
+        EraseAnimationFrameElapsedCount = new[] { 0, 0 };
 
         this.Slimes = new Dictionary<Player.Index, List<GameObject>>();
         Player.ForEach(player =>
@@ -93,7 +99,7 @@ public class GameManager : MonoBehaviour
         this.FieldContextReflector.Initialize(this.SlimeObject);
 
         // 初期フィールド状態の取得
-        NoneDirectionUpdateFrameElapsed = new[] { 0, 0 };
+        NoneDirectionUpdateFrameElapsed = new[] { FieldContextConfig.NoneDirectionUpdateFrameCount, FieldContextConfig.NoneDirectionUpdateFrameCount };
         Receiver = NativeClientDiProvider.GetContainer().GetInstance<CommandReceiver<NativeCommand, FieldContext>>();
         Sender = NativeClientDiProvider.GetContainer().GetInstance<FieldContextSender<string>>();
         UiDecorationContainerReceiver = NativeClientDiProvider.GetContainer().GetInstance<UiDecorationContainerReceiver>();
@@ -138,12 +144,25 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                UpdateDuringOccurrenceEvent(player);
+                if(Context.FieldEvent[(int)player] == FieldEvent.Erase)
+                {
+                    EraseAnimationFrameElapsedCount[(int)player]++;
+                    if (EraseAnimationFrameElapsedCount[(int)player] > FieldContextConfig.EraseAnimationFrameCount)
+                    {
+                        UpdateDuringOccurrenceEvent(player);
+                        EraseAnimationFrameElapsedCount[(int)player] = 0;
+                    }
+                }
+                else
+                {
+                    UpdateDuringOccurrenceEvent(player);
+                }
             }
         });
 
         // 描画用情報の取得
         var container = UiDecorationContainerReceiver.Receive(Context);
+        container.EraseAnimationFrameElapsedCount = EraseAnimationFrameElapsedCount;
 
         // 画面描画
         Player.ForEach(player =>

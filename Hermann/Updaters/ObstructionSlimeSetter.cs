@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 namespace Hermann.Updaters
 {
     /// <summary>
-    /// おじゃまスライムの落下機能を提供します。
+    /// おじゃまスライムの配置機能を提供します。
     /// </summary>
-    public abstract class ObstructionSlimeDropper : IPlayerFieldUpdatable
+    public abstract class ObstructionSlimeSetter : IPlayerFieldUpdatable
     {
         /// <summary>
-        /// 落下列の初期値
+        /// 配置列の初期値
         /// </summary>
         protected const int DefaultLastRank = -1;
 
@@ -94,7 +94,7 @@ namespace Hermann.Updaters
         }
 
         /// <summary>
-        /// 次に落下させる列を順番に取得します。
+        /// 次に配置する列を順番に取得します。
         /// </summary>
         /// <param name="ranks">列の候補</param>
         /// <param name="lastRank">前回落下させた列</param>
@@ -116,7 +116,7 @@ namespace Hermann.Updaters
         }
 
         /// <summary>
-        /// 次に落下させる列を取得します。
+        /// 次に配置する列を取得します。
         /// </summary>
         /// <param name="ranks">列の候補</param>
         /// <param name="lastRank">前回落下させた列</param>
