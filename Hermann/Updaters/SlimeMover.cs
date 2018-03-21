@@ -239,7 +239,15 @@ namespace Hermann.Updaters
                     Debug.Assert(MovableSlime.GetUnitForm(context.MovableSlimes[(int)player]) == MovableSlime.UnitForm.Vertical, "移動可能スライムの向きが不正です。");
                     if (!IsEnabledRightMove(context, player))
                     {
-                        return ResultState.Failed;
+                        // 左にスライドができればスライドして右回転を行う
+                        if(IsEnabledLeftMove(context, player))
+                        {
+                            this.Move(context, Speed.Left, player);
+                        }
+                        else
+                        {
+                            return ResultState.Failed;
+                        }
                     }
 
                     beforePosition = movables[(int)MovableSlime.UnitIndex.First].Position;
@@ -257,7 +265,8 @@ namespace Hermann.Updaters
                     Debug.Assert(MovableSlime.GetUnitForm(context.MovableSlimes[(int)player]) == MovableSlime.UnitForm.Horizontal, "移動可能スライムの向きが不正です。");
                     if (IsGround(context, player))
                     {
-                        return ResultState.Failed;
+                        // 接地している場合は上にスライドして下回転を行う
+                        this.Move(context, ModifyUpShift(context, Speed.Up, player), player);
                     }
 
                     // rb⇒□□⇒□□⇒r□
@@ -282,7 +291,15 @@ namespace Hermann.Updaters
                     Debug.Assert(MovableSlime.GetUnitForm(context.MovableSlimes[(int)player]) == MovableSlime.UnitForm.Vertical, "移動可能スライムの向きが不正です。");
                     if (!IsEnabledLeftMove(context, player))
                     {
-                        return ResultState.Failed;
+                        // 右にスライドができればスライドして左回転を行う
+                        if (IsEnabledRightMove(context, player))
+                        {
+                            this.Move(context, Speed.Right, player);
+                        }
+                        else
+                        {
+                            return ResultState.Failed;
+                        }
                     }
 
                     beforePosition = movables[(int)MovableSlime.UnitIndex.Second].Position;

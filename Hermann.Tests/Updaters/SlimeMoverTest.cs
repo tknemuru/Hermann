@@ -351,17 +351,82 @@ namespace Hermann.Tests.Updaters
         }
 
         /// <summary>
-        /// 015:Moveで壁・スライムにバッティングして回転できない
+        /// 015:Moveで壁・スライムに挟まれて回転できない
         /// </summary>
         [TestMethod]
-        public void Moveで壁スライムにバッティングして回転できない()
+        public void Moveで壁スライムに挟まれて回転できない()
         {
-            // 001:壁際で右
+            // 001:右際で右（両移動スライム塞ぎ）
             TestHelper.AssertEqualsFieldContext(
-                "../../resources/updaters/slimemover/test-field-in-015-001.txt",
                 "../../resources/updaters/slimemover/test-field-out-015-001.txt",
+                "../../resources/updaters/slimemover/test-field-in-015-001.txt",
                 this.SlimeMover.Update,
                 new SlimeMover.Param());
+
+            // 002:右際で右（片移動スライム塞ぎ）
+            TestHelper.AssertEqualsFieldContext(
+                "../../resources/updaters/slimemover/test-field-out-015-002.txt",
+                "../../resources/updaters/slimemover/test-field-in-015-002.txt",
+                this.SlimeMover.Update,
+                new SlimeMover.Param());
+
+            // 003:右際で右（片移動スライム塞ぎ逆パターン）
+            TestHelper.AssertEqualsFieldContext(
+                "../../resources/updaters/slimemover/test-field-out-015-003.txt",
+                "../../resources/updaters/slimemover/test-field-in-015-003.txt",
+                this.SlimeMover.Update,
+                new SlimeMover.Param());
+
+            // 004:左際で左（両移動スライム塞ぎ）
+            TestHelper.AssertEqualsFieldContext(
+                "../../resources/updaters/slimemover/test-field-out-015-004.txt",
+                "../../resources/updaters/slimemover/test-field-in-015-004.txt",
+                this.SlimeMover.Update,
+                new SlimeMover.Param());
+
+            // 005:左際で左（片移動スライム塞ぎ）
+            TestHelper.AssertEqualsFieldContext(
+                "../../resources/updaters/slimemover/test-field-out-015-005.txt",
+                "../../resources/updaters/slimemover/test-field-in-015-005.txt",
+                this.SlimeMover.Update,
+                new SlimeMover.Param());
+
+            // 006:左際で左（片移動スライム塞ぎ逆パターン）
+            TestHelper.AssertEqualsFieldContext(
+                "../../resources/updaters/slimemover/test-field-out-015-006.txt",
+                "../../resources/updaters/slimemover/test-field-in-015-006.txt",
+                this.SlimeMover.Update,
+                new SlimeMover.Param());
+        }
+
+        /// <summary>
+        /// 016:Moveで壁際ではスライドして回転できる
+        /// </summary>
+        [TestMethod]
+        public void Moveで壁際ではスライドして回転できる()
+        {
+            var param = new SlimeMover.Param();
+
+            // 001:右壁際で右
+            TestHelper.AssertEqualsFieldContext(
+                "../../resources/updaters/slimemover/test-field-out-016-001.txt",
+                "../../resources/updaters/slimemover/test-field-in-016-001.txt",
+                this.SlimeMover.Update,
+                param);
+
+            // 002:底辺で下
+            TestHelper.AssertEqualsFieldContext(
+                "../../resources/updaters/slimemover/test-field-out-016-002.txt",
+                "../../resources/updaters/slimemover/test-field-in-016-002.txt",
+                this.SlimeMover.Update,
+                param);
+
+            // 003:左壁際で左
+            TestHelper.AssertEqualsFieldContext(
+                "../../resources/updaters/slimemover/test-field-out-016-003.txt",
+                "../../resources/updaters/slimemover/test-field-in-016-003.txt",
+                this.SlimeMover.Update,
+                param);
         }
     }
 }

@@ -30,10 +30,10 @@ namespace Hermann.Tests
         }
 
         /// <summary>
-        /// 001:壁際で回転ができない
+        /// 001:壁とスライムに挟まれて回転ができない
         /// </summary>
         [TestMethod]
-        public void 壁際で回転ができない()
+        public void 壁とスライムに挟まれて回転ができない()
         {
             // 001:1P-右2回
             var context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-001-001.txt");
