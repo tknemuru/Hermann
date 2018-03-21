@@ -22,13 +22,25 @@ namespace Hermann.Updaters
         public void Update(FieldContext context, Player.Index player)
         {
             var score = context.Score[(int)player] - context.UsedScore[(int)player];
+            var addScore = score;
             var opposite = Player.GetOppositeIndex(player);
 
+            // 自分のおじゃまスライムの得点を取得
+            var myScore = ObstructionSlimeHelper.ObstructionsToScore(context.ObstructionSlimes[(int)player]);
+
+            // 0より大きければ自分のおじゃまスライムの得点を減算し、相殺する
+            if(myScore > 0)
+            {
+                var subScore = (myScore - score) < 0 ? 0 : (myScore - score);
+                addScore = (score - myScore) < 0 ? 0 : (score - myScore);
+                context.ObstructionSlimes[(int)player] = ObstructionSlimeHelper.ScoreToObstructions(subScore);
+            }
+
             // 得点には既に存在するおじゃまスライム分の得点も加算する
-            score += ObstructionSlimeHelper.ObstructionsToScore(context.ObstructionSlimes[(int)opposite]);
+            addScore += ObstructionSlimeHelper.ObstructionsToScore(context.ObstructionSlimes[(int)opposite]);
 
             // 加算するおじゃまスライムを生成
-            context.ObstructionSlimes[(int)opposite] = ObstructionSlimeHelper.ScoreToObstructions(score);
+            context.ObstructionSlimes[(int)opposite] = ObstructionSlimeHelper.ScoreToObstructions(addScore);
 
             // 使用済得点の更新
             context.UsedScore[(int)player] = context.Score[(int)player] - ObstructionSlimeHelper.GetScoreRemainder(score);
