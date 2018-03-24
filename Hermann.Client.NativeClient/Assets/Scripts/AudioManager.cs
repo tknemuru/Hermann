@@ -10,6 +10,16 @@ using System;
 public class AudioManager : MonoBehaviour
 {
     /// <summary>
+    /// BGMのボリューム初期値
+    /// </summary>
+    public const float DefaultBgmVolume = 0.5f;
+
+    /// <summary>
+    /// SEのボリューム初期値
+    /// </summary>
+    public const float DefaultSeVolume = 0.08f;
+
+    /// <summary>
     /// BGMのリソースパス
     /// </summary>
     private const string BgmPath = "Audios/Bgm";
@@ -18,16 +28,6 @@ public class AudioManager : MonoBehaviour
     /// SEのリソースパス
     /// </summary>
     private const string SePath = "Audios/Se";
-
-    /// <summary>
-    /// BGMのボリューム初期値
-    /// </summary>
-    private const float DefaultBgmVolume = 0.5f;
-
-    /// <summary>
-    /// SEのボリューム初期値
-    /// </summary>
-    private const float DefaultSeVolume = 0.08f;
 
     /// <summary>
     /// SEの優先度初期値

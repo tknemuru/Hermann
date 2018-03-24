@@ -118,5 +118,35 @@ namespace Assets.Scripts.Models
             }
             return name;
         }
+
+        /// <summary>
+        /// 効果音の音量を取得します。
+        /// </summary>
+        /// <param name="se">効果音</param>
+        /// <returns>効果音の音量</returns>
+        public static float GetVolume(this SoundEffect se)
+        {
+            var volume = AudioManager.DefaultSeVolume;
+            switch (se)
+            {
+                case SoundEffect.Attack1:
+                case SoundEffect.Attack2:
+                case SoundEffect.Attack3:
+                    volume = 0.6f;
+                    break;
+                case SoundEffect.Offset:
+                case SoundEffect.Erase:
+                case SoundEffect.Obstructions:
+                case SoundEffect.SingleObstruction:
+                    volume = 0.4f;
+                    break;
+                case SoundEffect.Ground:
+                case SoundEffect.Move:
+                    break;
+                default:
+                    throw new ArgumentException("SoundEffectが不正です");
+            }
+            return volume;
+        }
     }
 }

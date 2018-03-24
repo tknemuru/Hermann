@@ -38,16 +38,7 @@ namespace Assets.Scripts.Updater
             {
                 if (required.Value)
                 {
-                    if (required.Key == SoundEffect.Attack1 ||
-                        required.Key == SoundEffect.Attack2 ||
-                        required.Key == SoundEffect.Attack3)
-                    {
-                        AudioManager.ChangeSeVolume(0.8f);
-                    }
-                    else
-                    {
-                        AudioManager.ChangeSeVolume(0.08f);
-                    }
+                    AudioManager.ChangeSeVolume(required.Key.GetVolume());
                     AudioManager.PlaySE(required.Key.GetName(player).ToLower());
                 }
             }
