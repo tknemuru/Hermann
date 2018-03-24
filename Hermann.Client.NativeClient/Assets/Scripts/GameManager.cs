@@ -13,6 +13,8 @@ using Assets.Scripts.Di;
 using Hermann.Client.ConsoleClient;
 using Hermann.Helpers;
 using System;
+using Assets.Scripts.Containers;
+using Assets.Scripts.Analyzers;
 
 /// <summary>
 /// ゲーム管理機能を提供します。
@@ -20,14 +22,19 @@ using System;
 public class GameManager : MonoBehaviour
 {
     /// <summary>
-    /// デバッグモードかどうか
-    /// </summary>
-    public static bool IsDebug = true;
-
-    /// <summary>
     /// スライムオブジェクト
     /// </summary>
     public GameObject SlimeObject;
+
+    /// <summary>
+    /// デバッグモードかどうか
+    /// </summary>
+    public static bool IsDebug = false;
+
+    /// <summary>
+    /// BGMファイル名
+    /// </summary>
+    private const string BgmFileName = "bgm1_low_vol";
 
     /// <summary>
     /// フィールド情報のUIフィールドへの反映機能
@@ -53,6 +60,26 @@ public class GameManager : MonoBehaviour
     /// UI飾り情報の受信機能
     /// </summary>
     private static UiDecorationContainerReceiver UiDecorationContainerReceiver;
+
+    /// <summary>
+    /// 音の管理機能
+    /// </summary>
+    private static AudioManager AudioManager;
+
+    /// <summary>
+    /// 効果音に関する分析機能
+    /// </summary>
+    private static SoundEffectAnalyzer SoundEffectAnalyzer;
+
+    /// <summary>
+    /// 音の演出に関する情報格納庫
+    /// </summary>
+    private static SoundEffectDecorationContainer[] SoundEffectDecorationContainer;
+
+    /// <summary>
+    /// 効果音出力機能
+    /// </summary>
+    private static SoundEffectOutputter SoundEffectOutputter;
 
     /// <summary>
     /// フィールドの送信機能
@@ -87,28 +114,46 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        LastWinCount = new[] { 0, 0 };
-        EraseAnimationFrameElapsedCount = new[] { 0, 0 };
-
-        this.Slimes = new Dictionary<Player.Index, List<GameObject>>();
-        Player.ForEach(player =>
+        try
         {
-            this.Slimes.Add(player, new List<GameObject>());
-        });
-        this.FieldContextReflector = ScriptableObject.CreateInstance<FieldContextReflector>();
-        this.FieldContextReflector.Initialize(this.SlimeObject);
+            LastWinCount = new[] { 0, 0 };
+            EraseAnimationFrameElapsedCount = new[] { 0, 0 };
+            AudioManager = gameObject.AddComponent<AudioManager>();
+            AudioManager.PlayBGM(BgmFileName);
+            SoundEffectOutputter = NativeClientDiProvider.GetContainer().GetInstance<SoundEffectOutputter>();
+            SoundEffectOutputter.Initialize(AudioManager);
+            SoundEffectAnalyzer = NativeClientDiProvider.GetContainer().GetInstance<SoundEffectAnalyzer>();
+            SoundEffectDecorationContainer = new SoundEffectDecorationContainer[Player.Length];
 
-        // 初期フィールド状態の取得
-        NoneDirectionUpdateFrameElapsed = new[] { FieldContextConfig.NoneDirectionUpdateFrameCount, FieldContextConfig.NoneDirectionUpdateFrameCount };
-        Receiver = NativeClientDiProvider.GetContainer().GetInstance<CommandReceiver<NativeCommand, FieldContext>>();
-        Sender = NativeClientDiProvider.GetContainer().GetInstance<FieldContextSender<string>>();
-        UiDecorationContainerReceiver = NativeClientDiProvider.GetContainer().GetInstance<UiDecorationContainerReceiver>();
-        var command = NativeClientDiProvider.GetContainer().GetInstance<NativeCommand>();
-        command.Command = Command.Start;
-        Context = Receiver.Receive(command);
+            this.Slimes = new Dictionary<Player.Index, List<GameObject>>();
+            Player.ForEach(player =>
+            {
+                SoundEffectDecorationContainer[(int)player] = NativeClientDiProvider.GetContainer().GetInstance<SoundEffectDecorationContainer>();
+                this.Slimes.Add(player, new List<GameObject>());
+            });
+            this.FieldContextReflector = ScriptableObject.CreateInstance<FieldContextReflector>();
+            this.FieldContextReflector.Initialize(this.SlimeObject);
 
-        KeyInfos = new List<KeyCode>();
-        IsBlockedKeyInfo = false;
+            // 初期フィールド状態の取得
+            NoneDirectionUpdateFrameElapsed = new[] { FieldContextConfig.NoneDirectionUpdateFrameCount, FieldContextConfig.NoneDirectionUpdateFrameCount };
+            Receiver = NativeClientDiProvider.GetContainer().GetInstance<CommandReceiver<NativeCommand, FieldContext>>();
+            Sender = NativeClientDiProvider.GetContainer().GetInstance<FieldContextSender<string>>();
+            UiDecorationContainerReceiver = NativeClientDiProvider.GetContainer().GetInstance<UiDecorationContainerReceiver>();
+            var command = NativeClientDiProvider.GetContainer().GetInstance<NativeCommand>();
+            command.Command = Command.Start;
+            Context = Receiver.Receive(command);
+            Player.ForEach(player =>
+            {
+                SoundEffectDecorationContainer[(int)player].LastFieldContext = Context;
+            });
+
+            KeyInfos = new List<KeyCode>();
+            IsBlockedKeyInfo = false;
+        }
+        catch(Exception ex)
+        {
+            Debug.Log(ex);
+        }
     }
 
     // Update is called once per frame
@@ -130,6 +175,9 @@ public class GameManager : MonoBehaviour
 
         Player.ForEach(player =>
         {
+            // 前回のフィールド状態を更新しておく
+            SoundEffectDecorationContainer[(int)player].LastFieldContext = Context.DeepCopy();
+
             // フィールド状態の更新
             NoneDirectionUpdateFrameElapsed[(int)player]++;
             var requireNoneDirectionUpdate = (NoneDirectionUpdateFrameElapsed[(int)player] >= FieldContextConfig.NoneDirectionUpdateFrameCount || Context.Ground[(int)player]);
@@ -164,9 +212,15 @@ public class GameManager : MonoBehaviour
         var container = UiDecorationContainerReceiver.Receive(Context);
         container.EraseAnimationFrameElapsedCount = EraseAnimationFrameElapsedCount;
 
-        // 画面描画
         Player.ForEach(player =>
         {
+            // 効果音
+            SoundEffectDecorationContainer[(int)player] = SoundEffectAnalyzer.Analyze(Context, player, SoundEffectDecorationContainer[(int)player]);
+            SoundEffectOutputter.Output(SoundEffectDecorationContainer[(int)player], player);
+            DebugLog(string.Format("----- 効果音要求({0}) -----", player.GetName()));
+            DebugLog(SoundEffectDecorationContainer[(int)player].ToString());
+
+            // 画面描画
             foreach (var slime in this.Slimes[player])
             {
                 Destroy(slime);
