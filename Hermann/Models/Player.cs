@@ -78,5 +78,15 @@ namespace Hermann.Models
 
             return name;
         }
+
+        /// <summary>
+        /// 反対のインデックスを取得します。
+        /// </summary>
+        /// <param name="index">インデックス</param>
+        /// <returns>反対のインデックス</returns>
+        public static Player.Index GetOppositeIndex(this Player.Index index)
+        {
+            return index == Player.Index.First ? Player.Index.Second : Player.Index.First;
+        }
     }
 }

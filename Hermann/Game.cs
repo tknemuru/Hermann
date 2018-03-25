@@ -294,7 +294,18 @@ namespace Hermann
             else
             {
                 context.Chain[(int)player] = 0;
-                context.FieldEvent[(int)player] = FieldEvent.SetObstructions;
+
+                var opposite = player.GetOppositeIndex();
+                if(context.FieldEvent[(int)opposite] == FieldEvent.None ||
+                    context.FieldEvent[(int)opposite] == FieldEvent.NextPreparation)
+                {
+                    context.FieldEvent[(int)player] = FieldEvent.SetObstructions;
+                }
+                else
+                {
+                    // 相手の連鎖が継続している場合は、おじゃまスライムを落とさない
+                    context.FieldEvent[(int)player] = FieldEvent.NextPreparation;
+                }
             }
         }
 

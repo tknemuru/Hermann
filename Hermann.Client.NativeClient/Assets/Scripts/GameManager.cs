@@ -30,7 +30,12 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// デバッグモードかどうか
     /// </summary>
-    public static bool IsDebug = true;
+    private static bool IsDebug = false;
+
+    /// <summary>
+    /// トレーニングモードかどうか
+    /// </summary>
+    public static bool IsTraining = false;
 
     /// <summary>
     /// BGMファイル名
@@ -169,6 +174,12 @@ public class GameManager : MonoBehaviour
             if (IsEnd(Context))
             {
                 return;
+            }
+
+            // TODO:後でちゃんと修正。トレーニング用
+            if (IsTraining)
+            {
+                ChangeForTraining(Context);
             }
 
             // 入力受付
@@ -313,5 +324,20 @@ public class GameManager : MonoBehaviour
         {
             FileHelper.WriteLine(log);
         }
+    }
+
+    /// <summary>
+    /// トレーニング用に移動可能スライムを改変します。
+    /// </summary>
+    /// <param name="context"></param>
+    private static void ChangeForTraining(FieldContext context)
+    {
+        NextSlime.ForEach(next =>
+        {
+            MovableSlime.ForEach(movable =>
+            {
+                context.NextSlimes[(int)Player.Index.First][(int)next][(int)movable] = Slime.Blue;
+            });
+        });
     }
 }

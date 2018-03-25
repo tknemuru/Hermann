@@ -29,6 +29,9 @@ namespace Assets.Scripts.Initializers
         /// </summary>
         private FieldContextReceiver<string> Receiver { get; set; }
 
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
         public FieldContextSimpleTextInitializer()
         {
             this.Receiver = NativeClientDiProvider.GetContainer().GetInstance<FieldContextReceiver<string>>();
