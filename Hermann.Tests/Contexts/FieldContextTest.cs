@@ -3,6 +3,7 @@ using Hermann.Contexts;
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Hermann.Tests.TestHelpers;
 
 namespace Hermann.Tests.Contexts
 {
@@ -52,6 +53,17 @@ namespace Hermann.Tests.Contexts
             y = CreateEqualsTestDefaultFieldContext();
             y.SlimeFields[1][Slime.Red] = new uint[] { 2u, 4u, 6u };
             Assert.IsFalse(x.Equals(y));
+        }
+
+        /// <summary>
+        /// 002:DeepCopyしたフィールド状態と元のフィールド状態が一致している
+        /// </summary>
+        [TestMethod]
+        public void DeepCopyしたフィールド状態と元のフィールド状態が一致している()
+        {
+            var expected = TestHelper.Receiver.Receive("../../resources/contexts/fieldcontext/test-field-in-002-001.txt");
+            var actual = expected.DeepCopy();
+            TestHelper.AssertEqualsFieldContext(expected, actual);
         }
 
         /// <summary>

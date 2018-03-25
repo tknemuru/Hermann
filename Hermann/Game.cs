@@ -84,7 +84,7 @@ namespace Hermann
         /// <summary>
         ///フィールド状態の初期化機能
         /// </summary>
-        private FieldContextInitializer FieldContextInitializer { get; set; }
+        private IFieldContextInitializable FieldContextInitializer { get; set; }
 
         /// <summary>
         /// 移動可能スライムの更新機能
@@ -109,7 +109,7 @@ namespace Hermann
         /// <summary>
         /// おじゃまスライム配置機能
         /// </summary>
-        private ObstructionSlimeRandomSetter ObstructionSlimeRandomSetter { get; set; }
+        private ObstructionSlimeSetter ObstructionSlimeSetter { get; set; }
 
         /// <summary>
         ///　得点計算機能
@@ -139,7 +139,7 @@ namespace Hermann
             this.UsingSlimeGenerator = DiProvider.GetContainer().GetInstance<UsingSlimeGenerator>();
             this.MovableSlimesUpdater = DiProvider.GetContainer().GetInstance<MovableSlimesUpdater>();
             this.ObstructionSlimeCalculator = DiProvider.GetContainer().GetInstance<ObstructionSlimeCalculator>();
-            this.ObstructionSlimeRandomSetter = DiProvider.GetContainer().GetInstance<ObstructionSlimeRandomSetter>();
+            this.ObstructionSlimeSetter = DiProvider.GetContainer().GetInstance<ObstructionSlimeSetter>();
             this.ScoreCalculator = DiProvider.GetContainer().GetInstance<ScoreCalculator>();
             this.ObstructionSlimeErasingMarker = DiProvider.GetContainer().GetInstance<ObstructionSlimeErasingMarker>();
 
@@ -147,7 +147,7 @@ namespace Hermann
             this.NextSlimeGenerator.UsingSlime = this.UsingSlimeGenerator.GetNext();
             this.NextSlimeUpdater = DiProvider.GetContainer().GetInstance<NextSlimeUpdater>();
             this.NextSlimeUpdater.Injection(this.NextSlimeGenerator);
-            this.FieldContextInitializer = DiProvider.GetContainer().GetInstance<FieldContextInitializer>();
+            this.FieldContextInitializer = DiProvider.GetContainer().GetInstance<IFieldContextInitializable>();
             this.FieldContextInitializer.Injection(this.NextSlimeGenerator, this.MovableSlimesUpdater, this.NextSlimeUpdater);
         }
 
@@ -344,7 +344,7 @@ namespace Hermann
         private void SetObstructions(FieldContext context, Player.Index player)
         {
             // 自分自身のフィールドにおじゃまスライムを配置する
-            this.ObstructionSlimeRandomSetter.Update(context, player);
+            this.ObstructionSlimeSetter.Update(context, player);
 
             context.FieldEvent[(int)player] = FieldEvent.DropObstructions;
         }

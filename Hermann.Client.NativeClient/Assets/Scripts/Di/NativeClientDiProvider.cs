@@ -13,6 +13,8 @@ using System.Text;
 
 using SimpleInjector;
 using Hermann.Updaters.Times;
+using Hermann.Initializers;
+using Assets.Scripts.Initializers;
 
 namespace Assets.Scripts.Di
 {
@@ -63,15 +65,18 @@ namespace Assets.Scripts.Di
         {
             MyContainer = new Container();
             MyContainer.Register<FieldContext, FieldContext>();
-            MyContainer.Register<MovableSlime>(() => new MovableSlime());
+            MyContainer.Register(() => new MovableSlime());
             MyContainer.Register<UsingSlimeGenerator, UsingSlimeRandomGenerator>();
             MyContainer.Register<NextSlimeGenerator, NextSlimeRandomGenerator>();
-            MyContainer.Register<NextSlimeUpdater>(() => new NextSlimeUpdater());
+            MyContainer.Register(() => new NextSlimeUpdater());
             MyContainer.Register<CommandReceiver<NativeCommand, FieldContext>, NativeCommandReceiver>(Lifestyle.Singleton);
             MyContainer.Register<FieldContextReceiver<string>, SimpleTextReceiver>(Lifestyle.Singleton);
             MyContainer.Register<FieldContextSender<string>, SimpleTextSender>(Lifestyle.Singleton);
             MyContainer.Register<ITimeUpdatable>(() => new TimeElapsedTicksUpdater());
             MyContainer.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(1, FieldContextConfig.MaxBuiltRemainingFrameCount));
+            //MyContainer.Register<IFieldContextInitializable>(() => new FieldContextSimpleTextInitializer());
+            MyContainer.Register<IFieldContextInitializable>(() => new FieldContextInitializer());
+            MyContainer.Register<ObstructionSlimeSetter, ObstructionSlimeRandomSetter>();
 
             DiProvider.SetContainer(MyContainer);
             MyContainer.Verify();

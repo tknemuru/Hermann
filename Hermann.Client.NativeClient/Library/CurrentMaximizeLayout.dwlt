@@ -22,10 +22,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 909, y: 442}
+  m_MinSize: {x: 909, y: 421}
   m_MaxSize: {x: 22004, y: 10000}
   vertical: 0
-  controlID: 2708
+  controlID: 9677
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -123,10 +123,10 @@ MonoBehaviour:
     y: 0
     width: 901
     height: 947
-  m_MinSize: {x: 202, y: 442}
-  m_MaxSize: {x: 4002, y: 8042}
+  m_MinSize: {x: 202, y: 421}
+  m_MaxSize: {x: 4002, y: 8021}
   vertical: 1
-  controlID: 2666
+  controlID: 9589
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -145,8 +145,8 @@ MonoBehaviour:
     y: 0
     width: 901
     height: 339
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 5}
   m_Panes:
   - {fileID: 5}
@@ -247,8 +247,8 @@ MonoBehaviour:
     y: 339
     width: 901
     height: 608
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 2}
   m_Panes:
   - {fileID: 2}
@@ -398,18 +398,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Resources/Audios/Bgm
+    - Assets/Scripts/Initializers
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Resources/Audios/Bgm
+  - Assets/Scripts/Initializers
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\work\visualstudio\Hermann\Hermann.Client.NativeClient
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: d2270000
-    m_LastClickedID: 10194
+    m_SelectedIDs: 18310000
+    m_LastClickedID: 12568
     m_ExpandedIDs: 000000008627000094270000d0270000e427000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0

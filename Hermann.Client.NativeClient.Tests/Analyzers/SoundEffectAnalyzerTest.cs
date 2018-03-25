@@ -283,30 +283,30 @@ namespace Hermann.Client.NativeClient.Tests.Analyzers
             var player = Player.Index.First;
             var pIndex = (int)Player.Index.First;
 
-            // 001:前回)消済マーキング 今回)削除 かつ 前回)自分のおじゃまスライム数 > 今回)自分のおじゃまスライム数 → 有
+            // 001:前回)削除 今回)スライム落下 かつ 前回)自分のおじゃまスライム数 > 今回)自分のおじゃまスライム数 → 有
             this.Initialize();
-            this.Container.LastFieldContext.FieldEvent[pIndex] = FieldEvent.MarkErasing;
-            this.Context.FieldEvent[pIndex] = FieldEvent.Erase;
+            this.Container.LastFieldContext.FieldEvent[pIndex] = FieldEvent.Erase;
+            this.Context.FieldEvent[pIndex] = FieldEvent.DropSlimes;
             this.Container.LastFieldContext.ObstructionSlimes[pIndex] = ObstructionSlimeHelper.ScoreToObstructions(3000);
             this.Context.ObstructionSlimes[pIndex] = ObstructionSlimeHelper.ScoreToObstructions(600);
 
             this.Analyzer.Analyze(this.Context, player, this.Container);
             Assert.AreEqual(true, this.Container.Required[SoundEffect.Offset]);
 
-            // 002:前回)消済マーキング 今回)削除 かつ 前回)自分のおじゃまスライム数 = 今回)自分のおじゃまスライム数 → 無
+            // 002:前回)削除 今回)スライム落下 かつ 前回)自分のおじゃまスライム数 = 今回)自分のおじゃまスライム数 → 無
             this.Initialize();
-            this.Container.LastFieldContext.FieldEvent[pIndex] = FieldEvent.MarkErasing;
-            this.Context.FieldEvent[pIndex] = FieldEvent.Erase;
+            this.Container.LastFieldContext.FieldEvent[pIndex] = FieldEvent.Erase;
+            this.Context.FieldEvent[pIndex] = FieldEvent.DropSlimes;
             this.Container.LastFieldContext.ObstructionSlimes[pIndex] = ObstructionSlimeHelper.ScoreToObstructions(3000);
             this.Context.ObstructionSlimes[pIndex] = ObstructionSlimeHelper.ScoreToObstructions(3000);
 
             this.Analyzer.Analyze(this.Context, player, this.Container);
             Assert.AreEqual(false, this.Container.Required[SoundEffect.Offset]);
 
-            // 003:前回)消済マーキング 今回)消済マーキング かつ 前回)自分のおじゃまスライム数 > 今回)自分のおじゃまスライム数 → 無
+            // 003:前回)スライム落下 今回)スライム落下かつ 前回)自分のおじゃまスライム数 > 今回)自分のおじゃまスライム数 → 無
             this.Initialize();
-            this.Container.LastFieldContext.FieldEvent[pIndex] = FieldEvent.MarkErasing;
-            this.Context.FieldEvent[pIndex] = FieldEvent.MarkErasing;
+            this.Container.LastFieldContext.FieldEvent[pIndex] = FieldEvent.DropSlimes;
+            this.Context.FieldEvent[pIndex] = FieldEvent.DropSlimes;
             this.Container.LastFieldContext.ObstructionSlimes[pIndex] = ObstructionSlimeHelper.ScoreToObstructions(3000);
             this.Context.ObstructionSlimes[pIndex] = ObstructionSlimeHelper.ScoreToObstructions(600);
 

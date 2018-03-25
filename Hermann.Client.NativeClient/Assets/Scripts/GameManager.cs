@@ -15,6 +15,7 @@ using Hermann.Helpers;
 using System;
 using Assets.Scripts.Containers;
 using Assets.Scripts.Analyzers;
+using Assets.Scripts.Initializers;
 
 /// <summary>
 /// ゲーム管理機能を提供します。
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// デバッグモードかどうか
     /// </summary>
-    public static bool IsDebug = false;
+    public static bool IsDebug = true;
 
     /// <summary>
     /// BGMファイル名
@@ -142,6 +143,10 @@ public class GameManager : MonoBehaviour
             var command = NativeClientDiProvider.GetContainer().GetInstance<NativeCommand>();
             command.Command = Command.Start;
             Context = Receiver.Receive(command);
+            if (IsDebug)
+            {
+                Context = NativeClientDiProvider.GetContainer().GetInstance<FieldContextSimpleTextInitializer>().Initialize(Context);
+            }
             Player.ForEach(player =>
             {
                 SoundEffectDecorationContainer[(int)player].LastFieldContext = Context;
@@ -159,74 +164,81 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsEnd(Context))
+        try
         {
-            return;
-        }
-
-        // 入力受付
-        var keyInfos = new KeyCode[Player.Length][];
-        Player.ForEach(player =>
-        {
-            keyInfos[(int)player] = KeyMap.GetKeys().Select(k => k).
-                Where(k => Input.GetKeyDown(k) && KeyMap.GetPlayer(k) == player).
-                ToArray();
-        });
-
-        Player.ForEach(player =>
-        {
-            // 前回のフィールド状態を更新しておく
-            SoundEffectDecorationContainer[(int)player].LastFieldContext = Context.DeepCopy();
-
-            // フィールド状態の更新
-            NoneDirectionUpdateFrameElapsed[(int)player]++;
-            var requireNoneDirectionUpdate = (NoneDirectionUpdateFrameElapsed[(int)player] >= FieldContextConfig.NoneDirectionUpdateFrameCount || Context.Ground[(int)player]);
-            if (requireNoneDirectionUpdate)
+            if (IsEnd(Context))
             {
-                NoneDirectionUpdateFrameElapsed[(int)player] = 0;
+                return;
             }
 
-            if (Context.FieldEvent[(int)player] == FieldEvent.None)
+            // 入力受付
+            var keyInfos = new KeyCode[Player.Length][];
+            Player.ForEach(player =>
             {
-                UpdateDuringNoneEvent(player, keyInfos[(int)player], requireNoneDirectionUpdate);
-            }
-            else
+                keyInfos[(int)player] = KeyMap.GetKeys().Select(k => k).
+                    Where(k => Input.GetKeyDown(k) && KeyMap.GetPlayer(k) == player).
+                    ToArray();
+            });
+
+            Player.ForEach(player =>
             {
-                if(Context.FieldEvent[(int)player] == FieldEvent.Erase)
+                // 前回のフィールド状態を更新しておく
+                SoundEffectDecorationContainer[(int)player].LastFieldContext = Context.DeepCopy();
+
+                // フィールド状態の更新
+                NoneDirectionUpdateFrameElapsed[(int)player]++;
+                var requireNoneDirectionUpdate = (NoneDirectionUpdateFrameElapsed[(int)player] >= FieldContextConfig.NoneDirectionUpdateFrameCount || Context.Ground[(int)player]);
+                if (requireNoneDirectionUpdate)
                 {
-                    EraseAnimationFrameElapsedCount[(int)player]++;
-                    if (EraseAnimationFrameElapsedCount[(int)player] > FieldContextConfig.EraseAnimationFrameCount)
-                    {
-                        UpdateDuringOccurrenceEvent(player);
-                        EraseAnimationFrameElapsedCount[(int)player] = 0;
-                    }
+                    NoneDirectionUpdateFrameElapsed[(int)player] = 0;
+                }
+
+                if (Context.FieldEvent[(int)player] == FieldEvent.None)
+                {
+                    UpdateDuringNoneEvent(player, keyInfos[(int)player], requireNoneDirectionUpdate);
                 }
                 else
                 {
-                    UpdateDuringOccurrenceEvent(player);
+                    if (Context.FieldEvent[(int)player] == FieldEvent.Erase)
+                    {
+                        EraseAnimationFrameElapsedCount[(int)player]++;
+                        if (EraseAnimationFrameElapsedCount[(int)player] > FieldContextConfig.EraseAnimationFrameCount)
+                        {
+                            UpdateDuringOccurrenceEvent(player);
+                            EraseAnimationFrameElapsedCount[(int)player] = 0;
+                        }
+                    }
+                    else
+                    {
+                        UpdateDuringOccurrenceEvent(player);
+                    }
                 }
-            }
-        });
+            });
 
-        // 描画用情報の取得
-        var container = UiDecorationContainerReceiver.Receive(Context);
-        container.EraseAnimationFrameElapsedCount = EraseAnimationFrameElapsedCount;
+            // 描画用情報の取得
+            var container = UiDecorationContainerReceiver.Receive(Context);
+            container.EraseAnimationFrameElapsedCount = EraseAnimationFrameElapsedCount;
 
-        Player.ForEach(player =>
-        {
-            // 効果音
-            SoundEffectDecorationContainer[(int)player] = SoundEffectAnalyzer.Analyze(Context, player, SoundEffectDecorationContainer[(int)player]);
-            SoundEffectOutputter.Output(SoundEffectDecorationContainer[(int)player], player);
-            DebugLog(string.Format("----- 効果音要求({0}) -----", player.GetName()));
-            DebugLog(SoundEffectDecorationContainer[(int)player].ToString());
-
-            // 画面描画
-            foreach (var slime in this.Slimes[player])
+            Player.ForEach(player =>
             {
-                Destroy(slime);
-            }
-            this.Slimes[player] = this.FieldContextReflector.Update(player, container);
-        });
+                // 効果音
+                SoundEffectDecorationContainer[(int)player] = SoundEffectAnalyzer.Analyze(Context, player, SoundEffectDecorationContainer[(int)player]);
+                SoundEffectOutputter.Output(SoundEffectDecorationContainer[(int)player], player);
+                DebugLog(string.Format("----- 効果音要求({0}) -----", player.GetName()));
+                DebugLog(SoundEffectDecorationContainer[(int)player].ToString());
+
+                // 画面描画
+                foreach (var slime in this.Slimes[player])
+                {
+                    Destroy(slime);
+                }
+                this.Slimes[player] = this.FieldContextReflector.Update(player, container);
+            });
+        }
+        catch(Exception ex)
+        {
+            Debug.Log(ex);
+        }
     }
 
     /// <summary>

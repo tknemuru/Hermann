@@ -129,8 +129,8 @@ namespace Assets.Scripts.Analyzers
             var lastObsScore = ObstructionSlimeHelper.ObstructionsToScore(last.ObstructionSlimes[(int)player]);
             var obsScore = ObstructionSlimeHelper.ObstructionsToScore(context.ObstructionSlimes[(int)player]);
             return (obsScore < lastObsScore) &&
-                last.FieldEvent[(int)player] == FieldEvent.MarkErasing &&
-                context.FieldEvent[(int)player] == FieldEvent.Erase;
+                last.FieldEvent[(int)player] == FieldEvent.Erase &&
+                context.FieldEvent[(int)player] == FieldEvent.DropSlimes;
         }
     }
 }

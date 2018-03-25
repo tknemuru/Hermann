@@ -13,6 +13,7 @@ using System.Text;
 using SimpleInjector;
 using Hermann.Updaters.Times;
 using Hermann.Updaters;
+using Hermann.Initializers;
 
 namespace Hermann.Tests.Di
 {
@@ -66,15 +67,17 @@ namespace Hermann.Tests.Di
             MyContainer = new Container();
             MyContainer.Options.AllowOverridingRegistrations = true;
             MyContainer.Register<FieldContext, FieldContext>();
-            MyContainer.Register<MovableSlime>(() => new MovableSlime());
+            MyContainer.Register(() => new MovableSlime());
             MyContainer.Register<UsingSlimeGenerator, UsingSlimeRandomGenerator>();
             MyContainer.Register<NextSlimeGenerator, NextSlimeRandomGenerator>();
-            MyContainer.Register<NextSlimeUpdater>(() => new NextSlimeUpdater());
+            MyContainer.Register(() => new NextSlimeUpdater());
             MyContainer.Register<CommandReceiver<NativeCommand, FieldContext>, NativeCommandReceiver>();
             MyContainer.Register<FieldContextReceiver<string>, SimpleTextReceiver>();
             MyContainer.Register<FieldContextSender<string>, SimpleTextSender>();
             MyContainer.Register<ITimeUpdatable>(() => new TimeStableUpdater(0));
             MyContainer.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(0, FieldContextConfig.MaxBuiltRemainingTime));
+            MyContainer.Register<IFieldContextInitializable>(() => new FieldContextInitializer());
+            MyContainer.Register<ObstructionSlimeSetter, ObstructionSlimeRandomSetter>();
 
             DiProvider.SetContainer(MyContainer);
         }

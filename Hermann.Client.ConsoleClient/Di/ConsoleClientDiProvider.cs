@@ -13,6 +13,7 @@ using System.Text;
 
 using SimpleInjector;
 using Hermann.Updaters.Times;
+using Hermann.Initializers;
 
 namespace Hermann.Client.ConsoleClient.Di
 {
@@ -63,15 +64,17 @@ namespace Hermann.Client.ConsoleClient.Di
         {
             MyContainer = new Container();
             MyContainer.Register<FieldContext, FieldContext>();
-            MyContainer.Register<MovableSlime>(() => new MovableSlime());
+            MyContainer.Register(() => new MovableSlime());
             MyContainer.Register<UsingSlimeGenerator, UsingSlimeRandomGenerator>();
             MyContainer.Register<NextSlimeGenerator, NextSlimeRandomGenerator>();
-            MyContainer.Register<NextSlimeUpdater>(() => new NextSlimeUpdater());
+            MyContainer.Register(() => new NextSlimeUpdater());
             MyContainer.Register<CommandReceiver<NativeCommand, FieldContext>, NativeCommandReceiver>(Lifestyle.Singleton);
             MyContainer.Register<FieldContextReceiver<string>, SimpleTextReceiver>(Lifestyle.Singleton);
             MyContainer.Register<FieldContextSender<string>, SimpleTextSender>(Lifestyle.Singleton);
             MyContainer.Register<ITimeUpdatable>(() => new TimeElapsedTicksUpdater());
             MyContainer.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(1, 3));
+            MyContainer.Register<IFieldContextInitializable>(() => new FieldContextInitializer(), Lifestyle.Singleton);
+            MyContainer.Register<ObstructionSlimeSetter, ObstructionSlimeRandomSetter>();
 
             DiProvider.SetContainer(MyContainer);
             MyContainer.Verify();

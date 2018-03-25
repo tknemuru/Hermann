@@ -15,7 +15,7 @@ namespace Hermann.Initializers
     /// <summary>
     ///フィールド状態の初期化機能を提供します。
     /// </summary>
-    public class FieldContextInitializer : IFieldInitializable
+    public class FieldContextInitializer : IFieldContextInitializable
     {
         /// <summary>
         /// Nextスライム生成機能
