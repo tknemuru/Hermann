@@ -2,7 +2,6 @@
 using Hermann.Helpers;
 using Hermann.Models;
 using Hermann.Updaters;
-using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

@@ -1,5 +1,4 @@
 ﻿using Hermann.Contexts;
-using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
 using System.Linq;

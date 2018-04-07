@@ -9,9 +9,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Reactive.Linq;
-using Reactive.Bindings;
-using Reactive.Bindings.Notifiers;
 
 namespace Hermann.Api.Receivers
 {

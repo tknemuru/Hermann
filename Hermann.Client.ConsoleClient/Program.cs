@@ -11,10 +11,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-
-using Reactive.Bindings;
-using Reactive.Bindings.Notifiers;
-using Hermann.Updaters;
 using Hermann.Helpers;
 
 namespace Hermann.Client.ConsoleClient
