@@ -242,7 +242,7 @@ namespace Hermann
                 // 下への移動が成功した場合は得点計算を行う
                 if (context.OperationDirection == Direction.Down)
                 {
-                    this.ScoreCalculator.Update(context, player, moveParam.ResultDistance);
+                    this.ScoreCalculator.Update(context, player, new ScoreCalculator.Param(moveParam.ResultDistance));
                 }
             }
 
@@ -280,19 +280,28 @@ namespace Hermann
         private void MarkErasing(FieldContext context, Player.Index player)
         {
             // 消す対象のスライムを消済スライムとしてマーキングする
-            this.SlimeErasingMarker.Update(context);
+            var param = new SlimeErasingMarker.Param();
+            this.SlimeErasingMarker.Update(context, player, param);
 
             // 隣接するおじゃまスライムを消済スライムとしてマーキングする
             this.ObstructionSlimeErasingMarker.Update(context, player);
 
-            // 連鎖数の更新
             if (context.SlimeFields[(int)player][Slime.Erased].Any(f => f > 0))
             {
+                // 連鎖数の更新
                 context.Chain[(int)player]++;
+
+                // 得点を計算
+                this.ScoreCalculator.Update(context, player, new ScoreCalculator.Param(param.MaxLinkedCount, param.ColorCount, param.AllErased));
+
+                // おじゃまスライムを算出して加算
+                this.ObstructionSlimeCalculator.Update(context, player);
+
                 context.FieldEvent[(int)player] = FieldEvent.Erase;
             }
             else
             {
+                // 連鎖終了
                 context.Chain[(int)player] = 0;
 
                 var opposite = player.GetOppositeIndex();
@@ -316,12 +325,6 @@ namespace Hermann
         /// <param name="player">プレイヤ</param>
         private void Erase(FieldContext context, Player.Index player)
         {
-            // 得点を計算
-            this.ScoreCalculator.Update(context, player);
-
-            // おじゃまスライムを算出して加算
-            this.ObstructionSlimeCalculator.Update(context, player);
-
             // 消済スライムを削除する
             this.SlimeEraser.Update(context);
 

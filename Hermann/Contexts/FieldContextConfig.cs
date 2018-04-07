@@ -99,6 +99,6 @@ namespace Hermann.Contexts
         /// <summary>
         /// 削除時のアニメーションフレーム数
         /// </summary>
-        public const int EraseAnimationFrameCount = 34;
+        public const int EraseAnimationFrameCount = 38;
     }
 }

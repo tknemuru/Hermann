@@ -12,8 +12,39 @@ namespace Hermann.Updaters
     /// <summary>
     /// 消去対象のスライムを消済スライムとしてマーキングする機能を提供します。
     /// </summary>
-    public class SlimeErasingMarker : IFieldUpdatable
+    public class SlimeErasingMarker : IPlayerFieldParameterizedUpdatable<SlimeErasingMarker.Param>
     {
+        /// <summary>
+        /// パラメータ
+        /// </summary>
+        public class Param
+        {
+            /// <summary>
+            /// 最大連結数
+            /// </summary>
+            public int MaxLinkedCount { get; set; }
+
+            /// <summary>
+            /// 色数
+            /// </summary>
+            public int ColorCount { get; set; }
+
+            /// <summary>
+            /// 全消
+            /// </summary>
+            public bool AllErased { get; set; }
+
+            /// <summary>
+            /// コンストラクタ
+            /// </summary>
+            public Param()
+            {
+                this.MaxLinkedCount = 0;
+                this.ColorCount = 0;
+                this.AllErased = false;
+            }
+        }
+
         /// <summary>
         /// 消去パターンリスト
         /// </summary>
@@ -34,11 +65,13 @@ namespace Hermann.Updaters
         /// 消去対象のスライムを消済スライムとしてマーキングします。
         /// </summary>
         /// <param name="context">フィールドの状態</param>
-        public void Update(FieldContext context)
+        /// <param name="player">プレイヤ</param>
+        /// <param name="param">パラメータ</param>
+        public void Update(FieldContext context, Player.Index player, Param param)
         {
-            var player = context.OperationPlayer;
             var slimes = ExtensionSlime.Slimes.Where(s => s != Slime.Erased && s != Slime.Obstruction);
             var erasedAllColorSlimes = CreateInitialErasedSlimes();
+            var erasedColorDic = slimes.ToDictionary(s => s, s => false);
 
             // 各色のスライムを消済スライムに変換していく
             foreach (var slime in slimes)
@@ -69,6 +102,8 @@ namespace Hermann.Updaters
                             {
                                 if ((mergedField & pattern) == pattern)
                                 {
+                                    // 削除対象の色として記録
+                                    erasedColorDic[slime] = true;
                                     mergedErasedSlime |= pattern;
                                 }
                                 pattern <<= FieldContextConfig.OneLineBitCount;
@@ -83,6 +118,9 @@ namespace Hermann.Updaters
                     UpdateErasedSlimes(erasedSlimes, updateInfos, horizontalIndex);
                 }
 
+                // 最大連結数の更新
+                UpdateMaxLinkedCount(erasedSlimes, param);
+
                 // 対象スライムをフィールド上から消す
                 UpdateContextSlimeFields(fields, erasedSlimes);
 
@@ -92,6 +130,14 @@ namespace Hermann.Updaters
 
             // フィールド状態の消済スライム情報を更新する
             context.SlimeFields[(int)player][Slime.Erased] = erasedAllColorSlimes;
+
+            // 削除色数を更新
+            param.ColorCount = erasedColorDic.Select(c => c.Value).Where(v => v).Count();
+
+            // 全消しを更新
+            param.AllErased = context.SlimeFields[(int)player].
+                Where(s => s.Key != Slime.Erased).
+                All(slimeFields => slimeFields.Value.Skip(FieldContextConfig.MaxHiddenUnitIndex + 1).All(unit => unit <= 0));
         }
 
         /// <summary>
@@ -172,6 +218,35 @@ namespace Hermann.Updaters
             if (updateInfos.Length > 1)
             {
                 erasedSlimes[startUnitIndex + 1] |= updateInfos[1];
+            }
+        }
+
+        /// <summary>
+        /// 最大連結数を更新します。
+        /// </summary>
+        /// <param name="erasedSlimes">消済スライムの情報</param>
+        /// <param name="param">パラメータ</param>
+        private static void UpdateMaxLinkedCount(uint[] erasedSlimes, Param param)
+        {
+            var count = 0;
+            foreach(var unit in erasedSlimes)
+            {
+                if(unit <= 0)
+                {
+                    continue;
+                }
+
+                for(var i = 0; i < FieldContextConfig.FieldUnitBitCount; i++)
+                {
+                    if((unit & (1u << i)) > 0)
+                    {
+                        count++;
+                    }
+                }
+            }
+            if(count > param.MaxLinkedCount)
+            {
+                param.MaxLinkedCount = count;
             }
         }
 
