@@ -34,6 +34,17 @@ namespace Assets.Scripts.Helpers
         }
 
         /// <summary>
+        /// 指定したプレイヤ・方向の矢印名を取得します。
+        /// </summary>
+        /// <param name="player">プレイヤ</param>
+        /// <param name="direction">方向</param>
+        /// <returns>指定したプレイヤ・方向の矢印名</returns>
+        public static GameObject GetPlayerArrow(Player.Index player, Direction direction)
+        {
+            return GameObject.Find(GetArrowName(player, direction));
+        }
+
+        /// <summary>
         /// 1列の横幅を取得します。
         /// </summary>
         /// <returns>1列の横幅</returns>
@@ -60,6 +71,17 @@ namespace Assets.Scripts.Helpers
         private static string GetNextSlimeFieldName(Player.Index player)
         {
             return player.GetName() + "NextSlimeField";
+        }
+
+        /// <summary>
+        /// 矢印名を取得します。
+        /// </summary>
+        /// <param name="player">プレイヤ</param>
+        /// <param name="direction">方向</param>
+        /// <returns>矢印名</returns>
+        private static string GetArrowName(Player.Index player, Direction direction)
+        {
+            return player.GetName() + "Arrow" + direction.GetName();
         }
     }
 }

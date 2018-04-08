@@ -16,6 +16,7 @@ using System;
 using Assets.Scripts.Containers;
 using Assets.Scripts.Analyzers;
 using Assets.Scripts.Initializers;
+using Assets.Scripts;
 
 /// <summary>
 /// ゲーム管理機能を提供します。
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// デバッグモードかどうか
     /// </summary>
-    private static bool IsDebug = false;
+    private static bool IsDebug = true;
 
     /// <summary>
     /// トレーニングモードかどうか
@@ -71,6 +72,11 @@ public class GameManager : MonoBehaviour
     /// 音の管理機能
     /// </summary>
     private static AudioManager AudioManager;
+
+    /// <summary>
+    /// 入力の管理機能
+    /// </summary>
+    private static InputManager InputManager;
 
     /// <summary>
     /// 効果音に関する分析機能
@@ -130,6 +136,7 @@ public class GameManager : MonoBehaviour
             SoundEffectOutputter.Initialize(AudioManager);
             SoundEffectAnalyzer = NativeClientDiProvider.GetContainer().GetInstance<SoundEffectAnalyzer>();
             SoundEffectDecorationContainer = new SoundEffectDecorationContainer[Player.Length];
+            InputManager = NativeClientDiProvider.GetContainer().GetInstance<InputManager>();
 
             this.Slimes = new Dictionary<Player.Index, List<GameObject>>();
             Player.ForEach(player =>
@@ -186,9 +193,7 @@ public class GameManager : MonoBehaviour
             var keyInfos = new KeyCode[Player.Length][];
             Player.ForEach(player =>
             {
-                keyInfos[(int)player] = KeyMap.GetKeys().Select(k => k).
-                    Where(k => Input.GetKeyDown(k) && KeyMap.GetPlayer(k) == player).
-                    ToArray();
+                keyInfos[(int)player] = InputManager.PullKeyCodes(player);
             });
 
             Player.ForEach(player =>

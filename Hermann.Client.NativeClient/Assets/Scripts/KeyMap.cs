@@ -16,12 +16,17 @@ namespace Hermann.Client.ConsoleClient
         /// <summary>
         /// プレイヤ辞書
         /// </summary>
-        private static Dictionary<KeyCode, Player.Index> PlayerDic = builtPlayerDic();
+        private static Dictionary<KeyCode, Player.Index> PlayerDic = BuiltPlayerDic();
 
         /// <summary>
         /// 方向辞書
         /// </summary>
-        private static Dictionary<KeyCode, Direction> DirectionDic = builtDirectionDic();
+        private static Dictionary<KeyCode, Direction> DirectionDic = BuiltDirectionDic();
+
+        /// <summary>
+        /// キーコード辞書
+        /// </summary>
+        private static Dictionary<Player.Index, Dictionary<Direction, KeyCode>> KeyCodeDic = BuiltKeyCodeDic();
 
         /// <summary>
         /// 指定したキーコードが操作対象のキーに含まれているかどうかを判定します。
@@ -73,10 +78,26 @@ namespace Hermann.Client.ConsoleClient
         }
 
         /// <summary>
+        /// 指定したプレイヤ・方向に対応したキーコードを取得します。
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="direction"></param>
+        /// <returns></returns>
+        public static KeyCode GetKeyCode(Player.Index player, Direction direction)
+        {
+            if (!KeyCodeDic.ContainsKey(player) || !KeyCodeDic[player].ContainsKey(direction))
+            {
+                throw new ArgumentException(string.Format("不正なプレイヤ・方向です。プレイヤ：{0} 方向：{1}", player, direction));
+            }
+
+            return KeyCodeDic[player][direction];
+        }
+
+        /// <summary>
         /// プレイヤ辞書を作成します。
         /// </summary>
         /// <returns></returns>
-        private static Dictionary<KeyCode, Player.Index> builtPlayerDic()
+        private static Dictionary<KeyCode, Player.Index> BuiltPlayerDic()
         {
             var dic = new Dictionary<KeyCode, Player.Index>();
             dic.Add(KeyCode.UpArrow, Player.Index.First);
@@ -96,7 +117,7 @@ namespace Hermann.Client.ConsoleClient
         /// 方向辞書を作成します。
         /// </summary>
         /// <returns>方向辞書</returns>
-        private static Dictionary<KeyCode, Direction> builtDirectionDic()
+        private static Dictionary<KeyCode, Direction> BuiltDirectionDic()
         {
             var dic = new Dictionary<KeyCode, Direction>();
             dic.Add(KeyCode.UpArrow, Direction.Up);
@@ -108,6 +129,30 @@ namespace Hermann.Client.ConsoleClient
             dic.Add(KeyCode.Keypad2, Direction.Down);
             dic.Add(KeyCode.Keypad8, Direction.Up);
             dic.Add(KeyCode.Keypad6, Direction.Right);
+
+            return dic;
+        }
+
+        /// <summary>
+        /// キーコード辞書を作成します。
+        /// </summary>
+        /// <returns>キーコード辞書</returns>
+        private static Dictionary<Player.Index, Dictionary<Direction, KeyCode>> BuiltKeyCodeDic()
+        {
+            var dic = new Dictionary<Player.Index, Dictionary<Direction, KeyCode>>();
+            var innerDic = new Dictionary<Direction, KeyCode>();
+            innerDic.Add(Direction.Up, KeyCode.UpArrow);
+            innerDic.Add(Direction.Right, KeyCode.RightArrow);
+            innerDic.Add(Direction.Down, KeyCode.DownArrow);
+            innerDic.Add(Direction.Left, KeyCode.LeftArrow);
+            dic.Add(Player.Index.First, innerDic);
+
+            innerDic = new Dictionary<Direction, KeyCode>();
+            innerDic.Add(Direction.Left, KeyCode.Keypad4);
+            innerDic.Add(Direction.Down, KeyCode.Keypad2);
+            innerDic.Add(Direction.Up, KeyCode.Keypad8);
+            innerDic.Add(Direction.Right, KeyCode.Keypad6);
+            dic.Add(Player.Index.Second, innerDic);
 
             return dic;
         }

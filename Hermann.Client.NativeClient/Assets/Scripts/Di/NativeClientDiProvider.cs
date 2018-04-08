@@ -77,6 +77,7 @@ namespace Assets.Scripts.Di
             //MyContainer.Register<IFieldContextInitializable>(() => new FieldContextSimpleTextInitializer());
             MyContainer.Register<IFieldContextInitializable>(() => new FieldContextInitializer());
             MyContainer.Register<ObstructionSlimeSetter, ObstructionSlimeRandomSetter>();
+            MyContainer.Register<InputManager>(Lifestyle.Singleton);
 
             DiProvider.SetContainer(MyContainer);
             MyContainer.Verify();
