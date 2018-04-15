@@ -17,6 +17,7 @@ using Assets.Scripts.Containers;
 using Assets.Scripts.Analyzers;
 using Assets.Scripts.Initializers;
 using Assets.Scripts;
+using Hermann.Learning;
 
 /// <summary>
 /// ゲーム管理機能を提供します。
@@ -31,12 +32,32 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// デバッグモードかどうか
     /// </summary>
-    private static bool IsDebug = true;
+    private static bool IsDebug = false;
+
+    /// <summary>
+    /// テストモードかどうか
+    /// </summary>
+    private static bool IsTest = false;
+
+    /// <summary>
+    /// 学習中かどうか
+    /// </summary>
+    private static bool IsLearning = true;
 
     /// <summary>
     /// トレーニングモードかどうか
     /// </summary>
     public static bool IsTraining = false;
+
+    /// <summary>
+    /// AIが操作するかどうか
+    /// </summary>
+    public static bool IsAiPlay = true;
+
+    /// <summary>
+    /// ゲームが終了したかどうか
+    /// </summary>
+    public static bool End = false;
 
     /// <summary>
     /// BGMファイル名
@@ -155,7 +176,7 @@ public class GameManager : MonoBehaviour
             var command = NativeClientDiProvider.GetContainer().GetInstance<NativeCommand>();
             command.Command = Command.Start;
             Context = Receiver.Receive(command);
-            if (IsDebug)
+            if (IsTest)
             {
                 Context = NativeClientDiProvider.GetContainer().GetInstance<FieldContextSimpleTextInitializer>().Initialize(Context);
             }
@@ -258,7 +279,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// イベントが発生していないときの更新処理を実行します。
+    /// イベントが発生しているときの更新処理を実行します。
     /// </summary>
     /// <param name="player">プレイヤ</param>
     private static void UpdateDuringOccurrenceEvent(Player.Index player)
@@ -269,7 +290,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// イベントが発生しているときの更新処理を実行します。
+    /// イベントが発生していないときの更新処理を実行します。
     /// </summary>
     /// <param name="player">プレイヤ</param>
     /// <param name="keys">入力キーリスト</param>
@@ -280,6 +301,11 @@ public class GameManager : MonoBehaviour
         if (requireNoneDirectionUpdate)
         {
             Move(player, Direction.None, "----- 移動方向無コマンドの実行 -----");
+        //} else if(player == Player.Index.First && IsAiPlay)
+        } else if(IsAiPlay)
+        {
+            // AIの操作
+            AiMove(player, "----- AIの移動 -----");
         }
 
         // 入力を受け付けたコマンドの実行
@@ -287,6 +313,10 @@ public class GameManager : MonoBehaviour
         {
             Debug.Assert(KeyMap.GetPlayer(key) == player, "受け付けたキーとプレイヤの関係が不正です。");
             Move(player, KeyMap.GetDirection(key), "----- 入力を受け付けたコマンドの実行 -----");
+            if (IsLearning)
+            {
+                LogWriter.WriteState(Context);
+            }
         }
     }
 
@@ -309,14 +339,48 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// AIの移動を実行します。
+    /// </summary>
+    /// <param name="player">プレイヤ</param>
+    /// <param name="debugLogTitle">デバッグ出力用タイトル</param>
+    private static void AiMove(Player.Index player, string debugLogTitle)
+    {
+        Context.OperationPlayer = player;
+        Context.OperationDirection = Direction.None;
+        var c = NativeClientDiProvider.GetContainer().GetInstance<NativeCommand>();
+        c.Command = Command.AiMove;
+        c.Context = Context;
+        DebugLog(debugLogTitle);
+        DebugLog(Sender.Send(Context));
+        Context = Receiver.Receive(c);
+    }
+
+    /// <summary>
     /// 勝負の結果が出たかどうかを判定します。
     /// </summary>
     /// <param name="context">フィールド状態</param>
     /// <returns>勝負の結果が出たかどうか</returns>
     private static bool IsEnd(FieldContext context)
     {
-        return (LastWinCount[(int)Player.Index.First] != context.WinCount[(int)Player.Index.First] ||
-            LastWinCount[(int)Player.Index.Second] != context.WinCount[(int)Player.Index.Second]);
+        if(End)
+        {
+            return End;
+        }
+
+        var firstWin = LastWinCount[(int)Player.Index.First] != context.WinCount[(int)Player.Index.First];
+        var secondWin = LastWinCount[(int)Player.Index.Second] != context.WinCount[(int)Player.Index.Second];
+        End = firstWin || secondWin;
+        if(End && IsLearning)
+        {
+            if (firstWin)
+            {
+                LogWriter.WriteWinResult(Player.Index.First);
+            } else
+            {
+                LogWriter.WriteWinResult(Player.Index.Second);
+            }
+        }
+        return End;
     }
 
     /// <summary>
