@@ -21,11 +21,6 @@ namespace Hermann
     public sealed class Game
     {
         /// <summary>
-        /// ストップウォッチ
-        /// </summary>
-        private Stopwatch Stopwatch { get; set; }
-
-        /// <summary>
         /// スライム移動機能
         /// </summary>
         private SlimeMover SlimeMover { get; set; }

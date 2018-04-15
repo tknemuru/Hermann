@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hermann.Ai;
 
 namespace Hermann.Api.Receivers
 {
@@ -22,11 +23,18 @@ namespace Hermann.Api.Receivers
         private Game Game { get; set; }
 
         /// <summary>
+        /// AIプレイヤ
+        /// </summary>
+        private AiPlayer AiPlayer { get; set; }
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         public NativeCommandReceiver()
         {
             this.Game = DiProvider.GetContainer().GetInstance<Game>();
+            this.AiPlayer = DiProvider.GetContainer().GetInstance<AiPlayer>();
+            this.AiPlayer.Injection(this.Game);
         }
 
         /// <summary>
@@ -44,6 +52,10 @@ namespace Hermann.Api.Receivers
                     context = this.Game.Start();
                     break;
                 case Command.Move:
+                    context = this.Game.Update(context);
+                    break;
+                case Command.AiMove:
+                    context.OperationDirection = this.AiPlayer.Think(context);
                     context = this.Game.Update(context);
                     break;
                 default:

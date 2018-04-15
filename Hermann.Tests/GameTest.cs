@@ -190,5 +190,26 @@ namespace Hermann.Tests
             var expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-004-001.txt");
             TestHelper.AssertEqualsFieldContext(expectedContext, context);
         }
+
+        /// <summary>
+        /// 005:接地状態での移動
+        /// </summary>
+        [TestMethod]
+        public void 接地状態での移動()
+        {
+            this.Game = new Game();
+
+            // 001:右
+            var context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-005-001.txt");
+            this.Game.Update(context);
+            var expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-005-001.txt");
+            TestHelper.AssertEqualsFieldContext(expectedContext, context);
+
+            // 002:上（イベント発生中のため移動なし）
+            context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-005-002.txt");
+            this.Game.Update(context);
+            expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-005-002.txt");
+            TestHelper.AssertEqualsFieldContext(expectedContext, context);
+        }
     }
 }

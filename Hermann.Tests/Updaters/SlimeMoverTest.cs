@@ -428,5 +428,21 @@ namespace Hermann.Tests.Updaters
                 this.SlimeMover.Update,
                 param);
         }
+
+        /// <summary>
+        /// 017:Moveで接地時に正常に移動できる
+        /// </summary>
+        [TestMethod]
+        public void Moveで接地時に正常に移動できる()
+        {
+            var param = new SlimeMover.Param();
+
+            // 001:右
+            TestHelper.AssertEqualsFieldContext(
+                "../../resources/updaters/slimemover/test-field-out-017-001.txt",
+                "../../resources/updaters/slimemover/test-field-in-017-001.txt",
+                this.SlimeMover.Update,
+                param);
+        }
     }
 }

@@ -20,5 +20,10 @@ namespace Hermann.Api.Commands
         /// スライムを動かす
         /// </summary>
         Move,
+
+        /// <summary>
+        /// AIがスライムを動かす
+        /// </summary>
+        AiMove,
     }
 }
