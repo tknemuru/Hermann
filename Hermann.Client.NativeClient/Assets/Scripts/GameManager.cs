@@ -65,6 +65,11 @@ public class GameManager : MonoBehaviour
     private const string BgmFileName = "bgm1_low_vol";
 
     /// <summary>
+    /// ボーナス加算割合
+    /// </summary>
+    private const double BonusRate = 0.001d;
+
+    /// <summary>
     /// フィールド情報のUIフィールドへの反映機能
     /// </summary>
     private FieldContextReflector FieldContextReflector { get; set; }
@@ -125,6 +130,11 @@ public class GameManager : MonoBehaviour
     private static int[] NoneDirectionUpdateFrameElapsed { get; set; }
 
     /// <summary>
+    /// AIが動かすフレーム回数累計
+    /// </summary>
+    private static int[] AiMoveFrameCountElapsed { get; set; }
+
+    /// <summary>
     /// 入力されたコンソールキー情報
     /// </summary>
     private static List<KeyCode> KeyInfos { get; set; }
@@ -170,6 +180,7 @@ public class GameManager : MonoBehaviour
 
             // 初期フィールド状態の取得
             NoneDirectionUpdateFrameElapsed = new[] { FieldContextConfig.NoneDirectionUpdateFrameCount, FieldContextConfig.NoneDirectionUpdateFrameCount };
+            AiMoveFrameCountElapsed = new[] { FieldContextConfig.AiMoveFrameCount, FieldContextConfig.AiMoveFrameCount };
             Receiver = NativeClientDiProvider.GetContainer().GetInstance<CommandReceiver<NativeCommand, FieldContext>>();
             Sender = NativeClientDiProvider.GetContainer().GetInstance<FieldContextSender<string>>();
             UiDecorationContainerReceiver = NativeClientDiProvider.GetContainer().GetInstance<UiDecorationContainerReceiver>();
@@ -229,10 +240,17 @@ public class GameManager : MonoBehaviour
                 {
                     NoneDirectionUpdateFrameElapsed[(int)player] = 0;
                 }
+                AiMoveFrameCountElapsed[(int)player]++;
+                //var requireAiMove = (AiMoveFrameCountElapsed[(int)player] >= FieldContextConfig.NoneDirectionUpdateFrameCount);
+                var requireAiMove = true;
+                if (requireAiMove)
+                {
+                    AiMoveFrameCountElapsed[(int)player] = 0;
+                }
 
                 if (Context.FieldEvent[(int)player] == FieldEvent.None)
                 {
-                    UpdateDuringNoneEvent(player, keyInfos[(int)player], requireNoneDirectionUpdate);
+                    UpdateDuringNoneEvent(player, keyInfos[(int)player], requireNoneDirectionUpdate, requireAiMove);
                 }
                 else
                 {
@@ -285,7 +303,15 @@ public class GameManager : MonoBehaviour
     private static void UpdateDuringOccurrenceEvent(Player.Index player)
     {
         // 移動方向無コマンドの実行
-        Move(player, Direction.None, "----- 移動方向無コマンドの実行 -----");
+        if (IsAiPlay && player == Player.Index.First)
+        {
+            // AIの操作
+            AiMove(player, "----- AIの移動 -----");
+        }
+        else
+        {
+            Move(player, Direction.None, "----- 移動方向無コマンドの実行 -----");
+        }
         NoneDirectionUpdateFrameElapsed[(int)player] = FieldContextConfig.NoneDirectionUpdateFrameCount;
     }
 
@@ -295,17 +321,17 @@ public class GameManager : MonoBehaviour
     /// <param name="player">プレイヤ</param>
     /// <param name="keys">入力キーリスト</param>
     /// <param name="requireNoneDirectionUpdate">移動方向無での更新が必要かどうか</param>
-    private static void UpdateDuringNoneEvent(Player.Index player, KeyCode[] keys, bool requireNoneDirectionUpdate)
+    /// <param name="requireAiMove">AIを動かす必要があるかどうか</param>
+    private static void UpdateDuringNoneEvent(Player.Index player, KeyCode[] keys, bool requireNoneDirectionUpdate, bool requireAiMove)
     {
-        // 移動方向無コマンドの実行
-        if (requireNoneDirectionUpdate)
-        {
-            Move(player, Direction.None, "----- 移動方向無コマンドの実行 -----");
-        //} else if(player == Player.Index.First && IsAiPlay)
-        } else if(IsAiPlay)
+        if (IsAiPlay && requireAiMove && player == Player.Index.First)
         {
             // AIの操作
             AiMove(player, "----- AIの移動 -----");
+        } else if (requireNoneDirectionUpdate)
+        {
+            // 移動方向無コマンドの実行
+            Move(player, Direction.None, "----- 移動方向無コマンドの実行 -----");
         }
 
         // 入力を受け付けたコマンドの実行
@@ -372,13 +398,7 @@ public class GameManager : MonoBehaviour
         End = firstWin || secondWin;
         if(End && IsLearning)
         {
-            if (firstWin)
-            {
-                LogWriter.WriteWinResult(Player.Index.First);
-            } else
-            {
-                LogWriter.WriteWinResult(Player.Index.Second);
-            }
+            WriteResult(context);
         }
         return End;
     }
@@ -408,5 +428,27 @@ public class GameManager : MonoBehaviour
                 context.NextSlimes[(int)Player.Index.First][(int)next][(int)movable] = Slime.Blue;
             });
         });
+    }
+
+    private static void WriteResult(FieldContext context)
+    {
+        var win = GetWinPlayer(context);
+        var score = (win == Player.Index.First) ? 1.0d : -1.0d;
+        var scoreDiff = context.Score[(int)Player.Index.First] - context.Score[(int)Player.Index.Second];
+        if (win == Player.Index.First && scoreDiff > 0)
+        {
+            score += scoreDiff * BonusRate;
+        }
+        else if (win == Player.Index.Second && scoreDiff < 0)
+        {
+            score += scoreDiff * BonusRate;
+        }
+        LogWriter.WriteWinResult(score);
+    }
+
+    private static Player.Index GetWinPlayer(FieldContext context)
+    {
+        var firstWin = LastWinCount[(int)Player.Index.First] != context.WinCount[(int)Player.Index.First];
+        return firstWin ? Player.Index.First : Player.Index.Second;
     }
 }

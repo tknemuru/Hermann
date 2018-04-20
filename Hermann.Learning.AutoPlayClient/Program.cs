@@ -1,4 +1,5 @@
-﻿using Hermann.Analyzers;
+﻿using Hermann.Ai;
+using Hermann.Analyzers;
 using Hermann.Api.Commands;
 using Hermann.Api.Receivers;
 using Hermann.Api.Senders;
@@ -21,17 +22,22 @@ namespace Hermann.Learning.AutoPlayClient
         /// <summary>
         /// プレイ上限回数
         /// </summary>
-        private const int LimitPlayCount = 20;
+        private const int LimitPlayCount = 10000;
 
         /// <summary>
         /// スライムを動かす頻度
         /// </summary>
-        private const int MoveFrameRate = 8;
+        private const int MoveFrameRate = 6;
 
         /// <summary>
         /// 接地時に動かす頻度
         /// </summary>
         private const int GroundMoveFrameRate = 128;
+
+        /// <summary>
+        /// ボーナス加算割合
+        /// </summary>
+        private const double BonusRate = 0.001d;
 
         /// <summary>
         /// 前回の勝ち数
@@ -107,37 +113,40 @@ namespace Hermann.Learning.AutoPlayClient
 
         private static void PlayGame(FieldContext context)
         {
-            var frameCount = 0;
+            var frameCount = new int[] { 0, 0 };
             while (!IsEnd(context))
             {
                 Move(context, frameCount);
-                frameCount++;
+                frameCount[(int)context.OperationPlayer]++;
             }
         }
 
-        private static void Move(FieldContext context, int frameCount)
+        private static void Move(FieldContext context, int[] frameCount)
         {
             var player = context.OperationPlayer;
-            //var requiredMove = (frameCount % MoveFrameRate == 0) &&
+            //var requiredMove = (frameCount[(int)player] % MoveFrameRate == 0) && context.FieldEvent[(int)player] == FieldEvent.None;
+            var requiredMove = true;
             //    (!context.Ground[(int)player] || (context.Ground[(int)player] && frameCount % GroundMoveFrameRate == 0));
             //var requiredMove = (!context.Ground[(int)player] || (context.Ground[(int)player] && frameCount % GroundMoveFrameRate == 0));
-            var requiredMove = !context.Ground[(int)player];
+            //var requiredMove = !context.Ground[(int)player];
             //var requiredMove = (frameCount % MoveFrameRate == 0);
 
+            var c = AutoPlayClientDiProvider.GetContainer().GetInstance<NativeCommand>();
             if (requiredMove)
             {
                 // スライムを動かす
-                context.OperationDirection = GetNext(context);
-                WirteLog(Sender.Send(context));
-                //context.OperationPlayer = context.OperationPlayer.GetOppositeIndex();
+                if (context.OperationPlayer == Player.Index.First && frameCount[(int)player] % 16 == 0)
+                {
+                    WirteLog(Sender.Send(context));
+                }
+                c.Command = Command.AiMove;
             } else
             {
                 // 移動方向無
                 context.OperationDirection = Direction.None;
-            }
-
-            var c = AutoPlayClientDiProvider.GetContainer().GetInstance<NativeCommand>();
-            c.Command = Command.Move;
+                c.Command = Command.Move;
+            }          
+            //c.Command = Command.Move;
             c.Context = context;
             context = Receiver.Receive(c);
             LogWriter.WriteState(context);
@@ -176,10 +185,25 @@ namespace Hermann.Learning.AutoPlayClient
 
         private static void WriteResult(FieldContext context, int count)
         {
-            var win = GetWinPlayer(context);
-            LogWriter.WriteWinResult(win);
-
             WirteLog(Sender.Send(context));
+
+            var win = GetWinPlayer(context);
+            var score = (win == Player.Index.First) ? 1.0d : -1.0d;
+            WirteLog($"value:{score}");
+            var scoreDiff = context.Score[(int)Player.Index.First] - context.Score[(int)Player.Index.Second];
+            WirteLog($"wind:{score}");
+            WirteLog($"score:{context.Score[(int)Player.Index.First]} | {context.Score[(int)Player.Index.Second]}");
+            WirteLog($"scoreDiff:{scoreDiff}");
+            if (win == Player.Index.First && scoreDiff > 0)
+            {
+                score += scoreDiff * BonusRate;
+            } else if (win == Player.Index.Second && scoreDiff < 0)
+            {
+                score += scoreDiff * BonusRate;
+            }
+            WirteLog($"correction value:{score}");
+            LogWriter.WriteWinResult(score);
+
             WirteLog($"count:{count}");
             WirteLog($"win:{win}");
         }

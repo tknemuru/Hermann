@@ -22,7 +22,7 @@ namespace Hermann.Ai.Serchers
         /// <summary>
         /// 深さの制限
         /// </summary>
-        private const int LimitDepth = 3;
+        private const int LimitDepth = 2;
 
         /// <summary>
         /// 移動可能な方向の分析機能
@@ -32,7 +32,7 @@ namespace Hermann.Ai.Serchers
         /// <summary>
         /// フィールド状態の評価機能
         /// </summary>
-        private FieldContextEvaluator Evaluator { get; set; }
+        private MultipleLinearRegressionFieldContextEvaluator Evaluator { get; set; }
 
         /// <summary>
         /// ゲームロジック
@@ -46,7 +46,7 @@ namespace Hermann.Ai.Serchers
             : base()
         {
             this.MovableDirectionAnalyzer = AiDiProvider.GetContainer().GetInstance<MovableDirectionAnalyzer>();
-            this.Evaluator = AiDiProvider.GetContainer().GetInstance<FieldContextEvaluator>();
+            this.Evaluator = AiDiProvider.GetContainer().GetInstance<MultipleLinearRegressionFieldContextEvaluator>();
         }
 
         /// <summary>

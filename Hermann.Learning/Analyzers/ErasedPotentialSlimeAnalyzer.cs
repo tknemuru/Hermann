@@ -16,7 +16,7 @@ namespace Hermann.Learning.Analyzers
     /// <summary>
     /// 削除できる可能性のあるスライムの分析機能を提供します。
     /// </summary>
-    public class ErasedPotentialSlimeAnalyzer : IPlayerFieldParameterizedAnalyzable<ErasedPotentialSlimeAnalyzer.Param, ErasedPotentialSlimeAnalyzer.Param>
+    public class ErasedPotentialSlimeAnalyzer : IPlayerFieldParameterizedAnalyzable<ErasedPotentialSlimeAnalyzer.Param, int>
     {
         /// <summary>
         /// 重力
@@ -62,11 +62,6 @@ namespace Hermann.Learning.Analyzers
             public Slime[] ErasedSlimes { get; set; }
 
             /// <summary>
-            /// 結果の個数
-            /// </summary>
-            public int ResultCount { get; set; }
-
-            /// <summary>
             /// コンストラクタ
             /// </summary>
             public Param()
@@ -91,8 +86,8 @@ namespace Hermann.Learning.Analyzers
         /// <param name="context">フィールド状態</param>
         /// <param name="player">プレイヤ</param>
         /// <param name="param">パラメータ</param>
-        /// <returns></returns>
-        public Param Analyze(FieldContext context, Player.Index player, Param param)
+        /// <returns>削除できる可能性のあるスライム数</returns>
+        public int Analyze(FieldContext context, Player.Index player, Param param)
         {
             Debug.Assert(param.TargetSlime != Slime.None, "対象スライムがNoneはありえません");
 
@@ -123,9 +118,7 @@ namespace Hermann.Learning.Analyzers
             this.ErasingMarker.Update(_context, player, ErasingMarkerParam);
 
             // 消済スライム数をカウントする
-            param.ResultCount = SlimeCountHelper.GetSlimeCount(_context, player, Slime.Erased);
-
-            return param;
+            return SlimeCountHelper.GetSlimeCount(_context, player, Slime.Erased);
         }
     }
 }

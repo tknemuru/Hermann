@@ -35,15 +35,15 @@ namespace Hermann.Learning.Test.Analyzers
             var param = new ErasedPotentialSlimeAnalyzer.Param();
             param.TargetSlime = Slime.Red;
             var context = TestHelper.Receiver.Receive("../../resources/analyzers/erasedpotentialslimeanalyzer/test-field-in-001-001.txt");
-            this.Analyzer.Analyze(context, context.OperationPlayer, param);
-            Assert.AreEqual(9, param.ResultCount);
+            var actual = this.Analyzer.Analyze(context, context.OperationPlayer, param);
+            Assert.AreEqual(9, actual);
 
             // 002:削除対象無し
             param = new ErasedPotentialSlimeAnalyzer.Param();
             param.TargetSlime = Slime.Red;
             context = TestHelper.Receiver.Receive("../../resources/analyzers/erasedpotentialslimeanalyzer/test-field-in-001-002.txt");
-            this.Analyzer.Analyze(context, context.OperationPlayer, param);
-            Assert.AreEqual(0, param.ResultCount);
+            actual = this.Analyzer.Analyze(context, context.OperationPlayer, param);
+            Assert.AreEqual(0, actual);
         }
     }
 }

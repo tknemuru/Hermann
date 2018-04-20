@@ -39,7 +39,7 @@ namespace Hermann.Ai.Evaluators
         /// </summary>
         public FieldContextEvaluator()
         {
-            this.Network = AiDiProvider.GetContainer().GetInstance<NetworkManager>().GetDeepBeliefNetwork();
+            this.Network = AiDiProvider.GetContainer().GetInstance<LearnerManager>().GetDeepBeliefNetwork();
             this.RandomGen = new Random();
         }
 

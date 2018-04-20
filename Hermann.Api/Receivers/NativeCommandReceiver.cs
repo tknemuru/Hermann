@@ -28,6 +28,16 @@ namespace Hermann.Api.Receivers
         private AiPlayer AiPlayer { get; set; }
 
         /// <summary>
+        /// AIの移動方向キュー
+        /// </summary>
+        private Queue<Direction>[] AiDirectionQueue { get; set; }
+
+        /// <summary>
+        /// キューの補給が必要かどうか
+        /// </summary>
+        private bool[] RequiredEnqueue { get; set; }
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         public NativeCommandReceiver()
@@ -35,6 +45,14 @@ namespace Hermann.Api.Receivers
             this.Game = DiProvider.GetContainer().GetInstance<Game>();
             this.AiPlayer = DiProvider.GetContainer().GetInstance<AiPlayer>();
             this.AiPlayer.Injection(this.Game);
+            this.AiDirectionQueue = new Queue<Direction>[Player.Length];
+            this.RequiredEnqueue = new bool[Player.Length];
+            Player.ForEach(player =>
+            {
+                this.AiDirectionQueue[(int)player] = new Queue<Direction>();
+                this.RequiredEnqueue[(int)player] = true;
+            });
+
         }
 
         /// <summary>
@@ -55,7 +73,36 @@ namespace Hermann.Api.Receivers
                     context = this.Game.Update(context);
                     break;
                 case Command.AiMove:
-                    context.OperationDirection = this.AiPlayer.Think(context);
+                    var player = (int)context.OperationPlayer;
+
+                    if(context.FieldEvent[player] == FieldEvent.None)
+                    {
+                        if (this.RequiredEnqueue[player])
+                        {
+                            var directions = AiPlayer.Think(context);
+                            foreach (var d in directions)
+                            {
+                                AiDirectionQueue[player].Enqueue(d);
+                            }
+                            this.RequiredEnqueue[player] = false;
+                        }
+
+                        if(this.AiDirectionQueue[player].Count() > 0)
+                        {
+                            // スライムを動かす
+                            context.OperationDirection = AiDirectionQueue[player].Dequeue();
+                        } else
+                        {
+                            // 移動が終わったのでひたすら下移動
+                            context.OperationDirection = Direction.Down;
+
+                        }
+                    } else
+                    {
+                        // キューの破棄
+                        AiDirectionQueue[player].Clear();
+                        this.RequiredEnqueue[player] = true;
+                    }
                     context = this.Game.Update(context);
                     break;
                 default:

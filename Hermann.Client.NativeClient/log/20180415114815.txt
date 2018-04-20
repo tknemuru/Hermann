@@ -1,0 +1,214 @@
+score:-0.299417979795841 direction:Down
+score:-0.440182505034014 direction:Up
+score:-0.299417979795841 direction:Right
+score:-0.309417979795841 direction:Left
+BestScore:-0.299417979795841
+score:-0.0884667327727662 direction:Down
+score:-0.0884667327727662 direction:Up
+score:-0.0984667327727662 direction:Right
+score:-0.0984667327727662 direction:Left
+BestScore:-0.0884667327727662
+score:-0.276076432447088 direction:None
+score:-0.520369226818916 direction:Up
+score:-0.520369226818916 direction:Right
+score:-0.520369226818916 direction:Left
+BestScore:-0.276076432447088
+score:-0.276076432447088 direction:Down
+score:-0.416840957685261 direction:Up
+score:-0.276076432447088 direction:Right
+score:-0.276076432447088 direction:Left
+BestScore:-0.276076432447088
+score:-0.0517836380752602 direction:None
+score:-0.286076432447088 direction:Up
+score:-0.276076432447088 direction:Right
+score:-0.276076432447088 direction:Left
+BestScore:-0.0517836380752602
+score:0.132000425805198 direction:Down
+score:0.00123590056702461 direction:Up
+score:0.142000425805198 direction:Right
+score:0.142000425805198 direction:Left
+BestScore:0.142000425805198
+score:-0.0689508212178774 direction:Down
+score:-0.0789508212178774 direction:Up
+score:-0.0689508212178774 direction:Right
+score:-0.330479871694223 direction:Left
+BestScore:-0.0689508212178774
+score:-0.0789508212178774 direction:Down
+score:-0.0789508212178774 direction:Up
+score:-0.0689508212178774 direction:Right
+score:-0.0689508212178774 direction:Left
+BestScore:-0.0689508212178774
+score:0.165341973153951 direction:None
+score:-0.0689508212178774 direction:Up
+score:-0.0689508212178774 direction:Right
+score:-0.0789508212178774 direction:Left
+BestScore:0.165341973153951
+score:0.349126037034408 direction:Down
+score:0.218361511796235 direction:Up
+score:0.349126037034408 direction:Right
+score:0.339126037034408 direction:Left
+BestScore:0.349126037034408
+score:0.159496667493989 direction:None
+score:0.349126037034408 direction:Up
+score:0.349126037034408 direction:Right
+score:0.339126037034408 direction:Left
+BestScore:0.349126037034408
+score:-0.0514545795290865 direction:None
+score:-0.0514545795290865 direction:None
+score:0.138174790011333 direction:Right
+score:0.138174790011333 direction:Left
+BestScore:0.138174790011333
+score:-0.0614545795290865 direction:None
+score:0.138174790011333 direction:Up
+score:0.138174790011333 direction:Right
+score:-0.0614545795290865 direction:None
+BestScore:0.138174790011333
+score:0.122329484351371 direction:None
+score:0.321958853891791 direction:Up
+score:0.132329484351371 direction:None
+BestScore:0.321958853891791
+score:0.122329484351371 direction:Down
+score:-0.00843504088680172 direction:Up
+score:0.132329484351371 direction:Right
+score:0.122329484351371 direction:Left
+BestScore:0.132329484351371
+score:-0.0786217626717037 direction:Down
+score:-0.0786217626717037 direction:Up
+score:0.345300401240544 direction:Right
+score:-0.35015081314805 direction:Left
+BestScore:0.345300401240544
+score:0.345300401240544 direction:Down
+score:0.335300401240544 direction:Up
+score:0.345300401240544 direction:Right
+score:-0.0786217626717037 direction:Left
+BestScore:0.345300401240544
+score:0.128503848557507 direction:None
+score:0.308133218097927 direction:Up
+score:0.308133218097927 direction:Right
+score:-0.105788945814321 direction:Left
+BestScore:0.308133218097927
+score:0.550406342603657 direction:Down
+score:0.409641817365484 direction:Up
+score:0.444425801625595 direction:Right
+score:0.550406342603657 direction:Left
+BestScore:0.550406342603657
+score:0.362796642929335 direction:None
+score:0.128503848557507 direction:Up
+score:0.022523307579445 direction:Right
+score:0.128503848557507 direction:Left
+BestScore:0.362796642929335
+score:0.352796642929335 direction:Down
+score:0.222032117691162 direction:Up
+score:0.352796642929335 direction:Right
+score:0.352796642929335 direction:Left
+BestScore:0.352796642929335
+score:0.50399734306675 direction:None
+score:-0.0464106096847026 direction:Up
+score:0.0943539155534704 direction:Right
+score:0.0943539155534704 direction:Left
+BestScore:0.50399734306675
+score:0.452680226920096 direction:None
+score:0.501545071222343 direction:Up
+score:0.526329055482454 direction:Right
+score:0.632309596460516 direction:Left
+BestScore:0.632309596460516
+score:0.533718488037522 direction:Down
+score:0.402953962799349 direction:Up
+score:0.272189437561176 direction:Right
+score:0.639699029015584 direction:Left
+BestScore:0.639699029015584
+score:0.651423803586398 direction:Down
+score:0.641423803586398 direction:Up
+score:0.545443262608336 direction:Right
+BestScore:0.651423803586398
+score:0.461794434045978 direction:None
+score:0.641423803586398 direction:Up
+score:0.545443262608336 direction:Right
+BestScore:0.641423803586398
+score:0.672745681069053 direction:None
+score:0.852375050609473 direction:Up
+BestScore:0.852375050609473
+score:0.883696928092128 direction:None
+score:0.967345756654486 direction:Up
+score:0.967345756654486 direction:Right
+BestScore:0.967345756654486
+score:0.355813893067916 direction:None
+score:0.545443262608336 direction:Up
+BestScore:0.545443262608336
+score:0.559319101919145 direction:None
+score:-0.113679840625042 direction:Up
+score:-0.204876397342993 direction:Right
+score:0.431006848525379 direction:Left
+BestScore:0.559319101919145
+score:0.329111928925454 direction:None
+score:0.639505823704047 direction:Up
+score:0.558309266986096 direction:Right
+score:0.77027034894222 direction:Left
+BestScore:0.77027034894222
+score:0.569319101919145 direction:Down
+score:0.248925207140552 direction:None
+score:0.108160681902379 direction:None
+score:0.675299642897207 direction:Left
+BestScore:0.675299642897207
+score:0.454348395874132 direction:Down
+score:0.454348395874132 direction:Up
+score:0.35836785489607 direction:Right
+BestScore:0.454348395874132
+score:0.264719026333712 direction:None
+score:0.454348395874132 direction:Up
+score:0.35836785489607 direction:Right
+BestScore:0.454348395874132
+score:0.274719026333712 direction:None
+score:0.464348395874132 direction:Up
+BestScore:0.464348395874132
+score:0.299946648046444 direction:None
+BestScore:0.299946648046444
+score:0.280601890586098 direction:None
+score:0.0632015818302089 direction:Up
+score:0.193966107068382 direction:Right
+score:0.309946648046444 direction:Left
+BestScore:0.309946648046444
+score:0.520897895069519 direction:Down
+score:0.188395498935099 direction:None
+score:0.491553137609173 direction:None
+score:0.510897895069519 direction:Left
+BestScore:0.520897895069519
+score:0.939249450848483 direction:None
+score:0.731849142092594 direction:Up
+score:0.731849142092594 direction:Left
+BestScore:0.939249450848483
+score:-0.130988560910445 direction:None
+score:0.411366415824271 direction:Up
+score:0.426150400084383 direction:Right
+score:0.532130941062444 direction:Left
+BestScore:0.532130941062444
+score:0.542130941062444 direction:Down
+score:0.00977596432772783 direction:None
+score:-0.130988560910445 direction:None
+score:0.542130941062444 direction:Left
+BestScore:0.542130941062444
+score:0.738246717358606 direction:None
+score:0.715915004942902 direction:Up
+score:0.715915004942902 direction:Left
+BestScore:0.738246717358606
+score:0.296078462408791 direction:None
+score:0.722452898165446 direction:Up
+score:0.631256341447496 direction:Right
+score:0.843217423403619 direction:Left
+BestScore:0.843217423403619
+score:0.637987439981576 direction:None
+score:0.637987439981576 direction:None
+score:0.0851272153857163 direction:None
+score:0.95020779931473 direction:Left
+BestScore:0.95020779931473
+score:0.739256552291655 direction:Down
+score:0.643276011313594 direction:Up
+score:0.431314929357469 direction:Right
+BestScore:0.739256552291655
+score:0.337666100795111 direction:None
+BestScore:0.337666100795111
+score:0.0984687627344695 direction:None
+score:0.736804280447248 direction:Up
+score:0.655607723729297 direction:Right
+score:0.337666100795111 direction:Left
+BestScore:0.736804280447248

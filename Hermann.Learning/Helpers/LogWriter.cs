@@ -50,12 +50,12 @@ namespace Hermann.Learning
         /// <summary>
         /// 勝敗結果をログに書き込みます。
         /// </summary>
-        /// <param name="winPlayer">勝ったプレイヤ</param>
-        public static void WriteWinResult(Player.Index winPlayer)
+        /// <param name="value">評価点</param>
+        public static void WriteWinResult(double value)
         {
             var sb = new StringBuilder();
             sb.Append((uint)LogWriteTarget.WinResult);
-            sb.Append(string.Format(",{0}", (uint)winPlayer));
+            sb.Append(string.Format(",{0}", value));
             FileHelper.WriteLine(sb.ToString(), DefaultFilePath);
         }
     }

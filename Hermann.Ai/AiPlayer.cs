@@ -18,14 +18,14 @@ namespace Hermann.Ai
         /// <summary>
         /// 探索ロジック
         /// </summary>
-        private NegaMax SearchLogic { get; set; }
+        private SingleCompleteReading SearchLogic { get; set; }
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         public AiPlayer()
         {
-            this.SearchLogic = AiDiProvider.GetContainer().GetInstance<NegaMax>();
+            this.SearchLogic = AiDiProvider.GetContainer().GetInstance<SingleCompleteReading>();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Hermann.Ai
         /// </summary>
         /// <param name="context">フィールド状態</param>
         /// <returns>移動方向</returns>
-        public Direction Think(FieldContext context)
+        public IEnumerable<Direction> Think(FieldContext context)
         {
             return this.SearchLogic.Search(context);
         }

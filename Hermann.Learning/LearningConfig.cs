@@ -17,8 +17,8 @@ namespace Hermann.Learning
         public static string LogOutputPath = @"C:\work\visualstudio\Hermann\Hermann.Client.NativeClient\log\learning";
 
         /// <summary>
-        /// 学習済ネットワークの保存先パス
+        /// 学習済機能の保存先パス
         /// </summary>
-        public static string NetworkSavePath = @"C:\work\visualstudio\Hermann\Hermann.Learning.LearningClient\binarys";
+        public static string LearnerSavePath = @"C:\work\visualstudio\Hermann\Hermann.Learning.LearningClient\binarys";
     }
 }

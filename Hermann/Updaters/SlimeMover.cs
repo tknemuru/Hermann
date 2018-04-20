@@ -113,7 +113,10 @@ namespace Hermann.Updaters
                 case Direction.None :
                     shift = ModifyDownShift(context, Speed.None, player);
                     param.ResultState = shift == 0 ? ResultState.Failed : ResultState.Success;
-                    Move(context, shift, player);
+                    if (param.ResultState == ResultState.Success)
+                    {
+                        Move(context, shift, player);
+                    }
                     break;
                 case Direction.Up:
                     param.ResultState = MoveUp(context, player);
@@ -121,7 +124,10 @@ namespace Hermann.Updaters
                 case Direction.Down:
                     shift = ModifyDownShift(context, Speed.Down, player);
                     param.ResultState = shift == 0 ? ResultState.Failed : ResultState.Success;
-                    Move(context, shift, player);
+                    if (param.ResultState == ResultState.Success)
+                    {
+                        Move(context, shift, player);
+                    }
                     break;
                 case Direction.Left:
                     param.ResultState = IsEnabledLeftMove(context, player) ? ResultState.Success : ResultState.Failed;

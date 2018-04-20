@@ -1,0 +1,3958 @@
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Down
+answer:0.722268824966425
+parity:1
+correction answer:0.732268824966425
+score:0.732268824966425 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:-0.17612655527656
+parity:0
+correction answer:-0.17612655527656
+score:-0.17612655527656 direction:Down
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Down
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Down
+answer:0.722268824966425
+parity:1
+correction answer:0.732268824966425
+score:0.732268824966425 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+BestScore:0.178886094191
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Down
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.722268824966425
+parity:1
+correction answer:0.732268824966425
+score:0.732268824966425 direction:Down
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Down
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Down
+BestScore:-0.188886094191
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Down
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Down
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Down
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Down
+BestScore:0.188886094191
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Down
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Down
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Down
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Down
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+BestScore:-0.188886094191
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:-0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Right
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Right
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:-0.178886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.188886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Right
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+BestScore:0.188886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Right
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:-0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:-0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:-0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Right
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Right
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Right
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+BestScore:-0.178886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+BestScore:-0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Right
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.188886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:-0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+BestScore:0.188886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+BestScore:-0.178886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.188886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.188886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+BestScore:0.188886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+BestScore:-0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.188886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+BestScore:-0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Right
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:-0.178886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Right
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+BestScore:-0.178886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+BestScore:0.188886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Right
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:-0.178886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:-0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Right
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+BestScore:-0.178886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+BestScore:0.178886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Up
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+BestScore:0.188886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+BestScore:-0.188886094191
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Up
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:Right
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Left
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+BestScore:0.188886094191
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Up
+answer:0.270468013088088
+parity:0
+correction answer:0.270468013088088
+score:0.270468013088088 direction:Right
+answer:0.270468013088088
+parity:1
+correction answer:0.280468013088088
+score:0.280468013088088 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Left
+answer:0.081815964581812
+parity:0
+correction answer:0.081815964581812
+score:0.081815964581812 direction:None
+answer:0.178886094191
+parity:0
+correction answer:0.178886094191
+score:0.178886094191 direction:Up
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Right
+answer:0.081815964581812
+parity:1
+correction answer:0.091815964581812
+score:0.091815964581812 direction:None
+answer:0.178886094191
+parity:1
+correction answer:0.188886094191
+score:0.188886094191 direction:Up
+BestScore:-0.188886094191

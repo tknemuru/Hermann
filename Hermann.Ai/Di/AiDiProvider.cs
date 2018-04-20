@@ -57,7 +57,7 @@ namespace Hermann.Learning.Di
         {
             MyContainer = new Container();
             MyContainer.Register(() => new MovableSlime());
-            MyContainer.Register<NetworkManager>(Lifestyle.Singleton);
+            MyContainer.Register<LearnerManager>(Lifestyle.Singleton);
             MyContainer.Register<MovableDirectionAnalyzer>(Lifestyle.Singleton);
             MyContainer.Register<FieldContextEvaluator>(Lifestyle.Singleton);
 

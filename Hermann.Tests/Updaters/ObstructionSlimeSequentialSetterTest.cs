@@ -107,5 +107,17 @@ namespace Hermann.Tests.Updaters
                 "../../resources/updaters/obstructionslimesequentialsetter/test-field-in-007-001.txt",
                 this.Updater.Update);
         }
+
+        /// <summary>
+        /// 008:スライムが隠し領域まで積まれている
+        /// </summary>
+        [TestMethod]
+        public void スライムが隠し領域まで積まれている()
+        {
+            TestHelper.AssertEqualsFieldContext(
+                "../../resources/updaters/obstructionslimesequentialsetter/test-field-out-008-001.txt",
+                "../../resources/updaters/obstructionslimesequentialsetter/test-field-in-008-001.txt",
+                this.Updater.Update);
+        }
     }
 }

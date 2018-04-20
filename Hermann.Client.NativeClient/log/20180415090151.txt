@@ -1,0 +1,1386 @@
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:-0.181614765988659
+parity:1
+correction answer:-0.171614765988659
+score:-0.171614765988659 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:None
+BestScore:0.183397883478901
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Down
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Right
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Left
+answer:-0.181614765988659
+parity:0
+correction answer:-0.181614765988659
+score:-0.181614765988659 direction:Down
+answer:-0.181614765988659
+parity:0
+correction answer:-0.181614765988659
+score:-0.181614765988659 direction:Down
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Down
+BestScore:0.173397883478901
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Down
+answer:0.716780614254326
+parity:1
+correction answer:0.726780614254326
+score:0.726780614254326 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Left
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Down
+answer:0.716780614254326
+parity:1
+correction answer:0.726780614254326
+score:0.726780614254326 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Right
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Left
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Down
+answer:0.716780614254326
+parity:0
+correction answer:0.716780614254326
+score:0.716780614254326 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Down
+answer:0.716780614254326
+parity:1
+correction answer:0.726780614254326
+score:0.726780614254326 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Right
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Left
+BestScore:0.173397883478901
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Right
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Left
+answer:0.619710484645138
+parity:0
+correction answer:0.619710484645138
+score:0.619710484645138 direction:None
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+BestScore:-0.183397883478901
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Down
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Up
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Right
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Left
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Down
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Left
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Down
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Down
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Right
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Left
+BestScore:0.183397883478901
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+BestScore:-0.173397883478901
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Down
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Up
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Right
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Left
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Down
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Left
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Down
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Right
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Left
+BestScore:0.173397883478901
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+BestScore:-0.173397883478901
+answer:0.167909672766801
+parity:0
+correction answer:0.167909672766801
+score:0.167909672766801 direction:None
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Up
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Right
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Left
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Left
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+BestScore:0.173397883478901
+answer:0.167909672766801
+parity:1
+correction answer:0.177909672766801
+score:0.177909672766801 direction:None
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:Up
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:Right
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+BestScore:-0.173397883478901
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Down
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Up
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Right
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Left
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Down
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Left
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Down
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+BestScore:0.173397883478901
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Right
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Right
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+BestScore:-0.173397883478901
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Down
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Up
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Right
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Left
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Down
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Right
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Left
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Down
+BestScore:0.183397883478901
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Right
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Left
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Left
+BestScore:-0.183397883478901
+answer:0.167909672766801
+parity:1
+correction answer:0.177909672766801
+score:0.177909672766801 direction:None
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Up
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Right
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Left
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Left
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Right
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Left
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+BestScore:0.173397883478901
+answer:0.167909672766801
+parity:1
+correction answer:0.177909672766801
+score:0.177909672766801 direction:None
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:Up
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:Right
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:Left
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Left
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Right
+BestScore:-0.183397883478901
+answer:0.167909672766801
+parity:0
+correction answer:0.167909672766801
+score:0.167909672766801 direction:None
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Up
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Right
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Left
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Left
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+BestScore:0.173397883478901
+answer:0.167909672766801
+parity:0
+correction answer:0.167909672766801
+score:0.167909672766801 direction:None
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:Up
+answer:0.167909672766801
+parity:0
+correction answer:0.167909672766801
+score:0.167909672766801 direction:None
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:Left
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Left
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Left
+BestScore:-0.173397883478901
+answer:0.167909672766801
+parity:1
+correction answer:0.177909672766801
+score:0.177909672766801 direction:None
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Up
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Right
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Left
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Right
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Left
+answer:0.167909672766801
+parity:0
+correction answer:0.167909672766801
+score:0.167909672766801 direction:None
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+BestScore:0.173397883478901
+answer:0.167909672766801
+parity:1
+correction answer:0.177909672766801
+score:0.177909672766801 direction:None
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:Up
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:Right
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+BestScore:-0.173397883478901
+answer:0.167909672766801
+parity:1
+correction answer:0.177909672766801
+score:0.177909672766801 direction:None
+answer:0.167909672766801
+parity:0
+correction answer:0.167909672766801
+score:0.167909672766801 direction:None
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Right
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Left
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:None
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Left
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:None
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+BestScore:0.173397883478901
+answer:0.167909672766801
+parity:0
+correction answer:0.167909672766801
+score:0.167909672766801 direction:None
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:Up
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:Right
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:Left
+answer:0.167909672766801
+parity:1
+correction answer:0.177909672766801
+score:0.177909672766801 direction:None
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:Up
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Left
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+BestScore:-0.173397883478901
+answer:0.167909672766801
+parity:1
+correction answer:0.177909672766801
+score:0.177909672766801 direction:None
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Up
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Right
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Left
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Left
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+BestScore:0.173397883478901
+answer:0.167909672766801
+parity:1
+correction answer:0.177909672766801
+score:0.177909672766801 direction:None
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:Up
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:Right
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:Left
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Left
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+BestScore:-0.183397883478901
+answer:0.167909672766801
+parity:0
+correction answer:0.167909672766801
+score:0.167909672766801 direction:None
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Up
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Right
+answer:0.167909672766801
+parity:1
+correction answer:0.177909672766801
+score:0.177909672766801 direction:None
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:None
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+BestScore:0.173397883478901
+answer:0.167909672766801
+parity:0
+correction answer:0.167909672766801
+score:0.167909672766801 direction:None
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:Up
+answer:0.167909672766801
+parity:0
+correction answer:0.167909672766801
+score:0.167909672766801 direction:None
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:Left
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Left
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.167909672766801
+parity:0
+correction answer:0.167909672766801
+score:0.167909672766801 direction:None
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:Up
+BestScore:-0.183397883478901
+answer:0.167909672766801
+parity:0
+correction answer:0.167909672766801
+score:0.167909672766801 direction:None
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Up
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Right
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Left
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Left
+answer:0.167909672766801
+parity:0
+correction answer:0.167909672766801
+score:0.167909672766801 direction:None
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Right
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Left
+BestScore:0.173397883478901
+answer:0.167909672766801
+parity:0
+correction answer:0.167909672766801
+score:0.167909672766801 direction:None
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:Up
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:Right
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Right
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+BestScore:-0.183397883478901
+answer:0.167909672766801
+parity:0
+correction answer:0.167909672766801
+score:0.167909672766801 direction:None
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Up
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:Right
+answer:0.0763277538697128
+parity:0
+correction answer:0.0763277538697128
+score:0.0763277538697128 direction:Left
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Right
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Left
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Right
+BestScore:0.173397883478901
+answer:0.167909672766801
+parity:1
+correction answer:0.177909672766801
+score:0.177909672766801 direction:None
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:Up
+answer:0.264979802375989
+parity:0
+correction answer:0.264979802375989
+score:0.264979802375989 direction:Right
+answer:0.264979802375989
+parity:1
+correction answer:0.274979802375989
+score:0.274979802375989 direction:Left
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Right
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Left
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Up
+answer:0.0763277538697128
+parity:1
+correction answer:0.0863277538697128
+score:0.0863277538697128 direction:None
+answer:0.173397883478901
+parity:0
+correction answer:0.173397883478901
+score:0.173397883478901 direction:Up
+answer:0.173397883478901
+parity:1
+correction answer:0.183397883478901
+score:0.183397883478901 direction:Right
+BestScore:-0.183397883478901

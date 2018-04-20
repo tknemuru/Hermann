@@ -82,9 +82,14 @@ namespace Hermann.Updaters
                 shift += rank;
                 lastRank = rank;
 
-                Debug.Assert(!FieldContextHelper.ExistsSlime(context, player, unitIndex, shift), "既にスライムが存在しています。");
-                context.SlimeFields[(int)player][Slime.Obstruction][unitIndex] |= 1u << shift;
+                if(FieldContextHelper.ExistsSlime(context, player, unitIndex, shift))
+                {
+                    // スライムが隠し領域まで積まれていたら、その位置には配置しない
+                    maxCount--;
+                    continue;
+                }
 
+                context.SlimeFields[(int)player][Slime.Obstruction][unitIndex] |= 1u << shift;
                 dropCount++;
                 Debug.Assert(maxCount >= dropCount, "最大落下量を超えています。");
             }
