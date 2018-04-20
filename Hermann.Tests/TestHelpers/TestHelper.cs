@@ -3,12 +3,12 @@ using Hermann.Models;
 using Hermann.Api.Receivers;
 using Hermann.Api.Senders;
 using Hermann.Tests.Di;
+using Hermann.Helper;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimpleInjector;
 using Hermann.Updaters;
@@ -102,7 +102,7 @@ namespace Hermann.Tests.TestHelpers
         {
             Assert.AreEqual(expected, actual,
                 Environment.NewLine + "[expected] : {0}" + Environment.NewLine + " [actual] : {1}",
-                ConvertUintToDebugFieldStr(expected), ConvertUintToDebugFieldStr(actual));
+                DebugHelper.ConvertUintToFieldUnit(expected), DebugHelper.ConvertUintToFieldUnit(actual));
         }
 
         /// <summary>
@@ -173,34 +173,6 @@ namespace Hermann.Tests.TestHelpers
             Assert.IsTrue(expected.Equals(actual),
                 Environment.NewLine + "[expected] :" + Environment.NewLine + "{0}" + Environment.NewLine + " [actual] :" + Environment.NewLine + "{1}",
                 Sender.Send(expected), Sender.Send(actual));
-        }
-
-        /// <summary>
-        /// uintの値をフィールドデバッグ出力用の文字列に変換します。
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private static string ConvertUintToDebugFieldStr(uint value)
-        {
-            var field = Convert.ToString(value, 2);
-            field = field.PadLeft(FieldContextConfig.FieldUnitBitCount, '0');
-            var fieldStates = field.ToCharArray().Reverse().ToArray();
-            var result = new StringBuilder();
-
-            for (var line = 1; line < 5; line++)
-            {
-                result.Append(Environment.NewLine);
-                for (var i = ((line * 8) - 1); i > (((line - 1) * 8) - 1); i--)
-                {
-                    if ((i % 8) == 1)
-                    {
-                        result.Append("|");
-                    }
-                    result.Append(fieldStates[i]);
-                }
-            }
-
-            return result.ToString();
         }
     }
 }

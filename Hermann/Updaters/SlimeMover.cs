@@ -1,4 +1,5 @@
 ﻿using Hermann.Contexts;
+using Hermann.Exceptions;
 using Hermann.Helpers;
 using Hermann.Models;
 using Hermann.Updaters;
@@ -412,7 +413,12 @@ namespace Hermann.Updaters
                 var position = movable.Position + shift;
                 movable.Index += (position / FieldContextConfig.FieldUnitBitCount);
                 movable.Position = position % FieldContextConfig.FieldUnitBitCount;
-                Debug.Assert(!FieldContextHelper.ExistsSlime(context, player, movable.Index, movable.Position), string.Format("他のスライムが移動場所に存在しています。 Index : {0} Position : {1}", movable.Index, movable.Position));
+#if DEBUG
+                if (FieldContextHelper.ExistsSlime(context, player, movable.Index, movable.Position))
+                {
+                    throw new FieldException($"他のスライムが移動場所に存在しています。 Player : {player} Index : {movable.Index} Position : {movable.Position}", context);
+                }
+#endif
                 SetSlime(slimeFields[movable.Slime], movable.Index, movable.Position);
             }
         }
@@ -447,7 +453,12 @@ namespace Hermann.Updaters
                 {
                     movable.Position = position % FieldContextConfig.FieldUnitBitCount;
                 }
-                Debug.Assert(!FieldContextHelper.ExistsSlime(context, player, movable.Index, movable.Position), string.Format("他のスライムが移動場所に存在しています。 Index : {0} Position : {1}", movable.Index, movable.Position));
+#if DEBUG
+                if (FieldContextHelper.ExistsSlime(context, player, movable.Index, movable.Position))
+                {
+                    throw new FieldException($"他のスライムが移動場所に存在しています。 Player : {player} Index : {movable.Index} Position : {movable.Position}", context);
+                }
+#endif
                 SetSlime(slimeFields[movable.Slime], movable.Index, movable.Position);
             }
         }

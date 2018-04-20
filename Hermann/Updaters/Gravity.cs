@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hermann.Exceptions;
 
 namespace Hermann.Updaters
 {
@@ -183,7 +184,12 @@ namespace Hermann.Updaters
             var updPosition = position + modifiedShift;
             var updUnitIndex = unitIndex + (updPosition / FieldContextConfig.FieldUnitBitCount);
             updPosition %= FieldContextConfig.FieldUnitBitCount;
-            Debug.Assert(!FieldContextHelper.ExistsSlime(context, player, updUnitIndex, updPosition), string.Format("他のスライムが移動場所に存在しています。 Index : {0} Position : {1}", updUnitIndex, updPosition));
+#if DEBUG
+            if(FieldContextHelper.ExistsSlime(context, player, updUnitIndex, updPosition))
+            {
+                throw new FieldException($"他のスライムが移動場所に存在しています。 Player : {player} Index : {updUnitIndex} Position : {updPosition}", context);
+            }
+#endif
             context.SlimeFields[(int)player][slime][updUnitIndex] |= 1u << updPosition;
         }
     }

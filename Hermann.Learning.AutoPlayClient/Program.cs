@@ -95,7 +95,6 @@ namespace Hermann.Learning.AutoPlayClient
                 catch (Exception ex)
                 {
                     WirteLog(ex.ToString());
-                    WirteLog(Sender.Send(context));
                     break;
                 }
             }

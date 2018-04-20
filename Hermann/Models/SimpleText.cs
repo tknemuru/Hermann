@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Api
+namespace Hermann.Models
 {
     /// <summary>
     /// 標準テキストに関する情報/機能を提供します。
