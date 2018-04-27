@@ -32,7 +32,7 @@ namespace Hermann.Ai.Serchers
         /// <summary>
         /// フィールド状態の評価機能
         /// </summary>
-        private MultipleLinearRegressionFieldContextEvaluator Evaluator { get; set; }
+        private LinearRegressionEvaluator Evaluator { get; set; }
 
         /// <summary>
         /// ゲームロジック
@@ -46,7 +46,7 @@ namespace Hermann.Ai.Serchers
             : base()
         {
             this.MovableDirectionAnalyzer = AiDiProvider.GetContainer().GetInstance<MovableDirectionAnalyzer>();
-            this.Evaluator = AiDiProvider.GetContainer().GetInstance<MultipleLinearRegressionFieldContextEvaluator>();
+            this.Evaluator = AiDiProvider.GetContainer().GetInstance<LinearRegressionEvaluator>();
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace Hermann.Ai.Serchers
             var player = context.OperationPlayer;
 
             // スライムを動かす
-            Debug.Assert(context.FieldEvent[(int)context.OperationPlayer] == FieldEvent.None, "イベント発生中はありえません");
+            Debug.Assert(context.FieldEvent[(int)context.OperationPlayer] == FieldEvent.None || context.FieldEvent[(int)context.OperationPlayer] == FieldEvent.End, "イベント発生中はありえません");
             context.OperationDirection = direction;
             var updContext = this.Game.Update(context);
 
@@ -148,7 +148,7 @@ namespace Hermann.Ai.Serchers
                     updContext = this.Game.Update(updContext);
                 }
             }
-            Debug.Assert(updContext.FieldEvent[(int)player] == FieldEvent.None, "イベント発生中はありえません");
+            Debug.Assert(updContext.FieldEvent[(int)player] == FieldEvent.None || context.FieldEvent[(int)context.OperationPlayer] == FieldEvent.End, "イベント発生中はありえません");
 
             // ターンをまわす
             updContext.OperationPlayer = updContext.OperationPlayer.GetOppositeIndex();

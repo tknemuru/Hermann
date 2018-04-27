@@ -303,7 +303,8 @@ public class GameManager : MonoBehaviour
     private static void UpdateDuringOccurrenceEvent(Player.Index player)
     {
         // 移動方向無コマンドの実行
-        if (IsAiPlay && player == Player.Index.First)
+        //if (IsAiPlay && player == Player.Index.First)
+        if (IsAiPlay)
         {
             // AIの操作
             AiMove(player, "----- AIの移動 -----");
@@ -324,7 +325,8 @@ public class GameManager : MonoBehaviour
     /// <param name="requireAiMove">AIを動かす必要があるかどうか</param>
     private static void UpdateDuringNoneEvent(Player.Index player, KeyCode[] keys, bool requireNoneDirectionUpdate, bool requireAiMove)
     {
-        if (IsAiPlay && requireAiMove && player == Player.Index.First)
+        //if (IsAiPlay && requireAiMove && player == Player.Index.First)
+        if (IsAiPlay && requireAiMove)
         {
             // AIの操作
             AiMove(player, "----- AIの移動 -----");
@@ -339,10 +341,10 @@ public class GameManager : MonoBehaviour
         {
             Debug.Assert(KeyMap.GetPlayer(key) == player, "受け付けたキーとプレイヤの関係が不正です。");
             Move(player, KeyMap.GetDirection(key), "----- 入力を受け付けたコマンドの実行 -----");
-            if (IsLearning)
-            {
-                LogWriter.WriteState(Context);
-            }
+            //if (IsLearning)
+            //{
+            //    LogWriter.WriteState(Context);
+            //}
         }
     }
 

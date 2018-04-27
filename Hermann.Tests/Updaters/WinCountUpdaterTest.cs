@@ -30,17 +30,21 @@ namespace Hermann.Tests.Updaters
         [TestMethod]
         public void 左から3列目が埋まっていない()
         {
+            var param = new WinCountUpdater.Param();
+
             // 001:1P
             TestHelper.AssertEqualsFieldContext(
                 "../../resources/updaters/wincountupdater/test-field-out-001-001.txt",
                 "../../resources/updaters/wincountupdater/test-field-in-001-001.txt",
-                this.Updater.Update);
+                this.Updater.Update,
+                param);
 
             // 002:2P
             TestHelper.AssertEqualsFieldContext(
                 "../../resources/updaters/wincountupdater/test-field-out-001-002.txt",
                 "../../resources/updaters/wincountupdater/test-field-in-001-002.txt",
-                this.Updater.Update);
+                this.Updater.Update,
+                param);
         }
 
         /// <summary>
@@ -49,17 +53,21 @@ namespace Hermann.Tests.Updaters
         [TestMethod]
         public void 左から3列目が埋まっている()
         {
+            var param = new WinCountUpdater.Param();
+
             // 001:1P
             TestHelper.AssertEqualsFieldContext(
                 "../../resources/updaters/wincountupdater/test-field-out-002-001.txt",
                 "../../resources/updaters/wincountupdater/test-field-in-002-001.txt",
-                this.Updater.Update);
+                this.Updater.Update,
+                param);
 
             // 002:2P
             TestHelper.AssertEqualsFieldContext(
                 "../../resources/updaters/wincountupdater/test-field-out-002-002.txt",
                 "../../resources/updaters/wincountupdater/test-field-in-002-002.txt",
-                this.Updater.Update);
+                this.Updater.Update,
+                param);
         }
     }
 }

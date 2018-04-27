@@ -80,6 +80,16 @@ namespace Hermann.Models
         }
 
         /// <summary>
+        /// 数値化したインデックスを取得します。
+        /// </summary>
+        /// <param name="index">インデックス</param>
+        /// <returns>数値化したインデックス</returns>
+        public static int ToInt(this Player.Index index)
+        {
+            return (int)index;
+        }
+
+        /// <summary>
         /// 反対のインデックスを取得します。
         /// </summary>
         /// <param name="index">インデックス</param>

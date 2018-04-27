@@ -130,5 +130,19 @@ namespace Hermann.Helpers
 
             return column;
         }
+
+        /// <summary>
+        /// 2進数文字列のリストをユニットに変換します。
+        /// </summary>
+        /// <returns>ユニット</returns>
+        public static uint ConvertDigitStrsToUnit(IEnumerable<string> digitStrs)
+        {
+            var sb = new StringBuilder();
+            foreach (var s in digitStrs.Reverse().ToArray())
+            {
+                sb.Append(s);
+            }
+            return Convert.ToUInt32(sb.ToString(), 2);
+        }
     }
 }

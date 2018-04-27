@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Hermann.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -90,6 +91,21 @@ namespace Hermann.Tests.Helper
             Assert.AreEqual(0, actual);
             actual = FieldContextHelper.GetColumnIndex(31, true);
             Assert.AreEqual(7, actual);
+        }
+
+        /// <summary>
+        /// 005:ConvertDigitStrsToUnitテスト
+        /// </summary>
+        [TestMethod]
+        public void ConvertDigitStrsToUnitテスト()
+        {
+            var digit = new List<string>();
+            digit.Add("10000000");
+            digit.Add("01000000");
+            digit.Add("01000000");
+            digit.Add("01000000");
+            var actual = FieldContextHelper.ConvertDigitStrsToUnit(digit);
+            Assert.AreEqual(0b01000000_01000000_01000000_10000000u, actual);
         }
     }
 }

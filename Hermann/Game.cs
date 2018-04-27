@@ -195,6 +195,8 @@ namespace Hermann
                 case FieldEvent.NextPreparation:
                     this.NextPreparation(context, player);
                     break;
+                case FieldEvent.End:
+                    break;
                 default:
                     throw new ArgumentException("イベントが不正です");
             }
@@ -383,11 +385,20 @@ namespace Hermann
         /// <param name="player">プレイヤ</param>
         private void NextPreparation(FieldContext context, Player.Index player)
         {
+            // 勝敗を決定する
+            var param = DiProvider.GetContainer().GetInstance<WinCountUpdater.Param>();
+            this.WinCountUpdater.Update(context, player, param);
+            if (param.IsEnd)
+            {
+                Player.ForEach(p =>
+                {
+                    context.FieldEvent[(int)p] = FieldEvent.End;
+                });
+                return;
+            }
+ 
             // 移動可能スライムを初期位置に移動する
             this.MovableSlimesUpdater.Update(context, player, MovableSlimesUpdater.Option.AfterDropObstruction);
-
-            // 勝敗を決定する
-            this.WinCountUpdater.Update(context, player);
 
             // 接地状態を更新する
             this.GroundUpdater.Update(context, player);

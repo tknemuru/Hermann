@@ -12,8 +12,19 @@ namespace Hermann.Updaters
     /// <summary>
     /// 勝数の更新機能を提供します。
     /// </summary>
-    public class WinCountUpdater : IPlayerFieldUpdatable
+    public class WinCountUpdater : IPlayerFieldParameterizedUpdatable<WinCountUpdater.Param>
     {
+        /// <summary>
+        /// パラメータ
+        /// </summary>
+        public class Param
+        {
+            /// <summary>
+            /// 勝敗が決まったかどうか
+            /// </summary>
+            public bool IsEnd { get; set; }
+        }
+
         /// <summary>
         /// 勝敗を判定するユニットのインデックス
         /// </summary>
@@ -29,13 +40,14 @@ namespace Hermann.Updaters
         /// </summary>
         /// <param name="context">フィールド状態</param>
         /// <param name="player">プレイヤ</param>
-        public void Update(FieldContext context, Player.Index player)
+        /// <param name="param">パラメータ</param>
+        public void Update(FieldContext context, Player.Index player, Param param)
         {
             // 勝敗を判定する
-            var isEnd = FieldContextHelper.ExistsSlime(context, player, WinjudgmentUnitIndex, WinjudgmentPosition);
+            param.IsEnd = FieldContextHelper.ExistsSlime(context, player, WinjudgmentUnitIndex, WinjudgmentPosition);
 
             // 勝敗が決まっている場合は、勝ち数をインクリメントする
-            if (isEnd)
+            if (param.IsEnd)
             {
                 context.WinCount[(int)Player.GetOppositeIndex(player)]++;
             }

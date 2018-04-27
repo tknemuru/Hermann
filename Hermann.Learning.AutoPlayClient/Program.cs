@@ -1,4 +1,5 @@
 ﻿using Hermann.Ai;
+using Hermann.Ai.Providers;
 using Hermann.Analyzers;
 using Hermann.Api.Commands;
 using Hermann.Api.Receivers;
@@ -6,6 +7,7 @@ using Hermann.Api.Senders;
 using Hermann.Contexts;
 using Hermann.Helpers;
 using Hermann.Learning.AutoPlayClient.Di;
+using Hermann.Learning.Calculators;
 using Hermann.Models;
 using System;
 using System.Collections.Generic;
@@ -33,11 +35,6 @@ namespace Hermann.Learning.AutoPlayClient
         /// 接地時に動かす頻度
         /// </summary>
         private const int GroundMoveFrameRate = 128;
-
-        /// <summary>
-        /// ボーナス加算割合
-        /// </summary>
-        private const double BonusRate = 0.001d;
 
         /// <summary>
         /// 前回の勝ち数
@@ -94,7 +91,7 @@ namespace Hermann.Learning.AutoPlayClient
                 }
                 catch (Exception ex)
                 {
-                    WirteLog(ex.ToString());
+                    LogWriter.WirteLog(ex.ToString());
                     break;
                 }
             }
@@ -113,7 +110,7 @@ namespace Hermann.Learning.AutoPlayClient
         private static void PlayGame(FieldContext context)
         {
             var frameCount = new int[] { 0, 0 };
-            while (!IsEnd(context))
+            while (context.FieldEvent[(int)context.OperationPlayer] != FieldEvent.End)
             {
                 Move(context, frameCount);
                 frameCount[(int)context.OperationPlayer]++;
@@ -123,12 +120,7 @@ namespace Hermann.Learning.AutoPlayClient
         private static void Move(FieldContext context, int[] frameCount)
         {
             var player = context.OperationPlayer;
-            //var requiredMove = (frameCount[(int)player] % MoveFrameRate == 0) && context.FieldEvent[(int)player] == FieldEvent.None;
             var requiredMove = true;
-            //    (!context.Ground[(int)player] || (context.Ground[(int)player] && frameCount % GroundMoveFrameRate == 0));
-            //var requiredMove = (!context.Ground[(int)player] || (context.Ground[(int)player] && frameCount % GroundMoveFrameRate == 0));
-            //var requiredMove = !context.Ground[(int)player];
-            //var requiredMove = (frameCount % MoveFrameRate == 0);
 
             var c = AutoPlayClientDiProvider.GetContainer().GetInstance<NativeCommand>();
             if (requiredMove)
@@ -136,19 +128,32 @@ namespace Hermann.Learning.AutoPlayClient
                 // スライムを動かす
                 if (context.OperationPlayer == Player.Index.First && frameCount[(int)player] % 16 == 0)
                 {
-                    WirteLog(Sender.Send(context));
+                    LogWriter.WirteLog(Sender.Send(context));
                 }
-                c.Command = Command.AiMove;
+                if (frameCount[(int)player] % 8 == 0)
+                {
+                    context.OperationDirection = GetNext(context);
+                }
+                else
+                {
+                    requiredMove = false;
+                }
+                c.Command = Command.Move;
+                //c.Command = Command.AiMove;
             } else
             {
                 // 移動方向無
                 context.OperationDirection = Direction.None;
                 c.Command = Command.Move;
-            }          
-            //c.Command = Command.Move;
+            }
             c.Context = context;
             context = Receiver.Receive(c);
-            LogWriter.WriteState(context);
+            if (requiredMove &&
+                (context.FieldEvent[(int)player] == FieldEvent.MarkErasing || context.FieldEvent[(int)player] == FieldEvent.NextPreparation))
+            {
+                LogWriter.WriteState(AutoPlayClientDiProvider.GetContainer().GetInstance<InputDataProvider>().
+                    GetVector(InputDataProvider.Vector.Main, context).ToArray());
+            }
             context.OperationPlayer = context.OperationPlayer.GetOppositeIndex();
         }
 
@@ -164,18 +169,6 @@ namespace Hermann.Learning.AutoPlayClient
             return directions[index];
         }
 
-        /// <summary>
-        /// 勝負の結果が出たかどうかを判定します。
-        /// </summary>
-        /// <param name="context">フィールド状態</param>
-        /// <returns>勝負の結果が出たかどうか</returns>
-        private static bool IsEnd(FieldContext context)
-        {
-            var firstWin = LastWinCount[(int)Player.Index.First] != context.WinCount[(int)Player.Index.First];
-            var secondWin = LastWinCount[(int)Player.Index.Second] != context.WinCount[(int)Player.Index.Second];
-            return firstWin || secondWin;
-        }
-
         private static Player.Index GetWinPlayer(FieldContext context)
         {
             var firstWin = LastWinCount[(int)Player.Index.First] != context.WinCount[(int)Player.Index.First];
@@ -184,33 +177,14 @@ namespace Hermann.Learning.AutoPlayClient
 
         private static void WriteResult(FieldContext context, int count)
         {
-            WirteLog(Sender.Send(context));
+            LogWriter.WirteLog(Sender.Send(context));
 
             var win = GetWinPlayer(context);
-            var score = (win == Player.Index.First) ? 1.0d : -1.0d;
-            WirteLog($"value:{score}");
-            var scoreDiff = context.Score[(int)Player.Index.First] - context.Score[(int)Player.Index.Second];
-            WirteLog($"wind:{score}");
-            WirteLog($"score:{context.Score[(int)Player.Index.First]} | {context.Score[(int)Player.Index.Second]}");
-            WirteLog($"scoreDiff:{scoreDiff}");
-            if (win == Player.Index.First && scoreDiff > 0)
-            {
-                score += scoreDiff * BonusRate;
-            } else if (win == Player.Index.Second && scoreDiff < 0)
-            {
-                score += scoreDiff * BonusRate;
-            }
-            WirteLog($"correction value:{score}");
+            var score = AutoPlayClientDiProvider.GetContainer().GetInstance<ResultEvaluationCalculator>().
+                Evaluate(context, win);
             LogWriter.WriteWinResult(score);
-
-            WirteLog($"count:{count}");
-            WirteLog($"win:{win}");
-        }
-
-        private static void WirteLog(string log)
-        {
-            Console.WriteLine(log);
-            FileHelper.WriteLine(log);
+            LogWriter.WirteLog($"count:{count}");
+            LogWriter.WirteLog($"win:{win}");
         }
     }
 }

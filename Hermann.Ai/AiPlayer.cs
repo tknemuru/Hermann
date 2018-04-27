@@ -18,14 +18,14 @@ namespace Hermann.Ai
         /// <summary>
         /// 探索ロジック
         /// </summary>
-        private SingleCompleteReading SearchLogic { get; set; }
+        private ThinCompleteReading SearchLogic { get; set; }
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         public AiPlayer()
         {
-            this.SearchLogic = AiDiProvider.GetContainer().GetInstance<SingleCompleteReading>();
+            this.SearchLogic = AiDiProvider.GetContainer().GetInstance<ThinCompleteReading>();
         }
 
         /// <summary>

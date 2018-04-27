@@ -187,7 +187,7 @@ namespace Hermann.Updaters
 #if DEBUG
             if(FieldContextHelper.ExistsSlime(context, player, updUnitIndex, updPosition))
             {
-                throw new FieldException($"他のスライムが移動場所に存在しています。 Player : {player} Index : {updUnitIndex} Position : {updPosition}", context);
+                throw new FieldException($"他のスライムが移動場所に存在しています。 Player : {player} Index : {unitIndex} Position : {position} UpdIndex : {updUnitIndex} UpdPosition : {updPosition}", context);
             }
 #endif
             context.SlimeFields[(int)player][slime][updUnitIndex] |= 1u << updPosition;

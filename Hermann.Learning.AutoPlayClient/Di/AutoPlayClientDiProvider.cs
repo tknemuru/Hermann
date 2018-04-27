@@ -13,6 +13,8 @@ using System.Text;
 using SimpleInjector;
 using Hermann.Updaters.Times;
 using Hermann.Initializers;
+using Hermann.Learning.Calculators;
+using Hermann.Ai.Providers;
 
 namespace Hermann.Learning.AutoPlayClient.Di
 {
@@ -72,9 +74,10 @@ namespace Hermann.Learning.AutoPlayClient.Di
             MyContainer.Register<FieldContextSender<string>, SimpleTextSender>(Lifestyle.Singleton);
             MyContainer.Register<ITimeUpdatable>(() => new TimeElapsedTicksUpdater());
             MyContainer.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(1, FieldContextConfig.MaxBuiltRemainingFrameCount));
-            //MyContainer.Register<IFieldContextInitializable>(() => new FieldContextSimpleTextInitializer());
             MyContainer.Register<IFieldContextInitializable>(() => new FieldContextInitializer());
             MyContainer.Register<ObstructionSlimeSetter, ObstructionSlimeRandomSetter>();
+            MyContainer.Register<ResultEvaluationCalculator>(Lifestyle.Singleton);
+            MyContainer.Register<InputDataProvider>(Lifestyle.Singleton);
 
             DiProvider.SetContainer(MyContainer);
             MyContainer.Verify();

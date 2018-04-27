@@ -1,8 +1,6 @@
 ﻿using Hermann.Contexts;
 using Hermann.Helper;
 using Hermann.Helpers;
-using Hermann.Learning.Analyzers;
-using Hermann.Learning.Di;
 using Hermann.Learning.Models;
 using Hermann.Models;
 using System;
@@ -19,38 +17,6 @@ namespace Hermann.Learning.Helpers
     /// </summary>
     public static class DataConverter
     {
-        /// <summary>
-        /// 削除できる可能性のあるスライムの分析機能
-        /// </summary>
-        private static readonly ErasedPotentialSlimeAnalyzer ErasedPotentialSlimeAnalyzer =
-            LearningClientDiProvider.GetContainer().GetInstance<ErasedPotentialSlimeAnalyzer>();
-
-        /// <summary>
-        /// 高低差分析機能
-        /// </summary>
-        private static readonly DifferenceHeightAnalyzer DifferenceHeightAnalyzer =
-            LearningClientDiProvider.GetContainer().GetInstance<DifferenceHeightAnalyzer>();
-
-        /// <summary>
-        /// 危険なインデックス（左から三番目の上四つ）
-        /// </summary>
-        private static readonly int[] DangerIndexes = new int[] { 5, 13, 21, 29 };
-
-        /// <summary>
-        /// 危険なユニット（上から二つ）
-        /// </summary>
-        private static readonly int[] DangerUnits = new int[] { 1, 2 };
-
-        /// <summary>
-        /// 上部ユニット
-        /// </summary>
-        private static readonly int[] UpperUnits = new int[] { 1 };
-
-        /// <summary>
-        /// 上部インデックス
-        /// </summary>
-        private static readonly int[] UpperIndexes = Enumerable.Range(0, FieldContextConfig.FieldUnitBitCount).Select(i => i).ToArray();
-
         /// <summary>
         /// 状態ログ項目のインデックス
         /// </summary>
@@ -76,71 +42,6 @@ namespace Hermann.Learning.Helpers
             /// 評価点
             /// </summary>
             Value = 1,
-        }
-
-        /// <summary>
-        /// 状態を学習用配列に変換します。
-        /// </summary>
-        /// <param name="context">フィールドの状態</param>
-        /// <returns>フィールドの状態を表した学習用uint配列</returns>
-        public static List<int> ConvertContextToArray(FieldContext context)
-        {
-            var list = new List<int>();
-            var param = new ErasedPotentialSlimeAnalyzer.Param();
-            param.ErasedSlimes = context.UsingSlimes;
-
-            Player.ForEach(player =>
-            {
-                var erasedPotentialCount = 0;
-                var slimeCount = 0;
-                foreach (var slime in context.UsingSlimes)
-                {
-                    param.TargetSlime = slime;
-                    // 他の色を消すと消える個数
-                    erasedPotentialCount += ErasedPotentialSlimeAnalyzer.Analyze(context, player, param);
-
-                    // フィールドのスライム数
-                    slimeCount += SlimeCountHelper.GetSlimeCount(context, player, slime);
-                }
-                list.Add(erasedPotentialCount);
-                list.Add(slimeCount);
-
-                // フィールドのおじゃまスライム数
-                var obstructionCount = SlimeCountHelper.GetSlimeCount(context, player, Slime.Obstruction);
-                list.Add(obstructionCount);
-
-                // 予告おじゃまスライム数
-                var noticeObstruction = ObstructionSlimeHelper.ObstructionsToCount(context.ObstructionSlimes[(int)player]);
-                list.Add(noticeObstruction);
-
-                // 高低差
-                //var hDiff = DifferenceHeightAnalyzer.Analyze(context, player);
-                //list.Add(hDiff);
-
-                // 上部スライム数
-                var upperCount = 0;
-                foreach (var u in UpperUnits)
-                {
-                    foreach (var i in UpperIndexes)
-                    {
-                        upperCount += FieldContextHelper.ExistsSlime(context, player, FieldContextConfig.MaxHiddenUnitIndex + u, i) ? 1 : 0;
-                    }
-                }
-                list.Add(upperCount);
-
-                // 左から3番目のスライム数
-                var dangerCount = 0;
-                foreach(var u in DangerUnits)
-                {
-                    foreach (var i in DangerIndexes)
-                    {
-                        dangerCount += FieldContextHelper.ExistsSlime(context, player, FieldContextConfig.MaxHiddenUnitIndex + u, i) ? 1 : 0;
-                    }
-                }
-                list.Add(dangerCount);
-            });
-
-            return list;
         }
 
         /// <summary>
@@ -257,7 +158,6 @@ namespace Hermann.Learning.Helpers
         /// <returns>記録対象かどうか</returns>
         private static bool requiredSave(double result)
         {
-            //return (Math.Abs(result) > 2.0d);
             return true;
         }
     }

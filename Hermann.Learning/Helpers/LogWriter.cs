@@ -1,6 +1,5 @@
 ﻿using Hermann.Contexts;
 using Hermann.Helpers;
-using Hermann.Learning.Di;
 using Hermann.Learning.Models;
 using Hermann.Models;
 using System;
@@ -31,13 +30,22 @@ namespace Hermann.Learning
         }
 
         /// <summary>
+        /// ログを書き込みます。
+        /// </summary>
+        /// <param name="log">ログ</param>
+        public static void WirteLog(string log)
+        {
+            Console.WriteLine(log);
+            FileHelper.WriteLine(log);
+        }
+
+        /// <summary>
         /// フィールド状態をログに書き込みます。
         /// </summary>
-        /// <param name="context">フィールド状態</param>
-        public static void WriteState(FieldContext context)
+        /// <param name="state">フィールド状態</param>
+        public static void WriteState(double[] status)
         {
             var sb = new StringBuilder();
-            var status = DataConverter.ConvertContextToArray(context);
             sb.Append((int)LogWriteTarget.State);
             foreach (var s in status)
             {

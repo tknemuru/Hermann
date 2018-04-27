@@ -73,6 +73,11 @@ namespace Hermann.Models
             /// 準備
             /// </summary>
             public const string NextPreparation = "準備";
+
+            /// <summary>
+            /// ゲーム終了
+            /// </summary>
+            public const string End = "ゲーム終了";
         }
 
         /// <summary>
@@ -587,6 +592,7 @@ namespace Hermann.Models
             fieldEvents.Add(FieldEvent.StartChain, FieldEventSymbol.StartChain);
             fieldEvents.Add(FieldEvent.NextPreparation, FieldEventSymbol.NextPreparation);
             fieldEvents.Add(FieldEvent.DropSlimes, FieldEventSymbol.DropSlimes);
+            fieldEvents.Add(FieldEvent.End, FieldEventSymbol.End);
             return fieldEvents;
         }
 
@@ -605,6 +611,7 @@ namespace Hermann.Models
             fieldEvents.Add(FieldEventSymbol.StartChain, FieldEvent.StartChain);
             fieldEvents.Add(FieldEventSymbol.NextPreparation, FieldEvent.NextPreparation);
             fieldEvents.Add(FieldEventSymbol.DropSlimes, FieldEvent.DropSlimes);
+            fieldEvents.Add(FieldEventSymbol.End, FieldEvent.End);
             return fieldEvents;
         }
 

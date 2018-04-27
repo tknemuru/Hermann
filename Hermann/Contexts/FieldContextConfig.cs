@@ -52,6 +52,11 @@ namespace Hermann.Contexts
         public const int MaxHiddenUnitIndex = 1;
 
         /// <summary>
+        /// 表示フィールドの最小インデックス
+        /// </summary>
+        public const int MinDisplayUnitIndex = MaxHiddenUnitIndex + 1;
+
+        /// <summary>
         /// 移動可能なスライムの初期シフト量（おじゃまスライム落下前）
         /// </summary>
         public const int MovableSlimeInitialShiftBeforeDroped = 5;

@@ -50,5 +50,10 @@ namespace Hermann.Models
         /// 準備
         /// </summary>
         NextPreparation,
+
+        /// <summary>
+        /// ゲーム終了
+        /// </summary>
+        End,
     }
 }

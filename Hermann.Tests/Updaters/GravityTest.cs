@@ -64,5 +64,24 @@ namespace Hermann.Tests.Updaters
                 this.Updater.Update,
                 param);
         }
+
+        /// <summary>
+        /// 003:隠し領域で落下
+        /// </summary>
+        [TestMethod]
+        public void 隠し領域で落下()
+        {
+            var param = new Gravity.Param
+            {
+                Strength = 99
+            };
+
+            // 001:2P
+            TestHelper.AssertEqualsFieldContext(
+                "../../resources/updaters/gravity/test-field-out-003-001.txt",
+                "../../resources/updaters/gravity/test-field-in-003-001.txt",
+                this.Updater.Update,
+                param);
+        }
     }
 }

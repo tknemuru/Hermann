@@ -7,6 +7,9 @@ using SimpleInjector;
 using Hermann.Analyzers;
 using Hermann.Ai.Evaluators;
 using Hermann.Models;
+using Hermann.Ai.Generators;
+using Hermann.Ai.Models;
+using Hermann.Ai.Providers;
 
 namespace Hermann.Learning.Di
 {
@@ -59,7 +62,13 @@ namespace Hermann.Learning.Di
             MyContainer.Register(() => new MovableSlime());
             MyContainer.Register<LearnerManager>(Lifestyle.Singleton);
             MyContainer.Register<MovableDirectionAnalyzer>(Lifestyle.Singleton);
-            MyContainer.Register<FieldContextEvaluator>(Lifestyle.Singleton);
+            MyContainer.Register<MergedFieldsGenerator>(Lifestyle.Singleton);
+            MyContainer.Register<PatternProvider>(Lifestyle.Singleton);
+            MyContainer.Register<PatternGenerator>(Lifestyle.Singleton);
+            MyContainer.Register<FieldFeatureGenerator>(Lifestyle.Singleton);
+            MyContainer.Register<InputDataProvider>(Lifestyle.Singleton);
+            MyContainer.Register<EvalProvider>(Lifestyle.Singleton);
+            MyContainer.Register<AliveEvaluator>(Lifestyle.Singleton);
 
             DiProvider.SetContainer(MyContainer);
             MyContainer.Verify();
