@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{04652E25-85C7-4C08-946E-CC29542DBB59}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Hermann.Tests</RootNamespace>
+    <AssemblyName>Hermann.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="SimpleInjector, Version=4.0.12.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.4.0.12\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Compile Include="Analyzers\MovableDirectionAnalyzerTest.cs" />
+    <Compile Include="Analyzers\SlimeJoinStateAnalyzerTest.cs" />
+    <Compile Include="Contexts\FieldContextTest.cs" />
+    <Compile Include="GameTest.cs" />
+    <Compile Include="Helper\FieldContextHelperTest.cs" />
+    <Compile Include="Helper\FileHelperTest.cs" />
+    <Compile Include="Helper\ObstructionSlimeHelperTest.cs" />
+    <Compile Include="Models\MovableSlimeTest.cs" />
+    <Compile Include="Models\MovableSlimeUnitTest.cs" />
+    <Compile Include="TestHelpers\TestHelper.cs" />
+    <Compile Include="TestHelpers\Tests\TestHelperTest.cs" />
+    <Compile Include="Updaters\ObstructionSlimeCalculatorTest.cs" />
+    <Compile Include="Updaters\ObstructionSlimeErasingMarkerTest.cs" />
+    <Compile Include="Updaters\ObstructionSlimeSequentialSetterTest.cs" />
+    <Compile Include="Updaters\ScoreCalculatorTest.cs" />
+    <Compile Include="Updaters\SlimeMoverTest.cs" />
+    <Compile Include="Di\TestDiProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Updaters\MovableSlimesUpdaterTest.cs" />
+    <Compile Include="Updaters\GravityTest.cs" />
+    <Compile Include="Updaters\GroundUpdaterTest.cs" />
+    <Compile Include="Updaters\NextSlimeUpdaterTest.cs" />
+    <Compile Include="Updaters\SlimeErasingMarkerTest.cs" />
+    <Compile Include="Updaters\WinCountUpdaterTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hermann.Api\Hermann.Api.csproj">
+      <Project>{47daa025-7113-4fd0-9f7b-fc841508ae83}</Project>
+      <Name>Hermann.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hermann\Hermann.csproj">
+      <Project>{85d8f26f-5087-4fc2-b574-487222f232cb}</Project>
+      <Name>Hermann</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="resources\analyzers\movabledirectionanalyzer\test-field-in-002-001.txt" />
+    <Content Include="resources\analyzers\movabledirectionanalyzer\test-field-in-001-001.txt" />
+    <Content Include="resources\analyzers\slimejoinstateanalyzer\test-field-in-002-002.txt" />
+    <Content Include="resources\analyzers\slimejoinstateanalyzer\test-field-in-002-001.txt" />
+    <Content Include="resources\analyzers\slimejoinstateanalyzer\test-field-in-001-001.txt" />
+    <Content Include="resources\analyzers\slimejoinstateanalyzer\test-field-in-001-002.txt" />
+    <Content Include="resources\contexts\fieldcontext\test-field-in-002-001.txt" />
+    <Content Include="resources\game\test-field-out-005-002.txt" />
+    <Content Include="resources\game\test-field-in-005-002.txt" />
+    <Content Include="resources\game\test-field-out-005-001.txt" />
+    <Content Include="resources\game\test-field-in-005-001.txt" />
+    <Content Include="resources\game\test-field-out-002-004-002.txt" />
+    <Content Include="resources\game\test-field-in-002-004-002.txt" />
+    <Content Include="resources\game\test-field-in-002-009-002.txt" />
+    <Content Include="resources\game\test-field-out-002-006-003.txt" />
+    <Content Include="resources\game\test-field-in-002-006-003.txt" />
+    <Content Include="resources\game\test-field-out-002-006-002.txt" />
+    <Content Include="resources\game\test-field-in-002-006-002.txt" />
+    <Content Include="resources\game\test-field-in-002-012.txt" />
+    <Content Include="resources\game\test-field-out-002-009-002.txt" />
+    <Content Include="resources\game\test-field-out-002-014.txt" />
+    <Content Include="resources\game\test-field-in-002-014.txt" />
+    <Content Include="resources\game\test-field-out-002-013.txt" />
+    <Content Include="resources\game\test-field-out-002-011.txt" />
+    <Content Include="resources\game\test-field-in-002-013.txt" />
+    <Content Include="resources\game\test-field-out-004-001.txt" />
+    <Content Include="resources\game\test-field-in-004-001.txt" />
+    <Content Include="resources\game\test-field-out-003-001.txt" />
+    <Content Include="resources\game\test-field-in-003-001.txt" />
+    <Content Include="resources\game\test-field-in-002-003.txt" />
+    <Content Include="resources\game\test-field-in-002-011.txt" />
+    <Content Include="resources\game\test-field-out-002-012.txt" />
+    <Content Include="resources\game\test-field-out-002-010.txt" />
+    <Content Include="resources\game\test-field-in-002-010.txt" />
+    <Content Include="resources\game\test-field-out-002-009-001.txt" />
+    <Content Include="resources\game\test-field-in-002-009-001.txt" />
+    <Content Include="resources\game\test-field-out-002-008.txt" />
+    <Content Include="resources\game\test-field-in-002-008.txt" />
+    <Content Include="resources\game\test-field-out-002-007.txt" />
+    <Content Include="resources\game\test-field-in-002-007.txt" />
+    <Content Include="resources\game\test-field-out-002-006-001.txt" />
+    <Content Include="resources\game\test-field-in-002-006-001.txt" />
+    <Content Include="resources\game\test-field-out-002-005.txt" />
+    <Content Include="resources\game\test-field-in-002-005.txt" />
+    <Content Include="resources\game\test-field-out-002-004-001.txt" />
+    <Content Include="resources\game\test-field-in-002-004-001.txt" />
+    <Content Include="resources\game\test-field-out-002-003.txt" />
+    <Content Include="resources\game\test-field-out-002-002.txt" />
+    <Content Include="resources\game\test-field-in-002-002.txt" />
+    <Content Include="resources\game\test-field-out-002-001.txt" />
+    <Content Include="resources\game\test-field-in-002-001.txt" />
+    <Content Include="resources\game\test-field-out-001-001.txt" />
+    <Content Include="resources\game\test-field-in-001-001.txt" />
+    <Content Include="resources\helpers\file-helper\test-field-in-001-001.txt" />
+    <Content Include="resources\updaters\gravity\test-field-out-003-001.txt" />
+    <Content Include="resources\updaters\gravity\test-field-in-003-001.txt" />
+    <Content Include="resources\updaters\obstructionslimecalculator\test-field-out-003-002.txt" />
+    <Content Include="resources\updaters\obstructionslimecalculator\test-field-in-003-002.txt" />
+    <Content Include="resources\updaters\obstructionslimecalculator\test-field-out-003-001.txt" />
+    <Content Include="resources\updaters\obstructionslimecalculator\test-field-in-003-001.txt" />
+    <Content Include="resources\updaters\obstructionslimecalculator\test-field-out-002-001.txt" />
+    <Content Include="resources\updaters\obstructionslimecalculator\test-field-in-002-001.txt" />
+    <Content Include="resources\updaters\obstructionslimecalculator\test-field-out-001-001.txt" />
+    <Content Include="resources\updaters\obstructionslimecalculator\test-field-in-001-001.txt" />
+    <Content Include="resources\updaters\obstructionslimeerasingmarker\test-field-out-004-001.txt" />
+    <Content Include="resources\updaters\obstructionslimeerasingmarker\test-field-in-004-001.txt" />
+    <Content Include="resources\updaters\obstructionslimeerasingmarker\test-field-out-003-001.txt" />
+    <Content Include="resources\updaters\obstructionslimeerasingmarker\test-field-out-002-001.txt" />
+    <Content Include="resources\updaters\obstructionslimeerasingmarker\test-field-out-001-001.txt" />
+    <Content Include="resources\updaters\obstructionslimeerasingmarker\test-field-in-002-001.txt" />
+    <Content Include="resources\updaters\obstructionslimeerasingmarker\test-field-in-001-001.txt" />
+    <Content Include="resources\updaters\obstructionslimeerasingmarker\test-field-in-003-001.txt" />
+    <Content Include="resources\updaters\obstructionslimesequentialsetter\test-field-out-008-001.txt" />
+    <Content Include="resources\updaters\obstructionslimesequentialsetter\test-field-in-008-001.txt" />
+    <Content Include="resources\updaters\obstructionslimesequentialsetter\test-field-out-007-001.txt" />
+    <Content Include="resources\updaters\obstructionslimesequentialsetter\test-field-in-007-001.txt" />
+    <Content Include="resources\updaters\obstructionslimesequentialsetter\test-field-out-006-001.txt" />
+    <Content Include="resources\updaters\obstructionslimesequentialsetter\test-field-in-006-001.txt" />
+    <Content Include="resources\updaters\obstructionslimesequentialsetter\test-field-out-005-001.txt" />
+    <Content Include="resources\updaters\obstructionslimesequentialsetter\test-field-in-005-001.txt" />
+    <Content Include="resources\updaters\obstructionslimesequentialsetter\test-field-out-004-001.txt" />
+    <Content Include="resources\updaters\obstructionslimesequentialsetter\test-field-in-004-001.txt" />
+    <Content Include="resources\updaters\obstructionslimesequentialsetter\test-field-out-003-001.txt" />
+    <Content Include="resources\updaters\obstructionslimesequentialsetter\test-field-in-003-001.txt" />
+    <Content Include="resources\updaters\obstructionslimesequentialsetter\test-field-out-002-001.txt" />
+    <Content Include="resources\updaters\obstructionslimesequentialsetter\test-field-out-001-001.txt" />
+    <Content Include="resources\updaters\obstructionslimesequentialsetter\test-field-in-002-001.txt" />
+    <Content Include="resources\updaters\obstructionslimesequentialsetter\test-field-in-001-001.txt" />
+    <Content Include="resources\updaters\scorecalculator\test-field-in-003-001.txt" />
+    <Content Include="resources\updaters\scorecalculator\test-field-in-002-001.txt" />
+    <Content Include="resources\updaters\scorecalculator\test-field-in-001-001.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-in-006-002.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-in-007-002.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-in-008-002.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-in-008-001.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-in-007-001.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-in-006-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-013-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-017-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-017-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-015-004.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-015-005.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-015-006.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-015-006.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-015-005.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-015-004.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-015-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-015-003.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-015-003.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-015-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-016-003.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-016-003.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-016-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-016-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-016-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-016-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-015-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-015-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-014-004.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-014-004.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-014-003.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-014-003.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-014-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-014-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-014-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-013-004.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-013-004.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-013-003.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-013-003.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-013-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-013-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-013-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-014-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-011-003.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-012-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-010-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-010-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-011-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-011-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-011-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-011-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-011-003.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-012-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-009-004.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-009-004.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-009-003.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-009-003.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-009-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-009-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-009-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-009-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-008-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-008-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-008-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-008-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-007-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-007-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-007-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-007-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-006-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-005-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-001-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-004-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-003-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-006-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-005-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-001-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-004-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-003-002.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-003-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-003-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-002-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-002-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-out-001-001.txt" />
+    <Content Include="resources\updaters\slimemover\test-field-in-001-001.txt" />
+    <Content Include="resources\updaters\movableslimesupdater\test-field-in-001-002.txt" />
+    <Content Include="resources\updaters\movableslimesupdater\test-field-in-001-001.txt" />
+    <Content Include="resources\updaters\movableslimesupdater\test-field-out-001-002.txt" />
+    <Content Include="resources\updaters\movableslimesupdater\test-field-out-001-001.txt" />
+    <Content Include="resources\updaters\gravity\test-field-out-002-001.txt" />
+    <Content Include="resources\updaters\gravity\test-field-in-002-001.txt" />
+    <Content Include="resources\updaters\gravity\test-field-out-001-002.txt" />
+    <Content Include="resources\updaters\gravity\test-field-in-001-002.txt" />
+    <Content Include="resources\updaters\gravity\test-field-out-001-001.txt" />
+    <Content Include="resources\updaters\gravity\test-field-in-001-001.txt" />
+    <Content Include="resources\updaters\groundupdater\test-field-in-002-003.txt" />
+    <Content Include="resources\updaters\groundupdater\test-field-in-003-002.txt" />
+    <Content Include="resources\updaters\groundupdater\test-field-in-003-001.txt" />
+    <Content Include="resources\updaters\groundupdater\test-field-in-002-002.txt" />
+    <Content Include="resources\updaters\groundupdater\test-field-in-002-001.txt" />
+    <Content Include="resources\updaters\groundupdater\test-field-in-001-004.txt" />
+    <Content Include="resources\updaters\groundupdater\test-field-in-001-003.txt" />
+    <Content Include="resources\updaters\groundupdater\test-field-in-001-002.txt" />
+    <Content Include="resources\updaters\groundupdater\test-field-in-001-001.txt" />
+    <Content Include="resources\updaters\nextslimeupdater\test-field-in-001-001.txt" />
+    <Content Include="resources\updaters\nextslimeupdater\test-field-out-001-001.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-out-005-001.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-in-005-001.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-out-004-001.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-in-004-001.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-out-003-001.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-in-003-001.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-out-002-001.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-in-002-001.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-in-001-004.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-in-001-003.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-out-001-004.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-out-001-003.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-out-001-002.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-in-001-002.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-in-001-001.txt" />
+    <Content Include="resources\updaters\slimeerasingmarker\test-field-out-001-001.txt" />
+    <Content Include="resources\updaters\wincountupdater\test-field-out-002-002.txt" />
+    <Content Include="resources\updaters\wincountupdater\test-field-in-002-002.txt" />
+    <Content Include="resources\updaters\wincountupdater\test-field-out-002-001.txt" />
+    <Content Include="resources\updaters\wincountupdater\test-field-in-002-001.txt" />
+    <Content Include="resources\updaters\wincountupdater\test-field-out-001-001.txt" />
+    <Content Include="resources\updaters\wincountupdater\test-field-out-001-002.txt" />
+    <Content Include="resources\updaters\wincountupdater\test-field-in-001-002.txt" />
+    <Content Include="resources\updaters\wincountupdater\test-field-in-001-001.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

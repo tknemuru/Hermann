@@ -68,21 +68,22 @@ namespace Hermann.Ai.Providers
             var patternGen = AiDiProvider.GetContainer().GetInstance<PatternGenerator>();
             patternGen.Injection(new[] {
                 AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatFarLeft),
-                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatFarRight),
+                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatFarRight),
                 AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatLeft),
-                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatRight),
+                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatRight),
                 AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeLowerLeft),
-                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeLowerRight),
-                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeUpperLeft),
-                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeUpperRight),
+                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeLowerRight),
+                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeUpperLeft),
+                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeUpperRight),
                 AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsOneLeft),
-                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsOneRight),
+                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsOneRight),
                 AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsTwoLeft),
-                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsTwoRight),
+                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsTwoRight),
                 });
             var featureGen = AiDiProvider.GetContainer().GetInstance<FieldFeatureGenerator>();
             var config = AiDiProvider.GetContainer().GetInstance<FieldFeatureGenerator.Config>();
             config.TargetFeatue[FieldFeatureGenerator.Feature.NoticeObstruction] = true;
+            config.TargetFeatue[FieldFeatureGenerator.Feature.DangerCount] = true;
             featureGen.Injection(config);
             gens.Add(Vector.Main, new IGeneratable<FieldContext, SparseVector<double>>[] {
                     patternGen,

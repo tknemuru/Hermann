@@ -130,7 +130,7 @@ namespace Hermann.Learning.AutoPlayClient
                 {
                     LogWriter.WirteLog(Sender.Send(context));
                 }
-                if (frameCount[(int)player] % 8 == 0)
+                if (frameCount[(int)player] % 16 == 0 || frameCount[(int)player] % 15 == 0)
                 {
                     context.OperationDirection = GetNext(context);
                 }
@@ -150,6 +150,7 @@ namespace Hermann.Learning.AutoPlayClient
             context = Receiver.Receive(c);
             if (requiredMove &&
                 (context.FieldEvent[(int)player] == FieldEvent.MarkErasing || context.FieldEvent[(int)player] == FieldEvent.NextPreparation))
+            //if (requiredMove)
             {
                 LogWriter.WriteState(AutoPlayClientDiProvider.GetContainer().GetInstance<InputDataProvider>().
                     GetVector(InputDataProvider.Vector.Main, context).ToArray());

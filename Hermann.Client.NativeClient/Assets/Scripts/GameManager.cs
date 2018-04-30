@@ -303,8 +303,8 @@ public class GameManager : MonoBehaviour
     private static void UpdateDuringOccurrenceEvent(Player.Index player)
     {
         // 移動方向無コマンドの実行
-        //if (IsAiPlay && player == Player.Index.First)
-        if (IsAiPlay)
+        if (IsAiPlay && player == Player.Index.Second)
+        //if (IsAiPlay)
         {
             // AIの操作
             AiMove(player, "----- AIの移動 -----");
@@ -325,8 +325,8 @@ public class GameManager : MonoBehaviour
     /// <param name="requireAiMove">AIを動かす必要があるかどうか</param>
     private static void UpdateDuringNoneEvent(Player.Index player, KeyCode[] keys, bool requireNoneDirectionUpdate, bool requireAiMove)
     {
-        //if (IsAiPlay && requireAiMove && player == Player.Index.First)
-        if (IsAiPlay && requireAiMove)
+        if (IsAiPlay && requireAiMove && player == Player.Index.Second)
+        //if (IsAiPlay && requireAiMove)
         {
             // AIの操作
             AiMove(player, "----- AIの移動 -----");
