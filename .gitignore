@@ -33,7 +33,9 @@ web.config
 .vs
 
 # for mac
+.collabignore
 packages/
+packages.config
 Plugins/
 Library/
 MSTestToNUnit.cs
