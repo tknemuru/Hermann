@@ -2,10 +2,15 @@
 using Assets.Scripts.Analyzers;
 using Assets.Scripts.Containers;
 using Assets.Scripts.Models;
+using Hermann.Api.Commands;
+using Hermann.Api.Receivers;
 using Hermann.Contexts;
 using Hermann.Helpers;
 using Hermann.Initializers;
+using Hermann.Learning;
+using Hermann.Learning.Di;
 using Hermann.Models;
+using Hermann.Tests.Di;
 using Hermann.Tests.TestHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -42,8 +47,16 @@ namespace Hermann.Client.NativeClient.Tests.Analyzers
         /// </summary>
         public SoundEffectAnalyzerTest()
         {
-            this.Analyzer = new SoundEffectAnalyzer();
-            this.Initialize();
+            try
+            {
+                this.Analyzer = new SoundEffectAnalyzer();
+                this.Initialize();                
+            }
+            catch(Exception ex)
+            {
+                FileHelper.WriteLine(ex.ToString());
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -381,9 +394,16 @@ namespace Hermann.Client.NativeClient.Tests.Analyzers
         /// </summary>
         private void Initialize()
         {
-            this.Container = new SoundEffectDecorationContainer();
-            this.Container.LastFieldContext = TestHelper.Receiver.Receive(FieldResourcePath);
-            this.Context = TestHelper.Receiver.Receive(FieldResourcePath);
+            try
+            {
+                this.Container = new SoundEffectDecorationContainer();
+                this.Container.LastFieldContext = TestHelper.Receiver.Receive(FieldResourcePath);
+                this.Context = TestHelper.Receiver.Receive(FieldResourcePath);
+            } catch(Exception ex)
+            {
+                FileHelper.WriteLine(ex.ToString());
+                throw ex;
+            }
         }
     }
 }

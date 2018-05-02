@@ -21,6 +21,7 @@ namespace Hermann.Helpers
         /// </summary>
         static FileHelper()
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             DefaultFilePath = string.Format(@"./log/{0}.txt", DateTime.Now.ToString("yyyyMMddhhmmss"));
         }
 

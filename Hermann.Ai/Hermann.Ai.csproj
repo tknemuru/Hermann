@@ -93,10 +93,6 @@
     <Compile Include="Serchers\ThinCompleteReading.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Hermann.Learning\Hermann.Learning.csproj">
-      <Project>{115c8a02-50db-484c-950b-8e680fc8d78e}</Project>
-      <Name>Hermann.Learning</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Hermann\Hermann.csproj">
       <Project>{85d8f26f-5087-4fc2-b574-487222f232cb}</Project>
       <Name>Hermann</Name>
@@ -105,7 +101,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Hermann.Learning\Hermann.Learning.csproj">
+      <Project>{115C8A02-50DB-484C-950B-8E680FC8D78E}</Project>
+      <Name>Hermann.Learning</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Accord.3.8.0\build\Accord.targets" Condition="Exists('..\packages\Accord.3.8.0\build\Accord.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -115,5 +116,7 @@
     <Error Condition="!Exists('..\packages\Accord.3.8.0\build\Accord.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Accord.3.8.0\build\Accord.targets'))" />
   </Target>
   <PropertyGroup>
+    <PostBuildEvent>cp -pf $(ProjectDir)/bin/Debug/Hermann.Ai.dll $(SolutionDir)/Hermann.Client.NativeClient/Assets/Plugins
+  cp -pf $(ProjectDir)/bin/Debug/Hermann.Ai.pdb $(SolutionDir)/Hermann.Client.NativeClient/Assets/Plugins</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -33,7 +33,6 @@ namespace Hermann.Helper
         /// </summary>
         static StopWatchLogger()
         {
-            Debug.Listeners.Add(new TextWriterTraceListener(Console.Out));
             ClearAllEventTimes();
         }
 

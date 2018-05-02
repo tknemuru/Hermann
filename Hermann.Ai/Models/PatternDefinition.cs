@@ -1,4 +1,5 @@
-﻿using Hermann.Helpers;
+﻿using Hermann.Environments;
+using Hermann.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,7 +18,7 @@ namespace Hermann.Ai.Models
         /// <summary>
         /// インデックスファイルのパス
         /// </summary>
-        private const string IndexFilePath = @"C:\work\visualstudio\Hermann\Hermann.Ai\resources\patterndefinition\";
+        private static readonly string IndexFilePath = $"{EnvConfig.GetRootDir()}/Hermann.Ai/resources/patterndefinition/";
 
         /// <summary>
         /// インデックスファイルの拡張子

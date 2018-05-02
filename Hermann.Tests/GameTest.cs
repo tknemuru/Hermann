@@ -25,8 +25,6 @@ namespace Hermann.Tests
         /// </summary>
         public GameTest()
         {
-            TestDiProvider.Register();
-            this.Game = new Game();
         }
 
         /// <summary>
@@ -35,6 +33,10 @@ namespace Hermann.Tests
         [TestMethod]
         public void 壁とスライムに挟まれて回転ができない()
         {
+            TestDiProvider.Register();
+            TestDiProvider.GetContainer().Verify();
+            this.Game = new Game();
+
             // 001:1P-右2回
             var context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-001-001.txt");
             this.Game.Update(context);

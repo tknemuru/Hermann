@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hermann.Environments;
 
 namespace Hermann.Learning
 {
@@ -14,11 +15,11 @@ namespace Hermann.Learning
         /// <summary>
         /// ログ出力パス
         /// </summary>
-        public static string LogOutputPath = @"C:\work\visualstudio\Hermann\Hermann.Client.NativeClient\log\learning";
+        public static readonly string LogOutputPath = $"{EnvConfig.GetRootDir()}/Hermann.Client.NativeClient/log/learning";
 
         /// <summary>
         /// 学習済機能の保存先パス
         /// </summary>
-        public static string LearnerSavePath = @"C:\work\visualstudio\Hermann\Hermann.Learning.LearningClient\binarys";
+        public static readonly string LearnerSavePath = $"{EnvConfig.GetRootDir()}/Hermann.Learning.LearningClient/binarys";
     }
 }

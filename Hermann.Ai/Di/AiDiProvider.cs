@@ -38,6 +38,7 @@ namespace Hermann.Learning.Di
         static AiDiProvider()
         {
             Register();
+            MyContainer.Verify();
         }
 
         /// <summary>
@@ -49,6 +50,7 @@ namespace Hermann.Learning.Di
             if (MyContainer == null)
             {
                 Register();
+                MyContainer.Verify();
             }
             return MyContainer;
         }
@@ -71,7 +73,6 @@ namespace Hermann.Learning.Di
             MyContainer.Register<AliveEvaluator>(Lifestyle.Singleton);
 
             DiProvider.SetContainer(MyContainer);
-            MyContainer.Verify();
         }
     }
 }

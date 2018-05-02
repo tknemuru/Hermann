@@ -83,7 +83,7 @@ namespace Hermann.Ai.Providers
             var featureGen = AiDiProvider.GetContainer().GetInstance<FieldFeatureGenerator>();
             var config = AiDiProvider.GetContainer().GetInstance<FieldFeatureGenerator.Config>();
             config.TargetFeatue[FieldFeatureGenerator.Feature.NoticeObstruction] = true;
-            config.TargetFeatue[FieldFeatureGenerator.Feature.DangerCount] = true;
+            //config.TargetFeatue[FieldFeatureGenerator.Feature.DangerCount] = true;
             featureGen.Injection(config);
             gens.Add(Vector.Main, new IGeneratable<FieldContext, SparseVector<double>>[] {
                     patternGen,

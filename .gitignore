@@ -32,6 +32,12 @@ web.Release.config
 web.config
 .vs
 
+# for mac
+packages/
+Plugins/
+Library/
+MSTestToNUnit.cs
+
 # public
 #/public/
 
