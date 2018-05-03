@@ -6,11 +6,11 @@ using Accord.Neuro.Networks;
 using Accord.Statistics;
 using Accord.Statistics.Models.Regression.Linear;
 using Hermann.Helpers;
-using Hermann.Learning.Di;
-using Hermann.Learning.Helpers;
-using Hermann.Learning.Learners;
-using Hermann.Learning.LearningClient.Excecuter;
-using Hermann.Learning.Models;
+using Hermann.Ai.Di;
+using Hermann.Ai.Helpers;
+using Hermann.Ai.Learners;
+using Hermann.Ai.LearningClient.Excecuter;
+using Hermann.Ai.Models;
 using Hermann.LearningClient.Di;
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Learning.LearningClient
+namespace Hermann.Ai.LearningClient
 {
     class Program
     {

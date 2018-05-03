@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Learning.LearningClient.Excecuter
+namespace Hermann.Ai.LearningClient.Excecuter
 {
     /// <summary>
     /// 処理の実行機能を提供します。

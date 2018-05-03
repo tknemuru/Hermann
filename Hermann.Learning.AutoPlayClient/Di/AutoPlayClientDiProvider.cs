@@ -13,10 +13,10 @@ using System.Text;
 using SimpleInjector;
 using Hermann.Updaters.Times;
 using Hermann.Initializers;
-using Hermann.Learning.Calculators;
+using Hermann.Ai.Calculators;
 using Hermann.Ai.Providers;
 
-namespace Hermann.Learning.AutoPlayClient.Di
+namespace Hermann.Ai.AutoPlayClient.Di
 {
     /// <summary>
     /// DIの生成機能を提供します。

@@ -1,7 +1,7 @@
 ﻿using Hermann.Contexts;
 using Hermann.Helper;
 using Hermann.Helpers;
-using Hermann.Learning.Models;
+using Hermann.Ai.Models;
 using Hermann.Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Learning.Helpers
+namespace Hermann.Ai.Helpers
 {
     /// <summary>
     /// 学習に関連するデータの変換機能を提供します。

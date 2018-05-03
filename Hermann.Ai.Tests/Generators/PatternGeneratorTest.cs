@@ -6,7 +6,7 @@ using Hermann.Ai.Models;
 using Hermann.Ai.Providers;
 using Hermann.Helper;
 using Hermann.Helpers;
-using Hermann.Learning.Di;
+using Hermann.Ai.Di;
 using Hermann.Tests.TestHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

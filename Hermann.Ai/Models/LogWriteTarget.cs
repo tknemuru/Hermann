@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Learning.Models
+namespace Hermann.Ai.Models
 {
     /// <summary>
     /// ログ書き込み対象

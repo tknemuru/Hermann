@@ -1,8 +1,8 @@
 ﻿using Accord.MachineLearning;
 using Hermann.Ai.Providers;
 using Hermann.Contexts;
-using Hermann.Learning;
-using Hermann.Learning.Di;
+using Hermann.Ai;
+using Hermann.Ai.Di;
 using System;
 using System.Collections.Generic;
 using System.Linq;

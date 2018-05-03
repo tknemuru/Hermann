@@ -2,7 +2,7 @@
 using Hermann.Ai.Helpers;
 using Hermann.Ai.Providers;
 using Hermann.Contexts;
-using Hermann.Learning.Di;
+using Hermann.Ai.Di;
 using Hermann.Models;
 using System;
 using System.Collections.Generic;

@@ -17,7 +17,8 @@ using Assets.Scripts.Containers;
 using Assets.Scripts.Analyzers;
 using Assets.Scripts.Initializers;
 using Assets.Scripts;
-using Hermann.Learning;
+using Hermann.Ai;
+using Hermann.Ai.Helpers;
 
 /// <summary>
 /// ゲーム管理機能を提供します。

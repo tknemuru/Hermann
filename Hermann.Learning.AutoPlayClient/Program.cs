@@ -6,8 +6,8 @@ using Hermann.Api.Receivers;
 using Hermann.Api.Senders;
 using Hermann.Contexts;
 using Hermann.Helpers;
-using Hermann.Learning.AutoPlayClient.Di;
-using Hermann.Learning.Calculators;
+using Hermann.Ai.AutoPlayClient.Di;
+using Hermann.Ai.Calculators;
 using Hermann.Models;
 using System;
 using System.Collections.Generic;
@@ -16,8 +16,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Hermann.Ai.Helpers;
 
-namespace Hermann.Learning.AutoPlayClient
+namespace Hermann.Ai.AutoPlayClient
 {
     class Program
     {

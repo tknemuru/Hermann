@@ -3,7 +3,7 @@ using Hermann.Ai.Generators;
 using Hermann.Ai.Models;
 using Hermann.Contexts;
 using Hermann.Generators;
-using Hermann.Learning.Di;
+using Hermann.Ai.Di;
 using System;
 using System.Collections.Generic;
 using System.Linq;

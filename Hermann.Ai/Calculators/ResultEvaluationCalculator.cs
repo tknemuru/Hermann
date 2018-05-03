@@ -1,4 +1,5 @@
-﻿using Hermann.Contexts;
+﻿using Hermann.Ai.Helpers;
+using Hermann.Contexts;
 using Hermann.Models;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Learning.Calculators
+namespace Hermann.Ai.Calculators
 {
     /// <summary>
     /// 結果評価値の計算機能を提供します。

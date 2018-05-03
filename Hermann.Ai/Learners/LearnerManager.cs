@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Learning
+namespace Hermann.Ai
 {
     /// <summary>
     /// 学習機能の管理機能を提供します。

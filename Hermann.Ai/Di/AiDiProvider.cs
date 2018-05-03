@@ -11,7 +11,7 @@ using Hermann.Ai.Generators;
 using Hermann.Ai.Models;
 using Hermann.Ai.Providers;
 
-namespace Hermann.Learning.Di
+namespace Hermann.Ai.Di
 {
     /// <summary>
     /// DIの生成機能を提供します。

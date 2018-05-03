@@ -1,6 +1,6 @@
 ﻿using Hermann.Ai.Evaluators;
 using Hermann.Contexts;
-using Hermann.Learning.Di;
+using Hermann.Ai.Di;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,7 +1,7 @@
 ﻿using Hermann.Helpers;
-using Hermann.Learning.Helpers;
-using Hermann.Learning.Learners;
-using Hermann.Learning.Models;
+using Hermann.Ai.Helpers;
+using Hermann.Ai.Learners;
+using Hermann.Ai.Models;
 using Hermann.LearningClient.Di;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Learning.LearningClient.Excecuter
+namespace Hermann.Ai.LearningClient.Excecuter
 {
     /// <summary>
     /// 学習実行機能を提供します。

@@ -5,7 +5,7 @@ using Hermann.Contexts;
 using Hermann.Generators;
 using Hermann.Helper;
 using Hermann.Helpers;
-using Hermann.Learning.Di;
+using Hermann.Ai.Di;
 using Hermann.Models;
 using System;
 using System.Collections.Generic;

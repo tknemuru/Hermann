@@ -1,15 +1,14 @@
 ﻿using Hermann.Contexts;
 using Hermann.Helpers;
-using Hermann.Learning.Models;
+using Hermann.Ai.Models;
 using Hermann.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Hermann.Learning.Helpers;
 
-namespace Hermann.Learning
+namespace Hermann.Ai.Helpers
 {
     /// <summary>
     /// ログ出力に関する機能を提供します。

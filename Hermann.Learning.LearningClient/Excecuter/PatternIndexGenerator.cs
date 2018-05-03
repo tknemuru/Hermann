@@ -1,14 +1,14 @@
 ﻿using Hermann.Ai.Providers;
 using Hermann.Helpers;
 using Hermann.Ai.Models;
-using Hermann.Learning.Di;
+using Hermann.Ai.Di;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Learning.LearningClient.Excecuter
+namespace Hermann.Ai.LearningClient.Excecuter
 {
     /// <summary>
     /// パターンのインデックス生成機能を提供します。
