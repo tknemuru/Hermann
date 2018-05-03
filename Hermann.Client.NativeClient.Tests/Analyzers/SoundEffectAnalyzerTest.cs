@@ -7,8 +7,6 @@ using Hermann.Api.Receivers;
 using Hermann.Contexts;
 using Hermann.Helpers;
 using Hermann.Initializers;
-using Hermann.Learning;
-using Hermann.Learning.Di;
 using Hermann.Models;
 using Hermann.Tests.Di;
 using Hermann.Tests.TestHelpers;

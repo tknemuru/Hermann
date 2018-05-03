@@ -199,6 +199,8 @@ namespace Hermann.Tests
         [TestMethod]
         public void 接地状態での移動()
         {
+            TestDiProvider.Register();
+            TestDiProvider.GetContainer().Verify();
             this.Game = new Game();
 
             // 001:右
