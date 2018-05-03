@@ -14,6 +14,7 @@ namespace Hermann.Learning
     {
         /// <summary>
         /// ログ出力パス
+        /// テスト
         /// </summary>
         public static readonly string LogOutputPath = $"{EnvConfig.GetRootDir()}/Hermann.Client.NativeClient/log/learning";
 
