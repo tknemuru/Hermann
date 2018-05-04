@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 using System.Threading;
 using System.Linq;
-using Hermann.Ai.Calculators;
 using Hermann.Ai.Helpers;
-using Hermann.Ai.Providers;
 using Hermann.Api.Senders;
 using Hermann.Api.Commands;
 using Hermann.Api.Receivers;
 using Hermann.Client.LearningClient.Di;
 using Hermann.Contexts;
 using Hermann.Models;
-using Hermann.Analyzers;
+using Hermann.Client.LearningClient.Managers;
+using Hermann.Helpers;
 
 namespace Hermann.Client.LearningClient.Excecuters
 {
@@ -21,54 +19,38 @@ namespace Hermann.Client.LearningClient.Excecuters
     public class AutoPlayExecuter : IExecutable
     {
         /// <summary>
-        /// プレイ上限回数
-        /// </summary>
-        private const int LimitPlayCount = 10000;
-
-        /// <summary>
-        /// スライムを動かす頻度
-        /// </summary>
-        private const int MoveFrameRate = 6;
-
-        /// <summary>
-        /// 接地時に動かす頻度
-        /// </summary>
-        private const int GroundMoveFrameRate = 128;
-
-        /// <summary>
         /// 前回の勝ち数
         /// </summary>
-        private static int[] LastWinCount { get; set; }
+        private int[] LastWinCount { get; set; }
+
+        /// <summary>
+        /// 前回のフィールド状態
+        /// </summary>
+        private FieldContext[] LastContext { get; set; }
 
         /// <summary>
         /// コマンドの受信機能
         /// </summary>
-        private static CommandReceiver<NativeCommand, FieldContext> Receiver;
+        private CommandReceiver<NativeCommand, FieldContext> Receiver { get; set; }
 
         /// <summary>
         /// フィールドの送信機能
         /// </summary>
-        private static FieldContextSender<string> Sender;
+        private static FieldContextSender<string> Sender { get; set; }
 
         /// <summary>
-        /// 移動可能方向の分析機能
+        /// 自動対戦管理機能
         /// </summary>
-        private static MovableDirectionAnalyzer MovableDirectionAnalyzer;
-
-        /// <summary>
-        /// 乱数生成機能
-        /// </summary>
-        private static Random RandomGen;
+        private static AutoPlayManager Manager { get; set; }
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        static AutoPlayExecuter()
+        public AutoPlayExecuter()
         {
-            MovableDirectionAnalyzer = LearningClientDiProvider.GetContainer().GetInstance<MovableDirectionAnalyzer>();
             Receiver = LearningClientDiProvider.GetContainer().GetInstance<CommandReceiver<NativeCommand, FieldContext>>();
             Sender = LearningClientDiProvider.GetContainer().GetInstance<FieldContextSender<string>>();
-            RandomGen = new Random();
+            Manager = LearningClientDiProvider.GetContainer().GetInstance<AutoPlayManager>();
         }
 
         /// <summary>
@@ -78,14 +60,13 @@ namespace Hermann.Client.LearningClient.Excecuters
         public void Execute(string[] args)
         {
             var count = 0;
-            while (count < LimitPlayCount)
+            while (count < AutoPlayManager.LimitPlayCount)
             {
                 var context = StartGame();
                 try
                 {
-                    PlayGame(context);
-                    WriteResult(context, count);
-                    Thread.Sleep(1000);
+                    PlayGame(context, count);
+                    Thread.Sleep(AutoPlayManager.ResultDisplayMillSec);
                     count++;
                 }
                 catch (Exception ex)
@@ -98,91 +79,98 @@ namespace Hermann.Client.LearningClient.Excecuters
             Console.ReadKey();
         }
 
-        private static FieldContext StartGame()
+        /// <summary>
+        /// ゲームを開始します。
+        /// </summary>
+        /// <returns>フィールド初期状態</returns>
+        private FieldContext StartGame()
         {
-            LastWinCount = new[] { 0, 0 };
+            this.LastWinCount = new[] { 0, 0 };
+            this.LastContext = new FieldContext[Player.Length];
             var command = LearningClientDiProvider.GetContainer().GetInstance<NativeCommand>();
             command.Command = Command.Start;
             return Receiver.Receive(command);
         }
 
-        private static void PlayGame(FieldContext context)
+        /// <summary>
+        /// ゲームを実施します。
+        /// </summary>
+        /// <param name="context">フィールド状態</param>
+        /// <param name="gameCount">ゲームカウント</param>
+        private void PlayGame(FieldContext context, int gameCount)
         {
             var frameCount = new int[] { 0, 0 };
             while (context.FieldEvent[(int)context.OperationPlayer] != FieldEvent.End)
             {
-                Move(context, frameCount);
+                Move(context, frameCount, gameCount);
                 frameCount[(int)context.OperationPlayer]++;
             }
         }
 
-        private static void Move(FieldContext context, int[] frameCount)
+        /// <summary>
+        /// スライムを動かします。
+        /// </summary>
+        /// <param name="context">フィールド状態</param>
+        /// <param name="frameCount">フレームカウント</param>
+        /// <param name="gameCount">ゲームカウント</param>
+        private void Move(FieldContext context, int[] frameCount, int gameCount)
         {
             var player = context.OperationPlayer;
-            var requiredMove = true;
 
+            // 前回フィールド状態の更新
+            this.LastContext[player.ToInt()] = context.DeepCopy();
+
+            // 画面表示
+            if (Manager.RequiredDisplay(context, frameCount[player.ToInt()]))
+            {
+                LogWriter.WirteLog(Sender.Send(context));
+            }
+
+            // コマンドの生成
             var c = LearningClientDiProvider.GetContainer().GetInstance<NativeCommand>();
-            if (requiredMove)
+
+            // スライムを動かすかどうかの判定
+            if (Manager.RequiredMove(frameCount[player.ToInt()]))
             {
                 // スライムを動かす
-                if (context.OperationPlayer == Player.Index.First && frameCount[(int)player] % 16 == 0)
-                {
-                    LogWriter.WirteLog(Sender.Send(context));
-                }
-                if (frameCount[(int)player] % 16 == 0 || frameCount[(int)player] % 15 == 0)
-                {
-                    context.OperationDirection = GetNext(context);
-                }
-                else
-                {
-                    requiredMove = false;
-                }
-                c.Command = Command.Move;
-                //c.Command = Command.AiMove;
+                context.OperationDirection = Manager.GetNext(context);
             }
             else
             {
                 // 移動方向無
                 context.OperationDirection = Direction.None;
-                c.Command = Command.Move;
             }
+            c.Command = Command.Move;
             c.Context = context;
             context = Receiver.Receive(c);
-            if (requiredMove &&
-                (context.FieldEvent[(int)player] == FieldEvent.MarkErasing || context.FieldEvent[(int)player] == FieldEvent.NextPreparation))
-            //if (requiredMove)
+
+            // 状態の書き込み
+            if (Manager.RequiredWriteStateLog(this.LastContext[player.ToInt()], context))
             {
-                LogWriter.WriteState(LearningClientDiProvider.GetContainer().GetInstance<InputDataProvider>().
-                    GetVector(InputDataProvider.Vector.Main, context).ToArray());
+                var input = Manager.GetStateLogInput(context);
+                LogWriter.WriteState(input);
             }
+
+            // 結果の書き込み
+            if (Manager.RequiredWriteResultLog(this.LastContext[player.ToInt()], context))
+            {
+                var input = Manager.GetResutlLogInput(this.LastContext[context.OperationPlayer.ToInt()], context);
+                this.WriteResult(input, this.LastContext[player.ToInt()], context, gameCount);
+            }
+
+            // プレイヤを交換
             context.OperationPlayer = context.OperationPlayer.GetOppositeIndex();
         }
 
-        private static Direction GetNext(FieldContext context)
+        /// <summary>
+        /// 結果を書き込みます。
+        /// </summary>
+        /// <param name="score">評価値</param>
+        /// <param name="context">フィールド状態</param>
+        /// <param name="count">プレイ回数</param>
+        private void WriteResult(double score, FieldContext lastContext, FieldContext context, int count)
         {
-            var directions = MovableDirectionAnalyzer.Analyze(context, context.OperationPlayer).ToArray();
-            if (directions.Count() <= 0)
-            {
-                return Direction.None;
-            }
-
-            var index = RandomGen.Next(directions.Count());
-            return directions[index];
-        }
-
-        private static Player.Index GetWinPlayer(FieldContext context)
-        {
-            var firstWin = LastWinCount[(int)Player.Index.First] != context.WinCount[(int)Player.Index.First];
-            return firstWin ? Player.Index.First : Player.Index.Second;
-        }
-
-        private static void WriteResult(FieldContext context, int count)
-        {
-            LogWriter.WirteLog(Sender.Send(context));
-
-            var win = GetWinPlayer(context);
-            var score = LearningClientDiProvider.GetContainer().GetInstance<ResultEvaluationCalculator>().
-                Evaluate(context, win);
+            var win = FieldContextHelper.GetWinPlayer(lastContext, context);
             LogWriter.WriteWinResult(score);
             LogWriter.WirteLog($"count:{count}");
             LogWriter.WirteLog($"win:{win}");
