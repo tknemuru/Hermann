@@ -41,7 +41,7 @@ namespace Hermann.Ai.Helpers
         /// <summary>
         /// フィールド状態をログに書き込みます。
         /// </summary>
-        /// <param name="state">フィールド状態</param>
+        /// <param name="status">フィールド状態</param>
         public static void WriteState(double[] status)
         {
             var sb = new StringBuilder();

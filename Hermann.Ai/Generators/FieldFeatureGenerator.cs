@@ -3,7 +3,6 @@ using Hermann.Ai.Analyzers;
 using Hermann.Ai.Models;
 using Hermann.Contexts;
 using Hermann.Generators;
-using Hermann.Helper;
 using Hermann.Helpers;
 using Hermann.Ai.Di;
 using Hermann.Models;

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Helper
+namespace Hermann.Helpers
 {
     /// <summary>
     /// 移動に関する補助機能を提供します。

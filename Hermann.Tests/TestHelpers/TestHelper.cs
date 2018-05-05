@@ -3,7 +3,7 @@ using Hermann.Models;
 using Hermann.Api.Receivers;
 using Hermann.Api.Senders;
 using Hermann.Tests.Di;
-using Hermann.Helper;
+using Hermann.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

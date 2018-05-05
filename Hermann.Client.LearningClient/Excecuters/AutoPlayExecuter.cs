@@ -10,6 +10,8 @@ using Hermann.Contexts;
 using Hermann.Models;
 using Hermann.Client.LearningClient.Managers;
 using Hermann.Helpers;
+using Hermann.Ai;
+using Hermann.Ai.Analyzers;
 
 namespace Hermann.Client.LearningClient.Excecuters
 {
@@ -19,14 +21,9 @@ namespace Hermann.Client.LearningClient.Excecuters
     public class AutoPlayExecuter : IExecutable
     {
         /// <summary>
-        /// 前回の勝ち数
+        /// 勝ち数
         /// </summary>
-        private int[] LastWinCount { get; set; }
-
-        /// <summary>
-        /// 前回のフィールド状態
-        /// </summary>
-        private FieldContext[] LastContext { get; set; }
+        private int[] WinCount { get; set; }
 
         /// <summary>
         /// コマンドの受信機能
@@ -36,21 +33,27 @@ namespace Hermann.Client.LearningClient.Excecuters
         /// <summary>
         /// フィールドの送信機能
         /// </summary>
-        private static FieldContextSender<string> Sender { get; set; }
+        private FieldContextSender<string> Sender { get; set; }
 
         /// <summary>
         /// 自動対戦管理機能
         /// </summary>
-        private static AutoPlayManager Manager { get; set; }
+        private AutoPlayManager Manager { get; set; }
+
+        /// <summary>
+        /// 削除スライム分析機能パラメータ
+        /// </summary>
+        private ErasedSlimeAnalyzer.Param[] ErasedSlimeAnalyzerParams { get; set; }
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         public AutoPlayExecuter()
         {
-            Receiver = LearningClientDiProvider.GetContainer().GetInstance<CommandReceiver<NativeCommand, FieldContext>>();
-            Sender = LearningClientDiProvider.GetContainer().GetInstance<FieldContextSender<string>>();
-            Manager = LearningClientDiProvider.GetContainer().GetInstance<AutoPlayManager>();
+            this.Receiver = LearningClientDiProvider.GetContainer().GetInstance<CommandReceiver<NativeCommand, FieldContext>>();
+            this.Sender = LearningClientDiProvider.GetContainer().GetInstance<FieldContextSender<string>>();
+            this.Manager = LearningClientDiProvider.GetContainer().GetInstance<AutoPlayManager>();
+            this.WinCount = new[] { 0, 0 };
         }
 
         /// <summary>
@@ -59,12 +62,12 @@ namespace Hermann.Client.LearningClient.Excecuters
         /// <param name="args">パラメータ</param>
         public void Execute(string[] args)
         {
-            var count = 0;
+            var count = 1;
             while (count < AutoPlayManager.LimitPlayCount)
             {
-                var context = StartGame();
                 try
                 {
+                    var context = StartGame();
                     PlayGame(context, count);
                     Thread.Sleep(AutoPlayManager.ResultDisplayMillSec);
                     count++;
@@ -85,11 +88,28 @@ namespace Hermann.Client.LearningClient.Excecuters
         /// <returns>フィールド初期状態</returns>
         private FieldContext StartGame()
         {
-            this.LastWinCount = new[] { 0, 0 };
-            this.LastContext = new FieldContext[Player.Length];
             var command = LearningClientDiProvider.GetContainer().GetInstance<NativeCommand>();
             command.Command = Command.Start;
-            return Receiver.Receive(command);
+            var context = Receiver.Receive(command);
+
+            this.Manager.Inject(new AutoPlayManager.Config()
+            {
+                Versions = new AiPlayer.Version?[]
+                {
+                    null,
+                    AiPlayer.Version.V1_0,
+                },
+                UsingSlime = context.UsingSlimes,
+                LoggingVersion = AiPlayer.Version.V1_0,
+            });
+
+            this.ErasedSlimeAnalyzerParams = new[]
+            {
+                LearningClientDiProvider.GetContainer().GetInstance<ErasedSlimeAnalyzer.Param>(),
+                LearningClientDiProvider.GetContainer().GetInstance<ErasedSlimeAnalyzer.Param>(),
+            };
+
+            return context;
         }
 
         /// <summary>
@@ -117,8 +137,18 @@ namespace Hermann.Client.LearningClient.Excecuters
         {
             var player = context.OperationPlayer;
 
-            // 前回フィールド状態の更新
-            this.LastContext[player.ToInt()] = context.DeepCopy();
+            // 削除スライム分析機能パラメータの更新
+            if (context.FieldEvent[player.ToInt()] == FieldEvent.MarkErasing &&
+               context.Chain[player.ToInt()] == 0)
+            {
+                this.ErasedSlimeAnalyzerParams[player.ToInt()].TargetContext = context.DeepCopy();
+            }
+            else if (context.FieldEvent[player.ToInt()] == FieldEvent.Erase)
+            {
+                this.ErasedSlimeAnalyzerParams[player.ToInt()].ErasedSlimes =
+                FieldContextHelper.MergeSlimeFields(this.ErasedSlimeAnalyzerParams[player.ToInt()].TargetContext.SlimeFields[player.ToInt()][Slime.Erased],
+                                                    context.SlimeFields[player.ToInt()][Slime.Erased]);
+            }
 
             // 画面表示
             if (Manager.RequiredDisplay(context, frameCount[player.ToInt()]))
@@ -130,32 +160,29 @@ namespace Hermann.Client.LearningClient.Excecuters
             var c = LearningClientDiProvider.GetContainer().GetInstance<NativeCommand>();
 
             // スライムを動かすかどうかの判定
-            if (Manager.RequiredMove(frameCount[player.ToInt()]))
+            if (Manager.RequiredMove(context, frameCount[player.ToInt()]))
             {
                 // スライムを動かす
                 context.OperationDirection = Manager.GetNext(context);
             }
-            else
-            {
-                // 移動方向無
-                context.OperationDirection = Direction.None;
-            }
+
             c.Command = Command.Move;
             c.Context = context;
             context = Receiver.Receive(c);
 
             // 状態の書き込み
-            if (Manager.RequiredWriteStateLog(this.LastContext[player.ToInt()], context))
+            if (Manager.RequiredWriteStateLog(this.ErasedSlimeAnalyzerParams[player.ToInt()].TargetContext, context))
             {
-                var input = Manager.GetStateLogInput(context);
+                FileHelper.WriteLine("----- Write state log -----");
+                var input = Manager.GetStateLogInput(this.ErasedSlimeAnalyzerParams[player.ToInt()], context);
                 LogWriter.WriteState(input);
             }
 
             // 結果の書き込み
-            if (Manager.RequiredWriteResultLog(this.LastContext[player.ToInt()], context))
+            if (Manager.RequiredWriteResultLog(this.ErasedSlimeAnalyzerParams[player.ToInt()].TargetContext, context))
             {
-                var input = Manager.GetResutlLogInput(this.LastContext[context.OperationPlayer.ToInt()], context);
-                this.WriteResult(input, this.LastContext[player.ToInt()], context, gameCount);
+                var input = Manager.GetResutlLogInput(this.ErasedSlimeAnalyzerParams[player.ToInt()].TargetContext, context);
+                this.WriteResult(input, this.ErasedSlimeAnalyzerParams[player.ToInt()].TargetContext, context, gameCount);
             }
 
             // プレイヤを交換
@@ -172,8 +199,19 @@ namespace Hermann.Client.LearningClient.Excecuters
         {
             var win = FieldContextHelper.GetWinPlayer(lastContext, context);
             LogWriter.WriteWinResult(score);
-            LogWriter.WirteLog($"count:{count}");
-            LogWriter.WirteLog($"win:{win}");
+
+            if (win != null)
+            {
+                this.WinCount[win.Value.ToInt()]++;
+                Player.ForEach(player =>
+                {
+                    var winRate = Math.Floor(((double)this.WinCount[player.ToInt()] / (double)count) * 100.0d);
+                    LogWriter.WirteLog($"{player.GetName()} win count:{this.WinCount[player.ToInt()]} win rate:{winRate}%");
+                });
+                LogWriter.WirteLog($"count:{count}");
+                LogWriter.WirteLog($"win:{win}");
+
+            }
         }
      }
 }

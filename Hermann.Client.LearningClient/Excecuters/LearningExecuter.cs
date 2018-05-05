@@ -10,20 +10,45 @@ using System.Text;
 using System.Threading.Tasks;
 using Hermann.Client.LearningClient.Di;
 using Hermann.Ai;
+using System.Diagnostics;
 
 namespace Hermann.Client.LearningClient.Excecuters
 {
     /// <summary>
     /// 学習実行機能を提供します。
     /// </summary>
-    public class LearningExecuter : IExecutable
+    public class LearningExecuter : IExecutable, IInjectable<AiPlayer.Version>
     {
+        /// <summary>
+        /// 注入が完了したかどうか
+        /// </summary>
+        /// <value><c>true</c> if has injected; otherwise, <c>false</c>.</value>
+        public bool HasInjected { get; private set; } = false;
+
+        /// <summary>
+        /// AIプレイヤのバージョン
+        /// </summary>
+        /// <value>The version.</value>
+        private AiPlayer.Version Version { get; set; }
+
+        /// <summary>
+        /// 依存する情報を注入します。
+        /// </summary>
+        /// <param name="version">バージョン</param>
+        public void Inject(AiPlayer.Version version)
+        {
+            this.Version = version;
+            this.HasInjected = true;
+        }
+
         /// <summary>
         /// 学習を実行します。
         /// </summary>
         /// <param name="args"></param>
         public void Execute(string[] args)
         {
+            Debug.Assert(this.HasInjected, "依存性の注入が完了していません");
+
             double[][] inputs;
             double[] outputs;
             var data = BuildLearning2DData();
@@ -33,7 +58,7 @@ namespace Hermann.Client.LearningClient.Excecuters
             var regression = new MultipleLinearRegressionLearner().Learn(inputs, outputs);
 
             Console.WriteLine("Now saving ...");
-            LearningClientDiProvider.GetContainer().GetInstance<LearnerManager>().SaveMultipleLinearRegression(regression);
+            LearningClientDiProvider.GetContainer().GetInstance<LearnerManager>().SaveMultipleLinearRegression(regression, this.Version);
             Console.WriteLine("Save completed");
             Console.Write("Press any key to quit ..");
             Console.ReadKey();
@@ -67,6 +92,13 @@ namespace Hermann.Client.LearningClient.Excecuters
             var fileNames = Directory.EnumerateFiles(LearningConfig.LogOutputPath);
             foreach (var fileName in fileNames)
             {
+                var firstChar = FileHelper.GetFileName(fileName).First();
+                if(firstChar == '.')
+                {
+                    // 隠しファイルは読み込み対象外
+                    continue;
+                }
+
                 var logs = FileHelper.ReadTextLines(fileName);
                 var d = DataConverter.ConvertLogToLearning2DData(logs);
                 data.Inputs = data.Inputs.Concat(d.Inputs).ToArray();

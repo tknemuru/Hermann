@@ -7,14 +7,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Hermann.Updaters
 {
     /// <summary>
     /// NEXTスライムの更新機能を提供します。
     /// </summary>
-    public sealed class NextSlimeUpdater : IPlayerFieldUpdatable
+    public sealed class NextSlimeUpdater : IPlayerFieldUpdatable, IInjectable<NextSlimeGenerator>
     {
+        /// <summary>
+        /// 注入が完了したかどうか
+        /// </summary>
+        /// <value><c>true</c> if has injected; otherwise, <c>false</c>.</value>
+        public bool HasInjected { get; private set; } = false;
+
         /// <summary>
         /// NEXTスライム生成機能
         /// </summary>
@@ -41,9 +48,10 @@ namespace Hermann.Updaters
         /// 依存機能を注入します。
         /// </summary>
         /// <param name="nextSlimeGen">NEXTスライム生成機能</param>
-        public void Injection(NextSlimeGenerator nextSlimeGen)
+        public void Inject(NextSlimeGenerator nextSlimeGen)
         {
             this.NextSlimeGen = nextSlimeGen;
+            this.HasInjected = true;
         }
 
         /// <summary>   
@@ -52,6 +60,8 @@ namespace Hermann.Updaters
         /// <param name="context">フィールドの状態</param>
         public void Update(FieldContext context, Player.Index player)
         {
+            Debug.Assert(this.HasInjected, "依存性の注入が完了していません");
+
             Slime[] movables = null;
             if (this.NextSlimeQueue[(int)player].Count <= 0)
             {

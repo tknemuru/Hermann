@@ -16,8 +16,36 @@ namespace Hermann.Ai.Serchers
     /// <summary>
     /// 1階層のみの完全読み探索機能を提供します。
     /// </summary>
-    public class ThinCompleteReading : ISerchable<FieldContext, IEnumerable<Direction>>
+    public class ThinCompleteReading : ISerchable<FieldContext, IEnumerable<Direction>>, IInjectable<ThinCompleteReading.Config>
     {
+        /// <summary>
+        /// 設定情報
+        /// </summary>
+        public class Config
+        {
+            /// <summary>
+            /// AIのバージョン
+            /// </summary>
+            /// <value>The version.</value>
+            public AiPlayer.Version Version { get; set; }
+
+            /// <summary>
+            /// 使用スライム
+            /// </summary>
+            public Slime[] UsingSlime { get; set; }
+        }
+
+        /// <summary>ß
+        /// 注入が完了したかどうか
+        /// </summary>
+        /// <value><c>true</c> if has injected; otherwise, <c>false</c>.</value>
+        public bool HasInjected { get; private set; } = false;
+
+        /// <summary>
+        /// 設定情報
+        /// </summary>
+        private Config MyConfig { get; set; }
+
         /// <summary>
         /// ゲームロジック
         /// </summary>
@@ -26,10 +54,13 @@ namespace Hermann.Ai.Serchers
         /// <summary>
         /// 依存関係がある機能を注入します。
         /// </summary>
-        /// <param name="game">ゲーム</param>
-        public void Injection(Game game)
+        /// <param name="config">設定情報</param>
+        public void Inject(Config config)
         {
-            this.Game = game;
+            this.MyConfig = config;
+            this.Game = AiDiProvider.GetContainer().GetInstance<Game>();
+            this.Game.Inject(config.UsingSlime);
+            this.HasInjected = true;
         }
 
         /// <summary>
@@ -39,6 +70,13 @@ namespace Hermann.Ai.Serchers
         /// <returns>最善手</returns>
         public IEnumerable<Direction> Search(FieldContext context)
         {
+            Debug.Assert(this.HasInjected, "依存性の注入が完了していません");
+#if DEBUG
+            for (var i = 0; i < context.UsingSlimes.Length; i++)
+            {
+                Debug.Assert(context.UsingSlimes[i] == this.MyConfig.UsingSlime[i], "使用スライムが不正です");
+            }
+#endif
             var valueDic = new Dictionary<int, double>();
             var index = 0;
 
@@ -52,7 +90,7 @@ namespace Hermann.Ai.Serchers
 
                 // 評価実施
                 valueDic.Add(index, AiDiProvider.GetContainer().GetInstance<EvalProvider>().
-                    GetEval(EvalProvider.Type.Main, _context));
+                    GetEval(this.MyConfig.Version, _context));
                 index++;
             }
 

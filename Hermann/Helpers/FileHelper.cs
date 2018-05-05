@@ -17,6 +17,12 @@ namespace Hermann.Helpers
         private static readonly string DefaultFilePath;
 
         /// <summary>
+        /// エンコードの初期値
+        /// UTF-8, Shift_JIS
+        /// </summary>
+        private const string DefaultEncoding = "Shift_JIS";
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         static FileHelper()
@@ -32,7 +38,7 @@ namespace Hermann.Helpers
         /// <returns>文字列のリスト</returns>
         public static IEnumerable<string> ReadTextLines(string filePath, Encoding encoding = null)
         {
-            if (encoding == null) { encoding = Encoding.GetEncoding("Shift_JIS"); }
+            if (encoding == null) { encoding = Encoding.GetEncoding(DefaultEncoding); }
 
             string line;
             using (StreamReader sr = new StreamReader(filePath, encoding))
@@ -62,7 +68,7 @@ namespace Hermann.Helpers
         {
             CreateDirectory(GetFileDirectory(filePath));
 
-            using (System.IO.StreamWriter sr = new System.IO.StreamWriter(filePath, append, System.Text.Encoding.GetEncoding("Shift_JIS")))
+            using (System.IO.StreamWriter sr = new System.IO.StreamWriter(filePath, append, System.Text.Encoding.GetEncoding(DefaultEncoding)))
             {
                 sr.WriteLine(line);
             }
@@ -87,7 +93,7 @@ namespace Hermann.Helpers
         {
             CreateDirectory(GetFileDirectory(filePath));
 
-            using (System.IO.StreamWriter sr = new System.IO.StreamWriter(filePath, append, System.Text.Encoding.GetEncoding("Shift_JIS")))
+            using (System.IO.StreamWriter sr = new System.IO.StreamWriter(filePath, append, System.Text.Encoding.GetEncoding(DefaultEncoding)))
             {
                 sr.Write(str);
             }
@@ -123,6 +129,16 @@ namespace Hermann.Helpers
             }
 
             return retPath.Substring(0, (retPath.Length - 1));
+        }
+
+        /// <summary>
+        /// ファイル名を含めたフルパスからファイル名のみを返す
+        /// </summary>
+        /// <param name="fullPath">フルパス</param>
+        /// <returns>ファイル名</returns>
+        public static string GetFileName(string fullPath)
+        {
+            return Path.GetFileName(fullPath);
         }
     }
 }

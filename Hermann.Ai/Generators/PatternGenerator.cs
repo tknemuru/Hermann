@@ -4,7 +4,6 @@ using Hermann.Ai.Models;
 using Hermann.Analyzers;
 using Hermann.Contexts;
 using Hermann.Generators;
-using Hermann.Helper;
 using Hermann.Helpers;
 using Hermann.Ai.Di;
 using Hermann.Models;
@@ -13,26 +12,59 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Hermann.Ai.Generators
 {
     /// <summary>
     /// パターン生成機能を提供します。
     /// </summary>
-    public class PatternGenerator : IGeneratable<FieldContext, SparseVector<double>>
+    public class PatternGenerator : IGeneratable<FieldContext, SparseVector<double>>, IInjectable<PatternGenerator.Config>
     {
         /// <summary>
-        /// 生成対象のパターンリスト
+        /// 注入が完了したかどうか
         /// </summary>
-        private IEnumerable<PatternDefinition> Patterns { get; set; }
+        /// <value><c>true</c> if has injected; otherwise, <c>false</c>.</value>
+        public bool HasInjected { get; private set; } = false;
+
+        /// <summary>
+        /// 設定情報
+        /// </summary>
+        public class Config
+        {
+            /// <summary>
+            /// 生成対象のパターンリスト
+            /// </summary>
+            public IEnumerable<PatternDefinition> Patterns { get; set; }
+
+            /// <summary>
+            /// 疎な部分の値
+            /// </summary>
+            /// <value>The sparse value.</value>
+            public double SparseValue { get; set; }
+
+            /// <summary>
+            /// コンストラクタ
+            /// </summary>
+            public Config()
+            {
+                this.SparseValue = 0.0d;
+            }
+        }
+
+        /// <summary>
+        /// 設定情報
+        /// </summary>
+        private Config MyConfig { get; set; }
 
         /// <summary>
         /// 依存する情報を注入します。
         /// </summary>
-        /// <param name="patterns">パターンリスト</param>
-        public void Injection(IEnumerable<PatternDefinition> patterns)
+        /// <param name="config">設定情報</param>
+        public void Inject(Config config)
         {
-            this.Patterns = patterns;
+            this.MyConfig = config;
+            this.HasInjected = true;
         }
 
         /// <summary>
@@ -42,6 +74,8 @@ namespace Hermann.Ai.Generators
         /// <returns>現在のフィールド状態のパターンリスト</returns>
         public SparseVector<double> GetNext(FieldContext context)
         {
+            Debug.Assert(this.HasInjected, "依存性の注入が完了していません");
+
             int maxIndex = 0;
             var dic = new Dictionary<int, double>();
             Player.ForEach(player =>
@@ -53,7 +87,7 @@ namespace Hermann.Ai.Generators
                     Where(f => f.Key == Slime.Obstruction).
                     Select(f => f.Value.Skip(FieldContextConfig.MinDisplayUnitIndex).ToArray()).ToArray();
 
-                foreach (var pattern in this.Patterns)
+                foreach (var pattern in this.MyConfig.Patterns)
                 {
                     foreach(var fields in colorSlimeFields)
                     {
@@ -67,7 +101,7 @@ namespace Hermann.Ai.Generators
                     maxIndex += (int)pattern.MaxIndex + 1;
                 }
             });
-            var vector = new SparseVector<double>(maxIndex, dic, 0.0d);
+            var vector = new SparseVector<double>(maxIndex, dic, this.MyConfig.SparseValue);
             return vector;
         }
 

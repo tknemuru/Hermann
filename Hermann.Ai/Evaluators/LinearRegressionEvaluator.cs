@@ -8,25 +8,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Hermann.Ai.Evaluators
 {
     /// <summary>
     /// 回帰分析によるフィールド評価機能を提供します。
     /// </summary>
-    public class LinearRegressionEvaluator : IEvaluable<FieldContext, double>
+    public class LinearRegressionEvaluator : IEvaluable<FieldContext, double>, IInjectable<AiPlayer.Version>
     {
+        /// <summary>
+        /// 注入が完了したかどうか
+        /// </summary>
+        /// <value><c>true</c> if has injected; otherwise, <c>false</c>.</value>
+        public bool HasInjected { get; private set; } = false;
+
+        /// <summary>
+        /// AIプレイヤのバージョン
+        /// </summary>
+        /// <value>The version.</value>
+        private AiPlayer.Version Version { get; set; }
+
         /// <summary>
         /// 回帰分析機能
         /// </summary>
         private TransformBase<double[], double> Regression { get; set; }
 
         /// <summary>
-        /// コンストラクタ
+        /// 依存する情報を注入します。
         /// </summary>
-        public LinearRegressionEvaluator()
+        /// <param name="version">AIプレイヤのバージョン</param>
+        public void Inject(AiPlayer.Version version)
         {
-            this.Regression = AiDiProvider.GetContainer().GetInstance<LearnerManager>().GetMultipleLinearRegression();
+            this.Version = version;
+            this.Regression = AiDiProvider.GetContainer().GetInstance<LearnerManager>().GetMultipleLinearRegression(this.Version);
+            this.HasInjected = true;
         }
 
         /// <summary>
@@ -36,8 +52,10 @@ namespace Hermann.Ai.Evaluators
         /// <returns>評価値</returns>
         public double Evaluate(FieldContext context)
         {
+            Debug.Assert(this.HasInjected, "依存性の注入が完了していません");
+
             var input = AiDiProvider.GetContainer().GetInstance<InputDataProvider>().
-                GetVector(InputDataProvider.Vector.Main, context);
+                GetVector(this.Version, context);
             return this.Regression.Transform(input.ToArray());
         }
     }

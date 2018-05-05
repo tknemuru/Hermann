@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hermann.Helper
+namespace Hermann.Helpers
 {
     /// <summary>
     /// 時間計測と計測結果の出力処理を提供します。

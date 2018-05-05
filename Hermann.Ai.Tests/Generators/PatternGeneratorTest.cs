@@ -4,7 +4,6 @@ using System.Linq;
 using Hermann.Ai.Generators;
 using Hermann.Ai.Models;
 using Hermann.Ai.Providers;
-using Hermann.Helper;
 using Hermann.Helpers;
 using Hermann.Ai.Di;
 using Hermann.Tests.TestHelpers;
@@ -47,7 +46,10 @@ namespace Hermann.Ai.Tests.Generators
             var stairsTwoRight = AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsTwoRight);
             patterns.Add(stairsOneLeft);
             patterns.Add(stairsTwoRight);
-            this.Generator.Injection(patterns);
+            this.Generator.Inject(new PatternGenerator.Config()
+            {
+                Patterns = patterns,
+            });
 
             var stairsOneLeftColors1P = new Dictionary<int, double>();
             var stairsOneLeftObs1P = new Dictionary<int, double>();

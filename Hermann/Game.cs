@@ -18,8 +18,14 @@ namespace Hermann
     /// <summary>
     /// ゲームロジックを提供します。
     /// </summary>
-    public sealed class Game
+    public sealed class Game : IInjectable<Slime[]>
     {
+        /// <summary>
+        /// 注入が完了したかどうか
+        /// </summary>
+        /// <value><c>true</c> if has injected; otherwise, <c>false</c>.</value>
+        public bool HasInjected { get; private set; } = false;
+
         /// <summary>
         /// スライム移動機能
         /// </summary>
@@ -78,7 +84,7 @@ namespace Hermann
         /// <summary>
         ///フィールド状態の初期化機能
         /// </summary>
-        private IFieldContextInitializable FieldContextInitializer { get; set; }
+        private FieldContextInitializer FieldContextInitializer { get; set; }
 
         /// <summary>
         /// 移動可能スライムの更新機能
@@ -93,7 +99,7 @@ namespace Hermann
         /// <summary>
         /// 使用スライムの生成機能
         /// </summary>
-        private UsingSlimeGenerator UsingSlimeGenerator { get; set; }
+        //private UsingSlimeGenerator UsingSlimeGenerator { get; set; }
 
         /// <summary>
         /// おじゃまスライム数の計算機能
@@ -130,19 +136,31 @@ namespace Hermann
             this.Gravity = DiProvider.GetContainer().GetInstance<Gravity>();
             this.BuiltRemainingTimeUpdater = DiProvider.GetContainer().GetInstance<IBuiltRemainingTimeUpdatable>();
             this.RotationDirectionUpdater = DiProvider.GetContainer().GetInstance<RotationDirectionUpdater>();
-            this.UsingSlimeGenerator = DiProvider.GetContainer().GetInstance<UsingSlimeGenerator>();
             this.MovableSlimesUpdater = DiProvider.GetContainer().GetInstance<MovableSlimesUpdater>();
             this.ObstructionSlimeCalculator = DiProvider.GetContainer().GetInstance<ObstructionSlimeCalculator>();
             this.ObstructionSlimeSetter = DiProvider.GetContainer().GetInstance<ObstructionSlimeSetter>();
             this.ScoreCalculator = DiProvider.GetContainer().GetInstance<ScoreCalculator>();
             this.ObstructionSlimeErasingMarker = DiProvider.GetContainer().GetInstance<ObstructionSlimeErasingMarker>();
-
             this.NextSlimeGenerator = DiProvider.GetContainer().GetInstance<NextSlimeGenerator>();
-            this.NextSlimeGenerator.UsingSlime = this.UsingSlimeGenerator.GetNext();
             this.NextSlimeUpdater = DiProvider.GetContainer().GetInstance<NextSlimeUpdater>();
-            this.NextSlimeUpdater.Injection(this.NextSlimeGenerator);
-            this.FieldContextInitializer = DiProvider.GetContainer().GetInstance<IFieldContextInitializable>();
-            this.FieldContextInitializer.Injection(this.NextSlimeGenerator, this.MovableSlimesUpdater, this.NextSlimeUpdater);
+            this.FieldContextInitializer = DiProvider.GetContainer().GetInstance<FieldContextInitializer>();
+        }
+
+        /// <summary>
+        /// 依存情報を注入します。
+        /// </summary>
+        /// <param name="usingSlime">使用スライム</param>
+        public void Inject(Slime[] usingSlime)
+        {
+            this.NextSlimeGenerator.UsingSlime = usingSlime;
+            this.NextSlimeUpdater.Inject(this.NextSlimeGenerator);
+            this.FieldContextInitializer.Inject(new FieldContextInitializer.Config()
+            {
+                NextSlimeGen = this.NextSlimeGenerator,
+                MovableSlimeUp = this.MovableSlimesUpdater,
+                NextSlimeUp = this.NextSlimeUpdater,
+            });
+            this.HasInjected = true;
         }
 
         /// <summary>
@@ -151,6 +169,8 @@ namespace Hermann
         /// <returns>フィールド状態</returns>
         public FieldContext Start()
         {
+            Debug.Assert(this.HasInjected, "依存性の注入が完了していません");
+
             var context = DiProvider.GetContainer().GetInstance<FieldContext>();
             this.FieldContextInitializer.Initialize(context);
 
@@ -164,6 +184,8 @@ namespace Hermann
         /// <returns>更新されたフィールド状態</returns>
         public FieldContext Update(FieldContext context)
         {
+            Debug.Assert(this.HasInjected, "依存性の注入が完了していません");
+
             var player = context.OperationPlayer;
 
             // 時間の更新

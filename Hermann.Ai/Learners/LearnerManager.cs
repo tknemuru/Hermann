@@ -26,67 +26,79 @@ namespace Hermann.Ai
         private const string MultipleLinearRegressionFileName = "multiple_linear_regression";
 
         /// <summary>
-        /// DeepBeliefNetwork
+        /// DeepBeliefNetworks
         /// </summary>
-        private DeepBeliefNetwork DeepBeliefNetwork { get; set; }
+        private Dictionary<AiPlayer.Version, DeepBeliefNetwork> DeepBeliefNetworks { get; set; }
 
         /// <summary>
-        /// MultipleLinearRegression
+        /// MultipleLinearRegressions
         /// </summary>
-        private MultipleLinearRegression MultipleLinearRegression { get; set; }
+        private Dictionary<AiPlayer.Version, MultipleLinearRegression> MultipleLinearRegressions { get; set; }
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        public LearnerManager()
+        {
+            this.DeepBeliefNetworks = new Dictionary<AiPlayer.Version, DeepBeliefNetwork>();
+            this.MultipleLinearRegressions = new Dictionary<AiPlayer.Version, MultipleLinearRegression>();
+        }
 
         /// <summary>
         /// DeepBeliefNetworkを取得します。
         /// </summary>
+        /// <param name="version">AIプレイヤのバージョン</param>
         /// <returns>DeepBeliefNetwork</returns>
-        public DeepBeliefNetwork GetDeepBeliefNetwork()
+        public DeepBeliefNetwork GetDeepBeliefNetwork(AiPlayer.Version version)
         {
-            if(this.DeepBeliefNetwork == null)
+            if(!this.DeepBeliefNetworks.ContainsKey(version))
             {
-                this.DeepBeliefNetwork = Serializer.Load<DeepBeliefNetwork>(string.Format(LearningConfig.LearnerSavePath + @"/{0}.bin", DeepBeliefNetworkFileName));
+                this.DeepBeliefNetworks[version] = Serializer.Load<DeepBeliefNetwork>(string.Format(LearningConfig.LearnerSavePath + @"/{0}_{1}.bin", DeepBeliefNetworkFileName, version.ToString().ToLower()));
             }
-            return this.DeepBeliefNetwork;
+            return this.DeepBeliefNetworks[version];
         }
 
         /// <summary>
         /// DeepBeliefNetworkを保存します。
         /// </summary>
         /// <param name="network">DeepBeliefNetwork</param>
-        public void SaveDeepBeliefNetwork(DeepBeliefNetwork network)
+        public void SaveDeepBeliefNetwork(DeepBeliefNetwork network, AiPlayer.Version version)
         {
-            var filePath = string.Format(LearningConfig.LearnerSavePath + @"/{0}_{1}.bin", DeepBeliefNetworkFileName, DateTime.Now.ToString("yyyyMMddhhmmss"));
+            var filePath = string.Format(LearningConfig.LearnerSavePath + @"/{0}_{1}_{2}.bin", DeepBeliefNetworkFileName, DateTime.Now.ToString("yyyyMMddhhmmss"), version.ToString().ToLower());
             network.Save(filePath);
         }
 
         /// <summary>
         /// MultipleLinearRegressionを取得します。
         /// </summary>
+        /// <param name="version">AIプレイヤのバージョン</param>
         /// <returns>MultipleLinearRegression</returns>
-        public MultipleLinearRegression GetMultipleLinearRegression()
+        public MultipleLinearRegression GetMultipleLinearRegression(AiPlayer.Version version)
         {
-            if (this.MultipleLinearRegression == null)
+            if (!this.MultipleLinearRegressions.ContainsKey(version))
             {
-                var filePath = string.Format(LearningConfig.LearnerSavePath + @"/{0}.csv", MultipleLinearRegressionFileName);
+                var filePath = string.Format(LearningConfig.LearnerSavePath + @"/{0}_{1}.csv", MultipleLinearRegressionFileName, version.ToString().ToLower());
                 var csv = FileHelper.ReadTextLines(filePath);
                 var weightsAndIntercept = csv.First().Split(',');
                 var weightsLength = weightsAndIntercept.Count() - 1;
                 var intercept = weightsAndIntercept.Last();
                 var weights = weightsAndIntercept.Take(weightsLength).Select(w => double.Parse(w)).ToArray();
-                this.MultipleLinearRegression = new MultipleLinearRegression();
-                this.MultipleLinearRegression.NumberOfInputs = weightsLength;
-                this.MultipleLinearRegression.Intercept = double.Parse(intercept);
-                this.MultipleLinearRegression.Weights = weights;
+                this.MultipleLinearRegressions[version] = new MultipleLinearRegression();
+                this.MultipleLinearRegressions[version].NumberOfInputs = weightsLength;
+                this.MultipleLinearRegressions[version].Intercept = double.Parse(intercept);
+                this.MultipleLinearRegressions[version].Weights = weights;
             }
-            return this.MultipleLinearRegression;
+            return this.MultipleLinearRegressions[version];
         }
 
         /// <summary>
         /// MultipleLinearRegression。
         /// </summary>
         /// <param name="learner">MultipleLinearRegression</param>
-        public void SaveMultipleLinearRegression(MultipleLinearRegression learner)
+        /// <param name="version">AIプレイヤのバージョン</param>
+        public void SaveMultipleLinearRegression(MultipleLinearRegression learner, AiPlayer.Version version)
         {
-            var filePath = string.Format(LearningConfig.LearnerSavePath + @"/{0}_{1}.csv", MultipleLinearRegressionFileName, DateTime.Now.ToString("yyyyMMddhhmmss"));
+            var filePath = string.Format(LearningConfig.LearnerSavePath + @"/{0}_{1}_{2}.csv", MultipleLinearRegressionFileName, DateTime.Now.ToString("yyyyMMddhhmmss"), version.ToString().ToLower());
             var sb = new StringBuilder();
             foreach(var w in learner.Weights)
             {

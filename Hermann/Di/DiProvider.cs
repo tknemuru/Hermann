@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SimpleInjector;
+using System.Diagnostics;
+using Hermann.Environments;
 
 namespace Hermann.Di
 {
@@ -19,6 +21,19 @@ namespace Hermann.Di
         /// DIコンテナ
         /// </summary>
         private static Container MyContainer { get; set; }
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        static DiProvider()
+        {
+#if DEBUG
+            if (EnvConfig.GetPlatform() == PlatformID.Unix)
+            {
+                Debug.Listeners.Add(new DebugListener());
+            }
+#endif
+        }
 
         /// <summary>
         /// DIコンテナをセットします。

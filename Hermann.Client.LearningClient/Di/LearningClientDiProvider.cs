@@ -78,14 +78,21 @@ namespace Hermann.Client.LearningClient.Di
             MyContainer.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(1, FieldContextConfig.MaxBuiltRemainingFrameCount));
             MyContainer.Register<IFieldContextInitializable>(() => new FieldContextInitializer());
             MyContainer.Register<ObstructionSlimeSetter, ObstructionSlimeRandomSetter>();
-            MyContainer.Register<ResultScoreDiffEvaluator>(Lifestyle.Singleton);
             MyContainer.Register<InputDataProvider>(Lifestyle.Singleton);
             MyContainer.Register<AutoPlayManager>(Lifestyle.Singleton);
 
             // 実行プログラム
-            //MyContainer.Register<IExecutable, LearningExecuter>(Lifestyle.Singleton);
             //MyContainer.Register<IExecutable, PatternIndexGenerator>(Lifestyle.Singleton);
-            MyContainer.Register<IExecutable, AutoPlayExecuter>(Lifestyle.Singleton);
+
+            Func<IExecutable> createLearningExe = () =>
+            {
+                var executer = new LearningExecuter();
+                executer.Inject(Ai.AiPlayer.Version.V1_0);
+                return executer;
+            };
+            MyContainer.Register<IExecutable>(createLearningExe, Lifestyle.Singleton);
+
+            //MyContainer.Register<IExecutable, AutoPlayExecuter>(Lifestyle.Singleton);
 
             DiProvider.SetContainer(MyContainer);
             MyContainer.Verify();

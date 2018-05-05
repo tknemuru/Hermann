@@ -51,9 +51,9 @@ public class GameManager : MonoBehaviour
     public static bool IsTraining = false;
 
     /// <summary>
-    /// AIが操作するかどうか
+    /// AIプレイヤのバージョン
     /// </summary>
-    public static bool IsAiPlay = true;
+    public static AiPlayer.Version?[] AiVersions = new AiPlayer.Version?[] { null, AiPlayer.Version.V1_0 };
 
     /// <summary>
     /// ゲームが終了したかどうか
@@ -155,6 +155,11 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private static int[] EraseAnimationFrameElapsedCount { get; set; }
 
+    /// <summary>
+    /// AIプレイヤ
+    /// </summary>
+    private static AiPlayer[] AiPlayers { get; set; }
+
     // Use this for initialization
     void Start()
     {
@@ -169,6 +174,7 @@ public class GameManager : MonoBehaviour
             SoundEffectAnalyzer = NativeClientDiProvider.GetContainer().GetInstance<SoundEffectAnalyzer>();
             SoundEffectDecorationContainer = new SoundEffectDecorationContainer[Player.Length];
             InputManager = NativeClientDiProvider.GetContainer().GetInstance<InputManager>();
+            AiPlayers = new AiPlayer[Player.Length];
 
             this.Slimes = new Dictionary<Player.Index, List<GameObject>>();
             Player.ForEach(player =>
@@ -195,6 +201,16 @@ public class GameManager : MonoBehaviour
             Player.ForEach(player =>
             {
                 SoundEffectDecorationContainer[(int)player].LastFieldContext = Context;
+
+                if (AiVersions[player.ToInt()] != null)
+                {
+                    AiPlayers[player.ToInt()] = NativeClientDiProvider.GetContainer().GetInstance<AiPlayer>();
+                    AiPlayers[player.ToInt()].Inject(new AiPlayer.Config()
+                    {
+                        Version = AiVersions[player.ToInt()].Value,
+                        UsingSlime = Context.UsingSlimes,
+                    });
+                }
             });
 
             KeyInfos = new List<KeyCode>();
@@ -304,8 +320,7 @@ public class GameManager : MonoBehaviour
     private static void UpdateDuringOccurrenceEvent(Player.Index player)
     {
         // 移動方向無コマンドの実行
-        if (IsAiPlay && player == Player.Index.Second)
-        //if (IsAiPlay)
+        if (AiVersions[player.ToInt()] != null)
         {
             // AIの操作
             AiMove(player, "----- AIの移動 -----");
@@ -326,8 +341,7 @@ public class GameManager : MonoBehaviour
     /// <param name="requireAiMove">AIを動かす必要があるかどうか</param>
     private static void UpdateDuringNoneEvent(Player.Index player, KeyCode[] keys, bool requireNoneDirectionUpdate, bool requireAiMove)
     {
-        if (IsAiPlay && requireAiMove && player == Player.Index.Second)
-        //if (IsAiPlay && requireAiMove)
+        if (AiVersions[player.ToInt()] != null)
         {
             // AIの操作
             AiMove(player, "----- AIの移動 -----");
@@ -375,9 +389,9 @@ public class GameManager : MonoBehaviour
     private static void AiMove(Player.Index player, string debugLogTitle)
     {
         Context.OperationPlayer = player;
-        Context.OperationDirection = Direction.None;
+        Context.OperationDirection = AiPlayers[player.ToInt()].Think(Context);
         var c = NativeClientDiProvider.GetContainer().GetInstance<NativeCommand>();
-        c.Command = Command.AiMove;
+        c.Command = Command.Move;
         c.Context = Context;
         DebugLog(debugLogTitle);
         DebugLog(Sender.Send(Context));

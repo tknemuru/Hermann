@@ -1,5 +1,6 @@
 ﻿using System;
 using Hermann.Ai.Analyzers;
+using Hermann.Helpers;
 using Hermann.Models;
 using Hermann.Tests.TestHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -22,7 +23,15 @@ namespace Hermann.Ai.Test.Analyzers
         /// </summary>
         public ErasedPotentialSlimeAnalyzerTest()
         {
-            this.Analyzer = new ErasedPotentialSlimeAnalyzer();
+            try
+            {
+                this.Analyzer = new ErasedPotentialSlimeAnalyzer();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                throw ex;
+            }
         }
 
         /// <summary>

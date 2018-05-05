@@ -132,6 +132,41 @@ namespace Hermann.Helpers
         }
 
         /// <summary>
+        /// 勝利プレイヤを取得します。
+        /// </summary>
+        /// <returns>勝利プレイヤ</returns>
+        /// <param name="lastContext">前回のフィールド状態</param>
+        /// <param name="context">フィールド状態</param>
+        public static Player.Index? GetWinPlayer(FieldContext lastContext, FieldContext context)
+        {
+            if (context.FieldEvent[context.OperationPlayer.ToInt()] != FieldEvent.End)
+            {
+                return null;   
+            }
+            var firstWin = lastContext.WinCount[Player.Index.First.ToInt()] != context.WinCount[Player.Index.First.ToInt()];
+            return firstWin ? Player.Index.First : Player.Index.Second;
+        }
+
+        /// <summary>
+        /// スライムフィールドのマージを実施します。
+        /// </summary>
+        /// <returns>マージされたスライムフィールド</returns>
+        /// <param name="x">マージ対象のスライムフィールド</param>
+        /// <param name="y">マージ対象のスライムフィールド</param>
+        public static uint[] MergeSlimeFields(uint[] x, uint[] y)
+        {
+            Debug.Assert(x.Length == y.Length, "要素数が一致しません。");
+
+            var m = new uint[x.Length];
+            for (var i = 0; i < x.Length; i++)
+            {
+                m[i] = x[i] | y[i];
+            }
+
+            return m;
+        }
+
+        /// <summary>
         /// 2進数文字列のリストをユニットに変換します。
         /// </summary>
         /// <returns>ユニット</returns>

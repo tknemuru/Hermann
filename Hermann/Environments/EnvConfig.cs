@@ -48,7 +48,7 @@ namespace Hermann.Environments
         /// プラットフォームを取得します。
         /// </summary>
         /// <returns>プラットフォーム</returns>
-        private static PlatformID GetPlatform()
+        public static PlatformID GetPlatform()
         {
             return Environment.OSVersion.Platform;
         }

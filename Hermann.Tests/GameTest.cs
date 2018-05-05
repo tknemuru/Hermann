@@ -39,6 +39,7 @@ namespace Hermann.Tests
 
             // 001:1P-右2回
             var context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-001-001.txt");
+            this.Game.Inject(context.UsingSlimes);
             this.Game.Update(context);
             this.Game.Update(context);
             var expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-001-001.txt");
@@ -61,6 +62,7 @@ namespace Hermann.Tests
             this.Game = new Game();
 
             var context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-002-001.txt");
+            this.Game.Inject(context.UsingSlimes);
             this.Game.Update(context);
             var expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-002-001.txt");
             TestHelper.AssertEqualsFieldContext(expectedContext, context);
@@ -170,6 +172,7 @@ namespace Hermann.Tests
             this.Game = new Game();
 
             var context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-003-001.txt");
+            this.Game.Inject(context.UsingSlimes);
             this.Game.Update(context);
             var expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-003-001.txt");
             TestHelper.AssertEqualsFieldContext(expectedContext, context);
@@ -188,6 +191,7 @@ namespace Hermann.Tests
             this.Game = new Game();
 
             var context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-004-001.txt");
+            this.Game.Inject(context.UsingSlimes);
             this.Game.Update(context);
             var expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-004-001.txt");
             TestHelper.AssertEqualsFieldContext(expectedContext, context);
@@ -205,6 +209,7 @@ namespace Hermann.Tests
 
             // 001:右
             var context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-005-001.txt");
+            this.Game.Inject(context.UsingSlimes);
             this.Game.Update(context);
             var expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-005-001.txt");
             TestHelper.AssertEqualsFieldContext(expectedContext, context);

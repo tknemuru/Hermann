@@ -20,15 +20,7 @@ namespace Hermann.Ai.Providers
         /// <summary>
         /// ベクトル生成機能群
         /// </summary>
-        private Dictionary<Vector, IEnumerable<IGeneratable<FieldContext, SparseVector<double>>>> VectorGens { get; set; }
-
-        /// <summary>
-        /// ベクトル形式の入力情報種別
-        /// </summary>
-        public enum Vector
-        {
-            Main,
-        }
+        private Dictionary<AiPlayer.Version, IEnumerable<IGeneratable<FieldContext, SparseVector<double>>>> VectorGens { get; set; }
 
         /// <summary>
         /// コンストラクタ
@@ -39,18 +31,18 @@ namespace Hermann.Ai.Providers
         }
 
         /// <summary>
-        /// 指定した種別のベクトルを取得します。
+        /// 指定したバージョンのベクトルを取得します。
         /// </summary>
-        /// <param name="type">ベクトル種別</param>
+        /// <param name="version">ベクトルバージョン</param>
         /// <param name="context">フィールド状態</param>
         /// <returns>ベクトル</returns>
-        public SparseVector<double> GetVector(Vector type, FieldContext context)
+        public SparseVector<double> GetVector(AiPlayer.Version version, FieldContext context)
         {
             SparseVector<double> vector = null;
-            switch (type)
+            switch (version)
             {
-                case Vector.Main:
-                    vector = this.GetVector(this.VectorGens[type], context);
+                case AiPlayer.Version.V1_0:
+                    vector = this.GetVector(this.VectorGens[version], context);
                     break;
                 default:
                     throw new ArgumentException("ベクトル種別が不正です");
@@ -62,30 +54,54 @@ namespace Hermann.Ai.Providers
         /// ベクトル生成機能群を組み立てます。
         /// </summary>
         /// <returns>ベクトル生成機能群</returns>
-        private Dictionary<Vector, IEnumerable<IGeneratable<FieldContext, SparseVector<double>>>> BuildVectorGens()
+        private Dictionary<AiPlayer.Version, IEnumerable<IGeneratable<FieldContext, SparseVector<double>>>> BuildVectorGens()
         {
-            var gens = new Dictionary<Vector, IEnumerable<IGeneratable<FieldContext, SparseVector<double>>>>();
+            var gens = new Dictionary<AiPlayer.Version, IEnumerable<IGeneratable<FieldContext, SparseVector<double>>>>();
+
+            // V1.0
             var patternGen = AiDiProvider.GetContainer().GetInstance<PatternGenerator>();
-            patternGen.Injection(new[] {
+            var patternConfig = AiDiProvider.GetContainer().GetInstance<PatternGenerator.Config>();
+            patternConfig.Patterns = new[] {
                 AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatFarLeft),
-                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatFarRight),
                 AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatLeft),
-                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatRight),
                 AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeLowerLeft),
-                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeLowerRight),
-                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeUpperLeft),
-                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeUpperRight),
                 AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsOneLeft),
-                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsOneRight),
                 AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsTwoLeft),
-                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsTwoRight),
-                });
+            };
+            patternGen.Inject(patternConfig);
             var featureGen = AiDiProvider.GetContainer().GetInstance<FieldFeatureGenerator>();
-            var config = AiDiProvider.GetContainer().GetInstance<FieldFeatureGenerator.Config>();
-            config.TargetFeatue[FieldFeatureGenerator.Feature.NoticeObstruction] = true;
-            //config.TargetFeatue[FieldFeatureGenerator.Feature.DangerCount] = true;
-            featureGen.Injection(config);
-            gens.Add(Vector.Main, new IGeneratable<FieldContext, SparseVector<double>>[] {
+            var featureConfig = AiDiProvider.GetContainer().GetInstance<FieldFeatureGenerator.Config>();
+            featureConfig.TargetFeatue[FieldFeatureGenerator.Feature.NoticeObstruction] = true;
+            featureGen.Injection(featureConfig);
+            gens.Add(AiPlayer.Version.V1_0, new IGeneratable<FieldContext, SparseVector<double>>[] {
+                    patternGen,
+                    featureGen
+                });
+
+            // V2.0
+            patternGen = AiDiProvider.GetContainer().GetInstance<PatternGenerator>();
+            patternConfig = AiDiProvider.GetContainer().GetInstance<PatternGenerator.Config>();
+            patternConfig.Patterns = new[] {
+                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatFarLeft),
+                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatFarRight),
+                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatLeft),
+                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatRight),
+                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeLowerLeft),
+                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeLowerRight),
+                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeUpperLeft),
+                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeUpperRight),
+                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsOneLeft),
+                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsOneRight),
+                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsTwoLeft),
+                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsTwoRight),
+            };
+            patternConfig.SparseValue = -1.0d;
+            patternGen.Inject(patternConfig);
+            featureGen = AiDiProvider.GetContainer().GetInstance<FieldFeatureGenerator>();
+            featureConfig = AiDiProvider.GetContainer().GetInstance<FieldFeatureGenerator.Config>();
+            featureConfig.TargetFeatue[FieldFeatureGenerator.Feature.NoticeObstruction] = true;
+            featureGen.Injection(featureConfig);
+            gens.Add(AiPlayer.Version.V2_0, new IGeneratable<FieldContext, SparseVector<double>>[] {
                     patternGen,
                     featureGen
                 });
