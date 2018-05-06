@@ -40,6 +40,9 @@ Plugins/
 Library/
 MSTestToNUnit.cs
 
+# for Hermann
+learninginputs/
+
 # public
 #/public/
 
