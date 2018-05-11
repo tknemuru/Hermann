@@ -15,7 +15,7 @@ namespace Hermann.Client.LearningClient.Evaluators
     /// <summary>
     /// 結果評価値の計算機能を提供します。
     /// </summary>
-    public class ResultScoreDiffEvaluator : ResultEvaluator
+    public class ResultWinEvaluator : ResultEvaluator
     {
         /// <summary>
         /// 基底評価値

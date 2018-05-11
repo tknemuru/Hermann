@@ -38,15 +38,12 @@ namespace Hermann.Ai.Providers
         /// <returns>ベクトル</returns>
         public SparseVector<double> GetVector(AiPlayer.Version version, FieldContext context)
         {
-            SparseVector<double> vector = null;
-            switch (version)
+            if (!this.VectorGens.ContainsKey(version))
             {
-                case AiPlayer.Version.V1_0:
-                    vector = this.GetVector(this.VectorGens[version], context);
-                    break;
-                default:
-                    throw new ArgumentException("ベクトル種別が不正です");
+                throw new ArgumentException("ベクトル種別が不正です");
             }
+
+            var vector = this.GetVector(this.VectorGens[version], context);
             return vector;
         }
 
@@ -83,23 +80,28 @@ namespace Hermann.Ai.Providers
             patternConfig = AiDiProvider.GetContainer().GetInstance<PatternGenerator.Config>();
             patternConfig.Patterns = new[] {
                 AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatFarLeft),
-                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatFarRight),
+                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatFarRight),
                 AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatLeft),
-                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatRight),
+                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.FloatRight),
                 AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeLowerLeft),
-                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeLowerRight),
-                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeUpperLeft),
-                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeUpperRight),
+                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeLowerRight),
+                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeUpperLeft),
+                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.InterposeUpperRight),
                 AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsOneLeft),
-                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsOneRight),
+                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsOneRight),
                 AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsTwoLeft),
-                AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsTwoRight),
+                //AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsTwoRight),
             };
-            patternConfig.SparseValue = -1.0d;
+            //patternConfig.SparseValue = -1.0d;
+            patternConfig.BothPlayer = false;
+            //patternConfig.ContainsObstructionSlime = false;
             patternGen.Inject(patternConfig);
             featureGen = AiDiProvider.GetContainer().GetInstance<FieldFeatureGenerator>();
             featureConfig = AiDiProvider.GetContainer().GetInstance<FieldFeatureGenerator.Config>();
             featureConfig.TargetFeatue[FieldFeatureGenerator.Feature.NoticeObstruction] = true;
+            featureConfig.TargetFeatue[FieldFeatureGenerator.Feature.Chain] = true;
+            //featureConfig.TargetFeatue[FieldFeatureGenerator.Feature.ErasedPotentialCount] = true;
+            featureConfig.BothPlayer = false;
             featureGen.Injection(featureConfig);
             gens.Add(AiPlayer.Version.V2_0, new IGeneratable<FieldContext, SparseVector<double>>[] {
                     patternGen,

@@ -63,26 +63,21 @@ namespace Hermann.Client.LearningClient.Managers
         public const int DisplayFrameCount = 16;
 
         /// <summary>
+        /// ログ記録対象の最低連鎖数
+        /// </summary>
+        private static readonly Dictionary<AiPlayer.Version, int> RequiredWriteResultLogMinChain = new Dictionary<AiPlayer.Version, int>()
+        {
+            {
+                AiPlayer.Version.V3_0,
+                4
+            },
+        };
+
+        /// <summary>
         /// 設定情報
         /// </summary>
         /// <value>My config.</value>
         private Config MyConfig { get; set; }
-
-        /// <summary>
-        /// イベントから状態を書き込む必要があるかどうかを判定する機能
-        /// </summary>
-        private List<RequiredWriteStateLogJudger> StateLogJudgers { get; set; }
-
-        /// <summary>
-        /// 状態ログの書き込み要否判定で使用するパラメータ
-        /// </summary>
-        private RequiredWriteStateLogJudger.Param StateLogJudgeParam { get; set; }
-
-        /// <summary>
-        /// 結果ログの書き込み要否判定で使用するパラメータ
-        /// </summary>
-        /// <value>The result log judge parameter.</value>
-        private RequiredWriteResultLogWinJudger.Param ResultLogJudgeParam { get; set; }
 
         /// <summary>
         /// 結果評価で使用するパラメータ
@@ -94,7 +89,6 @@ namespace Hermann.Client.LearningClient.Managers
         /// AIプレイヤ
         /// </summary>
         private AiPlayer AiPlayer { get; set; }
-
 
         /// <summary>
         /// 削除スライム分析機能
@@ -132,36 +126,8 @@ namespace Hermann.Client.LearningClient.Managers
                 }
 
             });
-            this.StateLogJudgeParam = LearningClientDiProvider.GetContainer().GetInstance<RequiredWriteStateLogJudger.Param>();
-            this.ResultLogJudgeParam = LearningClientDiProvider.GetContainer().GetInstance<RequiredWriteResultLogWinJudger.Param>();
             this.ResultEvalParam = LearningClientDiProvider.GetContainer().GetInstance<ResultEvaluator.Param>();
-            var stateLogEventJudger = LearningClientDiProvider.GetContainer().GetInstance<RequiredWriteStateLogEventJudger>();
-            var stateLogChainJudger = LearningClientDiProvider.GetContainer().GetInstance<RequiredWriteStateLogChainJudger>();
             this.ErasedSlimeAnalyzer = LearningClientDiProvider.GetContainer().GetInstance<ErasedSlimeAnalyzer>();
-
-            switch(this.MyConfig.LoggingVersion)
-            {
-                case AiPlayer.Version.V1_0:
-                    this.StateLogJudgers = new List<RequiredWriteStateLogJudger>();
-                    stateLogEventJudger.Inject(new[] {
-                        FieldEvent.MarkErasing,
-                        FieldEvent.NextPreparation,
-                    });
-                    this.StateLogJudgers.Add(stateLogEventJudger);
-                    break;
-                case AiPlayer.Version.V2_0:
-                    this.StateLogJudgers = new List<RequiredWriteStateLogJudger>();
-                    stateLogEventJudger.Inject(new[] {
-                        FieldEvent.MarkErasing,
-                        FieldEvent.NextPreparation,
-                    });
-                    stateLogChainJudger.Injection(4);
-                    this.StateLogJudgers.Add(stateLogEventJudger);
-                    this.StateLogJudgers.Add(stateLogChainJudger);
-                    break;
-                default:
-                    throw new ArgumentException("バージョンが不正です");
-            }
         }
 
         /// <summary>
@@ -218,9 +184,39 @@ namespace Hermann.Client.LearningClient.Managers
         /// <param name="context">フィールド状態</param>
         public bool RequiredWriteStateLog(FieldContext lastContext, FieldContext context)
         {
-            this.StateLogJudgeParam.LastContext = lastContext;
-            this.StateLogJudgeParam.Context = context;
-            return this.StateLogJudgers.All(j => j.Judge(this.StateLogJudgeParam));
+            var ret = false;
+            var player = context.OperationPlayer;
+            var lastEv = lastContext.FieldEvent[player.ToInt()];
+            var ev = context.FieldEvent[player.ToInt()];
+            var lastChain = lastContext.Chain[player.ToInt()];
+            var chain = context.Chain[player.ToInt()];
+
+            switch (this.MyConfig.LoggingVersion)
+            {
+                case AiPlayer.Version.V1_0:
+                    ret = (ev == FieldEvent.MarkErasing || ev == FieldEvent.NextPreparation);
+                    break;
+                case AiPlayer.Version.V2_0:
+                    //ret = (lastEv == FieldEvent.NextPreparation && ev == FieldEvent.None);
+                    ret = (ev == FieldEvent.MarkErasing || ev == FieldEvent.NextPreparation) ||
+                        (lastEv == FieldEvent.NextPreparation && ev == FieldEvent.None);
+                    break;
+                case AiPlayer.Version.V3_0:
+                    ret = (lastChain >= RequiredWriteResultLogMinChain[this.MyConfig.LoggingVersion] && chain == 0);
+                    if (ret)
+                    {
+                        FileHelper.WriteLine("----- write state log target -----");
+                        FileHelper.WriteLine("----- last context -----");
+                        FileHelper.WriteLine(DebugHelper.FieldToString(lastContext));
+                        FileHelper.WriteLine("----- context -----");
+                        FileHelper.WriteLine(DebugHelper.FieldToString(context));
+                    }
+                    break;
+                default:
+                    throw new ArgumentException("バージョンが不正です");
+            }
+
+            return ret;
         }
 
         /// <summary>
@@ -236,9 +232,13 @@ namespace Hermann.Client.LearningClient.Managers
             switch (this.MyConfig.LoggingVersion)
             {
                 case AiPlayer.Version.V1_0:
-                    break;
                 case AiPlayer.Version.V2_0:
-                    _context = this.ErasedSlimeAnalyzer.Analyze(param);
+                    break;
+                case AiPlayer.Version.V3_0:
+                    FileHelper.WriteLine("----- write state log input -----");
+                    //_context = this.ErasedSlimeAnalyzer.Analyze(param);
+                    //FileHelper.WriteLine(DebugHelper.FieldToString(_context));
+                    _context = param.TargetContext;
                     break;
                 default:
                     throw new ArgumentException("バージョンが不正です");
@@ -256,9 +256,34 @@ namespace Hermann.Client.LearningClient.Managers
         /// <param name="context">フィールド状態</param>
         public bool RequiredWriteResultLog(FieldContext lastContext, FieldContext context)
         {
-            this.ResultLogJudgeParam.LastContext = lastContext;
-            this.ResultLogJudgeParam.Context = context;
-            return LearningClientDiProvider.GetContainer().GetInstance<RequiredWriteResultLogWinJudger>().Judge(this.ResultLogJudgeParam);
+            var ret = false;
+            var player = context.OperationPlayer;
+            var ev = context.FieldEvent[player.ToInt()];
+            var chain = context.Chain[player.ToInt()];
+
+            switch (this.MyConfig.LoggingVersion)
+            {
+                case AiPlayer.Version.V1_0:
+                case AiPlayer.Version.V2_0:
+                    ret = (ev == FieldEvent.End);
+                    break;
+                case AiPlayer.Version.V3_0:
+                    if (lastContext == null)
+                    {
+                        // 前回のフィールド状態がまだ記録されていないので結果は書き込まない
+                        ret = false;
+                    }
+                    else 
+                    {
+                        var lastChain = lastContext.Chain[player.ToInt()];
+                        ret = (lastChain >= RequiredWriteResultLogMinChain[this.MyConfig.LoggingVersion] && chain == 0);
+                    }
+                    break;
+                default:
+                    throw new ArgumentException("バージョンが不正です");
+            }
+
+            return ret;
         }
 
         /// <summary>
@@ -269,9 +294,26 @@ namespace Hermann.Client.LearningClient.Managers
         /// <param name="context">フィールド状態</param>
         public double GetResutlLogInput(FieldContext lastContext, FieldContext context)
         {
+            var ret = 0.0d;
             this.ResultEvalParam.LastContext = lastContext;
             this.ResultEvalParam.Context = context;
-            return LearningClientDiProvider.GetContainer().GetInstance<ResultScoreDiffEvaluator>().Evaluate(this.ResultEvalParam);
+
+            switch (this.MyConfig.LoggingVersion)
+            {
+                case AiPlayer.Version.V1_0:
+                case AiPlayer.Version.V2_0:
+                    this.ResultEvalParam.Parity = false;
+                    ret = LearningClientDiProvider.GetContainer().GetInstance<ResultWinEvaluator>().Evaluate(this.ResultEvalParam);
+                    break;
+                case AiPlayer.Version.V3_0:
+                    this.ResultEvalParam.Parity = false;
+                    ret = LearningClientDiProvider.GetContainer().GetInstance<ResultScoreEvaluator>().Evaluate(this.ResultEvalParam);
+                    break;
+                default:
+                    throw new ArgumentException("バージョンが不正です");
+            }
+
+            return ret;
         }
     }
 }

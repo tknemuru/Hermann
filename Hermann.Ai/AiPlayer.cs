@@ -31,6 +31,11 @@ namespace Hermann.Ai
             /// V2.0
             /// </summary>
             V2_0,
+
+            /// <summary>
+            /// V3.0
+            /// </summary>
+            V3_0,
         }
 
         /// <summary>

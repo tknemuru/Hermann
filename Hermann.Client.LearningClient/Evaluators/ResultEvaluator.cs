@@ -1,6 +1,7 @@
 ﻿using System;
 using Hermann.Ai.Evaluators;
 using Hermann.Contexts;
+using Hermann.Models;
 
 namespace Hermann.Client.LearningClient.Evaluators
 {
@@ -23,6 +24,12 @@ namespace Hermann.Client.LearningClient.Evaluators
             /// 現在のフィールド状態
             /// </summary>
             public FieldContext Context { get; set; }
+
+            /// <summary>
+            /// パリティを適用するかどうか
+            /// </summary>
+            /// <value><c>true</c> if parity; otherwise, <c>false</c>.</value>
+            public bool Parity { get; set; } = false;
         }
 
         /// <summary>
@@ -31,5 +38,21 @@ namespace Hermann.Client.LearningClient.Evaluators
         /// <returns>結果値</returns>
         /// <param name="param">パラメータ</param>
         public abstract double Evaluate(Param param);
+
+        /// <summary>
+        /// パリティ値を取得します。
+        /// </summary>
+        /// <returns>パリティ</returns>
+        /// <param name="param">パラメータ</param>
+        protected double GetParity(Param param)
+        {
+            var parity = 1.0d;
+            if (!param.Parity)
+            {
+                return parity;
+            }
+
+            return (param.Context.OperationPlayer == Player.Index.First) ? parity : -1.0d;
+        }
     }
 }

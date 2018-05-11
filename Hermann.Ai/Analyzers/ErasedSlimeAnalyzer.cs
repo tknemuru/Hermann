@@ -27,6 +27,14 @@ namespace Hermann.Ai.Analyzers
             /// 削除スライム
             /// </summary>
             public uint[] ErasedSlimes { get; set; }
+
+            /// <summary>
+            /// コンストラクタ
+            /// </summary>
+            public Param()
+            {
+                this.ErasedSlimes = Enumerable.Range(0, FieldContextConfig.FieldUnitCount).Select(i => 0u).ToArray();
+            }
         }
 
         /// <summary>

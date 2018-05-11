@@ -41,15 +41,19 @@ namespace Hermann.Ai.Generators
             /// 疎な部分の値
             /// </summary>
             /// <value>The sparse value.</value>
-            public double SparseValue { get; set; }
+            public double SparseValue { get; set; } = 0.0f;
 
             /// <summary>
-            /// コンストラクタ
+            /// 両プレイヤを対象にするかどうか
             /// </summary>
-            public Config()
-            {
-                this.SparseValue = 0.0d;
-            }
+            /// <value><c>true</c> if both player; otherwise, <c>false</c>.</value>
+            public bool BothPlayer { get; set; } = true;
+
+            /// <summary>
+            /// おじゃまスライムを含めるかどうか
+            /// </summary>
+            /// <value><c>true</c> if contains obstruction slime; otherwise, <c>false</c>.</value>
+            public bool ContainsObstructionSlime { get; set; } = true;
         }
 
         /// <summary>
@@ -78,8 +82,16 @@ namespace Hermann.Ai.Generators
 
             int maxIndex = 0;
             var dic = new Dictionary<int, double>();
-            Player.ForEach(player =>
+
+            for (var i = 0; i < Player.Length; i++)
             {
+                var player = (Player.Index)i;
+                if (!this.MyConfig.BothPlayer && player != context.OperationPlayer)
+                {
+                    // 片方のみ対象の場合は、操作対象プレイヤのみを対象にする
+                    continue;
+                }
+
                 var colorSlimeFields = context.SlimeFields[player.ToInt()].
                     Where(f => context.UsingSlimes.Contains(f.Key)).
                     Select(f => f.Value.Skip(FieldContextConfig.MinDisplayUnitIndex).ToArray()).ToArray();
@@ -89,18 +101,25 @@ namespace Hermann.Ai.Generators
 
                 foreach (var pattern in this.MyConfig.Patterns)
                 {
-                    foreach(var fields in colorSlimeFields)
+                    foreach (var fields in colorSlimeFields)
                     {
                         this.AddPatternCount(fields, pattern, maxIndex, dic);
                     }
                     maxIndex += (int)pattern.MaxIndex + 1;
+
+                    if (!this.MyConfig.ContainsObstructionSlime)
+                    {
+                        // おじゃまスライムを含めない場合はスキップ
+                        continue;
+                    }
+
                     foreach (var fields in obsSlimeFields)
                     {
                         this.AddPatternCount(fields, pattern, maxIndex, dic);
                     }
                     maxIndex += (int)pattern.MaxIndex + 1;
                 }
-            });
+            }
             var vector = new SparseVector<double>(maxIndex, dic, this.MyConfig.SparseValue);
             return vector;
         }

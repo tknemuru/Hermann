@@ -1,4 +1,5 @@
-﻿using Hermann.Models;
+﻿using Hermann.Environments;
+using Hermann.Models;
 using Hermann.Updaters;
 using System;
 using System.Collections.Generic;
@@ -100,15 +101,30 @@ namespace Hermann.Client.ConsoleClient
         private static Dictionary<KeyCode, Player.Index> BuiltPlayerDic()
         {
             var dic = new Dictionary<KeyCode, Player.Index>();
-            dic.Add(KeyCode.UpArrow, Player.Index.First);
-            dic.Add(KeyCode.RightArrow, Player.Index.First);
-            dic.Add(KeyCode.DownArrow, Player.Index.First);
-            dic.Add(KeyCode.LeftArrow, Player.Index.First);
+            if (EnvConfig.GetPlatform() == PlatformID.Unix)
+            {
+                dic.Add(KeyCode.W, Player.Index.First);
+                dic.Add(KeyCode.S, Player.Index.First);
+                dic.Add(KeyCode.Z, Player.Index.First);
+                dic.Add(KeyCode.A, Player.Index.First);
 
-            dic.Add(KeyCode.Keypad8, Player.Index.Second);
-            dic.Add(KeyCode.Keypad6, Player.Index.Second);
-            dic.Add(KeyCode.Keypad2, Player.Index.Second);
-            dic.Add(KeyCode.Keypad4, Player.Index.Second);
+                dic.Add(KeyCode.UpArrow, Player.Index.Second);
+                dic.Add(KeyCode.RightArrow, Player.Index.Second);
+                dic.Add(KeyCode.DownArrow, Player.Index.Second);
+                dic.Add(KeyCode.LeftArrow, Player.Index.Second);
+            }
+            else
+            {
+                dic.Add(KeyCode.UpArrow, Player.Index.First);
+                dic.Add(KeyCode.RightArrow, Player.Index.First);
+                dic.Add(KeyCode.DownArrow, Player.Index.First);
+                dic.Add(KeyCode.LeftArrow, Player.Index.First);
+
+                dic.Add(KeyCode.Keypad8, Player.Index.Second);
+                dic.Add(KeyCode.Keypad6, Player.Index.Second);
+                dic.Add(KeyCode.Keypad2, Player.Index.Second);
+                dic.Add(KeyCode.Keypad4, Player.Index.Second);
+            }
 
             return dic;
         }
@@ -120,6 +136,11 @@ namespace Hermann.Client.ConsoleClient
         private static Dictionary<KeyCode, Direction> BuiltDirectionDic()
         {
             var dic = new Dictionary<KeyCode, Direction>();
+            dic.Add(KeyCode.W, Direction.Up);
+            dic.Add(KeyCode.S, Direction.Right);
+            dic.Add(KeyCode.Z, Direction.Down);
+            dic.Add(KeyCode.A, Direction.Left);
+
             dic.Add(KeyCode.UpArrow, Direction.Up);
             dic.Add(KeyCode.RightArrow, Direction.Right);
             dic.Add(KeyCode.DownArrow, Direction.Down);
@@ -141,17 +162,39 @@ namespace Hermann.Client.ConsoleClient
         {
             var dic = new Dictionary<Player.Index, Dictionary<Direction, KeyCode>>();
             var innerDic = new Dictionary<Direction, KeyCode>();
-            innerDic.Add(Direction.Up, KeyCode.UpArrow);
-            innerDic.Add(Direction.Right, KeyCode.RightArrow);
-            innerDic.Add(Direction.Down, KeyCode.DownArrow);
-            innerDic.Add(Direction.Left, KeyCode.LeftArrow);
+
+            if (EnvConfig.GetPlatform() == PlatformID.Unix)
+            {
+                innerDic.Add(Direction.Up, KeyCode.W);
+                innerDic.Add(Direction.Right, KeyCode.S);
+                innerDic.Add(Direction.Down, KeyCode.Z);
+                innerDic.Add(Direction.Left, KeyCode.A);
+            }
+            else
+            {
+                innerDic.Add(Direction.Up, KeyCode.UpArrow);
+                innerDic.Add(Direction.Right, KeyCode.RightArrow);
+                innerDic.Add(Direction.Down, KeyCode.DownArrow);
+                innerDic.Add(Direction.Left, KeyCode.LeftArrow);
+            }
             dic.Add(Player.Index.First, innerDic);
 
-            innerDic = new Dictionary<Direction, KeyCode>();
-            innerDic.Add(Direction.Left, KeyCode.Keypad4);
-            innerDic.Add(Direction.Down, KeyCode.Keypad2);
-            innerDic.Add(Direction.Up, KeyCode.Keypad8);
-            innerDic.Add(Direction.Right, KeyCode.Keypad6);
+            if (EnvConfig.GetPlatform() == PlatformID.Unix)
+            {
+                innerDic = new Dictionary<Direction, KeyCode>();
+                innerDic.Add(Direction.Left, KeyCode.LeftArrow);
+                innerDic.Add(Direction.Down, KeyCode.DownArrow);
+                innerDic.Add(Direction.Up, KeyCode.UpArrow);
+                innerDic.Add(Direction.Right, KeyCode.RightArrow);
+            }
+            else
+            {
+                innerDic = new Dictionary<Direction, KeyCode>();
+                innerDic.Add(Direction.Left, KeyCode.Keypad4);
+                innerDic.Add(Direction.Down, KeyCode.Keypad2);
+                innerDic.Add(Direction.Up, KeyCode.Keypad8);
+                innerDic.Add(Direction.Right, KeyCode.Keypad6);
+            }
             dic.Add(Player.Index.Second, innerDic);
 
             return dic;

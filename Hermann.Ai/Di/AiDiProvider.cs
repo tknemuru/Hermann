@@ -62,7 +62,7 @@ namespace Hermann.Ai.Di
         /// <summary>
         /// 依存性の登録を行います。
         /// </summary>
-        private static void Register()
+        public static void Register()
         {
             MyContainer = new Container();
             MyContainer.Register<UsingSlimeGenerator, UsingSlimeRandomGenerator>();

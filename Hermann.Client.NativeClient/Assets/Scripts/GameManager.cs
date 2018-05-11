@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// AIプレイヤのバージョン
     /// </summary>
-    public static AiPlayer.Version?[] AiVersions = new AiPlayer.Version?[] { null, AiPlayer.Version.V1_0 };
+    public static AiPlayer.Version?[] AiVersions = new AiPlayer.Version?[] { AiPlayer.Version.V2_0, null };
 
     /// <summary>
     /// ゲームが終了したかどうか

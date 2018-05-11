@@ -80,6 +80,8 @@ namespace Hermann.Client.LearningClient.Di
             MyContainer.Register<ObstructionSlimeSetter, ObstructionSlimeRandomSetter>();
             MyContainer.Register<InputDataProvider>(Lifestyle.Singleton);
             MyContainer.Register<AutoPlayManager>(Lifestyle.Singleton);
+            MyContainer.Register<ResultWinEvaluator>(Lifestyle.Singleton);
+            MyContainer.Register<ResultScoreEvaluator>(Lifestyle.Singleton);
 
             // 実行プログラム
             //MyContainer.Register<IExecutable, PatternIndexGenerator>(Lifestyle.Singleton);
@@ -87,7 +89,7 @@ namespace Hermann.Client.LearningClient.Di
             Func<IExecutable> createLearningExe = () =>
             {
                 var executer = new LearningExecuter();
-                executer.Inject(Ai.AiPlayer.Version.V1_0);
+                executer.Inject(Ai.AiPlayer.Version.V2_0);
                 return executer;
             };
             MyContainer.Register<IExecutable>(createLearningExe, Lifestyle.Singleton);

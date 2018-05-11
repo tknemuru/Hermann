@@ -58,6 +58,11 @@ namespace Hermann.Ai.Generators
             /// 左から3番目のスライム数
             /// </summary>
             DangerCount,
+
+            /// <summary>
+            /// 起こりうる連鎖回数
+            /// </summary>
+            Chain,
         }
 
         /// <summary>
@@ -69,6 +74,12 @@ namespace Hermann.Ai.Generators
             /// 特徴を生成対象とするかどうか
             /// </summary>
             public Dictionary<Feature, bool> TargetFeatue { get; set; }
+
+            /// <summary>
+            /// 両方のプレイヤを対象にするかどうか
+            /// </summary>
+            /// <value><c>true</c> if both player; otherwise, <c>false</c>.</value>
+            public bool BothPlayer { get; set; } = true;
 
             /// <summary>
             /// コンストラクタ
@@ -90,6 +101,12 @@ namespace Hermann.Ai.Generators
         /// </summary>
         private DifferenceHeightAnalyzer DifferenceHeightAnalyzer =
             AiDiProvider.GetContainer().GetInstance<DifferenceHeightAnalyzer>();
+
+        /// <summary>
+        /// 連鎖回数分析機能
+        /// </summary>
+        private ChainAnalyzer ChainAnalyzer =
+            AiDiProvider.GetContainer().GetInstance<ChainAnalyzer>();
 
         /// <summary>
         /// 危険なインデックス（左から三番目の上四つ）
@@ -136,8 +153,14 @@ namespace Hermann.Ai.Generators
             var param = new ErasedPotentialSlimeAnalyzer.Param();
             param.ErasedSlimes = context.UsingSlimes;
 
-            Player.ForEach(player =>
+            var players = new[] { Player.Index.First, Player.Index.Second };
+            foreach (var player in players)
             {
+                if (!this.OwnConfig.BothPlayer && player != context.OperationPlayer)
+                {
+                    continue;
+                }
+
                 var erasedPotentialCount = 0;
                 var slimeCount = 0;
                 foreach (var slime in context.UsingSlimes)
@@ -213,7 +236,18 @@ namespace Hermann.Ai.Generators
                     }
                     vector.Add(dangerCount);
                 }
-            });
+
+                if (this.OwnConfig.TargetFeatue[Feature.Chain])
+                {
+                    // 起こりうる最大連鎖数
+                    var chain = 0;
+                    if(player == context.OperationPlayer)
+                    {
+                        chain = this.ChainAnalyzer.Analyze(context, player);
+                    }
+                    vector.Add(chain);
+                }
+            };
 
             return vector;
         }

@@ -46,6 +46,11 @@ namespace Hermann.Client.LearningClient.Excecuters
         private ErasedSlimeAnalyzer.Param[] ErasedSlimeAnalyzerParams { get; set; }
 
         /// <summary>
+        /// 前回のフィールド状態
+        /// </summary>
+        private FieldContext[] LastContexts { get; set; }
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         public AutoPlayExecuter()
@@ -94,13 +99,19 @@ namespace Hermann.Client.LearningClient.Excecuters
 
             this.Manager.Inject(new AutoPlayManager.Config()
             {
+                // プレイヤのバージョンを指定
                 Versions = new AiPlayer.Version?[]
                 {
+                    //null,
+                    //AiPlayer.Version.V1_0,
+                    //AiPlayer.Version.V2_0,
                     null,
-                    AiPlayer.Version.V1_0,
+                    null,
                 },
                 UsingSlime = context.UsingSlimes,
-                LoggingVersion = AiPlayer.Version.V1_0,
+
+                // ログのバージョンを指定
+                LoggingVersion = AiPlayer.Version.V2_0,
             });
 
             this.ErasedSlimeAnalyzerParams = new[]
@@ -108,6 +119,8 @@ namespace Hermann.Client.LearningClient.Excecuters
                 LearningClientDiProvider.GetContainer().GetInstance<ErasedSlimeAnalyzer.Param>(),
                 LearningClientDiProvider.GetContainer().GetInstance<ErasedSlimeAnalyzer.Param>(),
             };
+
+            this.LastContexts = new FieldContext[Player.Length];
 
             return context;
         }
@@ -137,6 +150,9 @@ namespace Hermann.Client.LearningClient.Excecuters
         {
             var player = context.OperationPlayer;
 
+            // 前回のフィールド状態の更新
+            this.LastContexts[player.ToInt()] = context.DeepCopy();
+
             // 削除スライム分析機能パラメータの更新
             if (context.FieldEvent[player.ToInt()] == FieldEvent.MarkErasing &&
                context.Chain[player.ToInt()] == 0)
@@ -146,7 +162,7 @@ namespace Hermann.Client.LearningClient.Excecuters
             else if (context.FieldEvent[player.ToInt()] == FieldEvent.Erase)
             {
                 this.ErasedSlimeAnalyzerParams[player.ToInt()].ErasedSlimes =
-                FieldContextHelper.MergeSlimeFields(this.ErasedSlimeAnalyzerParams[player.ToInt()].TargetContext.SlimeFields[player.ToInt()][Slime.Erased],
+                        FieldContextHelper.MergeSlimeFields(this.ErasedSlimeAnalyzerParams[player.ToInt()].ErasedSlimes,
                                                     context.SlimeFields[player.ToInt()][Slime.Erased]);
             }
 
@@ -171,18 +187,23 @@ namespace Hermann.Client.LearningClient.Excecuters
             context = Receiver.Receive(c);
 
             // 状態の書き込み
-            if (Manager.RequiredWriteStateLog(this.ErasedSlimeAnalyzerParams[player.ToInt()].TargetContext, context))
+            if (Manager.RequiredWriteStateLog(this.LastContexts[player.ToInt()], context))
             {
-                FileHelper.WriteLine("----- Write state log -----");
                 var input = Manager.GetStateLogInput(this.ErasedSlimeAnalyzerParams[player.ToInt()], context);
                 LogWriter.WriteState(input);
             }
 
             // 結果の書き込み
-            if (Manager.RequiredWriteResultLog(this.ErasedSlimeAnalyzerParams[player.ToInt()].TargetContext, context))
+            if (Manager.RequiredWriteResultLog(this.LastContexts[player.ToInt()], context))
             {
                 var input = Manager.GetResutlLogInput(this.ErasedSlimeAnalyzerParams[player.ToInt()].TargetContext, context);
-                this.WriteResult(input, this.ErasedSlimeAnalyzerParams[player.ToInt()].TargetContext, context, gameCount);
+                LogWriter.WriteWinResult(input);
+            }
+
+            // 勝敗情報の出力
+            if (context.FieldEvent[player.ToInt()] == FieldEvent.End)
+            {
+                WriteWinInfo(this.ErasedSlimeAnalyzerParams[player.ToInt()].TargetContext, context, gameCount);
             }
 
             // プレイヤを交換
@@ -190,28 +211,23 @@ namespace Hermann.Client.LearningClient.Excecuters
         }
 
         /// <summary>
-        /// 結果を書き込みます。
+        /// 勝敗情報を出力します。
         /// </summary>
-        /// <param name="score">評価値</param>
+        /// <param name="lastContext">前回のフィールド状態</param>
         /// <param name="context">フィールド状態</param>
         /// <param name="count">プレイ回数</param>
-        private void WriteResult(double score, FieldContext lastContext, FieldContext context, int count)
+        private void WriteWinInfo(FieldContext lastContext, FieldContext context, int count)
         {
             var win = FieldContextHelper.GetWinPlayer(lastContext, context);
-            LogWriter.WriteWinResult(score);
+            this.WinCount[win.Value.ToInt()]++;
 
-            if (win != null)
+            Player.ForEach(player =>
             {
-                this.WinCount[win.Value.ToInt()]++;
-                Player.ForEach(player =>
-                {
-                    var winRate = Math.Floor(((double)this.WinCount[player.ToInt()] / (double)count) * 100.0d);
-                    LogWriter.WirteLog($"{player.GetName()} win count:{this.WinCount[player.ToInt()]} win rate:{winRate}%");
-                });
-                LogWriter.WirteLog($"count:{count}");
-                LogWriter.WirteLog($"win:{win}");
-
-            }
+                var winRate = Math.Floor(((double)this.WinCount[player.ToInt()] / (double)count) * 100.0d);
+                LogWriter.WirteLog($"{player.GetName()} win count:{this.WinCount[player.ToInt()]} win rate:{winRate}%");
+            });
+            LogWriter.WirteLog($"count:{count}");
+            LogWriter.WirteLog($"win:{win}");
         }
      }
 }

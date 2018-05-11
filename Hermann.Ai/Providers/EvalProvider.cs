@@ -32,7 +32,7 @@ namespace Hermann.Ai.Providers
         /// <summary>
         /// 死活監視評価機能
         /// </summary>
-        private AliveEvaluator AliveEvaluator { get; set; }
+        private Dictionary<AiPlayer.Version, AliveEvaluator[]> AliveEvaluators { get; set; }
 
         /// <summary>
         /// コンストラクタ
@@ -40,31 +40,51 @@ namespace Hermann.Ai.Providers
         public EvalProvider()
         {
             this.RandomEvaluator = AiDiProvider.GetContainer().GetInstance<RandomEvaluator>();
-            this.AliveEvaluator = AiDiProvider.GetContainer().GetInstance<AliveEvaluator>();
+            this.AliveEvaluators = new Dictionary<AiPlayer.Version, AliveEvaluator[]>();
             this.LinearRegressionEvaluators = new Dictionary<AiPlayer.Version, LinearRegressionEvaluator>();
             this.RandomParams = new Dictionary<AiPlayer.Version, RandomEvaluator.Param>();
 
             // V1.0
+            var version = AiPlayer.Version.V1_0;
             var evaluator = AiDiProvider.GetContainer().GetInstance<LinearRegressionEvaluator>();
-            evaluator.Inject(AiPlayer.Version.V1_0);
-            this.LinearRegressionEvaluators.Add(AiPlayer.Version.V1_0, evaluator);
-            this.RandomParams.Add(AiPlayer.Version.V1_0, new RandomEvaluator.Param()
-                {
-                    BaseValue = 0.0001,
-                    EvaluateFrequency = 10,
-                    ValueRange = 100,
-                });
-
-            // V2.0
-            evaluator = AiDiProvider.GetContainer().GetInstance<LinearRegressionEvaluator>();
-            evaluator.Inject(AiPlayer.Version.V2_0);
-            this.LinearRegressionEvaluators.Add(AiPlayer.Version.V2_0, evaluator);
-            this.RandomParams.Add(AiPlayer.Version.V2_0, new RandomEvaluator.Param()
+            evaluator.Inject(version);
+            this.LinearRegressionEvaluators.Add(version, evaluator);
+            this.RandomParams.Add(version, new RandomEvaluator.Param()
             {
                 BaseValue = 0.0001,
                 EvaluateFrequency = 10,
                 ValueRange = 100,
             });
+            var alive = AiDiProvider.GetContainer().GetInstance<AliveEvaluator>();
+            alive.Inject(new AliveEvaluator.Config());
+            this.AliveEvaluators.Add(version, new[] { alive });
+
+            // V2.0
+            version = AiPlayer.Version.V2_0;
+            evaluator = AiDiProvider.GetContainer().GetInstance<LinearRegressionEvaluator>();
+            evaluator.Inject(version);
+            this.LinearRegressionEvaluators.Add(version, evaluator);
+            this.RandomParams.Add(version, new RandomEvaluator.Param()
+            {
+                BaseValue = 0.0001,
+                EvaluateFrequency = 10,
+                ValueRange = 100,
+            });
+            var alives = new List<AliveEvaluator>();
+            alive = AiDiProvider.GetContainer().GetInstance<AliveEvaluator>();
+            alive.Inject(new AliveEvaluator.Config()
+            {
+                DangerEval = -9999,
+            });
+            alives.Add(alive);
+            alive = AiDiProvider.GetContainer().GetInstance<AliveEvaluator>();
+            alive.Inject(new AliveEvaluator.Config()
+            {
+                DangerEval = -999,
+                DangerIndexes = Enumerable.Range(0, 16).Select(i => i).ToArray(),
+            });
+            alives.Add(alive);
+            this.AliveEvaluators.Add(version, alives.ToArray());
         }
 
         /// <summary>
@@ -81,7 +101,7 @@ namespace Hermann.Ai.Providers
                 case AiPlayer.Version.V1_0:
                 case AiPlayer.Version.V2_0:
                     ev = this.LinearRegressionEvaluators[version].Evaluate(context);
-                    ev += this.AliveEvaluator.Evaluate(context);
+                    ev += this.AliveEvaluators[version].Sum(e => e.Evaluate(context));
                     ev += this.RandomEvaluator.Evaluate(this.RandomParams[version]);
                     break;
                 default:

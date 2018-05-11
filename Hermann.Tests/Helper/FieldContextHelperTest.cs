@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Hermann.Helpers;
+using Hermann.Models;
+using Hermann.Tests.TestHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Hermann.Tests.Helper
@@ -106,6 +108,27 @@ namespace Hermann.Tests.Helper
             digit.Add("01000000");
             var actual = FieldContextHelper.ConvertDigitStrsToUnit(digit);
             Assert.AreEqual(0b01000000_01000000_01000000_10000000u, actual);
+        }
+
+        /// <summary>
+        /// 006:MergeSlimeFieldsテスト
+        /// </summary>
+        [TestMethod]
+        public void MergeSlimeFieldsテスト()
+        {
+            var player = Player.Index.First.ToInt();
+            var x = TestHelper.Receiver.Receive("../../resources/helpers/fieldcontexthelper/test-field-in-006-001-x.txt");
+            var y = TestHelper.Receiver.Receive("../../resources/helpers/fieldcontexthelper/test-field-in-006-001-y.txt");
+            var expected = TestHelper.Receiver.Receive("../../resources/helpers/fieldcontexthelper/test-field-out-006-001.txt").
+                                     SlimeFields[player][Slime.Erased];
+            var actual = FieldContextHelper.MergeSlimeFields(x.SlimeFields[player][Slime.Erased], y.SlimeFields[player][Slime.Erased]);
+
+            for (var i = 0; i < expected.Length; i++)
+            {
+                var exStr = DebugHelper.ConvertUintToFieldUnit(expected[i]);
+                var acStr = DebugHelper.ConvertUintToFieldUnit(actual[i]);
+                Assert.AreEqual(exStr, acStr);
+            }
         }
     }
 }
