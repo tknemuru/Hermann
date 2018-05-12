@@ -60,6 +60,12 @@ namespace Hermann.Ai.Updaters
             this.HasInjected = true;
         }
 
+        /// <summary>
+        /// 自動移動を実行します。
+        /// </summary>
+        /// <param name="context">フィールド状態</param>
+        /// <param name="player">プレイヤ</param>
+        /// <param name="param">パラメータ</param>
         public void Update(FieldContext context, Player.Index player, Param param)
         {
             Debug.Assert(this.HasInjected, "依存性の注入が完了していません");

@@ -37,15 +37,6 @@ namespace Hermann.Tests.Di
         }
 
         /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        static TestDiProvider()
-        {
-            Register();
-            MyContainer.Verify();
-        }
-
-        /// <summary>
         /// DIコンテナを取得します。
         /// </summary>
         /// <returns></returns>

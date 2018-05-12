@@ -37,15 +37,6 @@ namespace Hermann.Ai.Di
         }
 
         /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        static AiDiProvider()
-        {
-            Register();
-            MyContainer.Verify();
-        }
-
-        /// <summary>
         /// DIコンテナを取得します。
         /// </summary>
         /// <returns></returns>
