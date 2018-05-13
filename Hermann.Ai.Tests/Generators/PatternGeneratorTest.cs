@@ -8,6 +8,7 @@ using Hermann.Helpers;
 using Hermann.Ai.Di;
 using Hermann.Tests.TestHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Hermann.Di;
 
 namespace Hermann.Ai.Tests.Generators
 {
@@ -42,8 +43,8 @@ namespace Hermann.Ai.Tests.Generators
         public void PatternGeneratorのGetNextテスト()
         {
             var patterns = new List<PatternDefinition>();
-            var stairsOneLeft = AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsOneLeft);
-            var stairsTwoRight = AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsTwoRight);
+            var stairsOneLeft = DiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsOneLeft);
+            var stairsTwoRight = DiProvider.GetContainer().GetInstance<PatternProvider>().Get(Pattern.StairsTwoRight);
             patterns.Add(stairsOneLeft);
             patterns.Add(stairsTwoRight);
             this.Generator.Inject(new PatternGenerator.Config()

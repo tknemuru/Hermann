@@ -36,12 +36,22 @@ namespace Hermann.Tests.Contexts
 
             // 1Pの移動可能なスライムの配置状態が等しくない
             y = CreateEqualsTestDefaultFieldContext();
-            y.MovableSlimes[0][1] = new MovableSlime(Slime.Purple, 2, 5);
+            y.MovableSlimes[0][1] = new MovableSlime()
+            {
+                Slime = Slime.Purple,
+                Index = 2,
+                Position = 5,
+            };
             Assert.IsFalse(x.Equals(y));
 
             // 2Pの移動可能なスライムの配置状態が等しくない
             y = CreateEqualsTestDefaultFieldContext();
-            y.MovableSlimes[1][1] = new MovableSlime(Slime.Purple, 2, 5);
+            y.MovableSlimes[1][1] = new MovableSlime()
+            {
+                Slime = Slime.Purple,
+                Index = 2,
+                Position = 5,
+            };
             Assert.IsFalse(x.Equals(y));
 
             // 1Pのスライムごとの配置状態が等しくない
@@ -78,11 +88,31 @@ namespace Hermann.Tests.Contexts
             context.OperationDirection = Direction.Right;
 
             context.MovableSlimes[0] = new MovableSlime[2];
-            context.MovableSlimes[0][0] = new MovableSlime(Slime.Red, 1, 3);
-            context.MovableSlimes[0][1] = new MovableSlime(Slime.Blue, 2, 5);
+            context.MovableSlimes[0][0] = new MovableSlime()
+            {
+                Slime = Slime.Red,
+                Index = 1,
+                Position = 3,
+            };
+            context.MovableSlimes[0][1] = new MovableSlime()
+            {
+                Slime = Slime.Blue,
+                Index = 2,
+                Position = 5,
+            };
             context.MovableSlimes[1] = new MovableSlime[2];
-            context.MovableSlimes[1][0] = new MovableSlime(Slime.Green, 0, 4);
-            context.MovableSlimes[1][1] = new MovableSlime(Slime.Purple, 1, 6);
+            context.MovableSlimes[1][0] = new MovableSlime()
+            {
+                Slime = Slime.Green,
+                Index = 0,
+                Position = 4,
+            };
+            context.MovableSlimes[1][1] = new MovableSlime()
+            {
+                Slime = Slime.Purple,
+                Index = 1,
+                Position = 6,
+            };
 
             var fieldsFirst = new Dictionary<Slime, uint[]>();
             fieldsFirst.Add(Slime.Red, new uint[] {2u, 3u, 6u});

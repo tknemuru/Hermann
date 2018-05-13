@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hermann.Di;
 
 namespace Hermann.Ai.Analyzers
 {
@@ -76,8 +77,8 @@ namespace Hermann.Ai.Analyzers
         /// </summary>
         public ErasedPotentialSlimeAnalyzer()
         {
-            this.Gravity = AiDiProvider.GetContainer().GetInstance<Gravity>();
-            this.ErasingMarker = AiDiProvider.GetContainer().GetInstance<SlimeErasingMarker>();
+            this.Gravity = DiProvider.GetContainer().GetInstance<Gravity>();
+            this.ErasingMarker = DiProvider.GetContainer().GetInstance<SlimeErasingMarker>();
         }
 
         /// <summary>

@@ -126,7 +126,7 @@ namespace Hermann.Client.LearningClient.Managers
                 }
 
             });
-            this.ResultEvalParam = LearningClientDiProvider.GetContainer().GetInstance<ResultEvaluator.Param>();
+            this.ResultEvalParam = new ResultEvaluator.Param();
             this.ErasedSlimeAnalyzer = LearningClientDiProvider.GetContainer().GetInstance<ErasedSlimeAnalyzer>();
         }
 

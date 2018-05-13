@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Hermann.Helpers;
+using Hermann.Di;
 
 namespace Hermann.Ai.Serchers
 {
@@ -59,7 +60,7 @@ namespace Hermann.Ai.Serchers
         public void Inject(Config config)
         {
             this.MyConfig = config;
-            this.Game = AiDiProvider.GetContainer().GetInstance<Game>();
+            this.Game = DiProvider.GetContainer().GetInstance<Game>();
             this.Game.Inject(config.UsingSlime);
             this.HasInjected = true;
         }
@@ -90,7 +91,7 @@ namespace Hermann.Ai.Serchers
                 var _context = this.Update(context, patterns);
 
                 // 評価実施
-                valueDic.Add(index, AiDiProvider.GetContainer().GetInstance<EvalProvider>().
+                valueDic.Add(index, DiProvider.GetContainer().GetInstance<EvalProvider>().
                     GetEval(this.MyConfig.Version, _context));
                 index++;
             }

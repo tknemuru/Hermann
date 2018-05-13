@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Hermann.Di;
 
 namespace Hermann.Ai.Generators
 {
@@ -134,7 +135,7 @@ namespace Hermann.Ai.Generators
         private void AddPatternCount(uint[] fields, PatternDefinition pattern, int maxIndex, Dictionary<int, double> dic)
         {
             // 1行ずつずらしたユニットを作成
-            var mergedField = AiDiProvider.GetContainer().GetInstance<MergedFieldsGenerator>().GetNext(fields);
+            var mergedField = DiProvider.GetContainer().GetInstance<MergedFieldsGenerator>().GetNext(fields);
 
             foreach (var field in mergedField)
             {

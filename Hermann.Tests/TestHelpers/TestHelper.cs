@@ -12,6 +12,8 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimpleInjector;
 using Hermann.Updaters;
+using Hermann.Di;
+using Hermann.Ai.Di;
 
 namespace Hermann.Tests.TestHelpers
 {
@@ -20,11 +22,6 @@ namespace Hermann.Tests.TestHelpers
     /// </summary>
     public static class TestHelper
     {
-        /// <summary>
-        /// DIコンテナ
-        /// </summary>
-        public static Container Container { get; private set; }
-
         /// <summary>
         /// 受信機能
         /// </summary>
@@ -40,9 +37,9 @@ namespace Hermann.Tests.TestHelpers
         /// </summary>
         static TestHelper()
         {
-            Container = TestDiProvider.GetContainer();
-            Receiver = Container.GetInstance<SimpleTextReceiver>();
-            Sender = Container.GetInstance<SimpleTextSender>();
+            ApiDiRegister.Register();
+            Receiver = DiProvider.GetContainer().GetInstance<SimpleTextReceiver>();
+            Sender = DiProvider.GetContainer().GetInstance<SimpleTextSender>();
         }
 
         /// <summary>

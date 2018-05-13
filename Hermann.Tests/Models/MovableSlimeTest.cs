@@ -18,20 +18,45 @@ namespace Hermann.Tests.Models
         public void Equalsテスト()
         {
             // 等しい
-            var x = new MovableSlime(Slime.Red, 1, 4);
-            var y = new MovableSlime(Slime.Red, 1, 4);
+            var x = new MovableSlime()
+            {
+                Slime = Slime.Red,
+                Index = 1,
+                Position = 4,
+            };
+            var y = new MovableSlime()
+            {
+                Slime = Slime.Red,
+                Index = 1,
+                Position = 4,
+            };
             Assert.IsTrue(x.Equals(y));
 
             // スライムが等しくない
-            y = new MovableSlime(Slime.Blue, 1, 4);
+            y = new MovableSlime()
+            {
+                Slime = Slime.Blue,
+                Index = 1,
+                Position = 4,
+            };
             Assert.IsFalse(x.Equals(y));
 
             // インデックスが等しくない
-            y = new MovableSlime(Slime.Red, 2, 4);
+            y = new MovableSlime()
+            {
+                Slime = Slime.Red,
+                Index = 2,
+                Position = 4,
+            };
             Assert.IsFalse(x.Equals(y));
 
             // ポジションが等しくない
-            y = new MovableSlime(Slime.Red, 1, 5);
+            y = new MovableSlime()
+            {
+                Slime = Slime.Red,
+                Index = 1,
+                Position = 5,
+            };
             Assert.IsFalse(x.Equals(y));
         }
     }

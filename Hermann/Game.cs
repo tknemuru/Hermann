@@ -233,7 +233,7 @@ namespace Hermann
         private void Move(FieldContext context)
         {
             var player = context.OperationPlayer;
-            var moveParam = DiProvider.GetContainer().GetInstance<SlimeMover.Param>();
+            var moveParam = new SlimeMover.Param();
 
             // 設置残タイムの更新
             if (context.Ground[(int)player])
@@ -408,7 +408,7 @@ namespace Hermann
         private void NextPreparation(FieldContext context, Player.Index player)
         {
             // 勝敗を決定する
-            var param = DiProvider.GetContainer().GetInstance<WinCountUpdater.Param>();
+            var param = new WinCountUpdater.Param();
             this.WinCountUpdater.Update(context, player, param);
             if (param.IsEnd)
             {

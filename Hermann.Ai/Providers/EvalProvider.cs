@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hermann.Di;
 
 namespace Hermann.Ai.Providers
 {
@@ -39,14 +40,14 @@ namespace Hermann.Ai.Providers
         /// </summary>
         public EvalProvider()
         {
-            this.RandomEvaluator = AiDiProvider.GetContainer().GetInstance<RandomEvaluator>();
+            this.RandomEvaluator = DiProvider.GetContainer().GetInstance<RandomEvaluator>();
             this.AliveEvaluators = new Dictionary<AiPlayer.Version, AliveEvaluator[]>();
             this.LinearRegressionEvaluators = new Dictionary<AiPlayer.Version, LinearRegressionEvaluator>();
             this.RandomParams = new Dictionary<AiPlayer.Version, RandomEvaluator.Param>();
 
             // V1.0
             var version = AiPlayer.Version.V1_0;
-            var evaluator = AiDiProvider.GetContainer().GetInstance<LinearRegressionEvaluator>();
+            var evaluator = DiProvider.GetContainer().GetInstance<LinearRegressionEvaluator>();
             evaluator.Inject(version);
             this.LinearRegressionEvaluators.Add(version, evaluator);
             this.RandomParams.Add(version, new RandomEvaluator.Param()
@@ -55,13 +56,13 @@ namespace Hermann.Ai.Providers
                 EvaluateFrequency = 10,
                 ValueRange = 100,
             });
-            var alive = AiDiProvider.GetContainer().GetInstance<AliveEvaluator>();
+            var alive = DiProvider.GetContainer().GetInstance<AliveEvaluator>();
             alive.Inject(new AliveEvaluator.Config());
             this.AliveEvaluators.Add(version, new[] { alive });
 
             // V2.0
             version = AiPlayer.Version.V2_0;
-            evaluator = AiDiProvider.GetContainer().GetInstance<LinearRegressionEvaluator>();
+            evaluator = DiProvider.GetContainer().GetInstance<LinearRegressionEvaluator>();
             evaluator.Inject(version);
             this.LinearRegressionEvaluators.Add(version, evaluator);
             this.RandomParams.Add(version, new RandomEvaluator.Param()
@@ -71,13 +72,13 @@ namespace Hermann.Ai.Providers
                 ValueRange = 100,
             });
             var alives = new List<AliveEvaluator>();
-            alive = AiDiProvider.GetContainer().GetInstance<AliveEvaluator>();
+            alive = DiProvider.GetContainer().GetInstance<AliveEvaluator>();
             alive.Inject(new AliveEvaluator.Config()
             {
                 DangerEval = -9999,
             });
             alives.Add(alive);
-            alive = AiDiProvider.GetContainer().GetInstance<AliveEvaluator>();
+            alive = DiProvider.GetContainer().GetInstance<AliveEvaluator>();
             alive.Inject(new AliveEvaluator.Config()
             {
                 DangerEval = -999,

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Hermann.Ai
 {
@@ -77,9 +78,11 @@ namespace Hermann.Ai
         {
             if (!this.MultipleLinearRegressions.ContainsKey(version))
             {
-                var filePath = string.Format(LearningConfig.LearnerSavePath + @"/{0}_{1}.csv", MultipleLinearRegressionFileName, version.ToString().ToLower());
-                var csv = FileHelper.ReadTextLines(filePath);
-                var weightsAndIntercept = csv.First().Split(',');
+                var csv = Resources.Load<TextAsset>($"Csvs/{MultipleLinearRegressionFileName}_{version.ToString().ToLower()}").ToString();
+                //var filePath = string.Format(LearningConfig.LearnerSavePath + @"/{0}_{1}.csv", MultipleLinearRegressionFileName, version.ToString().ToLower());
+                //var csv = FileHelper.ReadTextLines(filePath);
+                //var weightsAndIntercept = csv.First().Split(',');
+                var weightsAndIntercept = csv.Split(',');
                 var weightsLength = weightsAndIntercept.Count() - 1;
                 var intercept = weightsAndIntercept.Last();
                 var weights = weightsAndIntercept.Take(weightsLength).Select(w => double.Parse(w)).ToArray();

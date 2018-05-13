@@ -116,8 +116,8 @@ namespace Hermann.Client.LearningClient.Excecuters
 
             this.ErasedSlimeAnalyzerParams = new[]
             {
-                LearningClientDiProvider.GetContainer().GetInstance<ErasedSlimeAnalyzer.Param>(),
-                LearningClientDiProvider.GetContainer().GetInstance<ErasedSlimeAnalyzer.Param>(),
+                new ErasedSlimeAnalyzer.Param(),
+                new ErasedSlimeAnalyzer.Param(),
             };
 
             this.LastContexts = new FieldContext[Player.Length];

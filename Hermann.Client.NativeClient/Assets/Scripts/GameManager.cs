@@ -19,6 +19,7 @@ using Assets.Scripts.Initializers;
 using Assets.Scripts;
 using Hermann.Ai;
 using Hermann.Ai.Helpers;
+using Hermann.Di;
 
 /// <summary>
 /// ゲーム管理機能を提供します。
@@ -43,7 +44,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// 学習中かどうか
     /// </summary>
-    private static bool IsLearning = true;
+    private static bool IsLearning = false;
 
     /// <summary>
     /// トレーニングモードかどうか
@@ -53,7 +54,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// AIプレイヤのバージョン
     /// </summary>
-    public static AiPlayer.Version?[] AiVersions = new AiPlayer.Version?[] { AiPlayer.Version.V2_0, null };
+    public static AiPlayer.Version?[] AiVersions = new AiPlayer.Version?[] { AiPlayer.Version.V1_0, null };
 
     /// <summary>
     /// ゲームが終了したかどうか
@@ -88,7 +89,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// コマンドの受信機能
     /// </summary>
-    private static CommandReceiver<NativeCommand, FieldContext> Receiver;
+    private static NativeCommandReceiver Receiver;
 
     /// <summary>
     /// UI飾り情報の受信機能
@@ -123,7 +124,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// フィールドの送信機能
     /// </summary>
-    private static FieldContextSender<string> Sender;
+    private static SimpleTextSender Sender;
 
     /// <summary>
     /// 方向：無で更新するフレーム回数累計
@@ -165,21 +166,22 @@ public class GameManager : MonoBehaviour
     {
         try
         {
+            NativeClientDiRegister.Register();
             LastWinCount = new[] { 0, 0 };
             EraseAnimationFrameElapsedCount = new[] { 0, 0 };
             AudioManager = gameObject.AddComponent<AudioManager>();
             AudioManager.PlayBGM(BgmFileName);
-            SoundEffectOutputter = NativeClientDiProvider.GetContainer().GetInstance<SoundEffectOutputter>();
+            SoundEffectOutputter = DiProvider.GetContainer().GetInstance<SoundEffectOutputter>();
             SoundEffectOutputter.Initialize(AudioManager);
-            SoundEffectAnalyzer = NativeClientDiProvider.GetContainer().GetInstance<SoundEffectAnalyzer>();
+            SoundEffectAnalyzer = DiProvider.GetContainer().GetInstance<SoundEffectAnalyzer>();
             SoundEffectDecorationContainer = new SoundEffectDecorationContainer[Player.Length];
-            InputManager = NativeClientDiProvider.GetContainer().GetInstance<InputManager>();
+            InputManager = DiProvider.GetContainer().GetInstance<InputManager>();
             AiPlayers = new AiPlayer[Player.Length];
 
             this.Slimes = new Dictionary<Player.Index, List<GameObject>>();
             Player.ForEach(player =>
             {
-                SoundEffectDecorationContainer[(int)player] = NativeClientDiProvider.GetContainer().GetInstance<SoundEffectDecorationContainer>();
+                SoundEffectDecorationContainer[(int)player] = DiProvider.GetContainer().GetInstance<SoundEffectDecorationContainer>();
                 this.Slimes.Add(player, new List<GameObject>());
             });
             this.FieldContextReflector = ScriptableObject.CreateInstance<FieldContextReflector>();
@@ -188,15 +190,18 @@ public class GameManager : MonoBehaviour
             // 初期フィールド状態の取得
             NoneDirectionUpdateFrameElapsed = new[] { FieldContextConfig.NoneDirectionUpdateFrameCount, FieldContextConfig.NoneDirectionUpdateFrameCount };
             AiMoveFrameCountElapsed = new[] { FieldContextConfig.AiMoveFrameCount, FieldContextConfig.AiMoveFrameCount };
-            Receiver = NativeClientDiProvider.GetContainer().GetInstance<CommandReceiver<NativeCommand, FieldContext>>();
-            Sender = NativeClientDiProvider.GetContainer().GetInstance<FieldContextSender<string>>();
-            UiDecorationContainerReceiver = NativeClientDiProvider.GetContainer().GetInstance<UiDecorationContainerReceiver>();
-            var command = NativeClientDiProvider.GetContainer().GetInstance<NativeCommand>();
+            Debug.Log("gamemanager 1");
+            Receiver = DiProvider.GetContainer().GetInstance<NativeCommandReceiver>();
+            Debug.Log("gamemanager 2");
+            Sender = DiProvider.GetContainer().GetInstance<SimpleTextSender>();
+            Debug.Log("gamemanager 3");
+            UiDecorationContainerReceiver = DiProvider.GetContainer().GetInstance<UiDecorationContainerReceiver>();
+            var command = DiProvider.GetContainer().GetInstance<NativeCommand>();
             command.Command = Command.Start;
             Context = Receiver.Receive(command);
             if (IsTest)
             {
-                Context = NativeClientDiProvider.GetContainer().GetInstance<FieldContextSimpleTextInitializer>().Initialize(Context);
+                Context = DiProvider.GetContainer().GetInstance<FieldContextSimpleTextInitializer>().Initialize(Context);
             }
             Player.ForEach(player =>
             {
@@ -204,7 +209,7 @@ public class GameManager : MonoBehaviour
 
                 if (AiVersions[player.ToInt()] != null)
                 {
-                    AiPlayers[player.ToInt()] = NativeClientDiProvider.GetContainer().GetInstance<AiPlayer>();
+                    AiPlayers[player.ToInt()] = DiProvider.GetContainer().GetInstance<AiPlayer>();
                     AiPlayers[player.ToInt()].Inject(new AiPlayer.Config()
                     {
                         Version = AiVersions[player.ToInt()].Value,
@@ -373,7 +378,7 @@ public class GameManager : MonoBehaviour
     {
         Context.OperationPlayer = player;
         Context.OperationDirection = direction;
-        var c = NativeClientDiProvider.GetContainer().GetInstance<NativeCommand>();
+        var c = DiProvider.GetContainer().GetInstance<NativeCommand>();
         c.Command = Command.Move;
         c.Context = Context;
         DebugLog(debugLogTitle);
@@ -390,7 +395,7 @@ public class GameManager : MonoBehaviour
     {
         Context.OperationPlayer = player;
         Context.OperationDirection = AiPlayers[player.ToInt()].Think(Context);
-        var c = NativeClientDiProvider.GetContainer().GetInstance<NativeCommand>();
+        var c = DiProvider.GetContainer().GetInstance<NativeCommand>();
         c.Command = Command.Move;
         c.Context = Context;
         DebugLog(debugLogTitle);

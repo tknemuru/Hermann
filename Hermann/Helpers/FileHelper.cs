@@ -20,14 +20,14 @@ namespace Hermann.Helpers
         /// エンコードの初期値
         /// UTF-8, Shift_JIS
         /// </summary>
-        private const string DefaultEncoding = "Shift_JIS";
+        private const string DefaultEncoding = "UTF-8";
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         static FileHelper()
         {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             DefaultFilePath = string.Format(@"./log/{0}.txt", DateTime.Now.ToString("yyyyMMddhhmmss"));
         }
 

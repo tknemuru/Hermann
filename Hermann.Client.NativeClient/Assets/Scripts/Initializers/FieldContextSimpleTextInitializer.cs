@@ -2,6 +2,7 @@
 using Hermann.Api.Receivers;
 using Hermann.Api.Senders;
 using Hermann.Contexts;
+using Hermann.Di;
 using Hermann.Generators;
 using Hermann.Initializers;
 using Hermann.Updaters;
@@ -27,14 +28,14 @@ namespace Assets.Scripts.Initializers
         /// <summary>
         /// 受信機能
         /// </summary>
-        private FieldContextReceiver<string> Receiver { get; set; }
+        private SimpleTextReceiver Receiver { get; set; }
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
         public FieldContextSimpleTextInitializer()
         {
-            this.Receiver = NativeClientDiProvider.GetContainer().GetInstance<FieldContextReceiver<string>>();
+            this.Receiver = DiProvider.GetContainer().GetInstance<SimpleTextReceiver>();
         }
 
         /// <summary>

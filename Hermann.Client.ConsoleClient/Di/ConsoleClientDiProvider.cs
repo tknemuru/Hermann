@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using SimpleInjector;
 using Hermann.Updaters.Times;
 using Hermann.Initializers;
 
@@ -25,13 +24,13 @@ namespace Hermann.Client.ConsoleClient.Di
         /// <summary>
         /// DIコンテナ
         /// </summary>
-        private static Container MyContainer { get; set; }
+        private static SimpleContainer MyContainer { get; set; }
 
         /// <summary>
         /// DIコンテナをセットします。
         /// </summary>
         /// <param name="container">DIコンテナ</param>
-        public static void SetContainer(Container container)
+        public static void SetContainer(SimpleContainer container)
         {
             MyContainer = container;
         }
@@ -48,7 +47,7 @@ namespace Hermann.Client.ConsoleClient.Di
         /// DIコンテナを取得します。
         /// </summary>
         /// <returns></returns>
-        public static Container GetContainer()
+        public static SimpleContainer GetContainer()
         {
             if (MyContainer == null)
             {
@@ -62,22 +61,22 @@ namespace Hermann.Client.ConsoleClient.Di
         /// </summary>
         private static void Register()
         {
-            MyContainer = new Container();
-            MyContainer.Register<FieldContext, FieldContext>();
+            MyContainer = new SimpleContainer();
+            MyContainer.Register<FieldContext>(() => new FieldContext());
             MyContainer.Register(() => new MovableSlime());
-            MyContainer.Register<UsingSlimeGenerator, UsingSlimeRandomGenerator>();
-            MyContainer.Register<NextSlimeGenerator, NextSlimeRandomGenerator>();
+            MyContainer.Register<UsingSlimeGenerator>(() => new UsingSlimeRandomGenerator());
+            MyContainer.Register<NextSlimeGenerator>(() => new NextSlimeRandomGenerator());
             MyContainer.Register(() => new NextSlimeUpdater());
-            MyContainer.Register<CommandReceiver<NativeCommand, FieldContext>, NativeCommandReceiver>(Lifestyle.Singleton);
-            MyContainer.Register<FieldContextReceiver<string>, SimpleTextReceiver>(Lifestyle.Singleton);
-            MyContainer.Register<FieldContextSender<string>, SimpleTextSender>(Lifestyle.Singleton);
+            //MyContainer.Register<CommandReceiver<NativeCommand, FieldContext>, NativeCommandReceiver>(Lifestyle.Singleton);
+            //MyContainer.Register<FieldContextReceiver<string>, SimpleTextReceiver>(Lifestyle.Singleton);
+            //MyContainer.Register<FieldContextSender<string>, SimpleTextSender>(Lifestyle.Singleton);
             MyContainer.Register<ITimeUpdatable>(() => new TimeElapsedTicksUpdater());
             MyContainer.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(1, 3));
-            MyContainer.Register<IFieldContextInitializable>(() => new FieldContextInitializer(), Lifestyle.Singleton);
-            MyContainer.Register<ObstructionSlimeSetter, ObstructionSlimeRandomSetter>();
+            //MyContainer.Register<IFieldContextInitializable>(() => new FieldContextInitializer(), Lifestyle.Singleton);
+            MyContainer.Register<ObstructionSlimeSetter>(() => new ObstructionSlimeRandomSetter());
 
             DiProvider.SetContainer(MyContainer);
-            MyContainer.Verify();
+            //MyContainer.Verify();
         }
     }
 }

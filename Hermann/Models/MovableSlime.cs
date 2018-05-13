@@ -43,26 +43,6 @@ namespace Hermann.Models
         }
 
         /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        public MovableSlime()
-        {
-        }
-
-        /// <summary>
-        /// コンストラクタ
-        /// </summary>
-        /// <param name="slime">スライム</param>
-        /// <param name="index">何番目のフィールドに属しているか</param>
-        /// <param name="positon">フィールド内のポジション（シフト量）</param>
-        public MovableSlime(Slime slime, int index, int positon)
-        {
-            this.Slime = slime;
-            this.Index = index;
-            this.Position = positon;
-        }
-
-        /// <summary>
         /// スライム
         /// </summary>
         public Slime Slime { get; set; }

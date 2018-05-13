@@ -52,7 +52,7 @@ namespace Hermann.Analyzers
 
             // 元のフィールド状態を記録しておく
             var _context = context.DeepCopy();
-            var param = DiProvider.GetContainer().GetInstance<SlimeMover.Param>();
+            var param = new SlimeMover.Param();
 
             // 下
             _context.OperationDirection = Direction.Down;

@@ -6,6 +6,7 @@ using Hermann.Ai.Helpers;
 using Hermann.Ai.Updaters;
 using Hermann.Analyzers;
 using Hermann.Contexts;
+using Hermann.Di;
 using Hermann.Models;
 
 namespace Hermann.Ai.Analyzers
@@ -35,7 +36,7 @@ namespace Hermann.Ai.Analyzers
             slimePatterns.Add(new[] { usingSlimes[2], usingSlimes[3] });
 
             // 自動移動機能を生成
-            var updater = AiDiProvider.GetContainer().GetInstance<AutoMoveAndDropUpdater>();
+            var updater = DiProvider.GetContainer().GetInstance<AutoMoveAndDropUpdater>();
             updater.Inject(context.UsingSlimes);
 
             // 各移動可能スライムの全パターンを試していく

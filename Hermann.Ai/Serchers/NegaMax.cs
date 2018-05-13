@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hermann.Di;
 
 namespace Hermann.Ai.Serchers
 {
@@ -44,8 +45,8 @@ namespace Hermann.Ai.Serchers
         public NegaMax()
             : base()
         {
-            this.MovableDirectionAnalyzer = AiDiProvider.GetContainer().GetInstance<MovableDirectionAnalyzer>();
-            this.Evaluator = AiDiProvider.GetContainer().GetInstance<LinearRegressionEvaluator>();
+            this.MovableDirectionAnalyzer = DiProvider.GetContainer().GetInstance<MovableDirectionAnalyzer>();
+            this.Evaluator = DiProvider.GetContainer().GetInstance<LinearRegressionEvaluator>();
         }
 
         /// <summary>

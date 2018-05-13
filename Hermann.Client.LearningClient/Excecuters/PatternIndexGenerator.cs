@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hermann.Di;
 
 namespace Hermann.Client.LearningClient.Excecuters
 {
@@ -27,7 +28,7 @@ namespace Hermann.Client.LearningClient.Excecuters
             foreach(var pattern in patterns)
             {
                 Console.WriteLine($"{pattern.GetName()} start");
-                var def = AiDiProvider.GetContainer().GetInstance<PatternProvider>().Get(pattern);
+                var def = DiProvider.GetContainer().GetInstance<PatternProvider>().Get(pattern);
                 var count = 0;
                 var dic = new Dictionary<uint, int>();
                 dic.Add(0u, count);

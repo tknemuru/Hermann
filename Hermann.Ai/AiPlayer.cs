@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Hermann.Ai.Providers;
 using System.Diagnostics;
+using Hermann.Di;
 
 namespace Hermann.Ai
 {
@@ -95,7 +96,7 @@ namespace Hermann.Ai
             {
                 case Version.V1_0:
                 case Version.V2_0:
-                    this.SearchLogic = AiDiProvider.GetContainer().GetInstance<ThinCompleteReading>();
+                    this.SearchLogic = DiProvider.GetContainer().GetInstance<ThinCompleteReading>();
                     break;
                 default:
                     throw new ArgumentException("バージョンが不正です");

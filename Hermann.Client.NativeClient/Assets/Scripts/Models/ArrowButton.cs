@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Di;
+using Hermann.Di;
 using Hermann.Models;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace Assets.Scripts.Models
         /// </summary>
         void OnMouseDown()
         {
-            NativeClientDiProvider.GetContainer().GetInstance<InputManager>()
+            DiProvider.GetContainer().GetInstance<InputManager>()
                 .AddKeyCode(Player, Direction);
         }
     }

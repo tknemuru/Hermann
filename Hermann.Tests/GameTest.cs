@@ -6,6 +6,7 @@ using SimpleInjector;
 using Hermann.Updaters.Times;
 using Hermann.Generators;
 using Hermann.Models;
+using Hermann.Di;
 
 namespace Hermann.Tests
 {
@@ -33,8 +34,7 @@ namespace Hermann.Tests
         [TestMethod]
         public void 壁とスライムに挟まれて回転ができない()
         {
-            TestDiProvider.Register();
-            TestDiProvider.GetContainer().Verify();
+            TestDiRegister.Register();
             this.Game = new Game();
 
             // 001:1P-右2回
@@ -53,12 +53,10 @@ namespace Hermann.Tests
         [TestMethod]
         public void 移動１連鎖落下()
         {
-            TestDiProvider.Register();
-            var container = TestDiProvider.GetContainer();
-            container.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(300, 300));
-            container.Register<NextSlimeGenerator>(() => new NextSlimeStableGenerator(new[] { Slime.Red, Slime.Blue }));
-            container.Register<UsingSlimeGenerator>(() => new UsingSlimeStableGenerator(new[] { Slime.Red, Slime.Blue, Slime.Green, Slime.Purple }));
-            container.Verify();
+            TestDiRegister.Register();
+            DiProvider.GetContainer().Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(300, 300));
+            DiProvider.GetContainer().Register<NextSlimeGenerator>(() => new NextSlimeStableGenerator(new[] { Slime.Red, Slime.Blue }));
+            DiProvider.GetContainer().Register<UsingSlimeGenerator>(() => new UsingSlimeStableGenerator(new[] { Slime.Red, Slime.Blue, Slime.Green, Slime.Purple }));
             this.Game = new Game();
 
             var context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-002-001.txt");
@@ -154,8 +152,7 @@ namespace Hermann.Tests
             expectedContext = TestHelper.Receiver.Receive("../../resources/game/test-field-out-002-014.txt");
             TestHelper.AssertEqualsFieldContext(expectedContext, context);
 
-            TestDiProvider.Register();
-            TestDiProvider.GetContainer().Verify();
+            TestDiRegister.Register();
             this.Game = new Game();
         }
 
@@ -165,10 +162,9 @@ namespace Hermann.Tests
         [TestMethod]
         public void 設置残タイム0で移動して接地を解除する()
         {
-            TestDiProvider.Register();
-            var container = TestDiProvider.GetContainer();
-            container.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(1, 12));
-            container.Verify();
+            TestDiRegister.Register();
+            DiProvider.GetContainer().Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(1, 12));
+            DiProvider.GetContainer().Verify();
             this.Game = new Game();
 
             var context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-003-001.txt");
@@ -184,10 +180,8 @@ namespace Hermann.Tests
         [TestMethod]
         public void 設置残タイムが0になった時点で連鎖開始される()
         {
-            TestDiProvider.Register();
-            var container = TestDiProvider.GetContainer();
-            container.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(1, 12));
-            container.Verify();
+            TestDiRegister.Register();
+            DiProvider.GetContainer().Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(1, 12));
             this.Game = new Game();
 
             var context = TestHelper.Receiver.Receive("../../resources/game/test-field-in-004-001.txt");
@@ -203,8 +197,7 @@ namespace Hermann.Tests
         [TestMethod]
         public void 接地状態での移動()
         {
-            TestDiProvider.Register();
-            TestDiProvider.GetContainer().Verify();
+            TestDiRegister.Register();
             this.Game = new Game();
 
             // 001:右

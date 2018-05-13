@@ -52,12 +52,16 @@ namespace Assets.Scripts.Containers
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.AppendLine(string.Format("LastFieldContext[FieldEvent]{0}|{1}",
-                this.LastFieldContext.FieldEvent[(int)Player.Index.First],
-                this.LastFieldContext.FieldEvent[(int)Player.Index.Second]));
-            sb.AppendLine(string.Format("LastFieldContext[Ground]{0}|{1}",
-                this.LastFieldContext.Ground[(int)Player.Index.First],
-                this.LastFieldContext.Ground[(int)Player.Index.Second]));
+            if (this.LastFieldContext != null)
+            {
+                sb.AppendLine(string.Format("LastFieldContext[FieldEvent]{0}|{1}",
+                    this.LastFieldContext.FieldEvent[(int)Player.Index.First],
+                    this.LastFieldContext.FieldEvent[(int)Player.Index.Second]));
+                sb.AppendLine(string.Format("LastFieldContext[Ground]{0}|{1}",
+                    this.LastFieldContext.Ground[(int)Player.Index.First],
+                    this.LastFieldContext.Ground[(int)Player.Index.Second]));
+            }
+
             foreach (var r in this.Required)
             {
                 sb.AppendLine(string.Format("[{0}]{1}", r.Key, r.Value));

@@ -20,7 +20,7 @@ namespace Hermann.Tests.Analyzers
         /// </summary>
         public MovableDirectionAnalyzerTest()
         {
-            TestDiProvider.GetContainer();
+            TestDiRegister.Register();
             this.Analyzer = new MovableDirectionAnalyzer();
         }
 

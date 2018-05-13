@@ -33,7 +33,7 @@ namespace Hermann.Api.Receivers
         /// </summary>
         public NativeCommandReceiver()
         {
-            this.UsingSlimeGenerator = DiProvider.GetContainer().GetInstance<UsingSlimeGenerator>();
+            this.UsingSlimeGenerator = DiProvider.GetContainer().GetInstance<UsingSlimeRandomGenerator>();
             this.Game = DiProvider.GetContainer().GetInstance<Game>();
         }
 

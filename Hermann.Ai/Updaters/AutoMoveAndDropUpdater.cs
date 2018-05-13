@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Hermann.Ai.Di;
 using Hermann.Contexts;
+using Hermann.Di;
 using Hermann.Models;
 using Hermann.Updaters;
 
@@ -55,7 +56,7 @@ namespace Hermann.Ai.Updaters
         public void Inject(Slime[] usingSlimes)
         {
             this.UsingSlimes = usingSlimes;
-            this.Game = AiDiProvider.GetContainer().GetInstance<Game>();
+            this.Game = DiProvider.GetContainer().GetInstance<Game>();
             this.Game.Inject(usingSlimes);
             this.HasInjected = true;
         }

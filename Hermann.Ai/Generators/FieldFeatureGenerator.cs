@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hermann.Di;
 
 namespace Hermann.Ai.Generators
 {
@@ -94,19 +95,19 @@ namespace Hermann.Ai.Generators
         /// 削除できる可能性のあるスライムの分析機能
         /// </summary>
         private ErasedPotentialSlimeAnalyzer ErasedPotentialSlimeAnalyzer =
-            AiDiProvider.GetContainer().GetInstance<ErasedPotentialSlimeAnalyzer>();
+            DiProvider.GetContainer().GetInstance<ErasedPotentialSlimeAnalyzer>();
 
         /// <summary>
         /// 高低差分析機能
         /// </summary>
         private DifferenceHeightAnalyzer DifferenceHeightAnalyzer =
-            AiDiProvider.GetContainer().GetInstance<DifferenceHeightAnalyzer>();
+            DiProvider.GetContainer().GetInstance<DifferenceHeightAnalyzer>();
 
         /// <summary>
         /// 連鎖回数分析機能
         /// </summary>
         private ChainAnalyzer ChainAnalyzer =
-            AiDiProvider.GetContainer().GetInstance<ChainAnalyzer>();
+            DiProvider.GetContainer().GetInstance<ChainAnalyzer>();
 
         /// <summary>
         /// 危険なインデックス（左から三番目の上四つ）

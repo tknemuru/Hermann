@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Hermann.Di;
 
 namespace Hermann.Ai.Evaluators
 {
@@ -41,7 +42,7 @@ namespace Hermann.Ai.Evaluators
         public void Inject(AiPlayer.Version version)
         {
             this.Version = version;
-            this.Regression = AiDiProvider.GetContainer().GetInstance<LearnerManager>().GetMultipleLinearRegression(this.Version);
+            this.Regression = DiProvider.GetContainer().GetInstance<LearnerManager>().GetMultipleLinearRegression(this.Version);
             this.HasInjected = true;
         }
 
@@ -54,7 +55,7 @@ namespace Hermann.Ai.Evaluators
         {
             Debug.Assert(this.HasInjected, "依存性の注入が完了していません");
 
-            var input = AiDiProvider.GetContainer().GetInstance<InputDataProvider>().
+            var input = DiProvider.GetContainer().GetInstance<InputDataProvider>().
                 GetVector(this.Version, context);
             return this.Regression.Transform(input.ToArray());
         }

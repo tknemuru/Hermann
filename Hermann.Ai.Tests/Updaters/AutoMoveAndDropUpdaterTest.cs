@@ -40,16 +40,9 @@ namespace Hermann.Ai.Test.Analyzers
         [TestMethod]
         public void 自動移動が正しく行われる()
         {
-            var container = new Container();
-            container.Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(0, 12));
-            container.Register<NextSlimeGenerator>(() => new NextSlimeStableGenerator(new[] { Slime.Red, Slime.Blue }));
-            container.Register(() => new MovableSlime());
-            container.Register<ITimeUpdatable>(() => new TimeStableUpdater(0));
-            container.Register<ObstructionSlimeSetter, ObstructionSlimeRandomSetter>();
-            container.Verify();
-            DiProvider.SetContainer(container);
-            AiDiProvider.SetContainer(container);
-            TestDiProvider.SetContainer(container);
+            DiProvider.GetContainer().Register<IBuiltRemainingTimeUpdatable>(() => new BuiltRemainingTimeStableUpdater(0, 12));
+            DiProvider.GetContainer().Register<NextSlimeGenerator>(() => new NextSlimeStableGenerator(new[] { Slime.Red, Slime.Blue }));
+            DiProvider.GetContainer().Register<ITimeUpdatable>(() => new TimeStableUpdater(0));
 
             var param = new AutoMoveAndDropUpdater.Param()
             {
