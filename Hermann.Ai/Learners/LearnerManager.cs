@@ -78,10 +78,7 @@ namespace Hermann.Ai
         {
             if (!this.MultipleLinearRegressions.ContainsKey(version))
             {
-                var csv = Resources.Load<TextAsset>($"Csvs/{MultipleLinearRegressionFileName}_{version.ToString().ToLower()}").ToString();
-                //var filePath = string.Format(LearningConfig.LearnerSavePath + @"/{0}_{1}.csv", MultipleLinearRegressionFileName, version.ToString().ToLower());
-                //var csv = FileHelper.ReadTextLines(filePath);
-                //var weightsAndIntercept = csv.First().Split(',');
+                var csv = Resources.Load<TextAsset>($"Csvs/Learners/{MultipleLinearRegressionFileName}_{version.ToString().ToLower()}").ToString();
                 var weightsAndIntercept = csv.Split(',');
                 var weightsLength = weightsAndIntercept.Count() - 1;
                 var intercept = weightsAndIntercept.Last();

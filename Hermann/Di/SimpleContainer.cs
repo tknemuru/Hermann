@@ -49,6 +49,7 @@ namespace Hermann.Di
                 default:
                     throw new NotSupportedException("invalid lifestyle");
             }
+            this.Lifestyles[type] = lifestyle;
         }
 
         public void Register<TService>(Func<TService> func) where TService : class
@@ -84,6 +85,7 @@ namespace Hermann.Di
                 default:
                     throw new NotSupportedException("invalid lifestyle");
             }
+            this.Lifestyles[type] = lifestyle;
         }
 
         public TService GetInstance<TService>() where TService : class

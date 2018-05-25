@@ -19,6 +19,11 @@ namespace Hermann.Environments
         private static readonly string WinRootDir = @"C:/work/visualstudio/Hermann";
 
         /// <summary>
+        /// Unityで実行するかどうか
+        /// </summary>
+        public static bool Unity = true;
+
+        /// <summary>
         /// 環境に応じたルートディレクトリを取得します。
         /// </summary>
         /// <returns>The root dir.</returns>

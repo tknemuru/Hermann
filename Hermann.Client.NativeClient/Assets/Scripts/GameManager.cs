@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// AIプレイヤのバージョン
     /// </summary>
-    public static AiPlayer.Version?[] AiVersions = new AiPlayer.Version?[] { AiPlayer.Version.V1_0, null };
+    public static AiPlayer.Version?[] AiVersions = new AiPlayer.Version?[] { null, null };
 
     /// <summary>
     /// ゲームが終了したかどうか
@@ -190,11 +190,8 @@ public class GameManager : MonoBehaviour
             // 初期フィールド状態の取得
             NoneDirectionUpdateFrameElapsed = new[] { FieldContextConfig.NoneDirectionUpdateFrameCount, FieldContextConfig.NoneDirectionUpdateFrameCount };
             AiMoveFrameCountElapsed = new[] { FieldContextConfig.AiMoveFrameCount, FieldContextConfig.AiMoveFrameCount };
-            Debug.Log("gamemanager 1");
             Receiver = DiProvider.GetContainer().GetInstance<NativeCommandReceiver>();
-            Debug.Log("gamemanager 2");
             Sender = DiProvider.GetContainer().GetInstance<SimpleTextSender>();
-            Debug.Log("gamemanager 3");
             UiDecorationContainerReceiver = DiProvider.GetContainer().GetInstance<UiDecorationContainerReceiver>();
             var command = DiProvider.GetContainer().GetInstance<NativeCommand>();
             command.Command = Command.Start;

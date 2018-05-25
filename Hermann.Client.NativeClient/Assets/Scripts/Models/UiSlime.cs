@@ -76,6 +76,8 @@ public class UiSlime : MonoBehaviour {
 
         // フィールドの横幅から比率を算出して更新
         var scale = TransformHelper.GetSize(field.GetComponent<RectTransform>()).x / (imageSize.x * FieldContextConfig.VerticalLineLength);
+        // フィールドの縦幅から比率を算出して更新
+        //var scale = TransformHelper.GetScaledSize(field.GetComponent<RectTransform>()).y / (imageSize.y * 12f);
         scale *= customScale;
         TransformHelper.SetScale(slime.GetComponent<Image>(), new Vector3(scale, scale, 0f));
     }

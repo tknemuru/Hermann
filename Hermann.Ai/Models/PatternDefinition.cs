@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Hermann.Ai.Models
 {
@@ -113,16 +114,29 @@ namespace Hermann.Ai.Models
         /// <returns>インデックス辞書</returns>
         private Dictionary<uint, int> ReadIndex()
         {
-            var path = $"{IndexFilePath}{this.Pattern.GetName().ToLower()}{IndexFileExtension}";
-            if (!File.Exists(path))
-            {
-                return new Dictionary<uint, int>() { { 0u, 0 } };
-            }
+            String[] list = null;
 
-            var csv = FileHelper.ReadTextLines(path);
-            Debug.Assert(csv.Count() == 1, "行数が不正です。");
-            var list = csv.First().Split(',');
-            Debug.Assert(list.Count() % 2 == 0, "要素数が奇数です。");
+            if (EnvConfig.Unity)
+            {
+                var path = $"Csvs/Patterndefinitions/{this.Pattern.GetName().ToLower()}";
+                var resource = Resources.Load<TextAsset>(path);
+                var csv = resource.ToString();
+                list = csv.Split(',');
+            }
+            else
+            {
+                var path = $"{IndexFilePath}{this.Pattern.GetName().ToLower()}{IndexFileExtension}";
+                if (!File.Exists(path))
+                {
+                    return new Dictionary<uint, int>() { { 0u, 0 } };
+                }
+
+                var csv = FileHelper.ReadTextLines(path);
+
+                System.Diagnostics.Debug.Assert(csv.Count() == 1, "行数が不正です。");
+                list = csv.First().Split(',');
+                System.Diagnostics.Debug.Assert(list.Count() % 2 == 0, "要素数が奇数です。");
+            }
 
             var dic = new Dictionary<uint, int>();
             for (var i = 0; i < list.Count() - 1; i = i + 2)
