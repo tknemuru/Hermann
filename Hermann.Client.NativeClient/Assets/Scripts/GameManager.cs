@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// AIプレイヤのバージョン
     /// </summary>
-    public static AiPlayer.Version?[] AiVersions = new AiPlayer.Version?[] { null, null };
+    public static AiPlayer.Version?[] AiVersions;
 
     /// <summary>
     /// ゲームが終了したかどうか
